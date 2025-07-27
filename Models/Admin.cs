@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
 {
-    class Admin
+    class Admin : User
     {
         //1. class feilds ...
 
