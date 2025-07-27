@@ -9,6 +9,7 @@ namespace CodelineHealthCareCenter.Models
     class SuperAdmin : User
     {
         //1. class feilds ...
+        public int HospitalId;
 
         //====================================================
         //2. class properity ...
