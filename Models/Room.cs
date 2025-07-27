@@ -12,7 +12,7 @@ namespace CodelineHealthCareCenter.Models
 
         public int RoomId;
         public static int RoomCount = 0;
-        public bool RoomStatus; 
+        public bool RoomStatus = true; // true means available, false means occupied
 
         //====================================================
         //2. class properity ...
@@ -22,5 +22,11 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Room()
+        {
+            RoomCount++;
+            RoomId = RoomCount;
+            
+        }
     }
 }
