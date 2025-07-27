@@ -23,5 +23,12 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+
+        public Service()
+        {
+            ServiceCount++;
+            ServiceId = ServiceCount;
+
+        }
     }
 }
