@@ -23,5 +23,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Department()
+        {
+            DepartmentCount++;
+            DepartmentId = DepartmentCount;
+        }
     }
 }
