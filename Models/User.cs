@@ -27,5 +27,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public User()
+        {
+            UserCount++;
+            UserId = UserCount;//to make user id unique ...
+        }
     }
 }
