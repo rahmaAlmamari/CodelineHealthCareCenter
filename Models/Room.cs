@@ -8,7 +8,11 @@ namespace CodelineHealthCareCenter.Models
 {
     class Room
     {
-        //1. class feilds ...
+        //1. class fields ...
+
+        public int RoomId;
+        public static int RoomCount = 0;
+        public bool RoomStatus; 
 
         //====================================================
         //2. class properity ...
