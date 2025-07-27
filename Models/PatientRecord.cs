@@ -24,5 +24,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public PatientRecord()
+        {
+            PatientRecordCount++;
+            PatientRecordId = PatientRecordCount;
+        }
     }
 }
