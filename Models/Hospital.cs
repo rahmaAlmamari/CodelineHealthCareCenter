@@ -8,7 +8,14 @@ namespace CodelineHealthCareCenter.Models
 {
     class Hospital
     {
-        //1. class feilds ...
+        //1. class fields ...
+
+        public int HospitalId;
+        public string HospitalName;
+        public DateOnly EstablishDate;
+        public bool HospitalStatus = true; // true means open, false means closed
+        public static int HospitalCount = 0;
+        public List<Branch> Branches = new List<Branch>();
 
         //====================================================
         //2. class properity ...
@@ -18,5 +25,6 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+
     }
 }
