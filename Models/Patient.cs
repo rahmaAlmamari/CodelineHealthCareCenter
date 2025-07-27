@@ -10,6 +10,10 @@ namespace CodelineHealthCareCenter.Models
     {
         //1. class feilds ...
 
+        public string City;
+        public List<Booking> PatientAppointments = new List<Booking>();
+        public List<PatientRecord> PatientRecords = new List<PatientRecord>();
+
         //====================================================
         //2. class properity ...
 
