@@ -8,7 +8,12 @@ namespace CodelineHealthCareCenter.Models
 {
     class Service
     {
-        //1. class feilds ...
+        //1. class fields ...
+
+        public int ServiceId;
+        public string ServiceName;
+        public double ServiceCost;
+        public static int ServiceCount = 0;
 
         //====================================================
         //2. class properity ...
