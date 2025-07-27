@@ -11,7 +11,7 @@ namespace CodelineHealthCareCenter.Models
         //1. class feilds ...
         public int PatientRecordId;
 
-        public List<string> Services = new List<string>();
+        public List<Service> Services = new List<Service>();
         public double TotalCost;
         public string DoctorNote;
         public static int PatientRecordCount = 0;
