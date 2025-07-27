@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
 {
-    class Booking 
+    class Booking
     {
         //1. class feilds ...
 
@@ -24,5 +24,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Booking()
+        {
+            BookingCount++;
+            BookingId = BookingCount;
+        }
     }
 }
