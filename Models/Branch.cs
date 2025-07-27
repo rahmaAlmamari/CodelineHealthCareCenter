@@ -26,5 +26,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Branch()
+        {
+            BranchCount++;
+            BranchId = BranchCount;
+        }
     }
 }
