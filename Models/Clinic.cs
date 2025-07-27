@@ -27,5 +27,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Clinic()
+        {
+            ClinicCount++;
+            ClinicId = ClinicCount;
+        }
     }
 }
