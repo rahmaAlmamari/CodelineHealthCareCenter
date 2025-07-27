@@ -8,5 +8,15 @@ namespace CodelineHealthCareCenter.Models
 {
     class Department
     {
+        //1. class feilds ...
+
+        //====================================================
+        //2. class properity ...
+
+        //====================================================
+        //3. class method ...
+
+        //====================================================
+        //4. class constructor ...
     }
 }
