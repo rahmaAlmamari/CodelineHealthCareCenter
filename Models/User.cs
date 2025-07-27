@@ -9,6 +9,15 @@ namespace CodelineHealthCareCenter.Models
     class User
     {
         //1. class feilds ...
+        public int UserId;
+        public string UserName;
+        private string UserPassword;
+        public string UserEmail;
+        public int UserPhoneNumber;
+        public string UserRole;
+        public string UserNationalID;
+        public string UserStatus;
+        public static int UserCount = 0;
 
         //====================================================
         //2. class properity ...
