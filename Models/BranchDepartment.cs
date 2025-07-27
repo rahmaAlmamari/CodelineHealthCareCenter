@@ -8,7 +8,11 @@ namespace CodelineHealthCareCenter.Models
 {
     class BranchDepartment
     {
-        //1. class feilds ...
+        //1. class fields ...
+        public List<Department> Departments = new List<Department>();
+        public List<Doctor> Doctors = new List<Doctor>();
+        public List<Admin> Admins = new List<Admin>();
+        public int BranchId;
 
         //====================================================
         //2. class properity ...

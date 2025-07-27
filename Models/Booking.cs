@@ -10,6 +10,12 @@ namespace CodelineHealthCareCenter.Models
     {
         //1. class feilds ...
 
+        public int BookingId;
+        public DateTime BookingDateTime;
+        public int ClinicId;
+        public static int BookingCount = 0;
+
+
         //====================================================
         //2. class properity ...
 
@@ -18,5 +24,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Booking()
+        {
+            BookingCount++;
+            BookingId = BookingCount;
+        }
     }
 }

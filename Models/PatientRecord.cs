@@ -9,6 +9,12 @@ namespace CodelineHealthCareCenter.Models
     class PatientRecord
     {
         //1. class feilds ...
+        public int PatientRecordId;
+
+        public List<Service> Services = new List<Service>();
+        public double TotalCost;
+        public string DoctorNote;
+        public static int PatientRecordCount = 0;
 
         //====================================================
         //2. class properity ...
@@ -18,5 +24,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public PatientRecord()
+        {
+            PatientRecordCount++;
+            PatientRecordId = PatientRecordCount;
+        }
     }
 }
