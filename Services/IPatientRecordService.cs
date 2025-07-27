@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Services
 {
-    interface IPatientRecord
+    interface IPatientRecordService
     {
     }
 }
