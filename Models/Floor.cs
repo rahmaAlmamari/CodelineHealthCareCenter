@@ -22,5 +22,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Floor()
+        {
+            FloorCount++;
+            FloorId = FloorCount;
+        }
     }
 }
