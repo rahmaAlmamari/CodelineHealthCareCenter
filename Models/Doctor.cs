@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
 {
-    class Doctor
+    class Doctor : User
+
     {
         //1. class feilds ...
 
