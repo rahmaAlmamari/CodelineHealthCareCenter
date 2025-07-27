@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CodelineHealthCareCenter
+namespace CodelineHealthCareCenter.Models
 {
-    class Doctor
+    class Clinic
     {
     }
 }
