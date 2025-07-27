@@ -8,7 +8,16 @@ namespace CodelineHealthCareCenter.Models
 {
     class Clinic
     {
-        //1. class feilds ...
+        //1. class fields ...
+        public int ClinicId;
+        public string ClinicName;
+        public int DepartmentId;
+        bool ClinicStatus = true; // true means open, false means closed
+        public int FloorId;
+        public int RoomId;
+        public List<Doctor> Doctors = new List<Doctor>();
+        public List<DateTime> ClinicSpote = new List<DateTime>();
+        public static int ClinicCount = 0;
 
         //====================================================
         //2. class properity ...
@@ -18,5 +27,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Clinic()
+        {
+            ClinicCount++;
+            ClinicId = ClinicCount;
+        }
     }
 }
