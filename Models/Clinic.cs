@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CodelineHealthCareCenter.Services;
+using CodelineHealthCareCenter.Utilities; // for Validation and Additional classes
 
 namespace CodelineHealthCareCenter.Models
 {
@@ -48,6 +47,13 @@ namespace CodelineHealthCareCenter.Models
             ClinicName = newName;
             Location = newLocation;
             Price = newPrice;
+        }
+
+        public void ViewClinicInfo()
+        {
+            Console.WriteLine($"   ID: {ClinicId}, Name: {ClinicName}, DeptID: {DepartmentId}, BranchID: {BranchId}");
+            Console.WriteLine($"   Floor: {FloorId}, Room: {RoomId}, Location: {Location}, Price: ${Price}");
+            Console.WriteLine($"   Status: {(ClinicStatus ? "Open" : "Closed")}, Doctors: {Doctors.Count}, TimeSlots: {ClinicSpots.Count}");
         }
 
 
