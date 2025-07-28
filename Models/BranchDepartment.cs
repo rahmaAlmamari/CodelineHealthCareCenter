@@ -20,7 +20,18 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class method ...
 
+        // Add a new department to the branch
+        public static void AddDepartment(Department department)
+        {
+            Departments.Add(department);
+            Console.WriteLine($"Department '{department.DepartmentName}' added to Branch ID {department.BranchId}.");
+        }
+
+
+
+
         //====================================================
         //4. class constructor ...
+
     }
 }

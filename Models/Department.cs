@@ -21,6 +21,22 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class method ...
 
+        // Create Department
+        public static void CreateDepartment(string departmentName, int branchId)
+        {
+           
+            Department newDepartment = new Department
+            {
+                DepartmentName = departmentName,
+                BranchId = branchId
+            };
+
+            Console.WriteLine($"Department '{newDepartment.DepartmentName}' created with ID {newDepartment.DepartmentId} in Branch ID {newDepartment.BranchId}.");
+
+        }
+        
+
+
         //====================================================
         //4. class constructor ...
         public Department()

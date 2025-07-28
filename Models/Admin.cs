@@ -39,7 +39,5 @@ namespace CodelineHealthCareCenter.Models
                     clinic.ViewClinicInfo();
             }
         }
-
-      
     }
 }
