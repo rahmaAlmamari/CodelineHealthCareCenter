@@ -168,6 +168,7 @@ namespace CodelineHealthCareCenter.Models
                         break;
                 }
 
+                Additional.HoldScreen(); // to hold the screen after each action
 
             }
         }
