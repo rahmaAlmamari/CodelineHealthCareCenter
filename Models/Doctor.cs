@@ -1,42 +1,157 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CodelineHealthCareCenter.Services;
+
 
 namespace CodelineHealthCareCenter.Models
 {
     class Doctor : User
-
     {
-        //1. class feilds ...
+        //====================================================
+        //1. class fields ...
+
         public int DepartmentId;
         public int ClinicID;
         public string DoctorSpecialization;
         public List<Booking> DoctorAppointments = new List<Booking>();
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
-        //====================================================
-        //2. class properity ...
+
+        private static int doctorCounter = 0;
+        public static IDoctorService service; // Used for DoctorMenu()
 
         //====================================================
-        //3. class method ...
+        //2. class properties ...
 
-        public static void DoctorMenu()
+        public int DoctorID { get; private set; }
+        public static int DoctorCount => doctorCounter;
+
+        //====================================================
+        //3. class methods ...
+
+        public void ViewDoctorInfo() // Displays basic information about the doctor
         {
-            Console.WriteLine("Welcome to Doctor Menu");
-            Console.WriteLine("1. View Appointments");
-            Console.WriteLine("2. Add Patient Record");
-            Console.WriteLine("3. View Patient Records");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine($"ID: {DoctorID}, Name: {UserName}, Email: {UserEmail}");
+            Console.WriteLine($"Specialization: {DoctorSpecialization}, DeptID: {DepartmentId}, ClinicID: {ClinicID}");
+            Console.WriteLine($"Appointments: {DoctorAppointments.Count}, Patient Records: {PatientRecords.Count}");
+        }
+
+        public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
+        {
+            Additional.WelcomeMessage("Doctor Management");
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(" DOCTOR MANAGEMENT MENU ");
+                Console.WriteLine("1. Add Doctor");
+                Console.WriteLine("2. Update Doctor");
+                Console.WriteLine("3. Get Doctor By ID");
+                Console.WriteLine("4. Get Doctor By Name");
+                Console.WriteLine("5. Get Doctor By Email");
+                Console.WriteLine("6. Get All Doctors");
+                Console.WriteLine("7. Get Doctor Data");
+                Console.WriteLine("8. Get Doctor By Branch Name");
+                Console.WriteLine("9. Get Doctor By Department Name");
+                Console.WriteLine("10. Exit");
+                Console.Write("Select an option: ");
+
+                string choice = Console.ReadLine();
+                Console.WriteLine();
+
+                switch (choice)
+                {
+                    case "1": // Add a new doctor
+                        string username = Validation.StringNamingValidation("Doctor Username");
+                        string password = Validation.ReadPassword("Password");
+                        string email = Validation.StringValidation("Email");
+                        string specialization = Validation.StringNamingValidation("Specialization");
+                        service.AddDoctor(username, password, email, specialization);
+                        break;
+
+                    case "2": // Update an existing doctor
+                        int updateId = Validation.IntValidation("Doctor ID to update");
+                        if (Additional.ConfirmAction("update this doctor"))
+                        {
+                            string newUsername = Validation.StringNamingValidation("New Username");
+                            string newEmail = Validation.StringValidation("New Email");
+                            string newSpec = Validation.StringNamingValidation("New Specialization");
+
+                            Console.Write("Is Active (true/false): ");
+                            bool isActive;
+                            while (!bool.TryParse(Console.ReadLine(), out isActive))
+                            {
+                                Console.WriteLine("Invalid input. Please enter true or false:");
+                            }
+
+                            service.UpdateDoctor(updateId, newUsername, newEmail, newSpec, isActive);
+                        }
+                        else Console.WriteLine("Update cancelled.");
+                        break;
+
+                    case "3": // Get a doctor by ID
+                        int id = Validation.IntValidation("Doctor ID");
+                        service.GetDoctorById(id);
+                        break;
+
+                    case "4": // Get a doctor by name
+                        string docName = Validation.StringNamingValidation("Doctor Name");
+                        service.GetDoctorByName(docName);
+                        break;
+
+                    case "5": // Get a doctor by email
+                        string docEmail = Validation.StringValidation("Doctor Email");
+                        service.GetDoctorByEmail(docEmail);
+                        break;
+
+                    case "6": // Get all doctors
+                        service.GetAllDoctors();
+                        break;
+
+                    case "7": // Get doctor data by ID
+                        int docDataId = Validation.IntValidation("Doctor ID for Data");
+                        service.GetDoctorData(docDataId);
+                        break;
+
+                    case "8": // Get doctor by branch name
+                        string branchName = Validation.StringNamingValidation("Branch Name");
+                        service.GetDoctorByBranchName(branchName);
+                        break;
+
+                    case "9": // Get doctor by department name
+                        string deptName = Validation.StringNamingValidation("Department Name");
+                        service.GetDoctorByDepartmentName(deptName);
+                        break;
+
+                    case "10": //   Exit the doctor menu
+                        Console.WriteLine("Exiting Doctor Menu...");
+                        return;
+
+                    default: // Invalid option
+                        Console.WriteLine("Invalid option. Try again.");
+                        break;
+                }
+
+                Additional.HoldScreen();
+            }
         }
 
         //====================================================
         //4. class constructor ...
-        public Doctor(string name, string email, string password, int departmentId, int clinicId, string specialization)
+
+        public Doctor(string username, string email, string specialization, int departmentId, int clinicId)
         {
+            doctorCounter++;
+            DoctorID = doctorCounter;
+            DoctorSpecialization = specialization;
             DepartmentId = departmentId;
             ClinicID = clinicId;
-            DoctorSpecialization = specialization;
+            UserName = username;
+            UserEmail = email;
+            UserRole = "Doctor";
+            UserStatus = "Active";
+
+            DoctorAppointments = new List<Booking>();
+            PatientRecords = new List<PatientRecord>();
         }
     }
 }
