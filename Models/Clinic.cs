@@ -124,6 +124,25 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Update cancelled.");
                         }
                         break;
+
+                    case "7": // Toggle clinic status
+                        int toggleId = Validation.IntValidation("Clinic ID");
+
+                        if (Additional.ConfirmAction("change this clinic's status"))
+                        {
+                            Console.WriteLine("Enter Status (true=open, false=closed): ");
+                            bool isActive;
+                            while (!bool.TryParse(Console.ReadLine(), out isActive))
+                            {
+                                Console.WriteLine("Invalid input. Please enter 'true' or 'false': ");
+                            }
+                            service.SetClinicStatus(toggleId, isActive);
+                        }
+                        else
+                        {
+                            Console.WriteLine("❌ Status change cancelled.");
+                        }
+                        break;
                 }
 
 
