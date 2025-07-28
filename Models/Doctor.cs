@@ -58,7 +58,19 @@ namespace CodelineHealthCareCenter.Models
                 string choice = Console.ReadLine();
                 Console.WriteLine();
 
-            }
+                switch (choice)
+                {
+                    case "1": // Add a new doctor
+                        string username = Validation.StringNamingValidation("Doctor Username");
+                        string password = Validation.ReadPassword("Password");
+                        string email = Validation.StringValidation("Email");
+                        string specialization = Validation.StringNamingValidation("Specialization");
+                        service.AddDoctor(username, password, email, specialization);
+                        break;
+
+
+
+                }
 
 
             //====================================================
