@@ -193,5 +193,43 @@ namespace CodelineHealthCareCenter.Models
 
             return DateTimeInput; // Return the validated input
         }
+        //8. To read password from the user and validate it ...
+        public static string ReadPassword(string message)
+        {
+            //StringBuilder -> to improve performance when building strings character by character.
+            //password -> to store the password input from the user ...
+            StringBuilder password = new StringBuilder();
+            //ConsoleKeyInfo -> is a structure that stores information
+            //about a key press: the key, character, and modifiers (like Shift or Ctrl).
+            ConsoleKeyInfo key;
+
+            //To show message to the user to enter password ...
+            Console.WriteLine($"Enter your {message} (press Enter when done):");
+            do
+            {
+                //(intercept: true) -> reads a key press without showing it on the screen.
+                key = Console.ReadKey(intercept: true);
+                //To checks if the user pressed the Backspace key and remove it if so 
+                //from the password and delete * from the console.
+                if (key.Key == ConsoleKey.Backspace && password.Length > 0)
+                {
+                    password.Remove(password.Length - 1, 1);
+                    Console.Write("\b \b");
+                }
+                //This filters out non-printable characters, like Ctrl or Alt.
+                //If the key is normal characters (letters, digits, etc.)
+                //it will enter the (if) and add the key to the password
+                else if (!char.IsControl(key.KeyChar))
+                {
+                    password.Append(key.KeyChar);
+                    Console.Write("*");
+                }
+            }
+            //The loop continues until the user presses Enter.
+            while (key.Key != ConsoleKey.Enter);
+
+            Console.WriteLine();
+            return password.ToString();
+        }
     }
 }
