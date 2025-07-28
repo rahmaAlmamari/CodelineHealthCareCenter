@@ -1,33 +1,31 @@
 ﻿using CodelineHealthCareCenter.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
 {
     class Admin : User
     {
+        //====================================================
         //1. class fields ...
         public int BranchID;
         public List<Clinic> Clinics = new List<Clinic>();
-        //====================================================
-        //2. class property ...
+        public static IAdminService service; // new static service field
 
+        //====================================================
+        //2. class properties ...
         public static int AdminCount { get; private set; }
 
         //====================================================
-        //3. class method ...
-        public void AddClinic(Clinic clinic) // adds a clinic to the admin's list of clinics
+        //3. class methods ...
+
+        public void AddClinic(Clinic clinic)
         {
             Clinics.Add(clinic);
             Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{UserName}'.");
-
-
         }
 
-        public void ViewClinics() // displays all clinics managed by the admin
+        public void ViewClinics()
         {
             Console.WriteLine($"Clinics managed by Admin {UserName}:");
             if (Clinics.Count == 0)
@@ -41,9 +39,9 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
-        public static void AdminMenu(IAdminService service)
+        public static void AdminMenu() // displays the admin management menu and handles user input
         {
-            Additional.WelcomeMessage("Admin Panel"); // to display the welcome message for admin panel
+            Additional.WelcomeMessage("Admin Panel");
 
             while (true)
             {
@@ -69,10 +67,7 @@ namespace CodelineHealthCareCenter.Models
                         {
                             service.AssignDoctorToClinic(doctorId, clinicId);
                         }
-                        else
-                        {
-                            Console.WriteLine("Assignment cancelled.");
-                        }
+                        else Console.WriteLine("Assignment cancelled.");
                         break;
 
                     case "2": // Add a service to a clinic
@@ -83,18 +78,15 @@ namespace CodelineHealthCareCenter.Models
                         {
                             service.AddClinicService(clinicId2, serviceId);
                         }
-                        else
-                        {
-                            Console.WriteLine(" Adding service cancelled.");
-                        }
+                        else Console.WriteLine("Adding service cancelled.");
                         break;
 
-                    case "3": // View all doctors in a clinic
+                    case "3": // View doctors in a clinic
                         int clinicId3 = Validation.IntValidation("Clinic ID to view doctors");
                         service.GetClinicDoctors(clinicId3);
                         break;
 
-                    case "4": // View all services in a clinic
+                    case "4": // View services in a clinic
                         int clinicId4 = Validation.IntValidation("Clinic ID to view services");
                         service.GetClinicServices(clinicId4);
                         break;
@@ -106,27 +98,20 @@ namespace CodelineHealthCareCenter.Models
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
                         break;
-
-
-
-
                 }
 
-                Additional.HoldScreen(); // to hold the screen after each operation
+                Additional.HoldScreen();
             }
-
-
         }
 
         //====================================================
         //4. class constructor ...
 
         public Admin(string username, string email, int branchId)
-            
         {
             BranchID = branchId;
             AdminCount++;
-            UserRole = "Doctor";
+            UserRole = "Admin";
             UserStatus = "Active";
         }
     }
