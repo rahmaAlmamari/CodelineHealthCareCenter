@@ -32,5 +32,30 @@ namespace CodelineHealthCareCenter.Models
             //to return tne char input ...
             return CharInput;
         }
+        //2. StringNamingValidation method ...
+        public static string StringNamingValidation(string message)
+        {
+            bool StringNamingFlag;//to handle user StringNaming error input ...
+            string StringNamingInput = "null";
+            do
+            {
+                StringNamingFlag = false;
+                Console.WriteLine($"Enter your {message}:");
+                StringNamingInput = Console.ReadLine();
+                //to check if StringNamingInput has number or not ...
+                bool check_StringNaming = Additional.IsAlpha(StringNamingInput);
+                if (check_StringNaming == false)
+                {
+                    Console.WriteLine($"{message} can not contains number and con not be null ..." +
+                                      "please prass enter key to try again");
+                    Additional.HoldScreen();//just to hold a second ...
+                    StringNamingFlag = true;
+                }
+
+            } while (StringNamingFlag);
+
+            //to return tne char input ...
+            return StringNamingInput;
+        }
     }
 }
