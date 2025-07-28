@@ -37,7 +37,7 @@ namespace CodelineHealthCareCenter.Models
             switch (choice)
             {
                 case '1':
-                    Console.WriteLine("Add New Doctor");
+                    Console.WriteLine("Add Branch");
                    
 
 
@@ -62,7 +62,8 @@ namespace CodelineHealthCareCenter.Models
                     break;
                 case '6':
                     //to view doctors ...
-                    ViewDoctors();
+                    //ViewDoctors();
+                    AddBranch();
                     break;
                 case '7':
                     //to view admins ...
@@ -244,13 +245,37 @@ namespace CodelineHealthCareCenter.Models
             string branchCity = Validation.StringValidation("branch city");
             DateOnly branchEstablishDate = Validation.DateOnlyValidation("branch establish date");
             int hospitalId = Validation.IntValidation("hospital ID");
-          
 
+            // Add branch to the hospital
             Branch.AddBranch(branchName, branchCity, branchEstablishDate, hospitalId); // Call the static method to add the branch
 
             Console.WriteLine("Branch added successfully.");
             Additional.HoldScreen();
         }
+
+        // Get All Branches method to display all branches in the hospital
+        public static void GetAllBranches()
+        {
+            Console.Clear();
+            Console.WriteLine("List of Branches");
+            if (Hospital.Branches.Count == 0)
+            {
+                Console.WriteLine("No branches available in the system.");
+                Additional.HoldScreen();
+                return;
+            }
+            foreach (var branch in Hospital.Branches)
+            {
+                Console.WriteLine($"Branch ID       : {branch.BranchId}");
+                Console.WriteLine($"Branch Name     : {branch.BranchName}");
+                Console.WriteLine($"Branch City     : {branch.BranchCity}");
+                Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
+                Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
+                Console.WriteLine(new string('-', 40));
+            }
+            Additional.HoldScreen();
+        }
+
 
 
         //====================================================
