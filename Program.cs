@@ -8,14 +8,14 @@ namespace CodelineHealthCareCenter
         {
             //to display the welcome message ...
             Additional.WelcomeMessage("Hospital Management");
-
+            User x = new User();
             //to list the main menu options ...
             bool exitFlag = false;
             do
             {
                 Console.Clear();
-                Console.WriteLine("1. SuperAdmin");
-                Console.WriteLine("2. Admin");
+                Console.WriteLine("1. LogIn");
+                Console.WriteLine("2. SinUp");
                 Console.WriteLine("3. Doctor");
                 Console.WriteLine("4. Patient");
                 Console.WriteLine("0. Exit");
@@ -26,11 +26,12 @@ namespace CodelineHealthCareCenter
                 {
                     case '1':
                         //to add a new patient ...
-                        SuperAdmin.SuperAdminMenu();
+                        x.Login();
                         break;
                     case '2':
                         //to add a new doctor ...
-                        Admin.AdminMenu();
+                        //Admin.AdminMenu();
+                        Patient.SinUp();
                         break;
                     case '3':
                         //to Booking an appointment ...

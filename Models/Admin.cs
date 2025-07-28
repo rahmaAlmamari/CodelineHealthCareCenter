@@ -18,27 +18,27 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //3. class method ...
-        public void AddClinic(Clinic clinic) // adds a clinic to the admin's list of clinics
-        {
-            Clinics.Add(clinic);
-            Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{Username}'.");
+        //public void AddClinic(Clinic clinic) // adds a clinic to the admin's list of clinics
+        //{
+        //    Clinics.Add(clinic);
+        //    Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{Username}'.");
 
 
-        }
+        //}
 
-        public void ViewClinics() // displays all clinics managed by the admin
-        {
-            Console.WriteLine($"Clinics managed by Admin {Username}:");
-            if (Clinics.Count == 0)
-            {
-                Console.WriteLine(" No clinics assigned yet.");
-            }
-            else
-            {
-                foreach (var clinic in Clinics)
-                    clinic.ViewClinicInfo();
-            }
-        }
+        //public void ViewClinics() // displays all clinics managed by the admin
+        //{
+        //    Console.WriteLine($"Clinics managed by Admin {Username}:");
+        //    if (Clinics.Count == 0)
+        //    {
+        //        Console.WriteLine(" No clinics assigned yet.");
+        //    }
+        //    else
+        //    {
+        //        foreach (var clinic in Clinics)
+        //            clinic.ViewClinicInfo();
+        //    }
+        //}
 
     }
 }
