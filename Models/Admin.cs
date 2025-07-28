@@ -14,6 +14,8 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //2. class properity ...
 
+        public static int AdminCount { get; private set; }
+
         //====================================================
         //3. class method ...
         public static void AdminMenu()
