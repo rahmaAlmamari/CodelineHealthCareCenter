@@ -32,5 +32,32 @@ namespace CodelineHealthCareCenter.Models
             BranchCount++;
             BranchId = BranchCount;
         }
+
+
+
+        
+
+        // Constructor to initialize a new branch with specific details
+        public Branch(string branchName, string branchCity, DateOnly branchEstablishDate, int hospitalId)
+        {
+            BranchCount++;
+            BranchId = BranchCount;
+            BranchName = branchName;
+            BranchCity = branchCity;
+            BranchEstablishDate = branchEstablishDate;
+            HospitalId = hospitalId;
+        }
+
+        // Add a new branch to the hospital
+        public static void AddBranch(string branchName, string branchCity, DateOnly branchEstablishDate, int hospitalId)
+        {
+            Branch newBranch = new Branch(branchName, branchCity, branchEstablishDate, hospitalId);
+            Hospital.Branches.Add(newBranch);
+            Console.WriteLine($"Branch {newBranch.BranchName} added successfully.");
+        }
+
+
+
+
     }
 }

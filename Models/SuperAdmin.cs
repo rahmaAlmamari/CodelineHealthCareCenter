@@ -232,6 +232,25 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
+        //===================
+
+        // Add Branch method to add a new branch
+        public static void AddBranch()
+        {
+            Console.Clear();
+            Console.WriteLine("Add New Branch");
+            // Get branch details from user
+            string branchName = Validation.StringValidation("branch name");
+            string branchCity = Validation.StringValidation("branch city");
+            DateOnly branchEstablishDate = Validation.DateOnlyValidation("branch establish date");
+            int hospitalId = Validation.IntValidation("hospital ID");
+          
+
+            Branch.AddBranch(branchName, branchCity, branchEstablishDate, hospitalId); // Call the static method to add the branch
+
+            Console.WriteLine("Branch added successfully.");
+            Additional.HoldScreen();
+        }
 
 
         //====================================================
