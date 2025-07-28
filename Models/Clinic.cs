@@ -15,8 +15,14 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //2. class properity ...
+
+        public int ClinicId { get; private set; } 
+        public string ClinicName { get; set; }
+        public int DepartmentId { get; set; }
+        public int FloorId { get; set; }
+        public int RoomId { get; set; }
+
         
-       
 
 
 
