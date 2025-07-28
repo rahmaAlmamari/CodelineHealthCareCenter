@@ -181,7 +181,32 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
-
+        // Delete Branch
+        public static void DeleteBranch()
+        {
+            Console.Clear();
+            Console.WriteLine("Delete Branch");
+            Console.WriteLine("Enter the Branch ID to delete:");
+            int branchId = Validation.IntValidation("Branch ID");
+            var branch = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
+            if (branch == null)
+            {
+                Console.WriteLine("Branch not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Confirm deletion
+            if (Additional.ConfirmAction($"delete branch {branch.BranchName}"))
+            {
+                Hospital.Branches.Remove(branch);
+                Console.WriteLine("Branch deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Branch deletion cancelled.");
+            }
+            Additional.HoldScreen();
+        }
 
         //====================================================
         //4. class constructor ...
