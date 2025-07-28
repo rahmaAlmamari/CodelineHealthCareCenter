@@ -156,6 +156,10 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Deletion cancelled.");
                         }
                         break;
+
+                    case "9": // Exit
+                        Console.WriteLine("Exiting Clinic Menu...");
+                        return;
                 }
 
 
