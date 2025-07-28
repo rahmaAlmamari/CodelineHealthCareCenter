@@ -43,6 +43,14 @@ namespace CodelineHealthCareCenter.Models
             clinicStatus = isActive;
         }
 
+        public void UpdateClinicDetails(string newName, string newLocation, decimal newPrice) // method to update clinic details
+        {
+            ClinicName = newName;
+            Location = newLocation;
+            Price = newPrice;
+        }
+
+
 
 
 
