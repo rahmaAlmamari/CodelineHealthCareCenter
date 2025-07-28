@@ -146,6 +146,8 @@ namespace CodelineHealthCareCenter.Models
             DoctorSpecialization = specialization;
             DepartmentId = departmentId;
             ClinicID = clinicId;
+            UserRole = "Doctor";
+            UserStatus = "Active";
 
             DoctorAppointments = new List<Booking>();
             PatientRecords = new List<PatientRecord>();
