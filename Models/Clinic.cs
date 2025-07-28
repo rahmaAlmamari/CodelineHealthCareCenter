@@ -140,7 +140,7 @@ namespace CodelineHealthCareCenter.Models
                         }
                         else
                         {
-                            Console.WriteLine("❌ Status change cancelled.");
+                            Console.WriteLine(" Status change cancelled.");
                         }
                         break;
 
