@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodelineHealthCareCenter.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
 {
-    class Patient : User
+    class Patient : User, IPatientService
     {
         //1. class feilds ...
 
@@ -52,7 +53,8 @@ namespace CodelineHealthCareCenter.Models
             //to find the branch that the patient wants to register in using city ...
             Branch branch = FindBranchByCity(UserCity);
             //to call the AddPatient method to create a new patient ...
-            AddPatient(UserName, UserPasswordHashed, UserEmail, P_UserPhoneNumber, UserNationalID, UserCity, branch);
+            Patient patientService = new Patient();
+            patientService.AddPatient(UserName, UserPasswordHashed, UserEmail, P_UserPhoneNumber, UserNationalID, UserCity, branch);
 
         }
         //to check if the national id exists or not ...
@@ -88,7 +90,7 @@ namespace CodelineHealthCareCenter.Models
             return null; //if branch not found ...
         }
         //to add a new patient to the branch list in hospital class ...
-        public static void AddPatient(string username, string password, string email, int phoneNumber, string userNationalID, string city, Branch PationtBranch)
+        public void AddPatient(string username, string password, string email, int phoneNumber, string userNationalID, string city, Branch PationtBranch)
         {
             //to create a new patient object ...
             Patient newPatient = new Patient
@@ -105,7 +107,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 PationtBranch.Patients.Add(newPatient);
                 UserCount++; //to increase the user count ...
-                Console.WriteLine("Patient added successfully.");
+                Console.WriteLine("Patient added successfully with following details:");
+                newPatient.PrintPatientDetails(); //to print the patient details ...
                 Additional.HoldScreen();//just to hold the screen ...
             }
             else
@@ -113,7 +116,18 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("Failed to add patient. Branch not found.");
                 Additional.HoldScreen();//just to hold the screen ...
             }
-
+        }
+        //to print the patient details ...
+        public void PrintPatientDetails()
+        {
+            Console.WriteLine($"Patient ID: {UserId}");
+            Console.WriteLine($"Name: {UserName}");
+            Console.WriteLine($"Email: {UserEmail}");
+            Console.WriteLine($"Phone Number: {P_UserPhoneNumber}");
+            Console.WriteLine($"National ID: {UserNationalID}");
+            Console.WriteLine($"City: {PatientCity}");
+            Console.WriteLine($"Role: {UserRole}");
+            Console.WriteLine($"Status: {UserStatus}");
         }
         //====================================================
         //4. class constructor ...
