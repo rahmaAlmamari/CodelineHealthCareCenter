@@ -177,18 +177,18 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
-        public Clinic()
+        public Clinic(string clinicName, string location, int departmentId, int branchId, int floorId, int roomId, decimal price)
         {
-            ClinicCount++;
-            ClinicId = ClinicCount;
+            // Increment clinic counter and assign ID
+            clinicCounter++;
+            ClinicId = clinicCounter;
             ClinicName = clinicName;
+            Location = location;
             DepartmentId = departmentId;
+            BranchId = branchId;
             FloorId = floorId;
             RoomId = roomId;
-
-            // Initialize lists
-            Doctors = new List<Doctor>();
-            ClinicSpots = new List<DateTime>();
+            Price = price;
 
         }
     }
