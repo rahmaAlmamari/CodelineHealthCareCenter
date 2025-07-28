@@ -120,6 +120,10 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorByDepartmentName(deptName);
                         break;
 
+                    case "10": // Exit the menu
+                        Console.WriteLine("Exiting Doctor Menu...");
+                        return;
+
 
 
 
