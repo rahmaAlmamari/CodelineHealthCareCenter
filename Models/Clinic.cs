@@ -31,9 +31,6 @@ namespace CodelineHealthCareCenter.Models
 
 
 
-
-
-
         //====================================================
         //3. class method ...
 
@@ -43,6 +40,13 @@ namespace CodelineHealthCareCenter.Models
         {
             ClinicCount++;
             ClinicId = ClinicCount;
+            //ClinicName = clinicName;
+            //DepartmentId = departmentId;
+            //FloorId = floorId;
+            //RoomId = roomId;
+
+           
+
         }
     }
 }
