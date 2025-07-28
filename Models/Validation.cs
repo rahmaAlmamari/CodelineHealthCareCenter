@@ -341,5 +341,22 @@ namespace CodelineHealthCareCenter.Models
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
         }
+        //to check if the patient national id exists or not ...
+        public static bool PatientNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in patient list in branch list in hospital class ...
+            foreach (var branch in Hospital.Branches)
+            {
+                foreach (var patient in branch.Patients)
+                {
+                    if (patient.UserNationalID == nationalId)
+                    {
+                        return true; //if national id exists ...
+                    }
+                }
+            }
+            return false; //if national id does not exist ...
+
+        }
     }
 }
