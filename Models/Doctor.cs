@@ -105,6 +105,11 @@ namespace CodelineHealthCareCenter.Models
                         service.GetAllDoctors();
                         break;
 
+                    case "7": // Get doctor data
+                        int docDataId = Validation.IntValidation("Doctor ID for Data");
+                        service.GetDoctorData(docDataId);
+                        break;
+
 
 
 
