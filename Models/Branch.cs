@@ -144,6 +144,19 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
+        // Get Branch Status
+        public static bool GetBranchStatus(int branchId)
+        {
+            var branch = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
+            if (branch != null)
+            {
+                return branch.BranchStatus;
+            }
+            return false; // Return false if branch not found
+        }
+
+
+
         //====================================================
         //4. class constructor ...
         public Branch()
