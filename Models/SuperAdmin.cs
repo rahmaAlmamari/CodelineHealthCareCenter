@@ -16,6 +16,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //3. class method ...
+        public static void SuperAdminMenu()
+        {
+
+        }
 
         //====================================================
         //4. class constructor ...

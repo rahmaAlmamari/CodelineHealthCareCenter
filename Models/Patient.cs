@@ -20,6 +20,15 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class method ...
 
+        public static void PatientMenu()
+        {
+            Console.WriteLine("Welcome to Patient Menu");
+            Console.WriteLine("1. Book Appointment");
+            Console.WriteLine("2. View Appointments");
+            Console.WriteLine("3. View Patient Records");
+            Console.WriteLine("4. Exit");
+        }
+
         //====================================================
         //4. class constructor ...
     }
