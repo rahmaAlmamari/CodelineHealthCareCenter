@@ -108,6 +108,22 @@ namespace CodelineHealthCareCenter.Models
                         int deptId = Validation.IntValidation("Department ID");
                         service.GetClinicByBranchDep(branchId, deptId);
                         break;
+
+                    case "6": // Update clinic details
+                        int updateId = Validation.IntValidation("Clinic ID to update");
+
+                        if (Additional.ConfirmAction("update this clinic"))
+                        {
+                            string newName = Validation.StringNamingValidation("New Clinic Name");
+                            string newLocation = Validation.StringValidation("New Location");
+                            decimal price = (decimal)Validation.DoubleValidation("New Price");
+                            service.UpdateClinicDetails(updateId, newName, newLocation, price);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Update cancelled.");
+                        }
+                        break;
                 }
 
 
