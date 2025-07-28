@@ -341,5 +341,61 @@ namespace CodelineHealthCareCenter.Models
             string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
         }
+        //14. to check if the patient national id exists or not ...
+        public static bool PatientNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in patient list in branch list in hospital class ...
+            foreach (var branch in Hospital.Branches)
+            {
+                foreach (var patient in branch.Patients)
+                {
+                    if (patient.UserNationalID == nationalId)
+                    {
+                        return true; //if national id exists ...
+                    }
+                }
+            }
+            return false; //if national id does not exist ...
+
+        }
+        //15. To check if the doctor national id exists or not ...
+        public static bool DoctorNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in SuperAdmin list hospital class ...
+            foreach (var doctor in BranchDepartment.Doctors)
+            {
+                if (doctor.UserNationalID == nationalId)
+                {
+                    return true; //if the national id exists ...
+                }
+            }
+            return false; //if national id does not exist ...
+        }
+        //16. to check if the admin national id exists or not ...
+        public static bool AdminNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in SuperAdmin list hospital class ...
+            foreach (var admin in BranchDepartment.Admins)
+            {
+                if (admin.UserNationalID == nationalId)
+                {
+                    return true; //if the national id exists ...
+                }
+            }
+            return false; //if national id does not exist ...
+        }
+        //17. to check if the super admin national id exists or not ...
+        public static bool SuperAdminNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in SuperAdmin list hospital class ...
+            foreach (var superAdmin in Hospital.SuperAdmins)
+            {
+                if (superAdmin.UserNationalID == nationalId)
+                {
+                    return true; //if the national id exists ...
+                }
+            }
+            return false; //if national id does not exist ...
+        }
     }
 }
