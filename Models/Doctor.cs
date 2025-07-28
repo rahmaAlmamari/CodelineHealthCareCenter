@@ -101,6 +101,10 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorByEmail(docEmail);
                         break;
 
+                    case "6": // Get all doctors
+                        service.GetAllDoctors();
+                        break;
+
 
 
 
