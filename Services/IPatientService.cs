@@ -8,5 +8,14 @@ namespace CodelineHealthCareCenter.Services
 {
     interface IPatientService
     {
+        // Methods for Patient Service
+        void AddPatient(string username, string password, string email, string phoneNumber);
+        void UpdatePatientDetails(int patientId, string username, string email, string phoneNumber);
+
+        void GetPatientById(int patientId);
+        void GetPatientByName(string username);
+        void GetAllPatients();
+        void GetPatientData(int patientId);
+
     }
 }

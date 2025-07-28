@@ -8,5 +8,11 @@ namespace CodelineHealthCareCenter.Services
 {
     interface IAdminService
     {
+        // Methods for Admin Service ...
+
+        void AssignDoctorToClinic(int doctorId, int clinicId);
+        void AddClinicService(int clinicId, int serviceId);
+        void GetClinicServices(int clinicId);
+        void GetClinicDoctors(int clinicId);
     }
 }
