@@ -190,6 +190,10 @@ namespace CodelineHealthCareCenter.Models
             RoomId = roomId;
             Price = price;
 
+            // Initialize static lists
+            Doctors = new List<Doctor>();
+            ClinicSpots = new List<DateTime>();
+
         }
     }
 }
