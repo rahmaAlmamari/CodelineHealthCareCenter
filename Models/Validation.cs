@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
@@ -307,5 +308,38 @@ namespace CodelineHealthCareCenter.Models
         // 1. Extracting the original salt from the stored hash
         // 2. Re-hashing the input password using the same salt
         // 3. Comparing both hashes
+
+        //12. EmailValidation method ...
+        public static string EmailValidation(string message)
+        {
+            bool emailFlag;//to handle user email error input ...
+            string emailInput = "null";
+            do
+            {
+                emailFlag = false;
+                Console.WriteLine($"Enter your {message}:");
+                emailInput = Console.ReadLine();
+                //to check if emailInput is valid or not ...
+                if (!IsValidEmail(emailInput))
+                {
+                    Console.WriteLine($"{message} is not valid, please try again.");
+                    Additional.HoldScreen();//just to hold a second ...
+                    emailFlag = true;
+                }
+            } while (emailFlag);
+            //to return tne char input ...
+            return emailInput;
+        }
+
+        //13. Email validation using regular expression
+        private static bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            // Basic but solid regex for general email validation
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
+        }
     }
 }
