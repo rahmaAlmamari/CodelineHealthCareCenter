@@ -129,13 +129,26 @@ namespace CodelineHealthCareCenter.Models
                         break;
 
 
-
-
                 }
 
                 Additional.HoldScreen(); // to pause the screen after each operation
 
             }
+        }
+
+        //====================================================
+        //4. class constructor ...
+        public Doctor(string username, string email, string specialization, int departmentId, int clinicId)
+            
+        {
+            doctorCounter++;
+            DoctorID = doctorCounter;
+            DoctorSpecialization = specialization;
+            DepartmentId = departmentId;
+            ClinicID = clinicId;
+
+            DoctorAppointments = new List<Booking>();
+            PatientRecords = new List<PatientRecord>();
         }
     }
 }
