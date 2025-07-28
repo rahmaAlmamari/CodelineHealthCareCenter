@@ -89,6 +89,19 @@ namespace CodelineHealthCareCenter.Models
                         }
                         break;
 
+                    case "3": // View all doctors in a clinic
+                        int clinicId3 = Validation.IntValidation("Clinic ID to view doctors");
+                        service.GetClinicDoctors(clinicId3);
+                        break;
+
+                    case "4": // View all services in a clinic
+                        int clinicId4 = Validation.IntValidation("Clinic ID to view services");
+                        service.GetClinicServices(clinicId4);
+                        break;
+
+
+
+
 
 
 
