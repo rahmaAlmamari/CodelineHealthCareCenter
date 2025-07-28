@@ -27,8 +27,8 @@ namespace CodelineHealthCareCenter.Models
         public int RoomId { get; set; }
 
         // List of doctors associated with this clinic
-        public List<Doctor> Doctors { get; set; }
-        public List<DateTime> ClinicSpots { get; set; }
+        public static List<Doctor> Doctors { get; set; }
+        public static List<DateTime> ClinicSpots { get; set; }
 
         // Static property to get the total number of clinics created
         public static int ClinicCount => clinicCounter;
