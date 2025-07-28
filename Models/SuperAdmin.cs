@@ -278,6 +278,29 @@ namespace CodelineHealthCareCenter.Models
 
 
 
+        // Get Branch By Id
+        public static void GetBranchById()
+        {
+            Console.WriteLine("Enter the Branch ID to view:");
+            int branchId = Validation.IntValidation("Branch ID");
+            var branch = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
+            if (branch == null)
+            {
+                Console.WriteLine("Branch not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            Console.WriteLine($"Branch ID       : {branch.BranchId}");
+            Console.WriteLine($"Branch Name     : {branch.BranchName}");
+            Console.WriteLine($"Branch City     : {branch.BranchCity}");
+            Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
+            Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
+            Additional.HoldScreen();
+        }
+
+
+
+
         //====================================================
         //4. class constructor ...
 
