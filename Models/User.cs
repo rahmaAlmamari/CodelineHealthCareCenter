@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodelineHealthCareCenter.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
 {
-    class User
+    class User : IAuthService, IUserService
     {
         //1. class feilds ...
         public int UserId;
@@ -21,9 +22,46 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //2. class properity ...
+        //UserPhoneNumber proprity ...
+        public int P_UserPhoneNumber
+        {
+            get { return UserPhoneNumber; }
+            set
+            {
+                bool FalgError = false; //to handle the error ...
+                do
+                {
+                    FalgError = false; //to reset the error flag ...
+                    //to check if the phone number is 8 digits or not ...
+                    if (value.ToString().Length == 8)
+                    {
+                        UserPhoneNumber = value;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Phone number must be 8 digits.");
+                        value = Validation.IntValidation("patient phone number");
+                        FalgError = true; //to handle the error ...
+                    }
+
+                } while (FalgError);
+
+            }
+        }
+        //UserPassword proprity ...
+        public string P_UserPassword
+        {
+            get { return UserPassword; }
+            set
+            {
+                //to do hashing for the password ...
+                UserPassword = value;
+            }
+        }
 
         //====================================================
         //3. class method ...
+
 
         //====================================================
         //4. class constructor ...
