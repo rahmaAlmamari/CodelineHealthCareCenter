@@ -132,6 +132,18 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
+        // Get Branch Name
+        public static string GetBranchName(int branchId)
+        {
+            var branch = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
+            if (branch != null)
+            {
+                return branch.BranchName;
+            }
+            return "Branch not found";
+        }
+
+
         //====================================================
         //4. class constructor ...
         public Branch()
