@@ -103,6 +103,10 @@ namespace CodelineHealthCareCenter.Models
                         Console.WriteLine("Exiting Admin Menu...");
                         return;
 
+                    default: // Invalid option
+                        Console.WriteLine("Invalid option. Try again.");
+                        break;
+
 
 
 
