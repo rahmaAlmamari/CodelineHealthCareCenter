@@ -20,6 +20,13 @@ namespace CodelineHealthCareCenter.Models
         {
             return Regex.IsMatch(input, "^[a-zA-Z]+$");
         }
+        //3. WelcomeMessage method ...
+        public static void WelcomeMessage(string message)
+        {
+            Console.WriteLine($"Welcome to Codeline {message} System\nWe hope you have a pleasant time using our services " +
+                              "(^0^)");
+            HoldScreen();//to hold the screen ...
+        }
 
     }
 }
