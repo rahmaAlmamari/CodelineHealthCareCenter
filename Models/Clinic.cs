@@ -160,13 +160,17 @@ namespace CodelineHealthCareCenter.Models
                     case "9": // Exit
                         Console.WriteLine("Exiting Clinic Menu...");
                         return;
+
+
+
+                    default: // Invalid option
+                        Console.WriteLine("Invalid option. Press Enter to try again.");
+                        break;
                 }
 
 
             }
         }
-
-
 
 
 
