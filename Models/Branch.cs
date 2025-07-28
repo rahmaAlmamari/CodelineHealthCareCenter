@@ -15,8 +15,8 @@ namespace CodelineHealthCareCenter.Models
         public DateOnly BranchEstablishDate;
         public bool BranchStatus = true; // true means open, false means closed
         public static int BranchCount = 0;
-        public List<Floor> Floors = new List<Floor>();
-        public List<Patient> Patients = new List<Patient>();
+        public static List<Floor> Floors = new List<Floor>();
+        public static List<Patient> Patients = new List<Patient>();
         public int HospitalId;
 
         //====================================================
