@@ -12,6 +12,8 @@ namespace CodelineHealthCareCenter.Models
       
         bool ClinicStatus = true; // true means open, false means closed
         public static int ClinicCount = 0;
+        private string location;
+        private decimal price;
 
         //====================================================
         //2. class properity ...
@@ -34,16 +36,17 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class method ...
 
+        
         //====================================================
         //4. class constructor ...
         public Clinic()
         {
             ClinicCount++;
             ClinicId = ClinicCount;
-            //ClinicName = clinicName;
-            //DepartmentId = departmentId;
-            //FloorId = floorId;
-            //RoomId = roomId;
+            ClinicName = clinicName;
+            DepartmentId = departmentId;
+            FloorId = floorId;
+            RoomId = roomId;
 
             // Initialize lists
             Doctors = new List<Doctor>();
