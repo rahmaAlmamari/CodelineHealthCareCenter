@@ -9,14 +9,14 @@ namespace CodelineHealthCareCenter.Models
     class Clinic
     {
         //1. class fields ...
-      
-        bool ClinicStatus = true; // true means open, false means closed
-        public static int ClinicCount = 0;
+
+        private bool clinicStatus = true; // true = open, false = closed
+        private static int clinicCounter = 0;
         private string location;
         private decimal price;
 
         //====================================================
-        //2. class properity ...
+        //2. class property ...
 
         public int ClinicId { get; private set; } 
         public string ClinicName { get; set; }
@@ -38,6 +38,10 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //3. class method ...
+        public void SetClinicStatus(bool isActive)
+        {
+            clinicStatus = isActive;
+        }
 
 
         //====================================================
