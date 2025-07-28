@@ -45,7 +45,9 @@ namespace CodelineHealthCareCenter.Models
             //FloorId = floorId;
             //RoomId = roomId;
 
-           
+            // Initialize lists
+            Doctors = new List<Doctor>();
+            ClinicSpots = new List<DateTime>();
 
         }
     }
