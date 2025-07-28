@@ -22,11 +22,28 @@ namespace CodelineHealthCareCenter.Models
         {
             Clinics.Add(clinic);
             Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{Username}'.");
+
+
+        }
+
+        public void ViewClinics() // displays all clinics managed by the admin
+        {
+            Console.WriteLine($"Clinics managed by Admin {Username}:");
+            if (Clinics.Count == 0)
+            {
+                Console.WriteLine(" No clinics assigned yet.");
+            }
+            else
+            {
+                foreach (var clinic in Clinics)
+                    clinic.ViewClinicInfo();
+            }
         }
 
 
 
-        //====================================================
-        //4. class constructor ...
-    }
+
+            //====================================================
+            //4. class constructor ...
+        }
 }
