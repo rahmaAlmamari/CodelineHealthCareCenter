@@ -63,7 +63,7 @@ namespace CodelineHealthCareCenter.Models
                 case '6':
                     //to view doctors ...
                     //ViewDoctors();
-                    AddBranch();
+                    Branch.AddBranch();
                     break;
                 case '7':
                     //to view admins ...
@@ -234,70 +234,35 @@ namespace CodelineHealthCareCenter.Models
         }
 
         //===================
-
-        // Add Branch method to add a new branch
-        public static void AddBranch()
+        // Create Department method to add a new department
+        public void CreateDepartment()
         {
             Console.Clear();
-            Console.WriteLine("Add New Branch");
-            // Get branch details from user
-            string branchName = Validation.StringValidation("branch name");
-            string branchCity = Validation.StringValidation("branch city");
-            DateOnly branchEstablishDate = Validation.DateOnlyValidation("branch establish date");
-            int hospitalId = Validation.IntValidation("hospital ID");
+            Console.WriteLine("Add New Department");
+            // Get department details from user
+            string departmentName = Validation.StringValidation("department name");
 
-            // Add branch to the hospital
-            Branch.AddBranch(branchName, branchCity, branchEstablishDate, hospitalId); // Call the static method to add the branch
+            // view branches and get the branch ID from user
+            Console.WriteLine("Available Branches:");
+            //BranchDepartment.ViewBranches(); // Assuming this method displays available branches
+            int branchId = Validation.IntValidation("Enter the Branch ID for the department:");
 
-            Console.WriteLine("Branch added successfully.");
+            //// Create a new department instance
+            //BranchDepartment newDepartment = new BranchDepartment
+            //{
+            //    DepartmentName = departmentName,
+            //    DepartmentDescription = departmentDescription,
+            //    DepartmentId = BranchDepartment.DepartmentCount + 1 // Incrementing the count for unique ID
+            //};
+            BranchDepartment.AddDepartment(new Department
+            {
+                DepartmentName = departmentName,
+                BranchId = this.HospitalId // Assuming HospitalId is set for the SuperAdmin
+            });
+           
+            Console.WriteLine("Department added successfully.");
             Additional.HoldScreen();
         }
-
-        // Get All Branches method to display all branches in the hospital
-        public static void GetAllBranches()
-        {
-            Console.Clear();
-            Console.WriteLine("List of Branches");
-            if (Hospital.Branches.Count == 0)
-            {
-                Console.WriteLine("No branches available in the system.");
-                Additional.HoldScreen();
-                return;
-            }
-            foreach (var branch in Hospital.Branches)
-            {
-                Console.WriteLine($"Branch ID       : {branch.BranchId}");
-                Console.WriteLine($"Branch Name     : {branch.BranchName}");
-                Console.WriteLine($"Branch City     : {branch.BranchCity}");
-                Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
-                Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
-                Console.WriteLine(new string('-', 40));
-            }
-            Additional.HoldScreen();
-        }
-
-
-
-        // Get Branch By Id
-        public static void GetBranchById()
-        {
-            Console.WriteLine("Enter the Branch ID to view:");
-            int branchId = Validation.IntValidation("Branch ID");
-            var branch = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
-            if (branch == null)
-            {
-                Console.WriteLine("Branch not found.");
-                Additional.HoldScreen();
-                return;
-            }
-            Console.WriteLine($"Branch ID       : {branch.BranchId}");
-            Console.WriteLine($"Branch Name     : {branch.BranchName}");
-            Console.WriteLine($"Branch City     : {branch.BranchCity}");
-            Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
-            Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
-            Additional.HoldScreen();
-        }
-
 
 
 
