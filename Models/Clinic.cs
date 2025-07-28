@@ -49,7 +49,7 @@ namespace CodelineHealthCareCenter.Models
             Price = newPrice;
         }
 
-        public void ViewClinicInfo()
+        public void ViewClinicInfo() // method to view clinic information
         {
             Console.WriteLine($"   ID: {ClinicId}, Name: {ClinicName}, DeptID: {DepartmentId}, BranchID: {BranchId}");
             Console.WriteLine($"   Floor: {FloorId}, Room: {RoomId}, Location: {Location}, Price: ${Price}");
