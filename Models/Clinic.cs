@@ -97,6 +97,11 @@ namespace CodelineHealthCareCenter.Models
                         int id = Validation.IntValidation("Clinic ID");
                         service.GetClinicById(id);
                         break;
+
+                    case "4": // Search clinic by Name
+                        string searchName = Validation.StringNamingValidation("Clinic Name");
+                        service.GetClinicByName(searchName);
+                        break;
                 }
 
 
