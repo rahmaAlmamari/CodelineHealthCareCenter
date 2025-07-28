@@ -15,8 +15,8 @@ namespace CodelineHealthCareCenter.Models
         public DateOnly HospitalEstablishDate;
         public bool HospitalStatus = true; // true means open, false means closed
         public static int HospitalCount = 0;
-        public List<Branch> Branches = new List<Branch>();
-        public List<SuperAdmin> SuperAdmins = new List<SuperAdmin>();
+        public static List<Branch> Branches = new List<Branch>();
+        public static List<SuperAdmin> SuperAdmins = new List<SuperAdmin>();
 
         //====================================================
         //2. class properity ...
