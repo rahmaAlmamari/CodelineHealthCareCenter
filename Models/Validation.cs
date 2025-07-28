@@ -231,5 +231,24 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine();
             return password.ToString();
         }
+        //9. Check if the Password unique or not ...
+        public static bool PasswordIsUnique(string password, List<string> list)
+        {
+            bool IsUnique = true;//it is unique (not exsit in the system) ...
+            //to check if password is exist or not (password should be unique) ...
+            foreach (var storedHashpassword in list)
+            {
+                //to call VerifyPasswordPBKDF2 which will hash the password and
+                //compare it with the stored hash password ...
+                if (VerifyPasswordPBKDF2(password, storedHashpassword))
+                {
+                    Console.WriteLine("Password is exist in the system.");
+                    HoldScreen();//just to hoad second ...
+                    IsUnique = false;
+                    return false; // Match found
+                }
+            }
+            return IsUnique; // No match
+        }
     }
 }
