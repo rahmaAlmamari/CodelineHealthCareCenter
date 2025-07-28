@@ -59,10 +59,26 @@ namespace CodelineHealthCareCenter.Models
                 string choice = Console.ReadLine();
                 Console.WriteLine();
 
+                switch (choice) 
+                {
+                    case "1": // Assign a doctor to a clinic
+                        int doctorId = Validation.IntValidation("Doctor ID");
+                        int clinicId = Validation.IntValidation("Clinic ID");
+
+                        if (Additional.ConfirmAction("assign the doctor to this clinic"))
+                        {
+                            service.AssignDoctorToClinic(doctorId, clinicId);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Assignment cancelled.");
+                        }
+                        break;
 
 
 
-                //====================================================
-                //4. class constructor ...
-            }
+
+                        //====================================================
+                        //4. class constructor ...
+                }
 }
