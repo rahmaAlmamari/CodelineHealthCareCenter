@@ -12,7 +12,7 @@ namespace CodelineHealthCareCenter.Services
 
 
         // Doctor Operations
-        void AddDoctor(string username, string password, string email, string specialization);
+        //void AddDoctor(string username, string password, string email, string specialization);
         //void UpdateDoctor(int doctorId, string username, string email, string specialization);
         //void DeleteDoctor(int doctorId);
         //void ViewDoctors();
