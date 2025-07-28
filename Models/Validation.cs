@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
@@ -307,5 +308,94 @@ namespace CodelineHealthCareCenter.Models
         // 1. Extracting the original salt from the stored hash
         // 2. Re-hashing the input password using the same salt
         // 3. Comparing both hashes
+
+        //12. EmailValidation method ...
+        public static string EmailValidation(string message)
+        {
+            bool emailFlag;//to handle user email error input ...
+            string emailInput = "null";
+            do
+            {
+                emailFlag = false;
+                Console.WriteLine($"Enter your {message}:");
+                emailInput = Console.ReadLine();
+                //to check if emailInput is valid or not ...
+                if (!IsValidEmail(emailInput))
+                {
+                    Console.WriteLine($"{message} is not valid, please try again.");
+                    Additional.HoldScreen();//just to hold a second ...
+                    emailFlag = true;
+                }
+            } while (emailFlag);
+            //to return tne char input ...
+            return emailInput;
+        }
+
+        //13. Email validation using regular expression
+        private static bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            // Basic but solid regex for general email validation
+            string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
+        }
+        //14. to check if the patient national id exists or not ...
+        public static bool PatientNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in patient list in branch list in hospital class ...
+            foreach (var branch in Hospital.Branches)
+            {
+                foreach (var patient in branch.Patients)
+                {
+                    if (patient.UserNationalID == nationalId)
+                    {
+                        return true; //if national id exists ...
+                    }
+                }
+            }
+            return false; //if national id does not exist ...
+
+        }
+        //15. To check if the doctor national id exists or not ...
+        public static bool DoctorNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in SuperAdmin list hospital class ...
+            foreach (var doctor in BranchDepartment.Doctors)
+            {
+                if (doctor.UserNationalID == nationalId)
+                {
+                    return true; //if the national id exists ...
+                }
+            }
+            return false; //if national id does not exist ...
+        }
+        //16. to check if the admin national id exists or not ...
+        public static bool AdminNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in SuperAdmin list hospital class ...
+            foreach (var admin in BranchDepartment.Admins)
+            {
+                if (admin.UserNationalID == nationalId)
+                {
+                    return true; //if the national id exists ...
+                }
+            }
+            return false; //if national id does not exist ...
+        }
+        //17. to check if the super admin national id exists or not ...
+        public static bool SuperAdminNationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in SuperAdmin list hospital class ...
+            foreach (var superAdmin in Hospital.SuperAdmins)
+            {
+                if (superAdmin.UserNationalID == nationalId)
+                {
+                    return true; //if the national id exists ...
+                }
+            }
+            return false; //if national id does not exist ...
+        }
     }
 }

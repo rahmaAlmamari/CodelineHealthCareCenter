@@ -8,8 +8,6 @@ namespace CodelineHealthCareCenter.Services
 {
     interface IAuthService
     {
-        void Login(string nationalId, string password);
-
-
+        void Login();
     }
 }

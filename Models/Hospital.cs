@@ -10,13 +10,14 @@ namespace CodelineHealthCareCenter.Models
     {
         //1. class fields ...
 
-        public int HospitalId;
-        public string HospitalName;
-        public DateOnly HospitalEstablishDate;
+        public int HospitalId = 1;
+        public string HospitalName = "Codeline Health Care Center";
+        public DateOnly HospitalEstablishDate = new DateOnly(2025, 7, 28);
         public bool HospitalStatus = true; // true means open, false means closed
         public static int HospitalCount = 0;
-        public List<Branch> Branches = new List<Branch>();
-        public List<SuperAdmin> SuperAdmins = new List<SuperAdmin>();
+        public static List<Branch> Branches = new List<Branch>();
+        public static List<SuperAdmin> SuperAdmins = new List<SuperAdmin>();
+        public static List<string> UserNationalID = new List<string>();
 
         //====================================================
         //2. class properity ...
@@ -28,10 +29,10 @@ namespace CodelineHealthCareCenter.Models
         //4. class constructor ...
         public Hospital()
         {
-            HospitalCount++;
-            HospitalId = HospitalCount;
-          
-        }
 
+
+
+
+        }
     }
 }
