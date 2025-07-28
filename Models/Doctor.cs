@@ -86,6 +86,11 @@ namespace CodelineHealthCareCenter.Models
                         else Console.WriteLine("Update cancelled.");
                         break;
 
+                    case "3": // Get doctor by ID
+                        int id = Validation.IntValidation("Doctor ID");
+                        service.GetDoctorById(id);
+                        break;
+
 
 
 
