@@ -105,5 +105,29 @@ namespace CodelineHealthCareCenter.Models
             //to return tne char input ...
             return DoubleInput;
         }
+        //5. IntValidation method ...
+        public static int IntValidation(string message)
+        {
+            bool IntFlag;//to handle user StringNaming error input ...
+            int IntInput = 0;
+            do
+            {
+                IntFlag = false;
+                try
+                {
+                    Console.WriteLine($"Enter {message}:");
+                    IntInput = int.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"{message} not accepted due to " + e.Message);
+                    Additional.HoldScreen();//just to hold a second ...
+                    IntFlag = true;
+                }
+
+            } while (IntFlag);
+            //to return tne char input ...
+            return IntInput;
+        }
     }
 }
