@@ -62,7 +62,26 @@ namespace CodelineHealthCareCenter.Models
         {
             Additional.WelcomeMessage("Clinic Management");
 
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(" CLINIC MANAGEMENT MENU ");
+                Console.WriteLine("1. Add Clinic");
+                Console.WriteLine("2. View All Clinics");
+                Console.WriteLine("3. Search Clinic by ID");
+                Console.WriteLine("4. Search Clinic by Name");
+                Console.WriteLine("5. Search Clinic by Branch + Department");
+                Console.WriteLine("6. Update Clinic Details");
+                Console.WriteLine("7. Toggle Clinic Status");
+                Console.WriteLine("8. Delete Clinic");
+                Console.WriteLine("9. Exit");
+                Console.Write("Select an option: ");
 
+                string choice = Console.ReadLine();
+                Console.WriteLine();
+
+
+            }
         }
 
 
