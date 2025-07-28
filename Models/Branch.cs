@@ -87,6 +87,28 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
+        // Get Branch Details
+        public static void GetBranchDetails()
+        {
+            Console.Clear();
+            Console.WriteLine("Branch Details");
+            if (Hospital.Branches.Count == 0)
+            {
+                Console.WriteLine("No branches available in the system.");
+                Additional.HoldScreen();
+                return;
+            }
+            foreach (var branch in Hospital.Branches)
+            {
+                Console.WriteLine($"Branch ID       : {branch.BranchId}");
+                Console.WriteLine($"Branch Name     : {branch.BranchName}");
+                Console.WriteLine($"Branch City     : {branch.BranchCity}");
+                Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
+                Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
+                Console.WriteLine(new string('-', 40));
+            }
+            Additional.HoldScreen();
+        }
 
 
         //====================================================
