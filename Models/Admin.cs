@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodelineHealthCareCenter.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,10 +41,28 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public static void AdminMenu(IAdminService service)
+        {
+            Additional.WelcomeMessage("Admin Panel"); // to display the welcome message for admin panel
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(" ADMIN MANAGEMENT MENU ");
+                Console.WriteLine("1. Assign Doctor to Clinic");
+                Console.WriteLine("2. Add Service to Clinic");
+                Console.WriteLine("3. View Clinic's Doctors");
+                Console.WriteLine("4. View Clinic's Services");
+                Console.WriteLine("5. Exit");
+                Console.Write("Select an option: ");
+
+                string choice = Console.ReadLine();
+                Console.WriteLine();
 
 
 
-            //====================================================
-            //4. class constructor ...
-        }
+
+                //====================================================
+                //4. class constructor ...
+            }
 }
