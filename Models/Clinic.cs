@@ -143,6 +143,19 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("❌ Status change cancelled.");
                         }
                         break;
+
+                    case "8": // Delete clinic
+                        int deleteId = Validation.IntValidation("Clinic ID to delete");
+
+                        if (Additional.ConfirmAction("delete this clinic"))
+                        {
+                            service.DeleteClinic(deleteId);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Deletion cancelled.");
+                        }
+                        break;
                 }
 
 
