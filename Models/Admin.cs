@@ -22,14 +22,14 @@ namespace CodelineHealthCareCenter.Models
         public void AddClinic(Clinic clinic) // adds a clinic to the admin's list of clinics
         {
             Clinics.Add(clinic);
-            Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{Username}'.");
+            Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{UserName}'.");
 
 
         }
 
         public void ViewClinics() // displays all clinics managed by the admin
         {
-            Console.WriteLine($"Clinics managed by Admin {Username}:");
+            Console.WriteLine($"Clinics managed by Admin {UserName}:");
             if (Clinics.Count == 0)
             {
                 Console.WriteLine(" No clinics assigned yet.");
@@ -114,6 +114,18 @@ namespace CodelineHealthCareCenter.Models
 
                 Additional.HoldScreen(); // to hold the screen after each operation
             }
+
+
+        }
+
+        //====================================================
+        //4. class constructor ...
+
+        public Admin(string username, string email, int branchId)
+            
+        {
+            BranchID = branchId;
+            AdminCount++;
         }
     }
 }
