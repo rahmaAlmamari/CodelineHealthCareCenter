@@ -1,16 +1,15 @@
-﻿using CodelineHealthCareCenter.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CodelineHealthCareCenter.Services;
+
 
 namespace CodelineHealthCareCenter.Models
 {
     class Doctor : User
-
     {
+        //====================================================
         //1. class fields ...
+
         public int DepartmentId;
         public int ClinicID;
         public string DoctorSpecialization;
@@ -18,24 +17,25 @@ namespace CodelineHealthCareCenter.Models
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
 
         private static int doctorCounter = 0;
+        public static IDoctorService service; // Used for DoctorMenu()
+
         //====================================================
-        //2. class properity ...
+        //2. class properties ...
 
         public int DoctorID { get; private set; }
         public static int DoctorCount => doctorCounter;
 
-
         //====================================================
-        //3. class method ...
+        //3. class methods ...
 
-        public void ViewDoctorInfo() // displays the doctor's information
+        public void ViewDoctorInfo() // Displays basic information about the doctor
         {
             Console.WriteLine($"ID: {DoctorID}, Name: {UserName}, Email: {UserEmail}");
             Console.WriteLine($"Specialization: {DoctorSpecialization}, DeptID: {DepartmentId}, ClinicID: {ClinicID}");
             Console.WriteLine($"Appointments: {DoctorAppointments.Count}, Patient Records: {PatientRecords.Count}");
         }
 
-        public static void DoctorMenu(IDoctorService service)
+        public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
             Additional.WelcomeMessage("Doctor Management");
 
@@ -75,28 +75,30 @@ namespace CodelineHealthCareCenter.Models
                             string newUsername = Validation.StringNamingValidation("New Username");
                             string newEmail = Validation.StringValidation("New Email");
                             string newSpec = Validation.StringNamingValidation("New Specialization");
+
+                            Console.Write("Is Active (true/false): ");
                             bool isActive;
-                            Console.WriteLine("Is Active (true/false): ");
                             while (!bool.TryParse(Console.ReadLine(), out isActive))
                             {
                                 Console.WriteLine("Invalid input. Please enter true or false:");
                             }
+
                             service.UpdateDoctor(updateId, newUsername, newEmail, newSpec, isActive);
                         }
                         else Console.WriteLine("Update cancelled.");
                         break;
 
-                    case "3": // Get doctor by ID
+                    case "3": // Get a doctor by ID
                         int id = Validation.IntValidation("Doctor ID");
                         service.GetDoctorById(id);
                         break;
 
-                    case "4": // Get doctor by name
+                    case "4": // Get a doctor by name
                         string docName = Validation.StringNamingValidation("Doctor Name");
                         service.GetDoctorByName(docName);
                         break;
 
-                    case "5": // Get doctor by email
+                    case "5": // Get a doctor by email
                         string docEmail = Validation.StringValidation("Doctor Email");
                         service.GetDoctorByEmail(docEmail);
                         break;
@@ -105,7 +107,7 @@ namespace CodelineHealthCareCenter.Models
                         service.GetAllDoctors();
                         break;
 
-                    case "7": // Get doctor data
+                    case "7": // Get doctor data by ID
                         int docDataId = Validation.IntValidation("Doctor ID for Data");
                         service.GetDoctorData(docDataId);
                         break;
@@ -120,32 +122,31 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorByDepartmentName(deptName);
                         break;
 
-                    case "10": // Exit the menu
+                    case "10": //   Exit the doctor menu
                         Console.WriteLine("Exiting Doctor Menu...");
                         return;
 
-                    default: // Invalid option handling
+                    default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
                         break;
-
-
                 }
 
-                Additional.HoldScreen(); // to pause the screen after each operation
-
+                Additional.HoldScreen();
             }
         }
 
         //====================================================
         //4. class constructor ...
+
         public Doctor(string username, string email, string specialization, int departmentId, int clinicId)
-            
         {
             doctorCounter++;
             DoctorID = doctorCounter;
             DoctorSpecialization = specialization;
             DepartmentId = departmentId;
             ClinicID = clinicId;
+            UserName = username;
+            UserEmail = email;
             UserRole = "Doctor";
             UserStatus = "Active";
 
