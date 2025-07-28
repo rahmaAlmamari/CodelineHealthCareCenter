@@ -96,6 +96,11 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorByName(docName);
                         break;
 
+                    case "5": // Get doctor by email
+                        string docEmail = Validation.StringValidation("Doctor Email");
+                        service.GetDoctorByEmail(docEmail);
+                        break;
+
 
 
 
