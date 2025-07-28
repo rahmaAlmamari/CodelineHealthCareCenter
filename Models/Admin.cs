@@ -8,9 +8,9 @@ namespace CodelineHealthCareCenter.Models
 {
     class Admin : User
     {
-        //1. class feilds ..
-      
-        private static int adminCounter = 0; 
+        //1. class feilds ...
+        public int BranchID;
+        public List<Clinic> Clinics = new List<Clinic>();
         //====================================================
         //2. class properity ...
 
