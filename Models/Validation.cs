@@ -279,5 +279,33 @@ namespace CodelineHealthCareCenter.Models
 
         //what is salt -> a random value added to a password before hashing it.
         //It’s used to make each password hash unique, even if two users have the same password.
+
+        //11. Verify password by comparing hashes
+        public static bool VerifyPasswordPBKDF2(string password, string savedHash)
+        {
+            byte[] hashBytes = Convert.FromBase64String(savedHash);
+            //to converts the stored string back into the original 36-byte array
+            //(16 bytes salt + 20 bytes hash).
+
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);//to extracts the first 16 bytes (the salt).
+
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 100000);
+            //to recreates the hash for the input password using the same salt and iteration count.
+            byte[] hash = pbkdf2.GetBytes(20);//to gets the expected hash (20 bytes).
+
+            for (int i = 0; i < 20; i++)//to compares each byte of the newly generated
+                                        //hash with the one stored after the salt.
+            {
+                if (hashBytes[i + 16] != hash[i])//to check if any byte is different
+                                                 //the password is incorrect.
+                    return false;
+            }
+            return true;//If all bytes match, the password is correct.
+        }
+        //VerifyPasswordPBKDF2 -> this method verifies a user’s password by:
+        // 1. Extracting the original salt from the stored hash
+        // 2. Re-hashing the input password using the same salt
+        // 3. Comparing both hashes
     }
 }
