@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodelineHealthCareCenter.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,13 +35,35 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Appointments: {DoctorAppointments.Count}, Patient Records: {PatientRecords.Count}");
         }
 
-        //====================================================
-        //4. class constructor ...
-        public Doctor(string name, string email, string password, int departmentId, int clinicId, string specialization)
+        public static void DoctorMenu(IDoctorService service)
         {
-            DepartmentId = departmentId;
-            ClinicID = clinicId;
-            DoctorSpecialization = specialization;
+            Additional.WelcomeMessage("Doctor Management"); 
+
+            while (true) 
+            {
+                Console.Clear();
+                Console.WriteLine(" DOCTOR MANAGEMENT MENU ");
+                Console.WriteLine("1. Add Doctor");
+                Console.WriteLine("2. Update Doctor");
+                Console.WriteLine("3. Get Doctor By ID");
+                Console.WriteLine("4. Get Doctor By Name");
+                Console.WriteLine("5. Get Doctor By Email");
+                Console.WriteLine("6. Get All Doctors");
+                Console.WriteLine("7. Get Doctor Data");
+                Console.WriteLine("8. Get Doctor By Branch Name");
+                Console.WriteLine("9. Get Doctor By Department Name");
+                Console.WriteLine("10. Exit");
+                Console.Write("Select an option: ");
+
+                string choice = Console.ReadLine();
+                Console.WriteLine();
+
+            }
+
+
+            //====================================================
+            //4. class constructor ...
+
         }
     }
 }
