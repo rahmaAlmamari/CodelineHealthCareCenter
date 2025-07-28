@@ -88,7 +88,13 @@ namespace CodelineHealthCareCenter.Models
                         service.AddClinic(name, location);
                         break;
 
+                    case "2": // View all clinics
+                        service.GetAllClinics();
+                        break;
+
                 }
+
+
             }
         }
 
