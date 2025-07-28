@@ -38,6 +38,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 case '1':
                     Console.WriteLine("Add New Doctor");
+                   
 
 
 
@@ -45,6 +46,7 @@ namespace CodelineHealthCareCenter.Models
                 case '2':
                     //to add a new admin ...
                     Console.WriteLine("Adding a new admin...");
+                    
                     break;
                 case '3':
                     //to assign admin to branch ...
@@ -60,7 +62,7 @@ namespace CodelineHealthCareCenter.Models
                     break;
                 case '6':
                     //to view doctors ...
-                    Console.WriteLine("Viewing doctors...");
+                    ViewDoctors();
                     break;
                 case '7':
                     //to view admins ...
@@ -86,75 +88,158 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
-       
-        public void AddDoctor(string username, string password, string email, string specialization)
+        // Add Doctor method to add a new doctor
+        //public static void AddDoctor()
+        //{
+        //    Console.Clear();
+        //    Console.WriteLine("Add New Doctor");
+        //    // Get doctor details from user
+        //    string name = Validation.StringValidation("doctor name");
+        //    string email = Validation.EmailValidation("doctor email");
+        //    int phoneNumber = Validation.IntValidation("doctor phone number");
+        //    string nationalId = Validation.StringValidation("doctor national ID");
+        //    string specialization = Validation.StringValidation("doctor specialization");
+        //    // View departments and get the department ID from user
+        //    Console.WriteLine("Available Departments:");
+        //    //Department.ViewDepartments(); // Assuming this method displays available departments
+            
+        //    int departmentId = Validation.IntValidation("Enter the Department ID for the doctor:");
+
+        //    // Check if the department ID is valid
+        //    if (!BranchDepartment.Departments.Any(d => d.DepartmentId == departmentId))
+        //    {
+        //        Console.WriteLine("Invalid Department ID. Please try again.");
+        //        Additional.HoldScreen();
+        //        return;
+        //    }
+
+        //    // view Branches and get the branch ID from user
+        //    Console.WriteLine("Available Branches:");
+        //    //BranchDepartment.ViewBranches(); // Assuming this method displays available branches
+        //    int branchId = Validation.IntValidation("Enter the Branch ID for the doctor:");
+
+        //    // Check if the branch ID is valid
+        //    if (!BranchDepartment.Branches.Any(b => b.BranchId == branchId))
+        //    {
+        //        Console.WriteLine("Invalid Branch ID. Please try again.");
+        //        Additional.HoldScreen();
+        //        return;
+        //    }
+
+
+
+        //    // Check if the national ID already exists
+        //    if (NationalIdExists(nationalId))
+        //    {
+        //        Console.WriteLine("A doctor with this National ID already exists.");
+        //        Additional.HoldScreen();
+        //        return;
+        //    }
+        //    // Create a new doctor instance
+        //    Doctor newDoctor = new Doctor();
+        //    newDoctor.UserName = name;
+        //    newDoctor.UserEmail = email;
+        //    newDoctor.P_UserPhoneNumber = phoneNumber;
+        //    newDoctor.UserNationalID = nationalId;
+        //    newDoctor.DoctorSpecialization = specialization;
+        //    newDoctor.UserRole = "Doctor"; // Set the role to Doctor
+        //    newDoctor.UserStatus = "Active"; // Set the status to Active
+
+            
+            
+        //    BranchDepartment.Doctors.Add(newDoctor);
+        //    Console.WriteLine("Doctor added successfully.");
+        //    Additional.HoldScreen();
+        //}
+
+
+        public static bool NationalIdExists(string nationalId)
         {
+            //to check if the national id exists or not in SuperAdmin list hospital class ...  
 
-            //to get national id and check if it exists or not ...
-            string UserNationalID = Validation.StringValidation("national ID");
-            //to check if the national id exists or not ...
-            if (NationalIdExists(UserNationalID))
+            foreach (var doctor in BranchDepartment.Doctors)
             {
-                Console.WriteLine("This national ID already exists. Please try again with a different one.");
-                Additional.HoldScreen();
-                return; //exit the method if national ID exists ...
+                if (doctor.UserNationalID == nationalId)
+                {
+                    return true; //if the national id exists ...  
+                }
             }
-            //to get the user data ...
-            string UserName = Validation.StringValidation("user name");
-            string UserPassword = Validation.ReadPassword("password");
-            string UserEmail = Validation.EmailValidation("email");
-            int P_UserPhoneNumber = Validation.IntValidation("phone number");
-            string UserCity = Validation.StringValidation("city");
+            return false; //if national id does not exist ...  
+        }
+       
 
-
-            //UserRole and UserStatus are set to default values for SuperAdmin in SuperAdmin constructor ...
-            //to do hashing for the password ...
-            string UserPasswordHashed = Validation.HashPasswordPBKDF2(UserPassword);
-
-
-            Console.Write("Enter Specialization: ");
-            string spec = Validation.StringValidation("specialization");
-            // Create a new doctor instance
-            Doctor newDoctor = new Doctor(username, email, password, 0, 0, specialization);
-
-            // Add the new doctor to the list
-            Clinic.Doctors.Add(newDoctor);
-            Console.WriteLine($"Doctor {username} added successfully with specialization: {specialization}");
-            // Confirm the action
+        public void PrintDoctorDetails()
+        {
+            Console.WriteLine($"Doctor ID : { UserId}");
+            Console.WriteLine($"Doctor Name : {UserName}");
+            Console.WriteLine($"Doctor Email : {UserEmail}");
+            Console.WriteLine($"Doctor Phone Number : {UserPhoneNumber}");
+            Console.WriteLine($"Doctor National ID : {UserNationalID}");
+            // Console.WriteLine($"Doctor Specialization : {D_Specialization}");
 
 
 
-            Additional.ConfirmAction("add a new doctor");
+        }
+
+
+        // ViewDoctors method to display all doctors in the branch department
+        public static void ViewDoctors()
+        {
+            Console.Clear();
+            Console.WriteLine("List of Doctors");
+
+            if (BranchDepartment.Doctors.Count == 0)
+            {
+                Console.WriteLine("No doctors available in the system.");
+                Additional.HoldScreen();
+                return;
+            }
+
+            foreach (var doctor in BranchDepartment.Doctors)
+            {
+                Console.WriteLine($"Doctor ID        : {doctor.UserId}");
+                Console.WriteLine($"Name            : {doctor.UserName}");
+                Console.WriteLine($"Email           : {doctor.UserEmail}");
+                Console.WriteLine($"Phone Number    : {doctor.UserPhoneNumber}");
+                Console.WriteLine($"National ID     : {doctor.UserNationalID}");
+                Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
+                Console.WriteLine($"Status          : {doctor.UserStatus}");
+                Console.WriteLine(new string('-', 40));
+            }
+
             Additional.HoldScreen();
         }
 
-        //to check if the national id exists or not ...
+        // Update Doctor method to update doctor details
 
-        public bool NationalIdExists(string nationalId)
+        public static void UpdateDoctor()
         {
-            //to check if the national id exists or not in SuperAdmin list hospital class ...
-
-            foreach (var superAdmin in Hospital.SuperAdmins)
+            Console.WriteLine("Enter the Doctor ID to update:");
+            int doctorId = Validation.IntValidation("Doctor ID");
+            var doctorToUpdate = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
+            if (doctorToUpdate == null)
             {
-                if (superAdmin.UserNationalID == nationalId)
-                {
-                    return true; //if the national id exists ...
-                }
-
+                Console.WriteLine("Doctor not found.");
+                Additional.HoldScreen();
+                return;
             }
-            return false; //if national id does not exist ...
-
+            // Update doctor details
+            doctorToUpdate.UserName = Validation.StringValidation("new name");
+            doctorToUpdate.UserEmail = Validation.EmailValidation("new email");
+            doctorToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
+            doctorToUpdate.DoctorSpecialization = Validation.StringValidation("new specialization");
+            Console.WriteLine("Doctor details updated successfully.");
+            Additional.HoldScreen();
         }
+
+
 
         //====================================================
         //4. class constructor ...
 
         public SuperAdmin(string username, string password, string email)
         {
-            UserName = username;
-            P_UserPassword = password;
-            UserEmail = email;
-
+           
             UserRole = "SuperAdmin";
             UserStatus = "Active"; //default status for SuperAdmin  
         }
