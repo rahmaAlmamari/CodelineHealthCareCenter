@@ -99,6 +99,24 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
+        // Delete Department
+
+        public static void DeleteDepartment(int departmentId)
+        {
+            var department = BranchDepartment.Departments.FirstOrDefault(d => d.DepartmentId == departmentId);
+            if (department != null)
+            {
+                BranchDepartment.Departments.Remove(department);
+                Console.WriteLine($"Department ID {departmentId} deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine($"Department ID {departmentId} not found.");
+            }
+        }
+
+
+
 
         //====================================================
         //4. class constructor ...
