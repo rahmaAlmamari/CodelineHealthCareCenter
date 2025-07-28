@@ -22,7 +22,11 @@ namespace CodelineHealthCareCenter.Models
         public int FloorId { get; set; }
         public int RoomId { get; set; }
 
-        
+        // list of doctors and clinic spots
+        public List<Doctor> Doctors { get; set; }
+        public List<DateTime> ClinicSpots { get; set; }
+
+
 
 
 
