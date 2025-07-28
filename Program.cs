@@ -30,7 +30,7 @@ namespace CodelineHealthCareCenter
                         break;
                     case '2':
                         //to add a new doctor ...
-                        Admin.AdminMenu();
+                       // Admin.AdminMenu();
                         break;
                     case '3':
                         //to Booking an appointment ...
