@@ -34,7 +34,22 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Department '{newDepartment.DepartmentName}' created with ID {newDepartment.DepartmentId} in Branch ID {newDepartment.BranchId}.");
 
         }
-        
+
+        // Get All Departments
+        public static void GetAllDepartments()
+        {
+            Console.WriteLine("List of Departments:");
+            if (DepartmentCount == 0)
+            {
+                Console.WriteLine("No departments available.");
+                return;
+            }
+            
+            foreach (var department in BranchDepartment.Departments)
+            {
+                Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
+            }
+        }
 
 
         //====================================================
