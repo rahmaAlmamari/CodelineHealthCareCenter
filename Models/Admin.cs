@@ -110,14 +110,9 @@ namespace CodelineHealthCareCenter.Models
 
 
 
-
-
-
-
-
-                        //====================================================
-                        //4. class constructor ...
                 }
+
+                Additional.HoldScreen(); // to hold the screen after each operation
             }
         }
     }
