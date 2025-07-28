@@ -133,9 +133,7 @@ namespace CodelineHealthCareCenter.Models
 
                 }
 
-
-                //====================================================
-                //4. class constructor ...
+                Additional.HoldScreen(); // to pause the screen after each operation
 
             }
         }
