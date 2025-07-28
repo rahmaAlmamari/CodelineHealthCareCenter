@@ -110,6 +110,11 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorData(docDataId);
                         break;
 
+                    case "8": // Get doctor by branch name
+                        string branchName = Validation.StringNamingValidation("Branch Name");
+                        service.GetDoctorByBranchName(branchName);
+                        break;
+
 
 
 
