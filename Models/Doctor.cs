@@ -91,6 +91,11 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorById(id);
                         break;
 
+                    case "4": // Get doctor by name
+                        string docName = Validation.StringNamingValidation("Doctor Name");
+                        service.GetDoctorByName(docName);
+                        break;
+
 
 
 
