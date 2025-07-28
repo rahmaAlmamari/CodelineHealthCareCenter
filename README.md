@@ -42,3 +42,32 @@ The primary classes designed include:
 - **Validation**: A utility class to manage input and business rule validation.
 
 - **Additional** : Placeholder for any future enhancements or utility classes.
+
+## 2. Interface Design
+To promote loose coupling and adhere to SOLID principles—especially the Interface Segregation and Dependency Inversion principles—we developed a comprehensive set of service interfaces. Each interface clearly defines the contract for operations related to its respective domain area. These interfaces include:
+
+- **IBookingService.cs**: Handles booking logic including appointment creation, modification, and cancellation.
+
+- **IBranchService.cs**: Manages branch-related operations like adding, updating, and listing branches.
+
+- **IBranchDepartmentService.cs**: Facilitates management of department associations within a branch.
+
+- **IClinicService.cs**: Handles clinic-related functionality including clinic creation and doctor assignments.
+
+- **IDepartmentService.cs**: Deals with the CRUD operations for hospital departments.
+
+- **IDoctorService.cs** : Provides methods for managing doctor information and their availability.
+
+- **IPatientService.cs** : Covers operations related to patient registration and profile management.
+
+- **IPatientRecordService.cs** : Defines operations for storing and retrieving patient health records.
+
+- **IUserService.cs**: Provides generic user management methods applicable across roles.
+
+- **IAuthService.cs** : Handles authentication and authorization logic for different types of users.
+
+- **ISuperAdminService.cs** : Manages high-level administrative features exclusive to super admins, such as creating admin accounts, managing global settings, and overseeing system-wide activity.
+
+- **IAdminService.cs**:Provides functionality for branch or department-level administration, such as managing local users, services, and daily operations.
+
+Each of these interfaces has been outlined with relevant method signatures to prepare for implementation during the next phase. This design ensures that each role in the system has clearly defined responsibilities and supports the open/closed principle by allowing extension without modification.
