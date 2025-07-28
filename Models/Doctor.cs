@@ -37,9 +37,9 @@ namespace CodelineHealthCareCenter.Models
 
         public static void DoctorMenu(IDoctorService service)
         {
-            Additional.WelcomeMessage("Doctor Management"); 
+            Additional.WelcomeMessage("Doctor Management");
 
-            while (true) 
+            while (true)
             {
                 Console.Clear();
                 Console.WriteLine(" DOCTOR MANAGEMENT MENU ");
@@ -68,14 +68,34 @@ namespace CodelineHealthCareCenter.Models
                         service.AddDoctor(username, password, email, specialization);
                         break;
 
+                    case "2": // Update an existing doctor
+                        int updateId = Validation.IntValidation("Doctor ID to update");
+                        if (Additional.ConfirmAction("update this doctor"))
+                        {
+                            string newUsername = Validation.StringNamingValidation("New Username");
+                            string newEmail = Validation.StringValidation("New Email");
+                            string newSpec = Validation.StringNamingValidation("New Specialization");
+                            bool isActive;
+                            Console.WriteLine("Is Active (true/false): ");
+                            while (!bool.TryParse(Console.ReadLine(), out isActive))
+                            {
+                                Console.WriteLine("Invalid input. Please enter true or false:");
+                            }
+                            service.UpdateDoctor(updateId, newUsername, newEmail, newSpec, isActive);
+                        }
+                        else Console.WriteLine("Update cancelled.");
+                        break;
+
+
 
 
                 }
 
 
-            //====================================================
-            //4. class constructor ...
+                //====================================================
+                //4. class constructor ...
 
+            }
         }
     }
 }
