@@ -1,64 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodelineHealthCareCenter.Services;
-using CodelineHealthCareCenter.Utilities; // for Validation and Additional classes
+//using CodelineHealthCareCenter.Utilities;
 
 namespace CodelineHealthCareCenter.Models
 {
     class Clinic
     {
+        //====================================================
         //1. class fields ...
 
         private bool clinicStatus = true; // true = open, false = closed
         private static int clinicCounter = 0;
+
         private string location;
         private decimal price;
 
         //====================================================
-        //2. class property ...
+        //2. class properties ...
 
-        public int ClinicId { get; private set; } 
+        public int ClinicId { get; private set; }
         public string ClinicName { get; set; }
         public int DepartmentId { get; set; }
+        public int BranchId { get; set; }
         public int FloorId { get; set; }
         public int RoomId { get; set; }
 
-        // list of doctors and clinic spots
-        public static List<Doctor> Doctors { get; set; }
-        public static List<DateTime> ClinicSpots { get; set; }
+        // List of doctors associated with this clinic
+        public List<Doctor> Doctors { get; set; }
+        public List<DateTime> ClinicSpots { get; set; }
 
-        // Static property to track total clinics
+        // Static property to get the total number of clinics created
         public static int ClinicCount => clinicCounter;
-        public string Location { get => location; set => location = value; } 
+        public string Location { get => location; set => location = value; }
         public decimal Price { get => price; set => price = value; }
         public bool ClinicStatus => clinicStatus;
 
-
-
         //====================================================
-        //3. class method ...
-        public void SetClinicStatus(bool isActive) // method to set clinic status
+        //3. class methods ...
+
+        public void SetClinicStatus(bool isActive) // sets the clinic status to open or closed
         {
             clinicStatus = isActive;
         }
 
-        public void UpdateClinicDetails(string newName, string newLocation, decimal newPrice) // method to update clinic details
+        public void UpdateClinicDetails(string newName, string newLocation, decimal newPrice) // updates the clinic details
         {
             ClinicName = newName;
             Location = newLocation;
             Price = newPrice;
         }
 
-        public void ViewClinicInfo() // method to view clinic information
+        public void ViewClinicInfo() // displays the clinic information
         {
             Console.WriteLine($"   ID: {ClinicId}, Name: {ClinicName}, DeptID: {DepartmentId}, BranchID: {BranchId}");
             Console.WriteLine($"   Floor: {FloorId}, Room: {RoomId}, Location: {Location}, Price: ${Price}");
             Console.WriteLine($"   Status: {(ClinicStatus ? "Open" : "Closed")}, Doctors: {Doctors.Count}, TimeSlots: {ClinicSpots.Count}");
-
-
         }
 
-        public static void ClinicMenu(IClinicService service) //method to display clinic menu
+        public static void ClinicMenu(IClinicService service) // displays the clinic management menu and handles user input
         {
             Additional.WelcomeMessage("Clinic Management");
 
@@ -82,34 +82,33 @@ namespace CodelineHealthCareCenter.Models
 
                 switch (choice)
                 {
-                    case "1": // Add a new clinic
+                    case "1": // adds a new clinic
                         string name = Validation.StringNamingValidation("Clinic Name");
                         string location = Validation.StringValidation("Clinic Location");
                         service.AddClinic(name, location);
                         break;
 
-                    case "2": // View all clinics
+                    case "2": // displays all clinics
                         service.GetAllClinics();
                         break;
 
-
-                    case "3": // Search clinic by ID
+                    case "3": // searches for a clinic by ID
                         int id = Validation.IntValidation("Clinic ID");
                         service.GetClinicById(id);
                         break;
 
-                    case "4": // Search clinic by Name
+                    case "4": // searches for a clinic by name
                         string searchName = Validation.StringNamingValidation("Clinic Name");
                         service.GetClinicByName(searchName);
                         break;
 
-                    case "5": // Search clinic by Branch + Department
+                    case "5": // searches for clinics by branch and department
                         int branchId = Validation.IntValidation("Branch ID");
                         int deptId = Validation.IntValidation("Department ID");
                         service.GetClinicByBranchDep(branchId, deptId);
                         break;
 
-                    case "6": // Update clinic details
+                    case "6": // updates clinic details
                         int updateId = Validation.IntValidation("Clinic ID to update");
 
                         if (Additional.ConfirmAction("update this clinic"))
@@ -125,7 +124,7 @@ namespace CodelineHealthCareCenter.Models
                         }
                         break;
 
-                    case "7": // Toggle clinic status
+                    case "7": // toggles the clinic status (open/closed)
                         int toggleId = Validation.IntValidation("Clinic ID");
 
                         if (Additional.ConfirmAction("change this clinic's status"))
@@ -140,11 +139,11 @@ namespace CodelineHealthCareCenter.Models
                         }
                         else
                         {
-                            Console.WriteLine(" Status change cancelled.");
+                            Console.WriteLine("Status change cancelled.");
                         }
                         break;
 
-                    case "8": // Delete clinic
+                    case "8": // deletes a clinic
                         int deleteId = Validation.IntValidation("Clinic ID to delete");
 
                         if (Additional.ConfirmAction("delete this clinic"))
@@ -157,29 +156,24 @@ namespace CodelineHealthCareCenter.Models
                         }
                         break;
 
-                    case "9": // Exit
+                    case "9": // exits the clinic management menu
                         Console.WriteLine("Exiting Clinic Menu...");
                         return;
 
-
-
-                    default: // Invalid option
+                    default: // invalid option
                         Console.WriteLine("Invalid option. Press Enter to try again.");
                         break;
                 }
 
-                Additional.HoldScreen(); // to hold the screen after each action
-
+                Additional.HoldScreen();
             }
         }
 
-
-
         //====================================================
         //4. class constructor ...
+
         public Clinic(string clinicName, string location, int departmentId, int branchId, int floorId, int roomId, decimal price)
         {
-            // Increment clinic counter and assign ID
             clinicCounter++;
             ClinicId = clinicCounter;
             ClinicName = clinicName;
@@ -190,10 +184,8 @@ namespace CodelineHealthCareCenter.Models
             RoomId = roomId;
             Price = price;
 
-            // Initialize static lists
             Doctors = new List<Doctor>();
             ClinicSpots = new List<DateTime>();
-
         }
     }
 }
