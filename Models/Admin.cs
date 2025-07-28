@@ -99,6 +99,10 @@ namespace CodelineHealthCareCenter.Models
                         service.GetClinicServices(clinicId4);
                         break;
 
+                    case "5": // Exit the admin menu
+                        Console.WriteLine("Exiting Admin Menu...");
+                        return;
+
 
 
 
