@@ -67,6 +67,20 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        // Set Department Active Status
+        public static void SetDepartmentStatus(int departmentId, bool isActive)
+        {
+            var department = BranchDepartment.Departments.FirstOrDefault(d => d.DepartmentId == departmentId);
+            if (department != null)
+            {
+               
+                Console.WriteLine($"Department ID {departmentId} status set to {(isActive ? "Active" : "Inactive")}.");
+            }
+            else
+            {
+                Console.WriteLine($"Department ID {departmentId} not found.");
+            }
+        }
 
 
         //====================================================
