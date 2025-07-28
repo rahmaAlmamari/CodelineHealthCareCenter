@@ -124,6 +124,10 @@ namespace CodelineHealthCareCenter.Models
                         Console.WriteLine("Exiting Doctor Menu...");
                         return;
 
+                    default: // Invalid option handling
+                        Console.WriteLine("Invalid option. Try again.");
+                        break;
+
 
 
 
