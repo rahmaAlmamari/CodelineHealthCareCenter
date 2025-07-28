@@ -40,10 +40,7 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
-
-
-
-            //====================================================
-            //4. class constructor ...
-        }
+        //====================================================
+        //4. class constructor ...
+    }
 }
