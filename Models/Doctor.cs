@@ -115,6 +115,11 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorByBranchName(branchName);
                         break;
 
+                    case "9": // Get doctor by department name
+                        string deptName = Validation.StringNamingValidation("Department Name");
+                        service.GetDoctorByDepartmentName(deptName);
+                        break;
+
 
 
 
