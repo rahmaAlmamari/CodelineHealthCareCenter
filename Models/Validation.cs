@@ -80,5 +80,30 @@ namespace CodelineHealthCareCenter.Models
             //to return tne char input ...
             return StringInput;
         }
+        //4. DoubleValidation method ...
+        public static double DoubleValidation(string message)
+        {
+            bool DoubleFlag;//to handle user StringNaming error input ...
+            double DoubleInput = 0;
+            do
+            {
+                DoubleFlag = false;
+                try
+                {
+                    Console.WriteLine($"Enter your {message}:");
+                    DoubleInput = double.Parse(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"{message} not accepted due to " + e.Message);
+                    Console.WriteLine("please prass enter key to try again");
+                    Additional.HoldScreen();//just to hold a second ...
+                    DoubleFlag = true;
+                }
+
+            } while (DoubleFlag);
+            //to return tne char input ...
+            return DoubleInput;
+        }
     }
 }
