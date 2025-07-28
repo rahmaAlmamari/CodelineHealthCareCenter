@@ -38,10 +38,12 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //3. class method ...
-        public void SetClinicStatus(bool isActive)
+        public void SetClinicStatus(bool isActive) // method to set clinic status
         {
             clinicStatus = isActive;
         }
+
+
 
 
         //====================================================
