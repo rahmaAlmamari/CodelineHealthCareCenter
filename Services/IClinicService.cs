@@ -21,6 +21,6 @@ namespace CodelineHealthCareCenter.Services
         void GetPrice(int clinicId);
         void SetClinicStatus(int clinicId, bool isActive);
         void UpdateClinicDetails(int clinicId, string clinicName, string location, decimal price);
-        void DeleteClinic(int clinicId);
+        void DeleteClinic(int clinicId); 
     }
 }

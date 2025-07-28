@@ -32,5 +32,11 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
+        public Doctor(string name, string email, string password, int departmentId, int clinicId, string specialization)
+        {
+            DepartmentId = departmentId;
+            ClinicID = clinicId;
+            DoctorSpecialization = specialization;
+        }
     }
 }
