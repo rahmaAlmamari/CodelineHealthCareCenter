@@ -16,7 +16,7 @@ namespace CodelineHealthCareCenter.Models
         public bool BranchStatus = true; // true means open, false means closed
         public static int BranchCount = 0;
         public static List<Floor> Floors = new List<Floor>();
-        public static List<Patient> Patients = new List<Patient>();
+        public List<Patient> Patients = new List<Patient>();
         public int HospitalId;
 
         //====================================================
@@ -153,6 +153,32 @@ namespace CodelineHealthCareCenter.Models
                 return branch.BranchStatus;
             }
             return false; // Return false if branch not found
+        }
+
+        // Update Branch
+        public static void UpdateBranch()
+        {
+            Console.Clear();
+            Console.WriteLine("Update Branch");
+            Console.WriteLine("Enter the Branch ID to update:");
+            int branchId = Validation.IntValidation("Branch ID");
+            var branch = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
+            if (branch == null)
+            {
+                Console.WriteLine("Branch not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Get new details from user
+            string newBranchName = Validation.StringValidation("new branch name");
+            string newBranchCity = Validation.StringValidation("new branch city");
+            DateOnly newBranchEstablishDate = Validation.DateOnlyValidation("new branch establish date");
+            // Update branch details
+            branch.BranchName = newBranchName;
+            branch.BranchCity = newBranchCity;
+            branch.BranchEstablishDate = newBranchEstablishDate;
+            Console.WriteLine("Branch updated successfully.");
+            Additional.HoldScreen();
         }
 
 
