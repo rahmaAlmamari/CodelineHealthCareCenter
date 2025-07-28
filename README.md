@@ -71,3 +71,21 @@ To promote loose coupling and adhere to SOLID principles—especially the Interfac
 - **IAdminService.cs**:Provides functionality for branch or department-level administration, such as managing local users, services, and daily operations.
 
 Each of these interfaces has been outlined with relevant method signatures to prepare for implementation during the next phase. This design ensures that each role in the system has clearly defined responsibilities and supports the open/closed principle by allowing extension without modification.
+
+## 3. Project Structure
+The project structure has been organized to reflect a layered and modular design, which makes it easier to maintain and scale. The current structure includes:
+
+- **Entities/Models** : Represent the system's data and business domain.
+
+- **Interfaces** : Define contracts for services without binding them to concrete implementations.
+
+- **Services (To be Implemented)** : Business logic implementation that adheres to the interfaces.
+
+- **Utilities** : Common functionalities such as validation helpers or shared constants.
+
+- **Main Program/Startup File** : For initializing and testing the system in a console or integrated environment.
+
+This setup is intentionally designed to support future enhancements like integration with databases, APIs, or graphical user interfaces.
+
+
+
