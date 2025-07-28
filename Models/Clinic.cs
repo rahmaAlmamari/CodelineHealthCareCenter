@@ -80,7 +80,15 @@ namespace CodelineHealthCareCenter.Models
                 string choice = Console.ReadLine();
                 Console.WriteLine();
 
+                switch (choice)
+                {
+                    case "1": // Add a new clinic
+                        string name = Validation.StringNamingValidation("Clinic Name");
+                        string location = Validation.StringValidation("Clinic Location");
+                        service.AddClinic(name, location);
+                        break;
 
+                }
             }
         }
 
