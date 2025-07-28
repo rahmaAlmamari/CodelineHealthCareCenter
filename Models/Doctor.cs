@@ -20,6 +20,10 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //2. class properity ...
 
+        public int DoctorID { get; private set; }
+        public static int DoctorCount => doctorCounter;
+
+
         //====================================================
         //3. class method ...
 
