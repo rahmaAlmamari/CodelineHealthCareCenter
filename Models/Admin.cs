@@ -59,7 +59,7 @@ namespace CodelineHealthCareCenter.Models
                 string choice = Console.ReadLine();
                 Console.WriteLine();
 
-                switch (choice) 
+                switch (choice)
                 {
                     case "1": // Assign a doctor to a clinic
                         int doctorId = Validation.IntValidation("Doctor ID");
@@ -75,10 +75,29 @@ namespace CodelineHealthCareCenter.Models
                         }
                         break;
 
+                    case "2": // Add a service to a clinic
+                        int clinicId2 = Validation.IntValidation("Clinic ID");
+                        int serviceId = Validation.IntValidation("Service ID");
+
+                        if (Additional.ConfirmAction("add this service to the clinic"))
+                        {
+                            service.AddClinicService(clinicId2, serviceId);
+                        }
+                        else
+                        {
+                            Console.WriteLine(" Adding service cancelled.");
+                        }
+                        break;
+
+
+
 
 
 
                         //====================================================
                         //4. class constructor ...
                 }
+            }
+        }
+    }
 }
