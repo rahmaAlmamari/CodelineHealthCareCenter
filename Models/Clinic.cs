@@ -54,6 +54,15 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"   ID: {ClinicId}, Name: {ClinicName}, DeptID: {DepartmentId}, BranchID: {BranchId}");
             Console.WriteLine($"   Floor: {FloorId}, Room: {RoomId}, Location: {Location}, Price: ${Price}");
             Console.WriteLine($"   Status: {(ClinicStatus ? "Open" : "Closed")}, Doctors: {Doctors.Count}, TimeSlots: {ClinicSpots.Count}");
+
+
+        }
+
+        public static void ClinicMenu(IClinicService service) //method to display clinic menu
+        {
+            Additional.WelcomeMessage("Clinic Management");
+
+
         }
 
 
