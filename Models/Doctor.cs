@@ -9,12 +9,14 @@ namespace CodelineHealthCareCenter.Models
     class Doctor : User
 
     {
-        //1. class feilds ...
+        //1. class fields ...
         public int DepartmentId;
         public int ClinicID;
         public string DoctorSpecialization;
         public List<Booking> DoctorAppointments = new List<Booking>();
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
+
+        private static int doctorCounter = 0;
         //====================================================
         //2. class properity ...
 

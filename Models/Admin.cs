@@ -126,6 +126,8 @@ namespace CodelineHealthCareCenter.Models
         {
             BranchID = branchId;
             AdminCount++;
+            UserRole = "Doctor";
+            UserStatus = "Active";
         }
     }
 }
