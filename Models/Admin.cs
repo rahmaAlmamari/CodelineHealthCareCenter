@@ -197,9 +197,13 @@ namespace CodelineHealthCareCenter.Models
                         service.GetClinicServices(clinicId4);
                         break;
 
-                    case "5": // Exit the admin menu
-                        Console.WriteLine("Exiting Admin Menu...");
-                        return;
+                    case "5":
+                        int cl5 = Validation.IntValidation("Clinic ID to add spot");
+                        DateTime newSpot = Validation.DateTimeValidation("New Spot (e.g., MM/dd/yyyy HH:mm)");
+                        if (Additional.ConfirmAction($"add spot {newSpot:G} to this clinic"))
+                            service.AddClinicSpot(cl5, newSpot);
+                        else Console.WriteLine("Spot addition cancelled.");
+                        break;
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
