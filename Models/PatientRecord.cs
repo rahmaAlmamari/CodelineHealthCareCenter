@@ -81,6 +81,11 @@ namespace CodelineHealthCareCenter.Models
                         else Console.WriteLine("Deletion cancelled.");
                         break;
 
+                    case "4": // Get Patient Record by ID
+                        int id = Validation.IntValidation("Record ID");
+                        service.GetPatientRecordById(id);
+                        break;
+
 
         //====================================================
         //4. class constructor ...
