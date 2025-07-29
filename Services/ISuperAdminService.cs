@@ -18,7 +18,7 @@ namespace CodelineHealthCareCenter.Services
         //void ViewDoctors();
         //void SetDoctorStatus(int doctorId, bool isActive);
 
-        // Admin Operations
+        //// Admin Operations
         //void AddAdmin(string username, string password, string email);
         //void UpdateAdmin(int adminId, string username, string email);
         //void DeleteAdmin(int adminId);

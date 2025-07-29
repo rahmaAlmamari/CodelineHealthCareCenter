@@ -182,6 +182,40 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
+        // Add Doctor method to add a new doctor
+        public static void AddDoctor()
+        {
+            Console.Clear();
+            Console.WriteLine("Add New Doctor");
+            // Get doctor details from user
+            string name = Validation.StringValidation("doctor name");
+            string email = Validation.EmailValidation("doctor email");
+            int phoneNumber = Validation.IntValidation("doctor phone number");
+            string nationalId = Validation.StringValidation("doctor national ID");
+            string specialization = Validation.StringValidation("doctor specialization");
+            // Check if the national ID already exists
+            if (NationalIdExists(nationalId))
+            {
+                Console.WriteLine("A doctor with this National ID already exists.");
+                Additional.HoldScreen();
+                return;
+            }
+
+            
+            // Create a new doctor instance
+            Doctor doctor = new Doctor(name, email, specialization, 0, 0); 
+            doctor.UserName = name;
+            doctor.UserEmail = email;
+            doctor.P_UserPhoneNumber = phoneNumber;
+            doctor.UserNationalID = nationalId;
+            doctor.UserRole = "Doctor"; // Set the role to Doctor
+            doctor.UserStatus = "Active"; // Set the status to Active
+            // Add the doctor to the List
+            BranchDepartment.Doctors.Add(doctor);
+            Console.WriteLine("Doctor added successfully.");
+            Additional.HoldScreen();
+
+        }
 
         // ViewDoctors method to display all doctors in the branch department
         public static void ViewDoctors()
@@ -233,36 +267,7 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
-        //===================
-        // Create Department method to add a new department
-        public void CreateDepartment()
-        {
-            Console.Clear();
-            Console.WriteLine("Add New Department");
-            // Get department details from user
-            string departmentName = Validation.StringValidation("department name");
-
-            // view branches and get the branch ID from user
-            Console.WriteLine("Available Branches:");
-            //BranchDepartment.ViewBranches(); // Assuming this method displays available branches
-            int branchId = Validation.IntValidation("Enter the Branch ID for the department:");
-
-            //// Create a new department instance
-            //BranchDepartment newDepartment = new BranchDepartment
-            //{
-            //    DepartmentName = departmentName,
-            //    DepartmentDescription = departmentDescription,
-            //    DepartmentId = BranchDepartment.DepartmentCount + 1 // Incrementing the count for unique ID
-            //};
-            //BranchDepartment.AddDepartment(new Department
-            //{
-            //    DepartmentName = departmentName,
-            //    BranchId = this.HospitalId // Assuming HospitalId is set for the SuperAdmin
-            //});
-           
-            Console.WriteLine("Department added successfully.");
-            Additional.HoldScreen();
-        }
+        // 
 
 
 
