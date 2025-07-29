@@ -28,7 +28,7 @@ namespace CodelineHealthCareCenter.Models
         {
             Console.WriteLine($"Service ID: {ServiceId}");
             Console.WriteLine($"Name      : {ServiceName}");
-            Console.WriteLine($"Cost      : ${ServiceCost}");
+            Console.WriteLine($"Cost      : ${Price}");
         }
 
         public static void ServiceMenu()
