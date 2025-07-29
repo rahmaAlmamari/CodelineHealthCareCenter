@@ -19,6 +19,7 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //2. class properties ...
 
+        public static List<Clinic> Clinics = new List<Clinic>();
         public int ClinicId { get; private set; }
         public string ClinicName { get; set; }
         public int DepartmentId { get; set; }
