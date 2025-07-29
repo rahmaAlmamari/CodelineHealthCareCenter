@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodelineHealthCareCenter.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,8 @@ namespace CodelineHealthCareCenter.Models
         public double TotalCost;
         public string DoctorNote;
         public static int PatientRecordCount = 0;
+        public static IPatientRecordService service; // to support menu without parameters
+
 
         //====================================================
         //2. class properity ...
