@@ -37,7 +37,28 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($" - {s.ServiceName} (${s.Price})");
         }
 
-        
+        public static void PatientRecordMenu() 
+        {
+            Additional.WelcomeMessage("Patient Record Management");
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(" PATIENT RECORD MENU ");
+                Console.WriteLine("1. Add Patient Record");
+                Console.WriteLine("2. Update Patient Record");
+                Console.WriteLine("3. Delete Patient Record");
+                Console.WriteLine("4. Get Patient Record by ID");
+                Console.WriteLine("5. Get All Patient Records");
+                Console.WriteLine("6. Get Records by Patient ID");
+                Console.WriteLine("7. Get Records by Clinic ID and Date");
+                Console.WriteLine("8. Exit");
+                Console.Write("Select an option: ");
+
+                string choice = Console.ReadLine();
+                Console.WriteLine();
+
+
         //====================================================
         //4. class constructor ...
         public PatientRecord()
