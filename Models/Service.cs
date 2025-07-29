@@ -13,7 +13,7 @@ namespace CodelineHealthCareCenter.Models
 
         public int ServiceId;
         public string ServiceName;
-        public double ServiceCost;
+        public double Price;
         public static int ServiceCount = 0;
         public static IServiceService service; // for ServiceMenu()
 
