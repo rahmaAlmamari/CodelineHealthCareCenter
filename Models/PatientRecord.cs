@@ -90,6 +90,11 @@ namespace CodelineHealthCareCenter.Models
                         service.GetAllPatientRecords();
                         break;
 
+                    case "6": // Get Records by Patient ID
+                        int patientSearchId = Validation.IntValidation("Patient ID");
+                        service.GetRecordsByPatientId(patientSearchId);
+                        break;
+
 
         //====================================================
         //4. class constructor ...
