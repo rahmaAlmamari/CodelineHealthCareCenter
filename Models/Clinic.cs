@@ -112,6 +112,18 @@ namespace CodelineHealthCareCenter.Models
                 clinic.ViewClinicInfo();
         }
 
+        public static void GetClinicByName(string clinicName) // retrieves clinics by their name
+        {
+            var matches = Clinics.Where(c => c.ClinicName.Equals(clinicName, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!matches.Any())
+            {
+                Console.WriteLine("No clinic found with that name.");
+                return;
+            }
+            foreach (var clinic in matches)
+                clinic.ViewClinicInfo();
+        }
+
         public static void ClinicMenu()
         {
             Additional.WelcomeMessage("Clinic Management");
