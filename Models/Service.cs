@@ -60,6 +60,20 @@ namespace CodelineHealthCareCenter.Models
                         break;
 
 
+                    case "2": // Update service
+                        int updateId = Validation.IntValidation("Service ID to update");
+
+                        if (Additional.ConfirmAction("update this service"))
+                        {
+                            string newName = Validation.StringNamingValidation("New Service Name");
+                            string newDesc = Validation.StringValidation("New Description");
+                            double newPrice = Validation.DoubleValidation("New Price");
+                            service.UpdateService(updateId, newName, newDesc, newPrice);
+                        }
+                        else Console.WriteLine("Update cancelled.");
+                        break;
+
+
 
 
         //====================================================
