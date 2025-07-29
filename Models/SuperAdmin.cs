@@ -183,7 +183,48 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
+        public static void AdminDepartmentMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Department Admin Menu ");
+            Console.WriteLine("1. Add New Department ");
+            Console.WriteLine("2. View All Departments ");
+            Console.WriteLine("3. Update Department ");
+            Console.WriteLine("4. Delete Department ");
+            Console.WriteLine("0. Exit ");
+            string choice1 = Validation.StringValidation("Please select an option : ");
+            switch (choice1)
+            {
+                case "1":
+                    Console.WriteLine("Adding New Department...");
 
+                    Console.WriteLine("All Branches:");
+                    Branch.GetAllBranches();
+                    Console.WriteLine("----------------------------------");
+                    int branchId = Validation.IntValidation("Please select a branch to add the department to:");
+                    string departmentName = Validation.StringValidation("Enter Department Name:");
+                    Department.CreateDepartment(departmentName, branchId);
+                    break;
+                case "2":
+                    //Department.GetAllDepartments();
+                    break;
+                case "3":
+                    //Department.UpdateDepartment();
+                    break;
+                case "4":
+                    //Department.DeleteDepartment();
+                    break;
+                case "0":
+                    SuperAdminMenu();
+                    Console.WriteLine("Exiting Department Admin Menu.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option, please try again.");
+                    Additional.HoldScreen();
+                    break;
+
+            }
+        }
 
         public static bool NationalIdExists(string nationalId)
         {
