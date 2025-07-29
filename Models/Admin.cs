@@ -157,8 +157,8 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("3. View Clinic's Doctors");
                 Console.WriteLine("4. View Clinic's Services");
                 Console.WriteLine("5. Add Clinic Spot");
-                Console.WriteLine("5. Remove Clinic Spot");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. Remove Clinic Spot");
+                Console.WriteLine("7. Exit");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
@@ -213,6 +213,12 @@ namespace CodelineHealthCareCenter.Models
                             service.RemoveClinicSpot(cl6, spotToRemove);
                         else Console.WriteLine("Spot removal cancelled.");
                         break;
+
+                    case "7":
+                        Console.WriteLine("Exiting Admin Menu...");
+                        return;
+
+
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
