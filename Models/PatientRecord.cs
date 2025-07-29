@@ -109,6 +109,8 @@ namespace CodelineHealthCareCenter.Models
                         Console.WriteLine("Invalid option. Try again.");
                         break;
                 }
+
+                Additional.HoldScreen(); // waits for user input before clearing the screen
             }
         }
 
