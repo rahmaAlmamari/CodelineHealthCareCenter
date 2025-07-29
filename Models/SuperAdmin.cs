@@ -209,7 +209,22 @@ namespace CodelineHealthCareCenter.Models
                     Department.GetAllDepartments();
                     break;
                 case "3":
-                    //Department.UpdateDepartment();
+                    Console.WriteLine("All Department...");
+                    Department.GetAllDepartments();
+                    Console.WriteLine("-----------------------------");
+                    int departmentId = Validation.IntValidation("Enter Department ID to update:");
+                    if (Department.DepartmentExists(departmentId))
+                    {
+                        string newDepartmentName = Validation.StringValidation("Enter New Department Name:");
+                        Department.UpdateDepartment(departmentId, newDepartmentName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Department not found.");
+                        Additional.HoldScreen();
+                    }
+
+                   
                     break;
                 case "4":
                     //Department.DeleteDepartment();
