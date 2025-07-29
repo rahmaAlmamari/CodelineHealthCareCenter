@@ -98,6 +98,18 @@ namespace CodelineHealthCareCenter.Models
             doctor.ViewDoctorInfo();
         }
 
+        public static void GetAllDoctors() // Retrieves and displays all registered doctors in the system
+        {
+            if (Doctors.Count == 0)
+            {
+                Console.WriteLine("No doctors registered yet.");
+                return;
+            }
+
+            foreach (var doctor in Doctors)
+                doctor.ViewDoctorInfo();
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
