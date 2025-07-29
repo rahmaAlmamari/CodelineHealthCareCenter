@@ -37,7 +37,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($" - {s.ServiceName} (${s.Price})");
         }
 
-        public static void PatientRecordMenu() 
+        public static void PatientRecordMenu()
         {
             Additional.WelcomeMessage("Patient Record Management");
 
@@ -104,6 +104,13 @@ namespace CodelineHealthCareCenter.Models
                     case "8": // Exit
                         Console.WriteLine("Exiting Patient Record Menu...");
                         return;
+
+                    default: // Invalid option
+                        Console.WriteLine("Invalid option. Try again.");
+                        break;
+                }
+            }
+        }
 
 
         //====================================================
