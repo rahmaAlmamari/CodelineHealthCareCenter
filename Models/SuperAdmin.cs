@@ -319,8 +319,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Available Admins for Updation");
             ViewAllAdmins();
             Console.WriteLine(new string('-', 40));
-            Console.WriteLine("Enter the Admin ID to update:");
-            int adminId = Validation.IntValidation("Admin ID");
+            int adminId = Validation.IntValidation("Enter the Admin ID to update:");
             var adminToUpdate = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
             if (adminToUpdate == null)
             {
@@ -329,9 +328,41 @@ namespace CodelineHealthCareCenter.Models
                 return;
             }
             // Update admin details
-            adminToUpdate.UserName = Validation.StringValidation("new name");
-            adminToUpdate.UserEmail = Validation.EmailValidation("new email");
-            adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
+            // Choose what to update
+            Console.WriteLine("What do you want to update?");
+            // Method to display admin update options
+            Console.WriteLine("1. Update Email");
+            Console.WriteLine("2. Update Phone Number");
+            Console.WriteLine("3. Update National ID");
+            Console.WriteLine("4. Update Role");
+            Console.WriteLine("5. Update Status");
+            Console.WriteLine("0. Exit");
+            char choice = Validation.CharValidation("option :");
+            switch (choice)
+            {
+                case '1':
+                    // Update Email logic
+                    adminToUpdate.UserEmail = Validation.EmailValidation("new email");
+                 
+                    break;
+                case '2':
+                    // Update Phone Number logic
+                    adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
+                    break;
+                
+                case '3':
+                    // Update Role logic
+                    adminToUpdate.UserRole = Validation.StringValidation("new role (Admin/SuperAdmin)");
+                    break;
+                case '4':
+                    // Update Status logic
+                    adminToUpdate.UserStatus = Validation.StringValidation("new status (Active/Inactive)");
+                    break;
+              
+            }
+        
+       
+           
             Console.WriteLine("Admin details updated successfully.");
             Additional.HoldScreen();
             AdminUserMenu();
@@ -344,8 +375,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Available Admins for Deletion");
             ViewAllAdmins();
             Console.WriteLine(new string('-', 40));
-            Console.WriteLine("Enter the Admin ID to delete:");
-            int adminId = Validation.IntValidation("Admin ID");
+            int adminId = Validation.IntValidation("Enter the Admin ID to delete:");
             var adminToDelete = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
             if (adminToDelete == null)
             {
@@ -364,6 +394,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("Deletion cancelled.");
             }
             Additional.HoldScreen();
+            // Return to Admin User Menu
             AdminUserMenu();
         }
 
@@ -410,12 +441,16 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Email           : {admin.UserEmail}");
                 Console.WriteLine($"Phone Number    : {admin.P_UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {admin.UserNationalID}");
+                Console.WriteLine($"Role            : {admin.UserRole}");
                 Console.WriteLine($"Status          : {admin.UserStatus}");
                 Console.WriteLine(new string('-', 40));
             }
            
         }
 
+        // Additional Method 
+
+        
 
 
         //====================================================
