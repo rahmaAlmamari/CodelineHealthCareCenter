@@ -108,8 +108,27 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
-        //====================================================
-        //4. class constructor ...
+        // Get Branch Department
+        public void GetBranchDep(int departmentId)
+        {
+            Console.Clear();
+            var department = Departments.FirstOrDefault(d => d.DepartmentId == departmentId);
+            if (department == null)
+            {
+                Console.WriteLine($"Department with ID {departmentId} not found.");
+                return;
+            }
+            Console.WriteLine($"Department ID: {department.DepartmentId}");
+            Console.WriteLine($"Department Name: {department.DepartmentName}");
+            Console.WriteLine($"Branch ID: {department.BranchId}");
 
-    }
+        }
+
+
+
+
+            //====================================================
+            //4. class constructor ...
+
+        }
 }
