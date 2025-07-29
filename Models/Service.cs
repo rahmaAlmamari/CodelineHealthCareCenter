@@ -34,6 +34,13 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Cost      : ${Price}");
         }
 
+        public static void AddService(string name, string description, double price) // adds a new service to the list
+        {
+            var newService = new Service(name, price);
+            Services.Add(newService);
+            Console.WriteLine($"Service '{name}' added successfully with ID {newService.ServiceId}.");
+        }
+
         public static void ServiceMenu()
         {
             Additional.WelcomeMessage("Service Management");
