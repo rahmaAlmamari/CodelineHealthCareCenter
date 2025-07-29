@@ -17,6 +17,7 @@ namespace CodelineHealthCareCenter.Models
         public string DoctorNote;
         public static int PatientRecordCount = 0;
         public static IPatientRecordService service; // to support menu without parameters
+        public static List<PatientRecord> Records = new List<PatientRecord>();
 
 
         //====================================================
