@@ -21,7 +21,7 @@ namespace CodelineHealthCareCenter.Models
         // SuperAdminMenu
         public static void SuperAdminMenu()
         {
-
+            Console.Clear();
             Console.WriteLine("Welcome to SuperAdminMenu");
             Console.WriteLine("1. Users ( Admins And Doctors )");
             Console.WriteLine("2. Branchs");
@@ -50,6 +50,7 @@ namespace CodelineHealthCareCenter.Models
 
         public static void AdminDoctorUserMenu() 
         {
+            Console.Clear();
             Console.WriteLine("Users ( Admins And Doctors ) Menu ");
             Console.WriteLine("1. Admin ");
             Console.WriteLine("2. Doctor ");
@@ -66,6 +67,7 @@ namespace CodelineHealthCareCenter.Models
                     break;
 
                 case '0':
+                    SuperAdminMenu();
                     Console.WriteLine("Invalid option, please try again.");
                     Additional.HoldScreen();
                     break;
@@ -73,7 +75,7 @@ namespace CodelineHealthCareCenter.Models
         }
         public static void AdminUserMenu() 
         {
-
+            Console.Clear();
             Console.WriteLine("Users Admin Menu ");
             Console.WriteLine("1. Add New Admin ");
             Console.WriteLine("2. View All Admin ");
@@ -99,6 +101,7 @@ namespace CodelineHealthCareCenter.Models
                     break;
 
                 case '0':
+                    AdminDoctorUserMenu();
                     Console.WriteLine("Exiting Admin User Menu.");
                     break;
                 default:
@@ -305,12 +308,17 @@ namespace CodelineHealthCareCenter.Models
             BranchDepartment.Admins.Add(admin);
             Console.WriteLine("Admin added successfully.");
             Additional.HoldScreen();
+            AdminUserMenu();
         }
 
 
         // Update Admin method to update admin details
         public static void UpdateAdmin()
         {
+            Console.Clear();
+            Console.WriteLine("Available Admins for Updation");
+            ViewAllAdmins();
+            Console.WriteLine(new string('-', 40));
             Console.WriteLine("Enter the Admin ID to update:");
             int adminId = Validation.IntValidation("Admin ID");
             var adminToUpdate = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
@@ -326,11 +334,16 @@ namespace CodelineHealthCareCenter.Models
             adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
             Console.WriteLine("Admin details updated successfully.");
             Additional.HoldScreen();
+            AdminUserMenu();
         }
 
         // Delete Admin method to delete an admin by ID
         public static void DeleteAdmin()
         {
+            Console.Clear();
+            Console.WriteLine("Available Admins for Deletion");
+            ViewAllAdmins();
+            Console.WriteLine(new string('-', 40));
             Console.WriteLine("Enter the Admin ID to delete:");
             int adminId = Validation.IntValidation("Admin ID");
             var adminToDelete = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
@@ -351,6 +364,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("Deletion cancelled.");
             }
             Additional.HoldScreen();
+            AdminUserMenu();
         }
 
         // View Admins method to display all admins in the branch department
@@ -375,9 +389,32 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine(new string('-', 40));
             }
             Additional.HoldScreen();
+            AdminUserMenu();
         }
 
-
+        // Common Method to View All Admins
+        public static void ViewAllAdmins()
+        {
+            Console.Clear();
+            Console.WriteLine("List of All Admins");
+            if (BranchDepartment.Admins.Count == 0)
+            {
+                Console.WriteLine("No admins available in the system.");
+                Additional.HoldScreen();
+                return;
+            }
+            foreach (var admin in BranchDepartment.Admins)
+            {
+                Console.WriteLine($"Admin ID        : {admin.UserId}");
+                Console.WriteLine($"Name            : {admin.UserName}");
+                Console.WriteLine($"Email           : {admin.UserEmail}");
+                Console.WriteLine($"Phone Number    : {admin.P_UserPhoneNumber}");
+                Console.WriteLine($"National ID     : {admin.UserNationalID}");
+                Console.WriteLine($"Status          : {admin.UserStatus}");
+                Console.WriteLine(new string('-', 40));
+            }
+           
+        }
 
 
 
