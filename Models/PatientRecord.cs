@@ -22,6 +22,8 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //2. class properity ...
 
+        public static int RecordCount => PatientRecordCount;
+
         //====================================================
         //3. class method ...
 
