@@ -18,7 +18,9 @@ namespace CodelineHealthCareCenter.Models
         public static IServiceService service; // for ServiceMenu()
 
         //====================================================
-        //2. class properity ...
+        //2. class properties ...
+
+        public static int TotalServices => ServiceCount;
 
         //====================================================
         //3. class method ...
