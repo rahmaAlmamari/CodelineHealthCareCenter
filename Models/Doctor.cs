@@ -86,6 +86,18 @@ namespace CodelineHealthCareCenter.Models
                 doc.ViewDoctorInfo();
         }
 
+        public static void GetDoctorByEmail(string email) // Retrieves a doctor by their email and displays their information
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.UserEmail.Equals(email, StringComparison.OrdinalIgnoreCase));
+            if (doctor == null)
+            {
+                Console.WriteLine("No doctor found with that email.");
+                return;
+            }
+
+            doctor.ViewDoctorInfo();
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
