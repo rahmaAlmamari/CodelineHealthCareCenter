@@ -99,6 +99,7 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+
         public void GetClinicDoctors(int clinicId) // retrieves and displays all doctors assigned to a specific clinic by its ID
         {
             var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
@@ -155,7 +156,8 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("2. Add Service to Clinic");
                 Console.WriteLine("3. View Clinic's Doctors");
                 Console.WriteLine("4. View Clinic's Services");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Add Spot");
+                Console.WriteLine("6. Exit");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();

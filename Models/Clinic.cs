@@ -84,6 +84,19 @@ namespace CodelineHealthCareCenter.Models
                 service.ViewServiceInfo();
         }
 
+        public void AddClinicSpot(DateTime spot)
+        {
+            if (ClinicSpots.Contains(spot))
+            {
+                Console.WriteLine("This time slot is already available.");
+                return;
+            }
+
+            ClinicSpots.Add(spot);
+            Console.WriteLine($"Time slot {spot:MM/dd/yyyy HH:mm} added to clinic '{ClinicName}'.");
+        }
+
+
         public static void AddClinic(string clinicName, string location) // adds a new clinic to the list
         {
             var newClinic = new Clinic(clinicName, location, 0, 0, 0, 0, 0);
