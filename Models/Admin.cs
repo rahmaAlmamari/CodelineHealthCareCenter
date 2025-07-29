@@ -158,6 +158,22 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Spot {newSpot:G} added to Clinic '{clinic.ClinicName}'.");
         }
 
+        public void RemoveClinicSpot(int clinicId, DateTime spotToRemove) // removes a spot from a clinic by its ID
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+            if (!clinic.ClinicSpots.Remove(spotToRemove))
+            {
+                Console.WriteLine("Spot not found.");
+                return;
+            }
+            Console.WriteLine($"Spot {spotToRemove:G} removed from Clinic '{clinic.ClinicName}'.");
+        }
+
 
 
         public static void AdminMenu() // displays the admin management menu and handles user input
