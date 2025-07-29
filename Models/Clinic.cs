@@ -150,6 +150,18 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Clinic ID {clinicId} updated successfully.");
         }
 
+        public static void SetClinicStatus(int clinicId, bool isActive) // sets the status of a clinic
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+            clinic.SetClinicStatus(isActive);
+            Console.WriteLine($"Clinic '{clinic.ClinicName}' status set to {(isActive ? "Open" : "Closed")}.");
+        }
+
         public static void ClinicMenu()
         {
             Additional.WelcomeMessage("Clinic Management");
