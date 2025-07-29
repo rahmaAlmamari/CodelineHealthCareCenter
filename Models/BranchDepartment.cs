@@ -93,6 +93,20 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
+        // Update Branch Department
+        public void UpdateBranchDepartment(int departmentId, string newDepartmentName)
+        {
+            Console.Clear();
+            var department = Departments.FirstOrDefault(d => d.DepartmentId == departmentId);
+            if (department == null)
+            {
+                Console.WriteLine($"Department with ID {departmentId} not found.");
+                return;
+            }
+            department.DepartmentName = newDepartmentName;
+            Console.WriteLine($"Department ID {departmentId} updated to '{newDepartmentName}'.");
+        }
+
 
         //====================================================
         //4. class constructor ...
