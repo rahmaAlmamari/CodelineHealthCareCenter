@@ -68,6 +68,19 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Service deleted successfully.");
         }
 
+        public static void GetAllServices() // retrieves and displays all available services
+        {
+            if (Services.Count == 0)
+            {
+                Console.WriteLine("No services available.");
+                return;
+            }
+
+            foreach (var s in Services)
+                s.ViewServiceInfo();
+        }
+
+
         public static void ServiceMenu()
         {
             Additional.WelcomeMessage("Service Management");
