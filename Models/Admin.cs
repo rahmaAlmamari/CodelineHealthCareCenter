@@ -99,6 +99,24 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public void GetClinicDoctors(int clinicId) // retrieves and displays all doctors assigned to a specific clinic by its ID
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+
+            Console.WriteLine($"Doctors in Clinic '{clinic.ClinicName}':");
+            if (clinic.Doctors.Count == 0)
+                Console.WriteLine("No doctors assigned.");
+            else
+                clinic.Doctors.ForEach(d => d.ViewDoctorInfo());
+        }
+
+
 
         public static void AdminMenu() // displays the admin management menu and handles user input
         {
