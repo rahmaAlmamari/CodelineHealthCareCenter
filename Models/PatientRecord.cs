@@ -74,6 +74,22 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Doctor note updated successfully.");
         }
 
+        public static void DeletePatientRecord(int recordId) // deletes a patient record by its ID
+        {
+            var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
+            if (record == null)
+            {
+                Console.WriteLine("Record not found.");
+                return;
+            }
+
+            Records.Remove(record);
+            Console.WriteLine("Patient record deleted successfully.");
+        }
+
+
+
+
 
         public static void PatientRecordMenu()
         {
