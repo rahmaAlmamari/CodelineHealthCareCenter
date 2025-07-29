@@ -331,41 +331,56 @@ namespace CodelineHealthCareCenter.Models
             // Choose what to update
             Console.WriteLine("What do you want to update?");
             // Method to display admin update options
-            Console.WriteLine("1. Update Email");
-            Console.WriteLine("2. Update Phone Number");
-            Console.WriteLine("3. Update National ID");
-            Console.WriteLine("4. Update Role");
-            Console.WriteLine("5. Update Status");
-            Console.WriteLine("0. Exit");
-            char choice = Validation.CharValidation("option :");
-            switch (choice)
+            while (true)
             {
-                case '1':
-                    // Update Email logic
-                    adminToUpdate.UserEmail = Validation.EmailValidation("new email");
-                 
-                    break;
-                case '2':
-                    // Update Phone Number logic
-                    adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
-                    break;
-                
-                case '3':
-                    // Update Role logic
-                    adminToUpdate.UserRole = Validation.StringValidation("new role (Admin/SuperAdmin)");
-                    break;
-                case '4':
-                    // Update Status logic
-                    adminToUpdate.UserStatus = Validation.StringValidation("new status (Active/Inactive)");
-                    break;
-              
+                Console.Clear();
+                Console.WriteLine("Update Admin Information");
+                Console.WriteLine("------------------------");
+                Console.WriteLine("1. Update Email");
+                Console.WriteLine("2. Update Phone Number");
+                Console.WriteLine("3. Update National ID");
+                Console.WriteLine("4. Update Role");
+                Console.WriteLine("5. Update Status");
+                Console.WriteLine("0. Exit");
+
+                char choice = Validation.CharValidation("Choose an option: ");
+
+                switch (choice)
+                {
+                    case '1':
+                        adminToUpdate.UserEmail = Validation.EmailValidation("Enter new email: ");
+                        break;
+                    case '2':
+                        adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
+                        break;
+                    case '3':
+                        adminToUpdate.UserNationalID = Validation.StringValidation("Enter new national ID: ");
+                        break;
+                    case '4':
+                        adminToUpdate.UserRole = Validation.StringValidation("Enter new role (Admin/SuperAdmin): ");
+                        break;
+                    case '5':
+                        adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                        break;
+                    case '0':
+                        Console.WriteLine("Exiting update menu...");
+                        AdminUserMenu();
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        break;
+                }
+                Console.Write("Do you want to update anything else? (y/n): ");
+                string continueChoice = Console.ReadLine().ToLower();
+
+                if (continueChoice != "y")
+                {
+                    Console.WriteLine("Returning to Admin Menu...");
+                    AdminUserMenu();
+                    return;
+                }
             }
-        
-       
-           
-            Console.WriteLine("Admin details updated successfully.");
-            Additional.HoldScreen();
-            AdminUserMenu();
+
         }
 
         // Delete Admin method to delete an admin by ID

@@ -9,7 +9,8 @@ internal class Program
         // to create a test hospital
         public static Hospital HospitalTest = new Hospital();
         //to create a test super admin for the hospital
-        public static SuperAdmin SuperAdminTest = new SuperAdmin("Fahad", "111", "Fahad@gmail.com");
+         public static string p_sa = Validation.HashPasswordPBKDF2(Validation.ReadPassword("sa password"));
+        public static SuperAdmin SuperAdminTest = new SuperAdmin("Fahad", p_sa, "Fahad@gmail.com");
         // to create a test branch for the hospital
         public static Branch testBranch = new Branch("TestBranch", "Muscat", new DateOnly(2025, 7, 28), 1);
         // to create a test floor for the branch
@@ -29,10 +30,15 @@ internal class Program
 
         static void Main(string[] args)
         {
+            //to display the welcome message ...
+            Additional.WelcomeMessage("Hospital Management");
+
+
             //to add the test super admin to the hospital super admins
             SuperAdminTest.HospitalId = 1; // Assigning HospitalId to the SuperAdmin
             SuperAdminTest.UserNationalID = "11sa22";
             SuperAdminTest.P_UserPhoneNumber = 12345678;
+            
             Hospital.SuperAdmins.Add(SuperAdminTest);
             // to add the test branch to the hospital branches
             Hospital.Branches.Add(testBranch);
@@ -43,7 +49,7 @@ internal class Program
             // to add the test admin to the branch admins
             AdminTest.UserNationalID = "11aa22";
             AdminTest.UserPhoneNumber = 12345678;
-            AdminTest.P_UserPassword = "123";
+            AdminTest.P_UserPassword = Validation.HashPasswordPBKDF2(Validation.ReadPassword("a password"));
             BranchDepartment.Admins.Add(AdminTest);
             //to add the test department to the branch departments
             DepartmentTest.BranchId = 1;
@@ -53,7 +59,7 @@ internal class Program
             DepartmentTest.Clinics.Add(ClinicTest);
             //to add the test patient to the branch patients
             PatientTest.UserName = "Rahma";
-            PatientTest.P_UserPassword = "123";
+            PatientTest.P_UserPassword = Validation.HashPasswordPBKDF2(Validation.ReadPassword("p password"));
             PatientTest.UserNationalID = "11pp22";
             PatientTest.UserEmail = "rahma@gmail.com";
             PatientTest.PatientCity = "Muscat";
@@ -62,11 +68,11 @@ internal class Program
             //to add the test doctor to the branch doctors
             DoctorTest.P_UserPhoneNumber = 12345678;
             DoctorTest.UserNationalID = "11dd22";
-            DoctorTest.P_UserPassword = "123";
+            DoctorTest.P_UserPassword = Validation.HashPasswordPBKDF2(Validation.ReadPassword("d password"));
             BranchDepartment.Doctors.Add(DoctorTest);
-            //to display the welcome message ...
-            Additional.WelcomeMessage("Hospital Management");
             User x = new User();
+
+
             //to list the main menu options ...
             bool exitFlag = false;
             do
