@@ -31,7 +31,8 @@ namespace CodelineHealthCareCenter.Models
                 DepartmentName = departmentName,
                 BranchId = branchId
             };
-
+            // add the new department to the list of departments in the branch
+            BranchDepartment.Departments.Add(newDepartment); 
             Console.WriteLine($"Department '{newDepartment.DepartmentName}' created with ID {newDepartment.DepartmentId} in Branch ID {newDepartment.BranchId}.");
 
         }
