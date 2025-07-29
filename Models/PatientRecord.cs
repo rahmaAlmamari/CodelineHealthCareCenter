@@ -58,6 +58,14 @@ namespace CodelineHealthCareCenter.Models
                 string choice = Console.ReadLine();
                 Console.WriteLine();
 
+                switch (choice)
+                {
+                    case "1": // Add Patient Record
+                        int patientId = Validation.IntValidation("Patient ID");
+                        string details = Validation.StringValidation("Doctor Notes / Record Details");
+                        service.AddPatientRecord(patientId, details);
+                        break;
+
 
         //====================================================
         //4. class constructor ...
