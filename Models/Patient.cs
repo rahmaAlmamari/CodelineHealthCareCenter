@@ -28,6 +28,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("2. View Appointments");
             Console.WriteLine("3. View Patient Records");
             Console.WriteLine("4. Exit");
+            Additional.HoldScreen();
         }
         //to singUp new patient ...
         public static void SinUp()
@@ -58,13 +59,29 @@ namespace CodelineHealthCareCenter.Models
             patientService.AddPatient(UserName, UserPasswordHashed, UserEmail, P_UserPhoneNumber, UserNationalID, UserCity, branch);
 
         }
+        //to display city of all branches in the hospital class ...
+        public static void DisplayBranchesCities()
+        {
+            Console.WriteLine("List of Branches Cities:");
+            if (Hospital.Branches.Count == 0)
+            {
+                Console.WriteLine("No branches available in the system.");
+                Additional.HoldScreen();
+                return;
+            }
+            foreach (var branch in Hospital.Branches)
+            {
+                Console.WriteLine($"Branch City: {branch.BranchCity}");
+            }
+            Additional.HoldScreen();
+        }
         //to find the branch by city ...
         public static Branch FindBranchByCity(string city)
         {
             //to loop through branch list ...
             foreach (var branch in Hospital.Branches)
             {
-                if (branch.BranchCity == city)
+                if (branch.BranchCity.ToLower() == city.ToLower())
                 {
                     return branch; //if branch found ...
                 }
