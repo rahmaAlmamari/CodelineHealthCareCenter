@@ -41,6 +41,20 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Service '{name}' added successfully with ID {newService.ServiceId}.");
         }
 
+        public static void UpdateService(int id, string newName, string newDescription, double newPrice) // updates an existing service by its ID
+        {
+            var service = Services.FirstOrDefault(s => s.ServiceId == id);
+            if (service == null)
+            {
+                Console.WriteLine("Service not found.");
+                return;
+            }
+
+            service.ServiceName = newName;
+            service.Price = newPrice;
+            Console.WriteLine("Service updated successfully.");
+        }
+
         public static void ServiceMenu()
         {
             Additional.WelcomeMessage("Service Management");
