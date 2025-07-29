@@ -113,11 +113,12 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //4. class constructor ...
 
-        public Service()
+        public Service(string name, double price)
         {
             ServiceCount++;
             ServiceId = ServiceCount;
-
+            ServiceName = name;
+            ServiceCost = price;
         }
     }
 }
