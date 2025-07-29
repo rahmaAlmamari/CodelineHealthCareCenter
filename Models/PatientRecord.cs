@@ -109,6 +109,11 @@ namespace CodelineHealthCareCenter.Models
                 record.ViewRecordDetails();
         }
 
+        public static void GetRecordsByPatientId(int patientId) // retrieves and displays all patient records associated with a specific patient ID
+        {
+            Console.WriteLine("Search by patient ID not yet implemented.");
+        }
+
 
 
 
