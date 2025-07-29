@@ -31,7 +31,7 @@ internal class Program
         {
             //to add the test super admin to the hospital super admins
             SuperAdminTest.HospitalId = 1; // Assigning HospitalId to the SuperAdmin
-            SuperAdminTest.UserNationalID = "11sa11";
+            SuperAdminTest.UserNationalID = "11sa22";
             SuperAdminTest.P_UserPhoneNumber = 12345678;
             Hospital.SuperAdmins.Add(SuperAdminTest);
             // to add the test branch to the hospital branches
@@ -54,7 +54,7 @@ internal class Program
             //to add the test patient to the branch patients
             PatientTest.UserName = "Rahma";
             PatientTest.P_UserPassword = "123";
-            PatientTest.UserNationalID = "11rr22";
+            PatientTest.UserNationalID = "11pp22";
             PatientTest.UserEmail = "rahma@gmail.com";
             PatientTest.PatientCity = "Muscat";
             PatientTest.P_UserPhoneNumber = 12345678;
