@@ -15,6 +15,9 @@ namespace CodelineHealthCareCenter.Models
         public string ServiceName;
         public double Price;
         public static int ServiceCount = 0;
+
+        public static List<Service> Services = new List<Service>();
+
         public static IServiceService service; // for ServiceMenu()
 
         // ===================================================
@@ -30,6 +33,65 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Name      : {ServiceName}");
             Console.WriteLine($"Cost      : ${Price}");
         }
+
+        public static void AddService(string name, string description, double price) // adds a new service to the list
+        {
+            var newService = new Service(name, price);
+            Services.Add(newService);
+            Console.WriteLine($"Service '{name}' added successfully with ID {newService.ServiceId}.");
+        }
+
+        public static void UpdateService(int id, string newName, string newDescription, double newPrice) // updates an existing service by its ID
+        {
+            var service = Services.FirstOrDefault(s => s.ServiceId == id);
+            if (service == null)
+            {
+                Console.WriteLine("Service not found.");
+                return;
+            }
+
+            service.ServiceName = newName;
+            service.Price = newPrice;
+            Console.WriteLine("Service updated successfully.");
+        }
+
+        public static void DeleteService(int id) // deletes a service by its ID
+        {
+            var service = Services.FirstOrDefault(s => s.ServiceId == id);
+            if (service == null)
+            {
+                Console.WriteLine("Service not found.");
+                return;
+            }
+
+            Services.Remove(service);
+            Console.WriteLine("Service deleted successfully.");
+        }
+
+        public static void GetAllServices() // retrieves and displays all available services
+        {
+            if (Services.Count == 0)
+            {
+                Console.WriteLine("No services available.");
+                return;
+            }
+
+            foreach (var s in Services)
+                s.ViewServiceInfo();
+        }
+
+        public static void GetServiceById(int id) // retrieves a service by its ID and displays its details
+        {
+            var service = Services.FirstOrDefault(s => s.ServiceId == id);
+            if (service == null)
+            {
+                Console.WriteLine("Service not found.");
+                return;
+            }
+
+            service.ViewServiceInfo();
+        }
+
 
         public static void ServiceMenu()
         {
