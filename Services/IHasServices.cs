@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Services
 {
-    interface IHasService
+    interface IHasServices
     {
         List<Service> Services { get; set; }
     }
