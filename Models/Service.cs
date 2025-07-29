@@ -101,6 +101,13 @@ namespace CodelineHealthCareCenter.Models
                         break;
 
 
+                }
+
+                Additional.HoldScreen(); // holds the screen after each operation
+            }
+        }
+
+
 
 
         //====================================================
