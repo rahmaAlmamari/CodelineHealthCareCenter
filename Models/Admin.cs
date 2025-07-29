@@ -12,6 +12,11 @@ namespace CodelineHealthCareCenter.Models
         public List<Clinic> Clinics = new List<Clinic>();
         public static IAdminService service; // new static service field
 
+        
+        public static List<Doctor> Doctors = new List<Doctor>();
+        public static List<Service> Services = new List<Service>();
+
+
         //====================================================
         //2. class properties ...
         public static int AdminCount { get; private set; }
@@ -103,7 +108,11 @@ namespace CodelineHealthCareCenter.Models
 
                 Additional.HoldScreen();
             }
+
+
         }
+
+      
 
         //====================================================
         //4. class constructor ...
