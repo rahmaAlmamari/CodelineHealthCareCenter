@@ -37,6 +37,13 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Appointments: {DoctorAppointments.Count}, Patient Records: {PatientRecords.Count}");
         }
 
+        public static void AddDoctor(string username, string password, string email, string specialization) // Adds a new doctor to the system
+        {
+            var newDoctor = new Doctor(username, email, specialization, 0, 0);
+            Doctors.Add(newDoctor);
+            Console.WriteLine($"Doctor '{username}' added successfully.");
+        }
+
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
             Additional.WelcomeMessage("Doctor Management");
