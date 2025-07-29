@@ -124,11 +124,30 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
+        // Get Department By BranchName
+        public void GetDepartmentByBranchName(string branchName)
+        {
+            Console.Clear(); 
+            Console.WriteLine($"List of Departments in Branch '{branchName}':");
+            // Get banch name form list of branches
+            var branch = Hospital.Branches.FirstOrDefault(b => b.BranchName.Equals(branchName, StringComparison.OrdinalIgnoreCase));
 
-
-
-            //====================================================
-            //4. class constructor ...
+            // get all departments in the branch
+            if (branch == null)
+            {
+                Console.WriteLine($"Branch '{branchName}' not found.");
+                return;
+            }
+            var departmentsInBranch = Departments.Where(d => d.BranchId == branch.BranchId).ToList();
+            foreach (var department in departmentsInBranch)
+            {
+                Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}");
+            }
 
         }
+
+        //====================================================
+        //4. class constructor ...
+
+    }
 }
