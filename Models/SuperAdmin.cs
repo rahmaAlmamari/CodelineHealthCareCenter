@@ -253,7 +253,7 @@ namespace CodelineHealthCareCenter.Models
                         doctorToUpdate.UserNationalID = Validation.StringValidation("Enter new national ID: ");
                         break;
                     case '4':
-                        doctorToUpdate.UserRole = Validation.StringValidation("Enter new role (Admin/SuperAdmin): ");
+                        doctorToUpdate.UserRole = Validation.StringValidation("Enter new role (Doctor/Admin): ");
                         break;
                     case '5':
                         doctorToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
