@@ -55,6 +55,19 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Service updated successfully.");
         }
 
+        public static void DeleteService(int id) // deletes a service by its ID
+        {
+            var service = Services.FirstOrDefault(s => s.ServiceId == id);
+            if (service == null)
+            {
+                Console.WriteLine("Service not found.");
+                return;
+            }
+
+            Services.Remove(service);
+            Console.WriteLine("Service deleted successfully.");
+        }
+
         public static void ServiceMenu()
         {
             Additional.WelcomeMessage("Service Management");
