@@ -20,12 +20,46 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class method ...
 
-        // Add a new department to the branch
-        public static void AddDepartment(Department department)
+
+        //Add department to the branch
+        public void AddDepartment(Department department)
         {
+            Console.Clear();
+            // view all Departments
+            Console.WriteLine("Add New Department");
+            Console.WriteLine("=====================================");
+            Console.WriteLine("List of All Department");
+            // Display all departments
+            Department.GetAllDepartments();
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("List of All Branches");
+            // View All Branch
+            Branch.GetAllBranches();
+
+            // Select a department to add from the list
+            
+            int departmentId = Validation.IntValidation("Choose Department ID :");
+            int branchId = Validation.IntValidation("Choose Branch ID :");
+
+
+            // check if the department already exists in the branch
+            if (Departments.Any(d => d.DepartmentId == departmentId && d.BranchId == branchId))
+            {
+                Console.WriteLine($"Department with ID {departmentId} already exists in Branch ID {branchId}.");
+                return;
+            }
+
+            // Add the department to the branch
+            department.DepartmentId = ++ Department.DepartmentCount; // Assuming Department class has a static field for counting departments
+            department.BranchId = branchId; // Set the branch ID for the department
+
             Departments.Add(department);
-            Console.WriteLine($"Department '{department.DepartmentName}' added to Branch ID {department.BranchId}.");
+            Console.WriteLine($"Department '{department.DepartmentName}' added to Branch ID {this.BranchId}.");
         }
+
+
+
+
 
 
 
