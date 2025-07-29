@@ -12,11 +12,6 @@ namespace CodelineHealthCareCenter.Models
         public List<Clinic> Clinics = new List<Clinic>();
         public static IAdminService service; // new static service field
 
-        
-        public static List<Doctor> Doctors = new List<Doctor>();
-        public static List<Service> Services = new List<Service>();
-
-
         //====================================================
         //2. class properties ...
         public static int AdminCount { get; private set; }
@@ -111,119 +106,6 @@ namespace CodelineHealthCareCenter.Models
 
 
         }
-
-        public void AssignDoctorToClinic(int doctorId, int clinicId) // assigns a doctor to a clinic
-        {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
-
-            if (clinic == null)
-            {
-                Console.WriteLine("Clinic not found.");
-                return;
-            }
-
-            if (doctor == null)
-            {
-                Console.WriteLine("Doctor not found.");
-                return;
-            }
-
-            if (clinic.Doctors.Any(d => d.DoctorID == doctorId))
-            {
-                Console.WriteLine("Doctor is already assigned to this clinic.");
-                return;
-            }
-
-            clinic.Doctors.Add(doctor);
-            Console.WriteLine($"Doctor {doctor.UserName} assigned to Clinic '{clinic.ClinicName}'.");
-        }
-
-        public void AddClinicService(int clinicId, int serviceId) // adds a service to a clinic
-        {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            var service = Services.FirstOrDefault(s => s.ServiceId == serviceId);
-
-            if (clinic == null)
-            {
-                Console.WriteLine("Clinic not found.");
-                return;
-            }
-
-            if (service == null)
-            {
-                Console.WriteLine("Service not found.");
-                return;
-            }
-
-            if (clinic is IHasServices clinicWithServices)
-            {
-                if (clinicWithServices.Services.Any(s => s.ServiceId == serviceId))
-                {
-                    Console.WriteLine("Service already assigned to this clinic.");
-                    return;
-                }
-
-                clinicWithServices.Services.Add(service);
-                Console.WriteLine($"Service '{service.ServiceName}' added to Clinic '{clinic.ClinicName}'.");
-            }
-            else
-            {
-                Console.WriteLine("Clinic does not support services. Add a List<Service> to Clinic.");
-            }
-        }
-
-        public void GetClinicDoctors(int clinicId) // retrieves and displays doctors assigned to a specific clinic
-        {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-
-            if (clinic == null)
-            {
-                Console.WriteLine("Clinic not found.");
-                return;
-            }
-
-            Console.WriteLine($"Doctors assigned to Clinic '{clinic.ClinicName}':");
-            if (clinic.Doctors.Count == 0)
-            {
-                Console.WriteLine("No doctors assigned.");
-                return;
-            }
-
-            foreach (var doctor in clinic.Doctors)
-                doctor.ViewDoctorInfo();
-        }
-
-        public void GetClinicServices(int clinicId)
-        {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-
-            if (clinic == null)
-            {
-                Console.WriteLine("Clinic not found.");
-                return;
-            }
-
-            if (clinic is IHasServices clinicWithServices)
-            {
-                Console.WriteLine($"Services assigned to Clinic '{clinic.ClinicName}':");
-
-                if (clinicWithServices.Services.Count == 0)
-                {
-                    Console.WriteLine("No services assigned.");
-                    return;
-                }
-
-                foreach (var service in clinicWithServices.Services)
-                    service.ViewServiceInfo();
-            }
-            else
-            {
-                Console.WriteLine("This clinic doesn't support service listing.");
-            }
-        }
-
-
 
 
 
