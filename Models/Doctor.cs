@@ -18,6 +18,8 @@ namespace CodelineHealthCareCenter.Models
 
         private static int doctorCounter = 0;
         public static IDoctorService service; // Used for DoctorMenu()
+        public static List<Doctor> Doctors = new List<Doctor>(); // Used to store all doctors in the system
+
 
         //====================================================
         //2. class properties ...
@@ -34,6 +36,117 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Specialization: {DoctorSpecialization}, DeptID: {DepartmentId}, ClinicID: {ClinicID}");
             Console.WriteLine($"Appointments: {DoctorAppointments.Count}, Patient Records: {PatientRecords.Count}");
         }
+
+        public static void AddDoctor(string username, string password, string email, string specialization) // Adds a new doctor to the system
+        {
+            var newDoctor = new Doctor(username, email, specialization, 0, 0);
+            Doctors.Add(newDoctor);
+            Console.WriteLine($"Doctor '{username}' added successfully.");
+        }
+
+        public static void UpdateDoctor(int doctorId, string username, string email, string specialization, bool isActive) // Updates an existing doctor's information
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+
+            doctor.UserName = username;
+            doctor.UserEmail = email;
+            doctor.DoctorSpecialization = specialization;
+            doctor.UserStatus = isActive ? "Active" : "Inactive";
+            Console.WriteLine($"Doctor ID {doctorId} updated successfully.");
+        }
+
+        public static void GetDoctorById(int doctorId) // Retrieves a doctor by their ID and displays their information
+     
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+
+            doctor.ViewDoctorInfo();
+        }
+
+        public static void GetDoctorByName(string username) // Retrieves doctors by their username and displays their information
+        {
+            var matches = Doctors.Where(d => d.UserName.Equals(username, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!matches.Any())
+            {
+                Console.WriteLine("No doctor found with that name.");
+                return;
+            }
+
+            foreach (var doc in matches)
+                doc.ViewDoctorInfo();
+        }
+
+        public static void GetDoctorByEmail(string email) // Retrieves a doctor by their email and displays their information
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.UserEmail.Equals(email, StringComparison.OrdinalIgnoreCase));
+            if (doctor == null)
+            {
+                Console.WriteLine("No doctor found with that email.");
+                return;
+            }
+
+            doctor.ViewDoctorInfo();
+        }
+
+        public static void GetAllDoctors() // Retrieves and displays all registered doctors in the system
+        {
+            if (Doctors.Count == 0)
+            {
+                Console.WriteLine("No doctors registered yet.");
+                return;
+            }
+
+            foreach (var doctor in Doctors)
+                doctor.ViewDoctorInfo();
+        }
+
+        public static void GetDoctorData(int doctorId) // Retrieves detailed information about a doctor, including their appointments and patient records
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+
+            Console.WriteLine("[Doctor Info]");
+            doctor.ViewDoctorInfo();
+
+            Console.WriteLine("\n[Appointments]");
+            foreach (var app in doctor.DoctorAppointments)
+            {
+                Console.WriteLine($"- Booking ID: {app.BookingId}, Date: {app.BookingDate}");
+            }
+
+            Console.WriteLine("\n[Patient Records]");
+            foreach (var rec in doctor.PatientRecords)
+            {
+                rec.ViewRecordDetails();
+            }
+        }
+
+        public static void GetDoctorByBranchName(string branchName) // Searches for doctors associated with a specific branch name
+        {
+            Console.WriteLine($"Searching for doctors in branch '{branchName}'...");
+            Console.WriteLine("Functionality to be linked with Branch model.");
+        }
+
+          public static void GetDoctorByDepartmentName(string departmentName) // Searches for doctors associated with a specific department name
+        {
+            Console.WriteLine($"Searching for doctors in department '{departmentName}'...");
+            Console.WriteLine("Functionality to be linked with Department model.");
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {

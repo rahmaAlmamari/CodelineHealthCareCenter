@@ -2,39 +2,145 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodelineHealthCareCenter.Models
 {
     class PatientRecord
     {
+        //====================================================
         //1. class fields ...
         public int PatientRecordId;
+        public int PatientId;
+        public int ClinicId;
+        public DateTime DateCreated;
 
         public List<Service> Services = new List<Service>();
         public double TotalCost;
         public string DoctorNote;
-        public static int PatientRecordCount = 0;
-        public static IPatientRecordService service; // to support menu without parameters
 
+        public static int PatientRecordCount = 0;
+        public static IPatientRecordService service;
+        public static List<PatientRecord> Records = new List<PatientRecord>();
 
         //====================================================
         //2. class property ...
-
         public static int RecordCount => PatientRecordCount;
 
         //====================================================
-        //3. class method ...
+        //3. class methods ...
 
-        public void ViewRecordDetails() // displays the details of the patient record
+        public void ViewRecordDetails()
         {
-            Console.WriteLine($"Record ID: {PatientRecordId}");
+            Console.WriteLine($"\nRecord ID: {PatientRecordId}");
+            Console.WriteLine($"Patient ID: {PatientId}, Clinic ID: {ClinicId}");
+            Console.WriteLine($"Date Created: {DateCreated.ToShortDateString()}");
             Console.WriteLine($"Total Cost: ${TotalCost}");
             Console.WriteLine($"Doctor Note: {DoctorNote}");
             Console.WriteLine($"Services ({Services.Count}):");
             foreach (var s in Services)
                 Console.WriteLine($" - {s.ServiceName} (${s.Price})");
+        }
+
+        public static void AddPatientRecord(int patientId, string recordDetails)
+        {
+            int clinicId = Validation.IntValidation("Clinic ID");
+
+            Console.WriteLine("Enter number of services to add:");
+            int count = Validation.IntValidation("Service Count");
+
+            List<Service> selectedServices = new List<Service>();
+            for (int i = 0; i < count; i++)
+            {
+                int serviceId = Validation.IntValidation($"Service ID #{i + 1}");
+                var service = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
+                if (service == null)
+                {
+                    Console.WriteLine("Invalid service ID. Skipping.");
+                    continue;
+                }
+                selectedServices.Add(service);
+            }
+
+            var record = new PatientRecord(patientId, clinicId, recordDetails, selectedServices);
+            Records.Add(record);
+            Console.WriteLine($"Patient record added with ID: {record.PatientRecordId}");
+        }
+
+        public static void UpdatePatientRecord(int recordId, string newDetails)
+        {
+            var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
+            if (record == null)
+            {
+                Console.WriteLine("Record not found.");
+                return;
+            }
+
+            record.DoctorNote = newDetails;
+            Console.WriteLine("Doctor note updated successfully.");
+        }
+
+        public static void DeletePatientRecord(int recordId)
+        {
+            var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
+            if (record == null)
+            {
+                Console.WriteLine("Record not found.");
+                return;
+            }
+
+            Records.Remove(record);
+            Console.WriteLine("Patient record deleted successfully.");
+        }
+
+        public static void GetPatientRecordById(int recordId)
+        {
+            var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
+            if (record == null)
+            {
+                Console.WriteLine("Record not found.");
+                return;
+            }
+            record.ViewRecordDetails();
+        }
+
+        public static void GetAllPatientRecords()
+        {
+            if (Records.Count == 0)
+            {
+                Console.WriteLine("No patient records found.");
+                return;
+            }
+            foreach (var record in Records)
+                record.ViewRecordDetails();
+        }
+
+        public static void GetRecordsByPatientId(int patientId)
+        {
+            var results = Records.Where(r => r.PatientId == patientId).ToList();
+            if (results.Count == 0)
+            {
+                Console.WriteLine("No records found for this patient.");
+                return;
+            }
+
+            foreach (var r in results)
+                r.ViewRecordDetails();
+        }
+
+        public static void GetRecordsByClinicIdAndDate(int clinicId, DateTime date)
+        {
+            var results = Records
+                .Where(r => r.ClinicId == clinicId && r.DateCreated.Date == date.Date)
+                .ToList();
+
+            if (results.Count == 0)
+            {
+                Console.WriteLine("No records found for this clinic on that date.");
+                return;
+            }
+
+            foreach (var r in results)
+                r.ViewRecordDetails();
         }
 
         public static void PatientRecordMenu()
@@ -60,74 +166,71 @@ namespace CodelineHealthCareCenter.Models
 
                 switch (choice)
                 {
-                    case "1": // Add Patient Record
+                    case "1":
                         int patientId = Validation.IntValidation("Patient ID");
                         string details = Validation.StringValidation("Doctor Notes / Record Details");
                         service.AddPatientRecord(patientId, details);
                         break;
 
-                    case "2": // Update Patient Record
+                    case "2":
                         int updateId = Validation.IntValidation("Record ID to update");
                         string newNote = Validation.StringValidation("New Doctor Note");
                         service.UpdatePatientRecord(updateId, newNote);
                         break;
 
-                    case "3": // Delete Patient Record 
+                    case "3":
                         int deleteId = Validation.IntValidation("Record ID to delete");
                         if (Additional.ConfirmAction("delete this patient record"))
-                        {
                             service.DeletePatientRecord(deleteId);
-                        }
-                        else Console.WriteLine("Deletion cancelled.");
+                        else
+                            Console.WriteLine("Deletion cancelled.");
                         break;
 
-                    case "4": // Get Patient Record by ID
+                    case "4":
                         int id = Validation.IntValidation("Record ID");
                         service.GetPatientRecordById(id);
                         break;
 
-                    case "5": // Get All Patient Records
+                    case "5":
                         service.GetAllPatientRecords();
                         break;
 
-                    case "6": // Get Records by Patient ID
-                        int patientSearchId = Validation.IntValidation("Patient ID");
-                        service.GetRecordsByPatientId(patientSearchId);
+                    case "6":
+                        int searchPatientId = Validation.IntValidation("Patient ID");
+                        service.GetRecordsByPatientId(searchPatientId);
                         break;
 
-                    case "7": // Get Records by Clinic ID and Date
-                        int clinicId = Validation.IntValidation("Clinic ID");
+                    case "7":
+                        int searchClinicId = Validation.IntValidation("Clinic ID");
                         DateTime date = Validation.DateTimeValidation("Date (MM/dd/yyyy)");
-                        service.GetRecordsByClinicIdAndDate(clinicId, date);
+                        service.GetRecordsByClinicIdAndDate(searchClinicId, date);
                         break;
 
-                    case "8": // Exit
+                    case "8":
                         Console.WriteLine("Exiting Patient Record Menu...");
                         return;
 
-                    default: // Invalid option
+                    default:
                         Console.WriteLine("Invalid option. Try again.");
                         break;
                 }
 
-                Additional.HoldScreen(); // waits for user input before clearing the screen
+                Additional.HoldScreen();
             }
         }
 
-
         //====================================================
         //4. class constructor ...
-       public PatientRecord(string doctorNote, List<Service> services)
+        public PatientRecord(int patientId, int clinicId, string doctorNote, List<Service> services)
         {
             PatientRecordCount++;
             PatientRecordId = PatientRecordCount;
+            PatientId = patientId;
+            ClinicId = clinicId;
             DoctorNote = doctorNote;
             Services = services;
-            TotalCost = 0;
-            foreach (var s in services)
-            {
-                TotalCost += s.Price;
-            }
+            TotalCost = services.Sum(s => s.Price);
+            DateCreated = DateTime.Now;
         }
     }
 }
