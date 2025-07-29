@@ -1,4 +1,5 @@
 ﻿using CodelineHealthCareCenter.Services;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,7 +119,70 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
-       
+        public static void AdminBranchMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Branch Admin Menu ");
+            Console.WriteLine("1. Add New Branch ");
+            Console.WriteLine("2. View All Branches ");
+            Console.WriteLine("3. Update Branch ");
+            Console.WriteLine("4. Delete Branch ");
+            Console.WriteLine("5. Get All Branches ");
+            Console.WriteLine("6. Get Branch By ID ");
+            Console.WriteLine("7. Get Branch Details");
+            Console.WriteLine("8. Get Branch Details By BranchName");
+            Console.WriteLine("9. Get Branch Name");
+            Console.WriteLine("10. Get Branch Status");
+            Console.WriteLine("0. Exit ");
+            char choice1 = Validation.CharValidation("Please select an option : ");
+            switch (choice1) {
+                case '1':
+                    Branch.AddBranch();
+                    break;
+                case '2':
+                    Branch.GetAllBranches();
+                    break;
+                case '3':
+                    Branch.UpdateBranch();
+                    break;
+                case '4':
+                    Branch.DeleteBranch();
+                    break;
+                case '5':
+                    Branch.GetAllBranches();
+                    break;
+                case '6':
+                    Branch.GetBranchById();
+                    break;
+                case '7':
+                    
+                    Branch.GetBranchDetails();
+                    break;
+                case '8':
+                    Branch.GetBranchDetailsByBranchName();
+                    break;
+                case '9':
+                    int branchId = Validation.IntValidation("Enter Branch ID to get Branch Name: ");
+                    Branch.GetBranchName(branchId);
+                    break;
+                case '10':
+                    int branchId1 = Validation.IntValidation("Enter Branch ID to get Branch Name: ");
+                    Branch.GetBranchStatus(branchId1);
+                    break;
+                case '0':
+                    SuperAdminMenu();
+                    Console.WriteLine("Exiting Branch Admin Menu.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option, please try again.");
+                    Additional.HoldScreen();
+                    break;
+            }
+
+            }
+
+
+
         public static bool NationalIdExists(string nationalId)
         {
             //to check if the national id exists or not in SuperAdmin list hospital class ...  
@@ -260,6 +324,8 @@ namespace CodelineHealthCareCenter.Models
                         break;
                     case '0':
                         Console.WriteLine("Exiting update menu...");
+                        if (choice == 0)
+                            break;
                         AdminUserMenu();
                         return;
                     default:
