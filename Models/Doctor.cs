@@ -18,6 +18,8 @@ namespace CodelineHealthCareCenter.Models
 
         private static int doctorCounter = 0;
         public static IDoctorService service; // Used for DoctorMenu()
+        public static List<Doctor> Doctors = new List<Doctor>(); // Used to store all doctors in the system
+
 
         //====================================================
         //2. class properties ...
