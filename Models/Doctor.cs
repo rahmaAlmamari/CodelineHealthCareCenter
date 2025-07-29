@@ -15,6 +15,7 @@ namespace CodelineHealthCareCenter.Models
         public string DoctorSpecialization;
         public List<Booking> DoctorAppointments = new List<Booking>();
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
+        public List<DateTime> AvailableTimes = new List<DateTime>();
 
         private static int doctorCounter = 0;
         public static IDoctorService service; // Used for DoctorMenu()
