@@ -98,6 +98,18 @@ namespace CodelineHealthCareCenter.Models
             record.ViewRecordDetails();
         }
 
+        public static void GetAllPatientRecords() // retrieves and displays all patient records
+        {
+            if (Records.Count == 0)
+            {
+                Console.WriteLine("No patient records found.");
+                return;
+            }
+            foreach (var record in Records)
+                record.ViewRecordDetails();
+        }
+
+
 
 
 
