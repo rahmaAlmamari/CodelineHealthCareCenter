@@ -66,7 +66,6 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
-
         // Get Branch By Id
         public static void GetBranchById()
         {

@@ -31,6 +31,8 @@ internal class Program
         {
             //to add the test super admin to the hospital super admins
             SuperAdminTest.HospitalId = 1; // Assigning HospitalId to the SuperAdmin
+            SuperAdminTest.UserNationalID = "11sa22";
+            SuperAdminTest.P_UserPhoneNumber = 12345678;
             Hospital.SuperAdmins.Add(SuperAdminTest);
             // to add the test branch to the hospital branches
             Hospital.Branches.Add(testBranch);
@@ -39,6 +41,9 @@ internal class Program
             // to add the test room to the floor rooms
             testFloor.Rooms.Add(testRoom);
             // to add the test admin to the branch admins
+            AdminTest.UserNationalID = "11aa22";
+            AdminTest.UserPhoneNumber = 12345678;
+            AdminTest.P_UserPassword = "123";
             BranchDepartment.Admins.Add(AdminTest);
             //to add the test department to the branch departments
             DepartmentTest.BranchId = 1;
@@ -49,12 +54,15 @@ internal class Program
             //to add the test patient to the branch patients
             PatientTest.UserName = "Rahma";
             PatientTest.P_UserPassword = "123";
-            PatientTest.UserNationalID = "11rr22";
+            PatientTest.UserNationalID = "11pp22";
             PatientTest.UserEmail = "rahma@gmail.com";
             PatientTest.PatientCity = "Muscat";
             PatientTest.P_UserPhoneNumber = 12345678;
             testBranch.Patients.Add(PatientTest);
             //to add the test doctor to the branch doctors
+            DoctorTest.P_UserPhoneNumber = 12345678;
+            DoctorTest.UserNationalID = "11dd22";
+            DoctorTest.P_UserPassword = "123";
             BranchDepartment.Doctors.Add(DoctorTest);
             //to display the welcome message ...
             Additional.WelcomeMessage("Hospital Management");

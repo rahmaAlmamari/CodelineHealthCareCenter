@@ -17,66 +17,25 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //3. class method ...
+
+        // SuperAdminMenu
         public static void SuperAdminMenu()
         {
-
+            Console.Clear();
             Console.WriteLine("Welcome to SuperAdminMenu");
-            Console.WriteLine("1. Add Doctor");
-            Console.WriteLine("2. Add Admin");
-            Console.WriteLine("3. Assign Admin To Branch");
-            Console.WriteLine("4. Update Doctor");
-            Console.WriteLine("5. Delete Doctor");
-            Console.WriteLine("6. View Doctors");
-            Console.WriteLine("7. View Admins");
-            Console.WriteLine("8. Update Admin");
-            Console.WriteLine("9. Delete Admin");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("1. Users ( Admins And Doctors )");
+            Console.WriteLine("2. Branchs");
+            Console.WriteLine("3. Departments");
+            Console.WriteLine("0. Exit");
             Console.Write("Please select an option: ");
             //to get the user choice ...
             char choice = Validation.CharValidation("option");
             switch (choice)
             {
                 case '1':
-                    Console.WriteLine("Add Branch");
-                   
-
-
-
+                    AdminDoctorUserMenu();
                     break;
-                case '2':
-                    //to add a new admin ...
-                    Console.WriteLine("Adding a new admin...");
-                    
-                    break;
-                case '3':
-                    //to assign admin to branch ...
-                    Console.WriteLine("Assigning admin to branch...");
-                    break;
-                case '4':
-                    //to update doctor ...
-                    Console.WriteLine("Updating doctor...");
-                    break;
-                case '5':
-                    //to delete doctor ...
-                    Console.WriteLine("Deleting doctor...");
-                    break;
-                case '6':
-                    //to view doctors ...
-                    //ViewDoctors();
-                    Branch.AddBranch();
-                    break;
-                case '7':
-                    //to view admins ...
-                    Console.WriteLine("Viewing admins...");
-                    break;
-                case '8':
-                    //to update admin ...
-                    Console.WriteLine("Updating admin...");
-                    break;
-                case '9':
-                    //to delete admin ...
-                    Console.WriteLine("Deleting admin...");
-                    break;
+               
                 case '0':
                     Console.WriteLine("Exiting SuperAdmin Menu.");
                     break;
@@ -85,6 +44,76 @@ namespace CodelineHealthCareCenter.Models
                     Additional.HoldScreen();
                     break;
             }
+
+
+        }
+
+        public static void AdminDoctorUserMenu() 
+        {
+            Console.Clear();
+            Console.WriteLine("Users ( Admins And Doctors ) Menu ");
+            Console.WriteLine("1. Admin ");
+            Console.WriteLine("2. Doctor ");
+            Console.WriteLine("0. Exit ");
+            Console.WriteLine("Please select an option : ");
+            char choice1 = Validation.CharValidation("option");
+            switch (choice1)
+            {
+                case '1':
+                    AdminUserMenu();
+                    break;
+
+                case '2':
+                    break;
+
+                case '0':
+                    SuperAdminMenu();
+                    Console.WriteLine("Invalid option, please try again.");
+                    Additional.HoldScreen();
+                    break;
+            }
+        }
+        public static void AdminUserMenu() 
+        {
+            Console.Clear();
+            Console.WriteLine("Users Admin Menu ");
+            Console.WriteLine("1. Add New Admin ");
+            Console.WriteLine("2. View All Admin ");
+            Console.WriteLine("3. Update Admin ");
+            Console.WriteLine("4. Delete Admin ");
+            Console.WriteLine("0. Exit ");
+            Console.WriteLine("Please select an option : ");
+            char choice1 = Validation.CharValidation("option");
+            switch (choice1)
+            {
+                case '1':
+                    AddAdmin();
+                    break;
+
+                case '2':
+                    ViewAdmins();
+                    break;
+                case '3':
+                    UpdateAdmin();
+                    break;
+                case '4':
+                    DeleteAdmin();
+                    break;
+
+                case '0':
+                    AdminDoctorUserMenu();
+                    Console.WriteLine("Exiting Admin User Menu.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option, please try again.");
+                    Additional.HoldScreen();
+                    break;
+
+            }
+
+
+
+
 
 
         }
@@ -279,14 +308,18 @@ namespace CodelineHealthCareCenter.Models
             BranchDepartment.Admins.Add(admin);
             Console.WriteLine("Admin added successfully.");
             Additional.HoldScreen();
+            AdminUserMenu();
         }
 
 
         // Update Admin method to update admin details
         public static void UpdateAdmin()
         {
-            Console.WriteLine("Enter the Admin ID to update:");
-            int adminId = Validation.IntValidation("Admin ID");
+            Console.Clear();
+            Console.WriteLine("Available Admins for Updation");
+            ViewAllAdmins();
+            Console.WriteLine(new string('-', 40));
+            int adminId = Validation.IntValidation("Enter the Admin ID to update:");
             var adminToUpdate = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
             if (adminToUpdate == null)
             {
@@ -295,18 +328,54 @@ namespace CodelineHealthCareCenter.Models
                 return;
             }
             // Update admin details
-            adminToUpdate.UserName = Validation.StringValidation("new name");
-            adminToUpdate.UserEmail = Validation.EmailValidation("new email");
-            adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
+            // Choose what to update
+            Console.WriteLine("What do you want to update?");
+            // Method to display admin update options
+            Console.WriteLine("1. Update Email");
+            Console.WriteLine("2. Update Phone Number");
+            Console.WriteLine("3. Update National ID");
+            Console.WriteLine("4. Update Role");
+            Console.WriteLine("5. Update Status");
+            Console.WriteLine("0. Exit");
+            char choice = Validation.CharValidation("option :");
+            switch (choice)
+            {
+                case '1':
+                    // Update Email logic
+                    adminToUpdate.UserEmail = Validation.EmailValidation("new email");
+                 
+                    break;
+                case '2':
+                    // Update Phone Number logic
+                    adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
+                    break;
+                
+                case '3':
+                    // Update Role logic
+                    adminToUpdate.UserRole = Validation.StringValidation("new role (Admin/SuperAdmin)");
+                    break;
+                case '4':
+                    // Update Status logic
+                    adminToUpdate.UserStatus = Validation.StringValidation("new status (Active/Inactive)");
+                    break;
+              
+            }
+        
+       
+           
             Console.WriteLine("Admin details updated successfully.");
             Additional.HoldScreen();
+            AdminUserMenu();
         }
 
         // Delete Admin method to delete an admin by ID
         public static void DeleteAdmin()
         {
-            Console.WriteLine("Enter the Admin ID to delete:");
-            int adminId = Validation.IntValidation("Admin ID");
+            Console.Clear();
+            Console.WriteLine("Available Admins for Deletion");
+            ViewAllAdmins();
+            Console.WriteLine(new string('-', 40));
+            int adminId = Validation.IntValidation("Enter the Admin ID to delete:");
             var adminToDelete = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
             if (adminToDelete == null)
             {
@@ -325,6 +394,8 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("Deletion cancelled.");
             }
             Additional.HoldScreen();
+            // Return to Admin User Menu
+            AdminUserMenu();
         }
 
         // View Admins method to display all admins in the branch department
@@ -349,10 +420,37 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine(new string('-', 40));
             }
             Additional.HoldScreen();
+            AdminUserMenu();
         }
 
+        // Common Method to View All Admins
+        public static void ViewAllAdmins()
+        {
+            Console.Clear();
+            Console.WriteLine("List of All Admins");
+            if (BranchDepartment.Admins.Count == 0)
+            {
+                Console.WriteLine("No admins available in the system.");
+                Additional.HoldScreen();
+                return;
+            }
+            foreach (var admin in BranchDepartment.Admins)
+            {
+                Console.WriteLine($"Admin ID        : {admin.UserId}");
+                Console.WriteLine($"Name            : {admin.UserName}");
+                Console.WriteLine($"Email           : {admin.UserEmail}");
+                Console.WriteLine($"Phone Number    : {admin.P_UserPhoneNumber}");
+                Console.WriteLine($"National ID     : {admin.UserNationalID}");
+                Console.WriteLine($"Role            : {admin.UserRole}");
+                Console.WriteLine($"Status          : {admin.UserStatus}");
+                Console.WriteLine(new string('-', 40));
+            }
+           
+        }
 
+        // Additional Method 
 
+        
 
 
         //====================================================
