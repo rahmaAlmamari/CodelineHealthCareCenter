@@ -110,6 +110,31 @@ namespace CodelineHealthCareCenter.Models
                 doctor.ViewDoctorInfo();
         }
 
+        public static void GetDoctorData(int doctorId) // Retrieves detailed information about a doctor, including their appointments and patient records
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+
+            Console.WriteLine("[Doctor Info]");
+            doctor.ViewDoctorInfo();
+
+            Console.WriteLine("\n[Appointments]");
+            foreach (var app in doctor.DoctorAppointments)
+            {
+                Console.WriteLine($"- Booking ID: {app.BookingId}, Date: {app.BookingDate}");
+            }
+
+            Console.WriteLine("\n[Patient Records]");
+            foreach (var rec in doctor.PatientRecords)
+            {
+                rec.ViewRecordDetails();
+            }
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
