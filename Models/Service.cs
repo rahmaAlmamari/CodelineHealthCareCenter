@@ -17,7 +17,7 @@ namespace CodelineHealthCareCenter.Models
         public static int ServiceCount = 0;
         public static IServiceService service; // for ServiceMenu()
 
-        //====================================================
+        // ===================================================
         //2. class properties ...
 
         public static int TotalServices => ServiceCount;
@@ -71,6 +71,16 @@ namespace CodelineHealthCareCenter.Models
                             service.UpdateService(updateId, newName, newDesc, newPrice);
                         }
                         else Console.WriteLine("Update cancelled.");
+                        break;
+
+                    case "3": // Delete service
+                        int deleteId = Validation.IntValidation("Service ID to delete");
+
+                        if (Additional.ConfirmAction("delete this service"))
+                        {
+                            service.DeleteService(deleteId);
+                        }
+                        else Console.WriteLine("Deletion cancelled.");
                         break;
 
 
