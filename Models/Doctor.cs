@@ -59,6 +59,21 @@ namespace CodelineHealthCareCenter.Models
             doctor.UserStatus = isActive ? "Active" : "Inactive";
             Console.WriteLine($"Doctor ID {doctorId} updated successfully.");
         }
+
+        public static void GetDoctorById(int doctorId) // Retrieves a doctor by their ID and displays their information
+     
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+
+            doctor.ViewDoctorInfo();
+        }
+
+
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
             Additional.WelcomeMessage("Doctor Management");
