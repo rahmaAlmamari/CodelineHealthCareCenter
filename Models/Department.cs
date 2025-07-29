@@ -118,6 +118,11 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
+        // Department Exists Check
+        public static bool DepartmentExists(int departmentId)
+        {
+            return BranchDepartment.Departments.Any(d => d.DepartmentId == departmentId);
+        }
 
 
         //====================================================
