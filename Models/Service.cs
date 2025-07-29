@@ -118,7 +118,7 @@ namespace CodelineHealthCareCenter.Models
             ServiceCount++;
             ServiceId = ServiceCount;
             ServiceName = name;
-            ServiceCost = price;
+            Price = price;
         }
     }
 }
