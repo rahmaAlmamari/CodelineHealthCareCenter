@@ -91,6 +91,18 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Clinic '{clinicName}' added successfully.");
         }
 
+        public static void GetAllClinics() // displays all clinics
+
+        {
+            if (Clinics.Count == 0)
+            {
+                Console.WriteLine("No clinics available.");
+                return;
+            }
+            foreach (var clinic in Clinics)
+                clinic.ViewClinicInfo();
+        }
+
         public static void ClinicMenu()
         {
             Additional.WelcomeMessage("Clinic Management");
