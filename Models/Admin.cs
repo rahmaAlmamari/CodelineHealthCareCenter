@@ -71,6 +71,34 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Doctor {doctor.UserName} assigned to Clinic '{clinic.ClinicName}'.");
         }
 
+        public void AddClinicService(int clinicId, int serviceId) // adds a service to a clinic by their IDs
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            var service = Services.FirstOrDefault(s => s.ServiceId == serviceId);
+
+            if (clinic == null || service == null)
+            {
+                Console.WriteLine("Clinic or Service not found.");
+                return;
+            }
+
+            if (clinic is IHasServices clinicWithServices)
+            {
+                if (clinicWithServices.Services.Any(s => s.ServiceId == serviceId))
+                {
+                    Console.WriteLine("Service already added.");
+                    return;
+                }
+
+                clinicWithServices.Services.Add(service);
+                Console.WriteLine($"Service '{service.ServiceName}' added to Clinic '{clinic.ClinicName}'.");
+            }
+            else
+            {
+                Console.WriteLine("Clinic must implement IHasServices.");
+            }
+        }
+
 
         public static void AdminMenu() // displays the admin management menu and handles user input
         {
