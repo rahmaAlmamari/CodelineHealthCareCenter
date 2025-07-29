@@ -302,6 +302,31 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
+        // Delete Admin method to delete an admin by ID
+        public static void DeleteAdmin()
+        {
+            Console.WriteLine("Enter the Admin ID to delete:");
+            int adminId = Validation.IntValidation("Admin ID");
+            var adminToDelete = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
+            if (adminToDelete == null)
+            {
+                Console.WriteLine("Admin not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Confirm deletion
+            if (Additional.ConfirmAction("delete this admin"))
+            {
+                BranchDepartment.Admins.Remove(adminToDelete);
+                Console.WriteLine("Admin deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Deletion cancelled.");
+            }
+            Additional.HoldScreen();
+        }
+
 
 
 
