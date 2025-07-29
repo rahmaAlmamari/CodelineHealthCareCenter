@@ -44,6 +44,21 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Doctor '{username}' added successfully.");
         }
 
+        public static void UpdateDoctor(int doctorId, string username, string email, string specialization, bool isActive) // Updates an existing doctor's information
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+
+            doctor.UserName = username;
+            doctor.UserEmail = email;
+            doctor.DoctorSpecialization = specialization;
+            doctor.UserStatus = isActive ? "Active" : "Inactive";
+            Console.WriteLine($"Doctor ID {doctorId} updated successfully.");
+        }
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
             Additional.WelcomeMessage("Doctor Management");
