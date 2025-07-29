@@ -157,6 +157,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("3. View Clinic's Doctors");
                 Console.WriteLine("4. View Clinic's Services");
                 Console.WriteLine("5. Add Clinic Spot");
+                Console.WriteLine("5. Remove Clinic Spot");
                 Console.WriteLine("6. Exit");
                 Console.Write("Select an option: ");
 
@@ -203,6 +204,14 @@ namespace CodelineHealthCareCenter.Models
                         if (Additional.ConfirmAction($"add spot {newSpot:G} to this clinic"))
                             service.AddClinicSpot(cl5, newSpot);
                         else Console.WriteLine("Spot addition cancelled.");
+                        break;
+
+                    case "6":
+                        int cl6 = Validation.IntValidation("Clinic ID to remove spot");
+                        DateTime spotToRemove = Validation.DateTimeValidation("Spot to remove (e.g., MM/dd/yyyy HH:mm)");
+                        if (Additional.ConfirmAction($"remove spot {spotToRemove:G} from this clinic"))
+                            service.RemoveClinicSpot(cl6, spotToRemove);
+                        else Console.WriteLine("Spot removal cancelled.");
                         break;
 
                     default: // Invalid option
