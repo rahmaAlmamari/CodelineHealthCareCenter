@@ -111,7 +111,7 @@ namespace CodelineHealthCareCenter.Models
 
 
         // Get Branch Details By BranchName
-        public static void GetBranchDetailsByName()
+        public static void GetBranchDetailsByBranchName()
         {
             Console.Clear();
             Console.WriteLine("Enter the Branch Name to view:");
