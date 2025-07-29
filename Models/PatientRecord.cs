@@ -66,6 +66,12 @@ namespace CodelineHealthCareCenter.Models
                         service.AddPatientRecord(patientId, details);
                         break;
 
+                    case "2": // Update Patient Record
+                        int updateId = Validation.IntValidation("Record ID to update");
+                        string newNote = Validation.StringValidation("New Doctor Note");
+                        service.UpdatePatientRecord(updateId, newNote);
+                        break;
+
 
         //====================================================
         //4. class constructor ...
