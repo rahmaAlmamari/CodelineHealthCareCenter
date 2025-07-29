@@ -35,7 +35,19 @@ namespace CodelineHealthCareCenter.Models
         {
             Console.WriteLine($"ID: {DoctorID}, Name: {UserName}, Email: {UserEmail}");
             Console.WriteLine($"Specialization: {DoctorSpecialization}, DeptID: {DepartmentId}, ClinicID: {ClinicID}");
-            Console.WriteLine($"Appointments: {DoctorAppointments.Count}, Patient Records: {PatientRecords.Count}");
+            Console.WriteLine($"Available Times: {AvailableTimes.Count}, Patient Records: {PatientRecords.Count}"); 
+
+            if (AvailableTimes.Count > 0) // Displays available time slots for the doctor
+            {
+                Console.WriteLine("Available Time Slots:");
+                foreach (var time in AvailableTimes)
+                    Console.WriteLine($"- {time:G}");
+            }
+            else // If no available time slots, display a message
+            {
+                Console.WriteLine("No available time slots.");
+            }
+
         }
 
         public static void AddDoctor(string username, string password, string email, string specialization) // Adds a new doctor to the system
