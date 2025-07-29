@@ -38,6 +38,29 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($" - {s.ServiceName} (${s.Price})");
         }
 
+        public static void AddPatientRecord(int patientId, string recordDetails) // adds a new patient record with the given details and services
+        {
+            Console.WriteLine("Enter number of services to add:");
+            int count = Validation.IntValidation("Service Count");
+
+            List<Service> selectedServices = new List<Service>();
+            for (int i = 0; i < count; i++)
+            {
+                int serviceId = Validation.IntValidation($"Service ID #{i + 1}");
+                var service = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
+                if (service == null)
+                {
+                    Console.WriteLine("Invalid service ID. Skipping.");
+                    continue;
+                }
+                selectedServices.Add(service);
+            }
+
+            var record = new PatientRecord(recordDetails, selectedServices);
+            Records.Add(record);
+            Console.WriteLine($"Patient record added with ID: {record.PatientRecordId}");
+        }
+
         public static void PatientRecordMenu()
         {
             Additional.WelcomeMessage("Patient Record Management");
