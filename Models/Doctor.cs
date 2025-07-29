@@ -160,6 +160,23 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Functionality to be linked with Department model.");
         }
 
+        public static void AddAvailableTime(int doctorId, DateTime availableTime) // Adds an available time slot for a specific doctor
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+            if (doctor.AvailableTimes.Contains(availableTime))
+            {
+                Console.WriteLine("This time slot is already available.");
+                return;
+            }
+            doctor.AvailableTimes.Add(availableTime);
+            Console.WriteLine($"Available time {availableTime:G} added for Doctor ID {doctorId}.");
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
@@ -286,9 +303,9 @@ namespace CodelineHealthCareCenter.Models
                         }
                         break;
 
-                    //case "10": //   Exit the doctor menu
-                    //Console.WriteLine("Exiting Doctor Menu...");
-                    //return;
+                    case "12": //   Exit the doctor menu
+                    Console.WriteLine("Exiting Doctor Menu...");
+                    return;
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
