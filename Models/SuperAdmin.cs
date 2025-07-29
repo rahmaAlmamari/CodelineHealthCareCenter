@@ -327,6 +327,31 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
+        // View Admins method to display all admins in the branch department
+        public static void ViewAdmins()
+        {
+            Console.Clear();
+            Console.WriteLine("List of Admins");
+            if (BranchDepartment.Admins.Count == 0)
+            {
+                Console.WriteLine("No admins available in the system.");
+                Additional.HoldScreen();
+                return;
+            }
+            foreach (var admin in BranchDepartment.Admins)
+            {
+                Console.WriteLine($"Admin ID        : {admin.UserId}");
+                Console.WriteLine($"Name            : {admin.UserName}");
+                Console.WriteLine($"Email           : {admin.UserEmail}");
+                Console.WriteLine($"Phone Number    : {admin.P_UserPhoneNumber}");
+                Console.WriteLine($"National ID     : {admin.UserNationalID}");
+                Console.WriteLine($"Status          : {admin.UserStatus}");
+                Console.WriteLine(new string('-', 40));
+            }
+            Additional.HoldScreen();
+        }
+
+
 
 
 
