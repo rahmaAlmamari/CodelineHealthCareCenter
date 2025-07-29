@@ -31,6 +31,26 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Cost      : ${ServiceCost}");
         }
 
+        public static void ServiceMenu()
+        {
+            Additional.WelcomeMessage("Service Management");
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(" SERVICE MANAGEMENT MENU ");
+                Console.WriteLine("1. Add Service");
+                Console.WriteLine("2. Update Service");
+                Console.WriteLine("3. Delete Service");
+                Console.WriteLine("4. View All Services");
+                Console.WriteLine("5. View Service by ID");
+                Console.WriteLine("6. Exit");
+                Console.Write("Select an option: ");
+
+                string choice = Console.ReadLine();
+                Console.WriteLine();
+
+
         //====================================================
         //4. class constructor ...
 
