@@ -75,7 +75,22 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
-
+        // Get Branch by department
+        public void GetBranchByDepartment(int departmentId)
+        {
+            Console.Clear();
+            Console.WriteLine($"List of Branches for Department ID {departmentId}:");
+            var branchesWithDepartment = Departments.Where(d => d.DepartmentId == departmentId).Select(d => d.BranchId).Distinct().ToList();
+            if (branchesWithDepartment.Count == 0)
+            {
+                Console.WriteLine("No branches found for this department.");
+                return;
+            }
+            foreach (var branch in branchesWithDepartment)
+            {
+                Console.WriteLine($"Branch ID: {branch}");
+            }
+        }
 
 
 
