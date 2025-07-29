@@ -10,6 +10,11 @@ namespace CodelineHealthCareCenter.Models
         //1. class fields ...
         public int BranchID;
         public List<Clinic> Clinics = new List<Clinic>();
+
+        // Shared static lists
+        public static List<Doctor> Doctors = new List<Doctor>();
+        public static List<Service> Services = new List<Service>();
+
         public static IAdminService service; // new static service field
 
         //====================================================
