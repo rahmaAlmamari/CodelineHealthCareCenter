@@ -13,7 +13,7 @@ namespace CodelineHealthCareCenter.Models
         public int PatientRecordId;
 
         public List<Service> Services = new List<Service>();
-        public double TotalCost;
+        public double Price;
         public string DoctorNote;
         public static int PatientRecordCount = 0;
         public static IPatientRecordService service; // to support menu without parameters
