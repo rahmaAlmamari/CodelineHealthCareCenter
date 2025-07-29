@@ -117,7 +117,7 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
-        public PatientRecord(string doctorNote, List<Service> services)
+       public PatientRecord(string doctorNote, List<Service> services)
         {
             PatientRecordCount++;
             PatientRecordId = PatientRecordCount;
