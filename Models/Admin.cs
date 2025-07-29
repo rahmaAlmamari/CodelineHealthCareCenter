@@ -119,24 +119,24 @@ namespace CodelineHealthCareCenter.Models
 
             if (clinic == null)
             {
-                Console.WriteLine("❌ Clinic not found.");
+                Console.WriteLine("Clinic not found.");
                 return;
             }
 
             if (doctor == null)
             {
-                Console.WriteLine("❌ Doctor not found.");
+                Console.WriteLine("Doctor not found.");
                 return;
             }
 
             if (clinic.Doctors.Any(d => d.DoctorID == doctorId))
             {
-                Console.WriteLine("❌ Doctor is already assigned to this clinic.");
+                Console.WriteLine("Doctor is already assigned to this clinic.");
                 return;
             }
 
             clinic.Doctors.Add(doctor);
-            Console.WriteLine($"✅ Doctor {doctor.UserName} assigned to Clinic '{clinic.ClinicName}'.");
+            Console.WriteLine($"Doctor {doctor.UserName} assigned to Clinic '{clinic.ClinicName}'.");
         }
 
 
