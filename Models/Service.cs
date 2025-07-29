@@ -87,6 +87,11 @@ namespace CodelineHealthCareCenter.Models
                         service.GetAllServices();
                         break;
 
+                    case "5": // View by ID
+                        int id = Validation.IntValidation("Service ID");
+                        service.GetServiceById(id);
+                        break;
+
 
 
 
