@@ -124,6 +124,18 @@ namespace CodelineHealthCareCenter.Models
                 clinic.ViewClinicInfo();
         }
 
+        public static void GetClinicByBranchDep(int branchId, int departmentId) // retrieves clinics by branch and department IDs
+        {
+            var matches = Clinics.Where(c => c.BranchId == branchId && c.DepartmentId == departmentId).ToList();
+            if (!matches.Any())
+            {
+                Console.WriteLine("No clinic found for that branch and department.");
+                return;
+            }
+            foreach (var clinic in matches)
+                clinic.ViewClinicInfo();
+        }
+
         public static void ClinicMenu()
         {
             Additional.WelcomeMessage("Clinic Management");
