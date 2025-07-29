@@ -83,6 +83,10 @@ namespace CodelineHealthCareCenter.Models
                         else Console.WriteLine("Deletion cancelled.");
                         break;
 
+                    case "4": // View all
+                        service.GetAllServices();
+                        break;
+
 
 
 
