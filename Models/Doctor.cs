@@ -265,6 +265,27 @@ namespace CodelineHealthCareCenter.Models
                         }
                         break;
 
+                        case "11": // Remove available time slot for a doctor
+                        int removeDoctorId = Validation.IntValidation("Doctor ID to remove available time");
+                        DateTime removeTime = Validation.DateTimeValidation("Available Time to Remove (yyyy-MM-dd HH:mm)");
+                        var removeDoctor = Doctors.FirstOrDefault(d => d.DoctorID == removeDoctorId);
+                        if (removeDoctor != null)
+                        {
+                            if (removeDoctor.AvailableTimes.Remove(removeTime))
+                            {
+                                Console.WriteLine($"Available time {removeTime:G} removed for Doctor ID {removeDoctorId}.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Available time not found.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Doctor not found.");
+                        }
+                        break;
+
                     //case "10": //   Exit the doctor menu
                     //Console.WriteLine("Exiting Doctor Menu...");
                     //return;
