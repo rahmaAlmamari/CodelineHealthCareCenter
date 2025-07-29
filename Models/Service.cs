@@ -50,6 +50,17 @@ namespace CodelineHealthCareCenter.Models
                 string choice = Console.ReadLine();
                 Console.WriteLine();
 
+                switch (choice)
+                {
+                    case "1": // Add service
+                        string name = Validation.StringNamingValidation("Service Name");
+                        string desc = Validation.StringValidation("Service Description");
+                        double cost = Validation.DoubleValidation("Service Price");
+                        service.AddService(name, desc, cost);
+                        break;
+
+
+
 
         //====================================================
         //4. class constructor ...
