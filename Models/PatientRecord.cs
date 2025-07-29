@@ -117,10 +117,17 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //4. class constructor ...
-        public PatientRecord()
+        public PatientRecord(string doctorNote, List<Service> services)
         {
             PatientRecordCount++;
             PatientRecordId = PatientRecordCount;
+            DoctorNote = doctorNote;
+            Services = services;
+            TotalCost = 0;
+            foreach (var s in services)
+            {
+                TotalCost += s.Price;
+            }
         }
     }
 }
