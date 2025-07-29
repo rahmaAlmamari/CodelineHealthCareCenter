@@ -58,7 +58,22 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
-
+        // Add Department by branch
+        public void GetDepartmentByBranch(int branchId)
+        {
+            Console.Clear();
+            Console.WriteLine($"List of Departments in Branch ID {branchId}:");
+            var departmentsInBranch = Departments.Where(d => d.BranchId == branchId).ToList();
+            if (departmentsInBranch.Count == 0)
+            {
+                Console.WriteLine("No departments found in this branch.");
+                return;
+            }
+            foreach (var department in departmentsInBranch)
+            {
+                Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}");
+            }
+        }
 
 
 
