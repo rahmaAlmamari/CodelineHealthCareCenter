@@ -173,6 +173,58 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public void GetClinicDoctors(int clinicId) // retrieves and displays doctors assigned to a specific clinic
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+
+            Console.WriteLine($"Doctors assigned to Clinic '{clinic.ClinicName}':");
+            if (clinic.Doctors.Count == 0)
+            {
+                Console.WriteLine("No doctors assigned.");
+                return;
+            }
+
+            foreach (var doctor in clinic.Doctors)
+                doctor.ViewDoctorInfo();
+        }
+
+        public void GetClinicServices(int clinicId)
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+
+            if (clinic is IHasServices clinicWithServices)
+            {
+                Console.WriteLine($"Services assigned to Clinic '{clinic.ClinicName}':");
+
+                if (clinicWithServices.Services.Count == 0)
+                {
+                    Console.WriteLine("No services assigned.");
+                    return;
+                }
+
+                foreach (var service in clinicWithServices.Services)
+                    service.ViewServiceInfo();
+            }
+            else
+            {
+                Console.WriteLine("This clinic doesn't support service listing.");
+            }
+        }
+
+
+
 
 
         //====================================================
