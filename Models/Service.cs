@@ -92,6 +92,10 @@ namespace CodelineHealthCareCenter.Models
                         service.GetServiceById(id);
                         break;
 
+                    case "6": // Exit
+                        Console.WriteLine("Exiting Service Menu...");
+                        return;
+
 
 
 
