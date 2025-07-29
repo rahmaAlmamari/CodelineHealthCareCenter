@@ -114,6 +114,11 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Search by patient ID not yet implemented.");
         }
 
+        public static void GetRecordsByClinicIdAndDate(int clinicId, DateTime date) // retrieves and displays all patient records associated with a specific clinic ID and date
+        {
+            Console.WriteLine("Search by clinic ID and date not yet implemented.");
+        }
+
 
 
 
