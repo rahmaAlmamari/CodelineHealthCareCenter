@@ -15,7 +15,7 @@ namespace CodelineHealthCareCenter.Models
         public string ServiceName;
         public double Price;
         public static int ServiceCount = 0;
-
+        public int ClinicId; // optional, if services are clinic-specific
         public static List<Service> Services = new List<Service>();
 
         public static IServiceService service; // for ServiceMenu()

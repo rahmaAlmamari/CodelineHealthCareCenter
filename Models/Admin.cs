@@ -99,6 +99,7 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+
         public void GetClinicDoctors(int clinicId) // retrieves and displays all doctors assigned to a specific clinic by its ID
         {
             var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
@@ -140,6 +141,39 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public void AddClinicSpot(int clinicId, DateTime newSpot) // adds a new spot to a clinic by its ID
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+            if (clinic.ClinicSpots.Contains(newSpot))
+            {
+                Console.WriteLine("Spot already exists.");
+                return;
+            }
+            clinic.ClinicSpots.Add(newSpot);
+            Console.WriteLine($"Spot {newSpot:G} added to Clinic '{clinic.ClinicName}'.");
+        }
+
+        public void RemoveClinicSpot(int clinicId, DateTime spotToRemove) // removes a spot from a clinic by its ID
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+            if (!clinic.ClinicSpots.Remove(spotToRemove))
+            {
+                Console.WriteLine("Spot not found.");
+                return;
+            }
+            Console.WriteLine($"Spot {spotToRemove:G} removed from Clinic '{clinic.ClinicName}'.");
+        }
+
 
 
         public static void AdminMenu() // displays the admin management menu and handles user input
@@ -155,7 +189,9 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("2. Add Service to Clinic");
                 Console.WriteLine("3. View Clinic's Doctors");
                 Console.WriteLine("4. View Clinic's Services");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("5. Add Clinic Spot");
+                Console.WriteLine("6. Remove Clinic Spot");
+                Console.WriteLine("7. Exit");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
@@ -195,9 +231,27 @@ namespace CodelineHealthCareCenter.Models
                         service.GetClinicServices(clinicId4);
                         break;
 
-                    case "5": // Exit the admin menu
+                    case "5":
+                        int cl5 = Validation.IntValidation("Clinic ID to add spot");
+                        DateTime newSpot = Validation.DateTimeValidation("New Spot (e.g., MM/dd/yyyy HH:mm)");
+                        if (Additional.ConfirmAction($"add spot {newSpot:G} to this clinic"))
+                            service.AddClinicSpot(cl5, newSpot);
+                        else Console.WriteLine("Spot addition cancelled.");
+                        break;
+
+                    case "6":
+                        int cl6 = Validation.IntValidation("Clinic ID to remove spot");
+                        DateTime spotToRemove = Validation.DateTimeValidation("Spot to remove (e.g., MM/dd/yyyy HH:mm)");
+                        if (Additional.ConfirmAction($"remove spot {spotToRemove:G} from this clinic"))
+                            service.RemoveClinicSpot(cl6, spotToRemove);
+                        else Console.WriteLine("Spot removal cancelled.");
+                        break;
+
+                    case "7":
                         Console.WriteLine("Exiting Admin Menu...");
                         return;
+
+
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
