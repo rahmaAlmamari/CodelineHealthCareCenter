@@ -101,6 +101,10 @@ namespace CodelineHealthCareCenter.Models
                         service.GetRecordsByClinicIdAndDate(clinicId, date);
                         break;
 
+                    case "8": // Exit
+                        Console.WriteLine("Exiting Patient Record Menu...");
+                        return;
+
 
         //====================================================
         //4. class constructor ...
