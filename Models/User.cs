@@ -109,7 +109,7 @@ namespace CodelineHealthCareCenter.Models
             // 4. Check Super Admin login ...
             foreach (var superAdmin in Hospital.SuperAdmins)
             {
-                if (superAdmin.UserNationalID == userNationalID &&
+                if (superAdmin.UserNationalID == userNationalID ||
                     Validation.VerifyPasswordPBKDF2(userPassword, superAdmin.P_UserPassword))
                 {
                     Console.WriteLine($"\nWelcome, Super Admin {superAdmin.UserName}!");
