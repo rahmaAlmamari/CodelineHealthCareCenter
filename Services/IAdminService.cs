@@ -14,5 +14,7 @@ namespace CodelineHealthCareCenter.Services
         void AddClinicService(int clinicId, int serviceId);
         void GetClinicServices(int clinicId);
         void GetClinicDoctors(int clinicId);
+        void AddClinicSpot(int clinicId, DateTime newSpot);
+        void RemoveClinicSpot(int clinicId, DateTime spotToRemove);
     }
 }
