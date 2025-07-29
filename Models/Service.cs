@@ -80,6 +80,18 @@ namespace CodelineHealthCareCenter.Models
                 s.ViewServiceInfo();
         }
 
+        public static void GetServiceById(int id) // retrieves a service by its ID and displays its details
+        {
+            var service = Services.FirstOrDefault(s => s.ServiceId == id);
+            if (service == null)
+            {
+                Console.WriteLine("Service not found.");
+                return;
+            }
+
+            service.ViewServiceInfo();
+        }
+
 
         public static void ServiceMenu()
         {
