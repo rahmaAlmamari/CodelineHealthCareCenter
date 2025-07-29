@@ -282,6 +282,28 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
+        // Update Admin method to update admin details
+        public static void UpdateAdmin()
+        {
+            Console.WriteLine("Enter the Admin ID to update:");
+            int adminId = Validation.IntValidation("Admin ID");
+            var adminToUpdate = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
+            if (adminToUpdate == null)
+            {
+                Console.WriteLine("Admin not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Update admin details
+            adminToUpdate.UserName = Validation.StringValidation("new name");
+            adminToUpdate.UserEmail = Validation.EmailValidation("new email");
+            adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
+            Console.WriteLine("Admin details updated successfully.");
+            Additional.HoldScreen();
+        }
+
+
+
 
         //====================================================
         //4. class constructor ...
