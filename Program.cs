@@ -2,10 +2,13 @@
 
 namespace CodelineHealthCareCenter
 {
-    internal class Program
+    
+internal class Program
     {
+        public static Branch testBranch = new Branch("TestBranch", "Muscat", new DateOnly(2025, 7, 28), 1); // Create a test branch object
         static void Main(string[] args)
         {
+            Hospital.Branches.Add(testBranch); // Add the test branch to the hospital branches
             //to display the welcome message ...
             Additional.WelcomeMessage("Hospital Management");
             User x = new User();
