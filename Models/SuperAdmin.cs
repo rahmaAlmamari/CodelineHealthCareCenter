@@ -206,7 +206,7 @@ namespace CodelineHealthCareCenter.Models
                     Department.CreateDepartment(departmentName, branchId);
                     break;
                 case "2":
-                    //Department.GetAllDepartments();
+                    Department.GetAllDepartments();
                     break;
                 case "3":
                     //Department.UpdateDepartment();
