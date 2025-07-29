@@ -17,66 +17,25 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //3. class method ...
+
+        // SuperAdminMenu
         public static void SuperAdminMenu()
         {
 
             Console.WriteLine("Welcome to SuperAdminMenu");
-            Console.WriteLine("1. Add Doctor");
-            Console.WriteLine("2. Add Admin");
-            Console.WriteLine("3. Assign Admin To Branch");
-            Console.WriteLine("4. Update Doctor");
-            Console.WriteLine("5. Delete Doctor");
-            Console.WriteLine("6. View Doctors");
-            Console.WriteLine("7. View Admins");
-            Console.WriteLine("8. Update Admin");
-            Console.WriteLine("9. Delete Admin");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("1. Users ( Admins And Doctors )");
+            Console.WriteLine("2. Branchs");
+            Console.WriteLine("3. Departments");
+            Console.WriteLine("0. Exit");
             Console.Write("Please select an option: ");
             //to get the user choice ...
             char choice = Validation.CharValidation("option");
             switch (choice)
             {
                 case '1':
-                    Console.WriteLine("Add Branch");
-                   
-
-
-
+                    AdminDoctorUserMenu();
                     break;
-                case '2':
-                    //to add a new admin ...
-                    Console.WriteLine("Adding a new admin...");
-                    
-                    break;
-                case '3':
-                    //to assign admin to branch ...
-                    Console.WriteLine("Assigning admin to branch...");
-                    break;
-                case '4':
-                    //to update doctor ...
-                    Console.WriteLine("Updating doctor...");
-                    break;
-                case '5':
-                    //to delete doctor ...
-                    Console.WriteLine("Deleting doctor...");
-                    break;
-                case '6':
-                    //to view doctors ...
-                    //ViewDoctors();
-                    Branch.AddBranch();
-                    break;
-                case '7':
-                    //to view admins ...
-                    Console.WriteLine("Viewing admins...");
-                    break;
-                case '8':
-                    //to update admin ...
-                    Console.WriteLine("Updating admin...");
-                    break;
-                case '9':
-                    //to delete admin ...
-                    Console.WriteLine("Deleting admin...");
-                    break;
+               
                 case '0':
                     Console.WriteLine("Exiting SuperAdmin Menu.");
                     break;
@@ -85,6 +44,73 @@ namespace CodelineHealthCareCenter.Models
                     Additional.HoldScreen();
                     break;
             }
+
+
+        }
+
+        public static void AdminDoctorUserMenu() 
+        {
+            Console.WriteLine("Users ( Admins And Doctors ) Menu ");
+            Console.WriteLine("1. Admin ");
+            Console.WriteLine("2. Doctor ");
+            Console.WriteLine("0. Exit ");
+            Console.WriteLine("Please select an option : ");
+            char choice1 = Validation.CharValidation("option");
+            switch (choice1)
+            {
+                case '1':
+                    AdminUserMenu();
+                    break;
+
+                case '2':
+                    break;
+
+                case '0':
+                    Console.WriteLine("Invalid option, please try again.");
+                    Additional.HoldScreen();
+                    break;
+            }
+        }
+        public static void AdminUserMenu() 
+        {
+
+            Console.WriteLine("Users Admin Menu ");
+            Console.WriteLine("1. Add New Admin ");
+            Console.WriteLine("2. View All Admin ");
+            Console.WriteLine("3. Update Admin ");
+            Console.WriteLine("4. Delete Admin ");
+            Console.WriteLine("0. Exit ");
+            Console.WriteLine("Please select an option : ");
+            char choice1 = Validation.CharValidation("option");
+            switch (choice1)
+            {
+                case '1':
+                    AddAdmin();
+                    break;
+
+                case '2':
+                    ViewAdmins();
+                    break;
+                case '3':
+                    UpdateAdmin();
+                    break;
+                case '4':
+                    DeleteAdmin();
+                    break;
+
+                case '0':
+                    Console.WriteLine("Exiting Admin User Menu.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option, please try again.");
+                    Additional.HoldScreen();
+                    break;
+
+            }
+
+
+
+
 
 
         }
