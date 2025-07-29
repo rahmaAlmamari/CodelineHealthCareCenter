@@ -73,6 +73,19 @@ namespace CodelineHealthCareCenter.Models
             doctor.ViewDoctorInfo();
         }
 
+        public static void GetDoctorByName(string username) // Retrieves doctors by their username and displays their information
+        {
+            var matches = Doctors.Where(d => d.UserName.Equals(username, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!matches.Any())
+            {
+                Console.WriteLine("No doctor found with that name.");
+                return;
+            }
+
+            foreach (var doc in matches)
+                doc.ViewDoctorInfo();
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
