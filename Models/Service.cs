@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodelineHealthCareCenter.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,12 +15,41 @@ namespace CodelineHealthCareCenter.Models
         public string ServiceName;
         public double ServiceCost;
         public static int ServiceCount = 0;
+        public static IServiceService service; // for ServiceMenu()
 
         //====================================================
-        //2. class properity ...
+        //2. class properties ...
+
+        public static int TotalServices => ServiceCount;
 
         //====================================================
         //3. class method ...
+        public void ViewServiceInfo() // displays the details of the service
+        {
+            Console.WriteLine($"Service ID: {ServiceId}");
+            Console.WriteLine($"Name      : {ServiceName}");
+            Console.WriteLine($"Cost      : ${ServiceCost}");
+        }
+
+        public static void ServiceMenu()
+        {
+            Additional.WelcomeMessage("Service Management");
+
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine(" SERVICE MANAGEMENT MENU ");
+                Console.WriteLine("1. Add Service");
+                Console.WriteLine("2. Update Service");
+                Console.WriteLine("3. Delete Service");
+                Console.WriteLine("4. View All Services");
+                Console.WriteLine("5. View Service by ID");
+                Console.WriteLine("6. Exit");
+                Console.Write("Select an option: ");
+
+                string choice = Console.ReadLine();
+                Console.WriteLine();
+
 
         //====================================================
         //4. class constructor ...
