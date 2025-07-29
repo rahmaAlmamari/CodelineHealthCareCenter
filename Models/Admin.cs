@@ -44,6 +44,33 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public void AssignDoctorToClinic(int doctorId, int clinicId) // assigns a doctor to a clinic by their IDs
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+
+            if (clinic.Doctors.Any(d => d.DoctorID == doctorId))
+            {
+                Console.WriteLine("Doctor already assigned.");
+                return;
+            }
+
+            clinic.Doctors.Add(doctor);
+            Console.WriteLine($"Doctor {doctor.UserName} assigned to Clinic '{clinic.ClinicName}'.");
+        }
+
 
         public static void AdminMenu() // displays the admin management menu and handles user input
         {
