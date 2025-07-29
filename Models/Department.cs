@@ -13,7 +13,7 @@ namespace CodelineHealthCareCenter.Models
         public string DepartmentName;
         public int BranchId;
         public static int DepartmentCount = 0;
-        public static List<Clinic> Clinics = new List<Clinic>();
+        public List<Clinic> Clinics = new List<Clinic>();
 
         //====================================================
         //2. class properity ...
