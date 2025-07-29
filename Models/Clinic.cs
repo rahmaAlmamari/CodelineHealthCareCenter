@@ -84,6 +84,13 @@ namespace CodelineHealthCareCenter.Models
                 service.ViewServiceInfo();
         }
 
+        public static void AddClinic(string clinicName, string location) // adds a new clinic to the list
+        {
+            var newClinic = new Clinic(clinicName, location, 0, 0, 0, 0, 0);
+            Clinics.Add(newClinic);
+            Console.WriteLine($"Clinic '{clinicName}' added successfully.");
+        }
+
         public static void ClinicMenu()
         {
             Additional.WelcomeMessage("Clinic Management");
