@@ -9,7 +9,7 @@ namespace CodelineHealthCareCenter.Models
 {
     class PatientRecord
     {
-        //1. class feilds ...
+        //1. class fields ...
         public int PatientRecordId;
 
         public List<Service> Services = new List<Service>();
@@ -20,13 +20,24 @@ namespace CodelineHealthCareCenter.Models
 
 
         //====================================================
-        //2. class properity ...
+        //2. class property ...
 
         public static int RecordCount => PatientRecordCount;
 
         //====================================================
         //3. class method ...
 
+        public void ViewRecordDetails() // displays the details of the patient record
+        {
+            Console.WriteLine($"Record ID: {PatientRecordId}");
+            Console.WriteLine($"Total Cost: ${TotalCost}");
+            Console.WriteLine($"Doctor Note: {DoctorNote}");
+            Console.WriteLine($"Services ({Services.Count}):");
+            foreach (var s in Services)
+                Console.WriteLine($" - {s.ServiceName} (${s.Price})");
+        }
+
+        
         //====================================================
         //4. class constructor ...
         public PatientRecord()
