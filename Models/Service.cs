@@ -24,6 +24,12 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //3. class method ...
+        public void ViewServiceInfo() // displays the details of the service
+        {
+            Console.WriteLine($"Service ID: {ServiceId}");
+            Console.WriteLine($"Name      : {ServiceName}");
+            Console.WriteLine($"Cost      : ${ServiceCost}");
+        }
 
         //====================================================
         //4. class constructor ...
