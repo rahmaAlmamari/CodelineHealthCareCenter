@@ -136,6 +136,20 @@ namespace CodelineHealthCareCenter.Models
                 clinic.ViewClinicInfo();
         }
 
+        public static void UpdateClinicDetails(int clinicId, string name, string loc, decimal price) // updates clinic details
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+            clinic.ClinicName = name;
+            clinic.Location = loc;
+            clinic.Price = price;
+            Console.WriteLine($"Clinic ID {clinicId} updated successfully.");
+        }
+
         public static void ClinicMenu()
         {
             Additional.WelcomeMessage("Clinic Management");
