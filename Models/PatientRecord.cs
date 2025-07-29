@@ -86,6 +86,10 @@ namespace CodelineHealthCareCenter.Models
                         service.GetPatientRecordById(id);
                         break;
 
+                    case "5": // Get All Patient Records
+                        service.GetAllPatientRecords();
+                        break;
+
 
         //====================================================
         //4. class constructor ...
