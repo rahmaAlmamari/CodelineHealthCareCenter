@@ -72,6 +72,15 @@ namespace CodelineHealthCareCenter.Models
                         service.UpdatePatientRecord(updateId, newNote);
                         break;
 
+                    case "3": // Delete Patient Record 
+                        int deleteId = Validation.IntValidation("Record ID to delete");
+                        if (Additional.ConfirmAction("delete this patient record"))
+                        {
+                            service.DeletePatientRecord(deleteId);
+                        }
+                        else Console.WriteLine("Deletion cancelled.");
+                        break;
+
 
         //====================================================
         //4. class constructor ...
