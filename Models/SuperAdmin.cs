@@ -254,11 +254,11 @@ namespace CodelineHealthCareCenter.Models
             //    DepartmentDescription = departmentDescription,
             //    DepartmentId = BranchDepartment.DepartmentCount + 1 // Incrementing the count for unique ID
             //};
-            BranchDepartment.AddDepartment(new Department
-            {
-                DepartmentName = departmentName,
-                BranchId = this.HospitalId // Assuming HospitalId is set for the SuperAdmin
-            });
+            //BranchDepartment.AddDepartment(new Department
+            //{
+            //    DepartmentName = departmentName,
+            //    BranchId = this.HospitalId // Assuming HospitalId is set for the SuperAdmin
+            //});
            
             Console.WriteLine("Department added successfully.");
             Additional.HoldScreen();
