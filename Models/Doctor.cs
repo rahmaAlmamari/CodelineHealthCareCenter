@@ -178,7 +178,9 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("7. Get Doctor Data");
                 Console.WriteLine("8. Get Doctor By Branch Name");
                 Console.WriteLine("9. Get Doctor By Department Name");
-                Console.WriteLine("10. Exit");
+                Console.WriteLine("10. Add Available Time");
+                Console.WriteLine("11. Remove Available Time");
+                Console.WriteLine("11. Exit");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
@@ -248,9 +250,24 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorByDepartmentName(deptName);
                         break;
 
-                    case "10": //   Exit the doctor menu
-                        Console.WriteLine("Exiting Doctor Menu...");
-                        return;
+                        case "10": // Add available time slot for a doctor
+                        int doctorId = Validation.IntValidation("Doctor ID to add available time");
+                        DateTime availableTime = Validation.DateTimeValidation("Available Time (yyyy-MM-dd HH:mm)");
+                        var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+                        if (doctor != null)
+                        {
+                            doctor.AvailableTimes.Add(availableTime);
+                            Console.WriteLine($"Available time {availableTime:G} added for Doctor ID {doctorId}.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Doctor not found.");
+                        }
+                        break;
+
+                    //case "10": //   Exit the doctor menu
+                    //Console.WriteLine("Exiting Doctor Menu...");
+                    //return;
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
