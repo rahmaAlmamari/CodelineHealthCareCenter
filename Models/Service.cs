@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CodelineHealthCareCenter.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace CodelineHealthCareCenter.Models
         public string ServiceName;
         public double ServiceCost;
         public static int ServiceCount = 0;
+        public static IServiceService service; // for ServiceMenu()
 
         //====================================================
         //2. class properity ...
