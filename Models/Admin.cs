@@ -141,6 +141,23 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public void AddClinicSpot(int clinicId, DateTime newSpot) // adds a new spot to a clinic by its ID
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+            if (clinic.ClinicSpots.Contains(newSpot))
+            {
+                Console.WriteLine("Spot already exists.");
+                return;
+            }
+            clinic.ClinicSpots.Add(newSpot);
+            Console.WriteLine($"Spot {newSpot:G} added to Clinic '{clinic.ClinicName}'.");
+        }
+
 
 
         public static void AdminMenu() // displays the admin management menu and handles user input
