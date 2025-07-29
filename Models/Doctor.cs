@@ -135,6 +135,12 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public static void GetDoctorByBranchName(string branchName) // Searches for doctors associated with a specific branch name
+        {
+            Console.WriteLine($"Searching for doctors in branch '{branchName}'...");
+            Console.WriteLine("Functionality to be linked with Branch model.");
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
