@@ -177,6 +177,22 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Available time {availableTime:G} added for Doctor ID {doctorId}.");
         }
 
+        public static void RemoveAvailableTime(int doctorId, DateTime availableTime) // Removes an available time slot for a specific doctor
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+            if (!doctor.AvailableTimes.Remove(availableTime))
+            {
+                Console.WriteLine("This time slot is not available.");
+                return;
+            }
+            Console.WriteLine($"Available time {availableTime:G} removed for Doctor ID {doctorId}.");
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
