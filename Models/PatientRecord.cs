@@ -95,6 +95,12 @@ namespace CodelineHealthCareCenter.Models
                         service.GetRecordsByPatientId(patientSearchId);
                         break;
 
+                    case "7": // Get Records by Clinic ID and Date
+                        int clinicId = Validation.IntValidation("Clinic ID");
+                        DateTime date = Validation.DateTimeValidation("Date (MM/dd/yyyy)");
+                        service.GetRecordsByClinicIdAndDate(clinicId, date);
+                        break;
+
 
         //====================================================
         //4. class constructor ...
