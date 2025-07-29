@@ -30,7 +30,7 @@ namespace CodelineHealthCareCenter.Models
         public Hospital()
         {
 
-
+            HospitalId = HospitalId;
 
 
         }
