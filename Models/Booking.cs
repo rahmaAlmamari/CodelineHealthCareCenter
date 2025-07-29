@@ -30,18 +30,25 @@ namespace CodelineHealthCareCenter.Models
             //to list all clinics in the selected department ...
             GetAllClinicsByDepartmentId(departmentId);
             int clinicId = Validation.IntValidation("Clinic ID");
-            //to get the clinic by id ...
+            //to list all doctors in the selected clinic ...
+            GetAllDoctorsByClinicId(clinicId);
+            int doctorId = Validation.IntValidation("Doctor ID");
+            //to list all services in the selected clinic ...
+            GetAllDServicsByClinicId(clinicId);
+            int serviceId = Validation.IntValidation("Service ID");
+            //to list all spots in the selected clinic ...
+            GetAllSpotsByClinicId(clinicId, departmentId);
+            DateTime SpotDateTime = Validation.DateTimeValidation("Spot Date and Time (yyyy-MM-dd HH:mm:ss)");
         }
         //to GetAllClinicsByDepartmentId ...
         public static void GetAllClinicsByDepartmentId(int departmentId)
         {
-            Console.WriteLine("List of Clini in the Selected Department:");
             if (Clinic.ClinicCount == 0)
             {
                 Console.WriteLine("No clinic available.");
                 return;
             }
-
+            Console.WriteLine("List of Clini in the Selected Department:");
             foreach (var department in BranchDepartment.Departments)
             {
                 if(department.DepartmentId == departmentId)
@@ -54,17 +61,57 @@ namespace CodelineHealthCareCenter.Models
             }
 
         }
-        //to get all spot by clinic id ...
-        public static void GetAllSpotsByClinicId(int clinicId)
+        public static void GetAllDoctorsByClinicId(int clinicId)
         {
-            Console.WriteLine("List of Spots in the Selected Clinic:");
-            if (Clinic.ClinicSpots.Count == 0)
+            if (BranchDepartment.Doctors.Count == 0)
             {
-                Console.WriteLine("No spots available.");
+                Console.WriteLine("No doctors available.");
                 return;
             }
-
-
+            Console.WriteLine("List of Doctors in the Selected Clinic:");
+            foreach (var doctor in BranchDepartment.Doctors)
+            {
+                if (doctor.ClinicID == clinicId)
+                { 
+                            Console.WriteLine($"ID: {doctor.DoctorID}, Name: {doctor.UserName}, Specialization: {doctor.DoctorSpecialization}");
+                }
+            }
+        }
+        public static void GetAllDServicsByClinicId(int clinicId)
+        {
+            if (Service.Services.Count == 0)
+            {
+                Console.WriteLine("No services available.");
+                return;
+            }
+            Console.WriteLine("List of Services in the Selected Clinic:");
+            foreach (var service in Service.Services)
+            {
+                if (service.ClinicId == clinicId)
+                {
+                    Console.WriteLine($"ID: {service.ServiceId}, Name: {service.ServiceName}, Price: {service.Price}");
+                }
+            }
+        }
+        public static void GetAllSpotsByClinicId(int clinicId, int departmentId) 
+        {
+           foreach(var department in BranchDepartment.Departments)
+            {
+                if (department.DepartmentId == departmentId)
+                {
+                    foreach(var clinic in department.Clinics) 
+                    { 
+                        if(clinic.ClinicId == clinicId)
+                        {
+                            foreach(var spot in clinic.ClinicSpots)
+                            {
+                                Console.WriteLine($"spot: {spot}");
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
         //====================================================
         //4. class constructor ...
