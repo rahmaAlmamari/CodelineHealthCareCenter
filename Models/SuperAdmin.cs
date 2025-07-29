@@ -215,8 +215,17 @@ namespace CodelineHealthCareCenter.Models
                     int departmentId = Validation.IntValidation("Enter Department ID to update:");
                     if (Department.DepartmentExists(departmentId))
                     {
-                        string newDepartmentName = Validation.StringValidation("Enter New Department Name:");
-                        Department.UpdateDepartment(departmentId, newDepartmentName);
+                        
+                        if(Department.IsDepartmentActive(departmentId))
+                        {
+                            string newDepartmentName = Validation.StringValidation("Enter New Department Name:");
+                            Department.UpdateDepartment(departmentId, newDepartmentName);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Department is inactive and cannot be updated.");
+                            Additional.HoldScreen();
+                        }
                     }
                     else
                     {
