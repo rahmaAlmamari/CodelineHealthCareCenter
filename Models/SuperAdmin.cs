@@ -267,7 +267,32 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
-        // 
+        // Delete Doctor method to delete a doctor by ID
+        public static void DeleteDoctor()
+        {
+            Console.WriteLine("Enter the Doctor ID to delete:");
+            int doctorId = Validation.IntValidation("Doctor ID");
+            var doctorToDelete = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
+            if (doctorToDelete == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Confirm deletion
+            if (Additional.ConfirmAction("delete this doctor"))
+            {
+                BranchDepartment.Doctors.Remove(doctorToDelete);
+                Console.WriteLine("Doctor deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Deletion cancelled.");
+            }
+            Additional.HoldScreen();
+        }
+
+
 
 
 
