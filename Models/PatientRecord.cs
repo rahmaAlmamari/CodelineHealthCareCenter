@@ -61,6 +61,20 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Patient record added with ID: {record.PatientRecordId}");
         }
 
+        public static void UpdatePatientRecord(int recordId, string newDetails) // updates the doctor note of an existing patient record by its ID
+        {
+            var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
+            if (record == null)
+            {
+                Console.WriteLine("Record not found.");
+                return;
+            }
+
+            record.DoctorNote = newDetails;
+            Console.WriteLine("Doctor note updated successfully.");
+        }
+
+
         public static void PatientRecordMenu()
         {
             Additional.WelcomeMessage("Patient Record Management");
