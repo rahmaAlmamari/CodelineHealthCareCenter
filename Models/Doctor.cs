@@ -15,6 +15,7 @@ namespace CodelineHealthCareCenter.Models
         public string DoctorSpecialization;
         public List<Booking> DoctorAppointments = new List<Booking>();
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
+        public List<DateTime> AvailableTimes = new List<DateTime>();
 
         private static int doctorCounter = 0;
         public static IDoctorService service; // Used for DoctorMenu()
@@ -34,7 +35,19 @@ namespace CodelineHealthCareCenter.Models
         {
             Console.WriteLine($"ID: {DoctorID}, Name: {UserName}, Email: {UserEmail}");
             Console.WriteLine($"Specialization: {DoctorSpecialization}, DeptID: {DepartmentId}, ClinicID: {ClinicID}");
-            Console.WriteLine($"Appointments: {DoctorAppointments.Count}, Patient Records: {PatientRecords.Count}");
+            Console.WriteLine($"Available Times: {AvailableTimes.Count}, Patient Records: {PatientRecords.Count}"); 
+
+            if (AvailableTimes.Count > 0) // Displays available time slots for the doctor
+            {
+                Console.WriteLine("Available Time Slots:");
+                foreach (var time in AvailableTimes)
+                    Console.WriteLine($"- {time:G}");
+            }
+            else // If no available time slots, display a message
+            {
+                Console.WriteLine("No available time slots.");
+            }
+
         }
 
         public static void AddDoctor(string username, string password, string email, string specialization) // Adds a new doctor to the system
@@ -147,6 +160,39 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Functionality to be linked with Department model.");
         }
 
+        public static void AddAvailableTime(int doctorId, DateTime availableTime) // Adds an available time slot for a specific doctor
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+            if (doctor.AvailableTimes.Contains(availableTime))
+            {
+                Console.WriteLine("This time slot is already available.");
+                return;
+            }
+            doctor.AvailableTimes.Add(availableTime);
+            Console.WriteLine($"Available time {availableTime:G} added for Doctor ID {doctorId}.");
+        }
+
+        public static void RemoveAvailableTime(int doctorId, DateTime availableTime) // Removes an available time slot for a specific doctor
+        {
+            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            if (doctor == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                return;
+            }
+            if (!doctor.AvailableTimes.Remove(availableTime))
+            {
+                Console.WriteLine("This time slot is not available.");
+                return;
+            }
+            Console.WriteLine($"Available time {availableTime:G} removed for Doctor ID {doctorId}.");
+        }
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
@@ -165,7 +211,9 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("7. Get Doctor Data");
                 Console.WriteLine("8. Get Doctor By Branch Name");
                 Console.WriteLine("9. Get Doctor By Department Name");
-                Console.WriteLine("10. Exit");
+                Console.WriteLine("10. Add Available Time");
+                Console.WriteLine("11. Remove Available Time");
+                Console.WriteLine("11. Exit");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
@@ -235,9 +283,45 @@ namespace CodelineHealthCareCenter.Models
                         service.GetDoctorByDepartmentName(deptName);
                         break;
 
-                    case "10": //   Exit the doctor menu
-                        Console.WriteLine("Exiting Doctor Menu...");
-                        return;
+                        case "10": // Add available time slot for a doctor
+                        int doctorId = Validation.IntValidation("Doctor ID to add available time");
+                        DateTime availableTime = Validation.DateTimeValidation("Available Time (yyyy-MM-dd HH:mm)");
+                        var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+                        if (doctor != null)
+                        {
+                            doctor.AvailableTimes.Add(availableTime);
+                            Console.WriteLine($"Available time {availableTime:G} added for Doctor ID {doctorId}.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Doctor not found.");
+                        }
+                        break;
+
+                        case "11": // Remove available time slot for a doctor
+                        int removeDoctorId = Validation.IntValidation("Doctor ID to remove available time");
+                        DateTime removeTime = Validation.DateTimeValidation("Available Time to Remove (yyyy-MM-dd HH:mm)");
+                        var removeDoctor = Doctors.FirstOrDefault(d => d.DoctorID == removeDoctorId);
+                        if (removeDoctor != null)
+                        {
+                            if (removeDoctor.AvailableTimes.Remove(removeTime))
+                            {
+                                Console.WriteLine($"Available time {removeTime:G} removed for Doctor ID {removeDoctorId}.");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Available time not found.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Doctor not found.");
+                        }
+                        break;
+
+                    case "12": //   Exit the doctor menu
+                    Console.WriteLine("Exiting Doctor Menu...");
+                    return;
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
