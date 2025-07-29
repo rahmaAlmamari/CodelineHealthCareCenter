@@ -224,13 +224,58 @@ namespace CodelineHealthCareCenter.Models
                 Additional.HoldScreen();
                 return;
             }
-            // Update doctor details
-            doctorToUpdate.UserName = Validation.StringValidation("new name");
-            doctorToUpdate.UserEmail = Validation.EmailValidation("new email");
-            doctorToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
-            doctorToUpdate.DoctorSpecialization = Validation.StringValidation("new specialization");
-            Console.WriteLine("Doctor details updated successfully.");
-            Additional.HoldScreen();
+            // Choose what to update
+            Console.WriteLine("What do you want to update?");
+            // Method to display admin update options
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Update Doctor Information");
+                Console.WriteLine("------------------------");
+                Console.WriteLine("1. Update Email");
+                Console.WriteLine("2. Update Phone Number");
+                Console.WriteLine("3. Update National ID");
+                Console.WriteLine("4. Update Role");
+                Console.WriteLine("5. Update Status");
+                Console.WriteLine("0. Exit");
+
+                char choice = Validation.CharValidation("Choose an option: ");
+
+                switch (choice)
+                {
+                    case '1':
+                        doctorToUpdate.UserEmail = Validation.EmailValidation("Enter new email: ");
+                        break;
+                    case '2':
+                        doctorToUpdate.P_UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
+                        break;
+                    case '3':
+                        doctorToUpdate.UserNationalID = Validation.StringValidation("Enter new national ID: ");
+                        break;
+                    case '4':
+                        doctorToUpdate.UserRole = Validation.StringValidation("Enter new role (Admin/SuperAdmin): ");
+                        break;
+                    case '5':
+                        doctorToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                        break;
+                    case '0':
+                        Console.WriteLine("Exiting update menu...");
+                        AdminUserMenu();
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        break;
+                }
+                Console.Write("Do you want to update anything else? (y/n): ");
+                string continueChoice = Console.ReadLine().ToLower();
+
+                if (continueChoice != "y")
+                {
+                    Console.WriteLine("Returning to Admin Menu...");
+                    AdminUserMenu();
+                    return;
+                }
+            }
         }
 
         // Delete Doctor method to delete a doctor by ID
@@ -462,6 +507,8 @@ namespace CodelineHealthCareCenter.Models
             }
            
         }
+
+        // 
 
         // Additional Method 
 
