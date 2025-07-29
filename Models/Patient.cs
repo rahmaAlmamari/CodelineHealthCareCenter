@@ -23,12 +23,43 @@ namespace CodelineHealthCareCenter.Models
         //-------------------------------------To add new patient--------------------------------------
         public static void PatientMenu()
         {
-            Console.WriteLine("Welcome to Patient Menu");
-            Console.WriteLine("1. Book Appointment");
-            Console.WriteLine("2. View Appointments");
-            Console.WriteLine("3. View Patient Records");
-            Console.WriteLine("4. Exit");
-            Additional.HoldScreen();
+            bool Flag = true; //to store the user choice ...
+            //to display the patient menu options ...
+            do
+            {
+                char choice = '0'; //to store the user choice ...
+                Console.Clear(); //to clear the console ...
+                Console.WriteLine("Welcome to Patient Menu");
+                Console.WriteLine("1. Book Appointment");
+                Console.WriteLine("2. View Appointments");
+                Console.WriteLine("3. View Patient Records");
+                Console.WriteLine("0. Exit");
+                Console.WriteLine("Please select an option: ");
+                //to get the user choice ...
+                choice = Validation.CharValidation("option");
+                //to check the user choice ...
+                switch(choice)
+                {
+                    case '1': //to book an appointment ...
+                        //Booking.BookAppointment();
+                        break;
+                    case '2': //to view appointments ...
+                        //Booking.ViewAppointments();
+                        break;
+                    case '3': //to view patient records ...
+                        //PatientRecord.ViewPatientRecords();
+                        break;
+                    case '0': //to exit the patient menu ...
+                        Flag = false; //to exit the loop ...
+                        break;
+                    default: //if the user choice is invalid ...
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        Additional.HoldScreen(); //just to hold the screen ...
+                        break;
+                }
+            } while (Flag);
+
+
         }
         //to singUp new patient ...
         public static void SinUp()
