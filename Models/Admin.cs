@@ -116,6 +116,30 @@ namespace CodelineHealthCareCenter.Models
                 clinic.Doctors.ForEach(d => d.ViewDoctorInfo());
         }
 
+        public void GetClinicServices(int clinicId) // retrieves and displays all services assigned to a specific clinic by its ID
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+
+            if (clinic is IHasServices clinicWithServices)
+            {
+                Console.WriteLine($"Services in Clinic '{clinic.ClinicName}':");
+                if (clinicWithServices.Services.Count == 0)
+                    Console.WriteLine("No services assigned.");
+                else
+                    clinicWithServices.Services.ForEach(s => s.ViewServiceInfo());
+            }
+            else
+            {
+                Console.WriteLine("Clinic does not support services.");
+            }
+        }
+
 
 
         public static void AdminMenu() // displays the admin management menu and handles user input
