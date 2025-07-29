@@ -89,71 +89,7 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
-        // Add Doctor method to add a new doctor
-        //public static void AddDoctor()
-        //{
-        //    Console.Clear();
-        //    Console.WriteLine("Add New Doctor");
-        //    // Get doctor details from user
-        //    string name = Validation.StringValidation("doctor name");
-        //    string email = Validation.EmailValidation("doctor email");
-        //    int phoneNumber = Validation.IntValidation("doctor phone number");
-        //    string nationalId = Validation.StringValidation("doctor national ID");
-        //    string specialization = Validation.StringValidation("doctor specialization");
-        //    // View departments and get the department ID from user
-        //    Console.WriteLine("Available Departments:");
-        //    //Department.ViewDepartments(); // Assuming this method displays available departments
-            
-        //    int departmentId = Validation.IntValidation("Enter the Department ID for the doctor:");
-
-        //    // Check if the department ID is valid
-        //    if (!BranchDepartment.Departments.Any(d => d.DepartmentId == departmentId))
-        //    {
-        //        Console.WriteLine("Invalid Department ID. Please try again.");
-        //        Additional.HoldScreen();
-        //        return;
-        //    }
-
-        //    // view Branches and get the branch ID from user
-        //    Console.WriteLine("Available Branches:");
-        //    //BranchDepartment.ViewBranches(); // Assuming this method displays available branches
-        //    int branchId = Validation.IntValidation("Enter the Branch ID for the doctor:");
-
-        //    // Check if the branch ID is valid
-        //    if (!BranchDepartment.Branches.Any(b => b.BranchId == branchId))
-        //    {
-        //        Console.WriteLine("Invalid Branch ID. Please try again.");
-        //        Additional.HoldScreen();
-        //        return;
-        //    }
-
-
-
-        //    // Check if the national ID already exists
-        //    if (NationalIdExists(nationalId))
-        //    {
-        //        Console.WriteLine("A doctor with this National ID already exists.");
-        //        Additional.HoldScreen();
-        //        return;
-        //    }
-        //    // Create a new doctor instance
-        //    Doctor newDoctor = new Doctor();
-        //    newDoctor.UserName = name;
-        //    newDoctor.UserEmail = email;
-        //    newDoctor.P_UserPhoneNumber = phoneNumber;
-        //    newDoctor.UserNationalID = nationalId;
-        //    newDoctor.DoctorSpecialization = specialization;
-        //    newDoctor.UserRole = "Doctor"; // Set the role to Doctor
-        //    newDoctor.UserStatus = "Active"; // Set the status to Active
-
-            
-            
-        //    BranchDepartment.Doctors.Add(newDoctor);
-        //    Console.WriteLine("Doctor added successfully.");
-        //    Additional.HoldScreen();
-        //}
-
-
+       
         public static bool NationalIdExists(string nationalId)
         {
             //to check if the national id exists or not in SuperAdmin list hospital class ...  
@@ -182,6 +118,7 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
+        // DOCTOR Methods
         // Add Doctor method to add a new doctor
         public static void AddDoctor()
         {
@@ -267,7 +204,154 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
-        // 
+        // Delete Doctor method to delete a doctor by ID
+        public static void DeleteDoctor()
+        {
+            Console.WriteLine("Enter the Doctor ID to delete:");
+            int doctorId = Validation.IntValidation("Doctor ID");
+            var doctorToDelete = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
+            if (doctorToDelete == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Confirm deletion
+            if (Additional.ConfirmAction("delete this doctor"))
+            {
+                BranchDepartment.Doctors.Remove(doctorToDelete);
+                Console.WriteLine("Doctor deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Deletion cancelled.");
+            }
+            Additional.HoldScreen();
+        }
+
+
+        // Set Doctor Status method to set the status of a doctor
+        public static void SetDoctorStatus()
+        {
+            Console.WriteLine("Enter the Doctor ID to set status:");
+            int doctorId = Validation.IntValidation("Doctor ID");
+            var doctorToUpdate = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
+            if (doctorToUpdate == null)
+            {
+                Console.WriteLine("Doctor not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Set the status of the doctor
+            doctorToUpdate.UserStatus = Validation.StringValidation("new status (Active/Inactive)");
+            Console.WriteLine("Doctor status updated successfully.");
+            Additional.HoldScreen();
+        }
+
+        // ADMIN Method
+
+        // Add Admin method to add a new admin
+        public static void AddAdmin()
+        {
+            Console.Clear();
+            Console.WriteLine("Add New Admin");
+            // Get admin details from user
+            string name = Validation.StringValidation("admin name");
+            string email = Validation.EmailValidation("admin email");
+            int phoneNumber = Validation.IntValidation("admin phone number");
+            string nationalId = Validation.StringValidation("admin national ID");
+            // Check if the national ID already exists
+            if (NationalIdExists(nationalId))
+            {
+                Console.WriteLine("An admin with this National ID already exists.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Create a new admin instance
+            Admin admin = new Admin(name, email, 0);
+            admin.UserName = name;
+            admin.UserEmail = email;
+            admin.P_UserPhoneNumber = phoneNumber;
+            admin.UserNationalID = nationalId;
+            admin.UserRole = "Admin"; // Set the role to Admin
+            admin.UserStatus = "Active"; // Set the status to Active
+            // Add the admin to the List
+            BranchDepartment.Admins.Add(admin);
+            Console.WriteLine("Admin added successfully.");
+            Additional.HoldScreen();
+        }
+
+
+        // Update Admin method to update admin details
+        public static void UpdateAdmin()
+        {
+            Console.WriteLine("Enter the Admin ID to update:");
+            int adminId = Validation.IntValidation("Admin ID");
+            var adminToUpdate = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
+            if (adminToUpdate == null)
+            {
+                Console.WriteLine("Admin not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Update admin details
+            adminToUpdate.UserName = Validation.StringValidation("new name");
+            adminToUpdate.UserEmail = Validation.EmailValidation("new email");
+            adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("new phone number");
+            Console.WriteLine("Admin details updated successfully.");
+            Additional.HoldScreen();
+        }
+
+        // Delete Admin method to delete an admin by ID
+        public static void DeleteAdmin()
+        {
+            Console.WriteLine("Enter the Admin ID to delete:");
+            int adminId = Validation.IntValidation("Admin ID");
+            var adminToDelete = BranchDepartment.Admins.FirstOrDefault(a => a.UserId == adminId);
+            if (adminToDelete == null)
+            {
+                Console.WriteLine("Admin not found.");
+                Additional.HoldScreen();
+                return;
+            }
+            // Confirm deletion
+            if (Additional.ConfirmAction("delete this admin"))
+            {
+                BranchDepartment.Admins.Remove(adminToDelete);
+                Console.WriteLine("Admin deleted successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Deletion cancelled.");
+            }
+            Additional.HoldScreen();
+        }
+
+        // View Admins method to display all admins in the branch department
+        public static void ViewAdmins()
+        {
+            Console.Clear();
+            Console.WriteLine("List of Admins");
+            if (BranchDepartment.Admins.Count == 0)
+            {
+                Console.WriteLine("No admins available in the system.");
+                Additional.HoldScreen();
+                return;
+            }
+            foreach (var admin in BranchDepartment.Admins)
+            {
+                Console.WriteLine($"Admin ID        : {admin.UserId}");
+                Console.WriteLine($"Name            : {admin.UserName}");
+                Console.WriteLine($"Email           : {admin.UserEmail}");
+                Console.WriteLine($"Phone Number    : {admin.P_UserPhoneNumber}");
+                Console.WriteLine($"National ID     : {admin.UserNationalID}");
+                Console.WriteLine($"Status          : {admin.UserStatus}");
+                Console.WriteLine(new string('-', 40));
+            }
+            Additional.HoldScreen();
+        }
+
+
 
 
 
