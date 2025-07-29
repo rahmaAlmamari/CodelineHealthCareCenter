@@ -144,6 +144,7 @@ namespace CodelineHealthCareCenter.Models
 
         public static void AdminMenu() // displays the admin management menu and handles user input
         {
+
             Additional.WelcomeMessage("Admin Panel");
 
             while (true)
