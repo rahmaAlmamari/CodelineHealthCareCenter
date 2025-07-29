@@ -156,7 +156,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("2. Add Service to Clinic");
                 Console.WriteLine("3. View Clinic's Doctors");
                 Console.WriteLine("4. View Clinic's Services");
-                Console.WriteLine("5. Add Spot");
+                Console.WriteLine("5. Add Clinic Spot");
                 Console.WriteLine("6. Exit");
                 Console.Write("Select an option: ");
 
