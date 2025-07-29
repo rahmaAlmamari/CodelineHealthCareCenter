@@ -162,6 +162,20 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Clinic '{clinic.ClinicName}' status set to {(isActive ? "Open" : "Closed")}.");
         }
 
+        public static void DeleteClinic(int clinicId) // deletes a clinic by its ID
+      
+        {
+            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            if (clinic == null)
+            {
+                Console.WriteLine("Clinic not found.");
+                return;
+            }
+            Clinics.Remove(clinic);
+            Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
+        }
+
+
         public static void ClinicMenu()
         {
             Additional.WelcomeMessage("Clinic Management");
