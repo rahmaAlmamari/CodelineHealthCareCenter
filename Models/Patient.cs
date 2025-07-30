@@ -14,6 +14,9 @@ namespace CodelineHealthCareCenter.Models
         public string PatientCity;
         public List<Booking> PatientAppointments = new List<Booking>();
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
+        //patient file path ...
+        private static string filePath = "patients.txt";
+
 
         //====================================================
         //2. class properity ...
