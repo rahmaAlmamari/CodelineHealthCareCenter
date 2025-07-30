@@ -100,6 +100,21 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
+        // Get Department By Name
+        public static Department GetDepartmentByName(string departmentName)
+        {
+            var department = BranchDepartment.Departments.FirstOrDefault(d => d.DepartmentName.Equals(departmentName, StringComparison.OrdinalIgnoreCase));
+            if (department != null)
+            {
+                return department;
+            }
+            else
+            {
+                Console.WriteLine($"Department '{departmentName}' not found.");
+                return null;
+            }
+        }
+
 
         // Get Department Name
         public static string GetDepartmentName(int departmentId)
