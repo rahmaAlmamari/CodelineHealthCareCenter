@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using CodelineHealthCareCenter.Services;
 using System.Linq;
+using System.IO;
+
 
 
 
@@ -257,6 +259,45 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public static void SaveToFile(string filePath) // save data to file 
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var doc in Doctors)
+            {
+                // Save: DoctorID | UserName | Email | Specialization | DepartmentId | ClinicId | Status
+                writer.WriteLine($"{doc.DoctorID}|{doc.UserName}|{doc.UserEmail}|{doc.DoctorSpecialization}|{doc.DepartmentId}|{doc.ClinicID}|{doc.UserStatus}");
+            }
+        }
+
+        public static void LoadFromFile(string filePath) 
+        {
+            Doctors.Clear();
+            doctorCounter = 0;
+
+            if (!File.Exists(filePath)) return;
+
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 7) continue;
+
+                Doctor doctor = new Doctor(
+                    username: parts[1],
+                    email: parts[2],
+                    specialization: parts[3],
+                    departmentId: int.Parse(parts[4]),
+                    clinicId: int.Parse(parts[5])
+                );
+
+                doctor.DoctorID = int.Parse(parts[0]); // override auto-incremented ID
+                doctor.UserStatus = parts[6];
+
+                Doctors.Add(doctor);
+                if (doctor.DoctorID > doctorCounter)
+                    doctorCounter = doctor.DoctorID;
+            }
+        }
 
 
 

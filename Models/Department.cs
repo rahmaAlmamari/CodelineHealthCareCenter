@@ -14,6 +14,7 @@ namespace CodelineHealthCareCenter.Models
         public int BranchId;
         public static int DepartmentCount = 0;
         public List<Clinic> Clinics = new List<Clinic>();
+        public static string DepartmentsFilePath = "Departments.txt"; 
 
         //====================================================
         //2. class properity ...
@@ -31,15 +32,25 @@ namespace CodelineHealthCareCenter.Models
                 DepartmentName = departmentName,
                 BranchId = branchId
             };
+
+            
             // add the new department to the list of departments in the branch
             BranchDepartment.Departments.Add(newDepartment); 
-            Console.WriteLine($"Department '{newDepartment.DepartmentName}' created with ID {newDepartment.DepartmentId} in Branch ID {newDepartment.BranchId}.");
+            Console.WriteLine($"Department '{newDepartment.DepartmentName}' created in Branch ID {newDepartment.BranchId}.");
+            // Increment the department count
+            DepartmentCount++;
+            // Save the new department to file
+            SaveDepartmentsToFile();
+            
+            SuperAdmin.AdminDepartmentMenu();
+            Additional.HoldScreen();
 
         }
 
         // Get All Departments
         public static void GetAllDepartments()
         {
+            Console.Clear();
             Console.WriteLine("List of Departments:");
             if (DepartmentCount == 0)
             {
@@ -51,6 +62,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
             }
+            Additional.HoldScreen();
+            SuperAdmin.AdminDepartmentMenu();
         }
 
 
@@ -67,6 +80,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine($"Department ID {departmentId} not found.");
             }
+            Additional.HoldScreen();
+            SuperAdmin.AdminDepartmentMenu();
         }
 
         // Set Department Active Status
@@ -97,6 +112,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Department ID {departmentId} not found.");
                 return null;
             }
+
         }
 
 
@@ -146,6 +162,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine($"Department ID {departmentId} not found.");
             }
+            Additional.HoldScreen();
+            SuperAdmin.AdminDepartmentMenu();
         }
 
 
@@ -170,6 +188,77 @@ namespace CodelineHealthCareCenter.Models
                 return false;
             }
         }
+
+        // view All Departments
+        public static void ViewAllDepartments()
+        {
+            
+            Console.WriteLine("List of All Departments:");
+            if (BranchDepartment.Departments.Count == 0)
+            {
+                Console.WriteLine("No departments available.");
+                return;
+            }
+
+            foreach (var department in BranchDepartment.Departments)
+            {
+                Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
+            }
+           
+        }
+
+
+        // save department to file
+        public static void SaveDepartmentsToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(DepartmentsFilePath))
+            {
+                foreach (var department in BranchDepartment.Departments)
+                {
+                    writer.WriteLine($"{department.DepartmentId}|{department.DepartmentName}|{department.BranchId}");
+                }
+            }
+            Console.WriteLine("Departments saved to file.");
+
+        }
+
+        // Load departments from file
+        public static void LoadDepartmentsFromFile()
+        {
+            if (File.Exists(DepartmentsFilePath))
+            {
+                BranchDepartment.Departments.Clear(); // Optional: clear current list
+
+                using (StreamReader reader = new StreamReader(DepartmentsFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split('|');
+                        if (parts.Length == 3)
+                        {
+                            Department department = new Department
+                            {
+                                DepartmentId = int.Parse(parts[0]),
+                                DepartmentName = parts[1],
+                                BranchId = int.Parse(parts[2])
+                            };
+                            BranchDepartment.Departments.Add(department);
+
+                            // Ensure DepartmentCount is always the max ID
+                            if (department.DepartmentId > DepartmentCount)
+                                DepartmentCount = department.DepartmentId;
+                        }
+                    }
+                }
+                Console.WriteLine("Departments loaded from file.");
+            }
+            else
+            {
+                Console.WriteLine("No departments file found.");
+            }
+        }
+
 
         //====================================================
         //4. class constructor ...

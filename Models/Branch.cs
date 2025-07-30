@@ -19,6 +19,8 @@ namespace CodelineHealthCareCenter.Models
         public List<Patient> Patients = new List<Patient>();
         public int HospitalId;
 
+        static string BranchesFilePath = "Branch.txt";
+
         //====================================================
         //2. class properity ...
 
@@ -27,6 +29,8 @@ namespace CodelineHealthCareCenter.Models
         // Add Branch method to add a new branch
         public static void AddBranch()
         {
+            // Load existing branches from file
+            LoadBranches(); // Load branches from file at the start
             Console.Clear();
             Console.WriteLine("Add New Branch");
             // Get branch details from user
@@ -39,6 +43,8 @@ namespace CodelineHealthCareCenter.Models
             Branch.AddBranch(branchName, branchCity, branchEstablishDate, hospitalId); // Call the static method to add the branch
 
             Console.WriteLine("Branch added successfully.");
+            // save branches to file
+            SaveBranches();
             SuperAdmin.AdminBranchMenu();
             Additional.HoldScreen();
         }
@@ -250,17 +256,19 @@ namespace CodelineHealthCareCenter.Models
         public static void ViewAllBranch()
         {
             Console.WriteLine("List of Branches");
-           
-            foreach (var branch in Hospital.Branches)
+
+            // get all Available branches
+            for (int i = 0; i < Hospital.Branches.Count; i++)
             {
-                Console.WriteLine($"Branch ID       : {branch.BranchId}");
-                Console.WriteLine($"Branch Name     : {branch.BranchName}");
-                Console.WriteLine($"Branch City     : {branch.BranchCity}");
-                Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
-                Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
+                Console.WriteLine($"Branch ID       : {Hospital.Branches[i].BranchId}");
+                Console.WriteLine($"Branch Name     : {Hospital.Branches[i].BranchName}");
+                Console.WriteLine($"Branch City     : {Hospital.Branches[i].BranchCity}");
+                Console.WriteLine($"Establish Date  : {Hospital.Branches[i].BranchEstablishDate}");
+                Console.WriteLine($"Status          : {(Hospital.Branches[i].BranchStatus ? "Open" : "Closed")}");
                 Console.WriteLine(new string('-', 40));
             }
-           
+
+
         }
 
         //====================================================
@@ -294,7 +302,58 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Branch {newBranch.BranchName} added successfully.");
         }
 
+        // save to file
+        public static void SaveBranches()
+        {
+            using (StreamWriter writer = new StreamWriter(BranchesFilePath))
+            {
+                foreach (var a in Hospital.Branches)
+                {
+                    writer.WriteLine($"{a.BranchId}|{a.BranchName}|{a.BranchCity}|{a.BranchEstablishDate}|{a.BranchStatus}");
+                }
+                
+            }
+            Console.WriteLine("Branches saved to file.");
 
+        }
+
+        // Load branches from file
+        public static void LoadBranches()
+        {
+            if (File.Exists(BranchesFilePath))
+            {
+                using (StreamReader reader = new StreamReader(BranchesFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split('|');
+                        if (parts.Length == 5)
+                        {
+                            int branchId = int.Parse(parts[0]);
+                            string branchName = parts[1];
+                            string branchCity = parts[2];
+                            DateOnly branchEstablishDate = DateOnly.Parse(parts[3]);
+                            bool branchStatus = bool.Parse(parts[4]);
+                            Branch branch = new Branch
+                            {
+                                BranchId = branchId,
+                                BranchName = branchName,
+                                BranchCity = branchCity,
+                                BranchEstablishDate = branchEstablishDate,
+                                BranchStatus = branchStatus
+                            };
+                            Hospital.Branches.Add(branch);
+                        }
+                    }
+                }
+                Console.WriteLine("Branches loaded from file.");
+            }
+            else
+            {
+                Console.WriteLine("No branches file found.");
+            }
+        }
 
 
     }

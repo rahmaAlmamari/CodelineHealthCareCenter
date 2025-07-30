@@ -12,7 +12,8 @@ namespace CodelineHealthCareCenter.Models
     {
         //1. class feilds ...
         public int HospitalId;
-
+        public static string DoctorsFilePath = "Doctors.txt";
+        public static string AdminsFilePath = "Admins.txt";
         //====================================================
         //2. class properity ...
 
@@ -22,6 +23,11 @@ namespace CodelineHealthCareCenter.Models
         // SuperAdminMenu -> Main Menu
         public static void SuperAdminMenu()
         {
+            Branch.LoadBranches();
+            Department.LoadDepartmentsFromFile();
+            LoadDoctorsFromFile();
+            LoadAdminsFromFile();
+            
             Console.Clear();
             Console.WriteLine("Welcome to SuperAdminMenu");
             Console.WriteLine("1. Users ( Admins And Doctors )");
@@ -45,6 +51,7 @@ namespace CodelineHealthCareCenter.Models
 
                 case '0':
                     Console.WriteLine("Exiting SuperAdmin Menu.");
+
                     break;
                 default:
                     Console.WriteLine("Invalid option, please try again.");
@@ -207,6 +214,11 @@ namespace CodelineHealthCareCenter.Models
                 case "8":
                     Branch.GetBranchDetailsByBranchName();
                     break;
+                case "0":
+                   
+                    Console.WriteLine("Exiting Branch Admin Menu.");
+                    SuperAdminMenu();
+                    break;
                 default:
                     Console.WriteLine("Invalid option, please try again.");
                     Additional.HoldScreen();
@@ -221,7 +233,7 @@ namespace CodelineHealthCareCenter.Models
         public static void AdminDepartmentMenu()
         {
             Console.Clear();
-            Console.WriteLine("Department Admin Menu ");
+            Console.WriteLine("Department Menu ");
             Console.WriteLine("1. Add New Department ");
             Console.WriteLine("2. View All Departments ");
             Console.WriteLine("3. Update Department ");
@@ -234,18 +246,21 @@ namespace CodelineHealthCareCenter.Models
                     Console.WriteLine("Adding New Department...");
 
                     Console.WriteLine("All Branches:");
-                    Branch.GetAllBranches();
+                    Branch.ViewAllBranch();
                     Console.WriteLine("----------------------------------");
                     int branchId = Validation.IntValidation("Please select a branch to add the department to:");
                     string departmentName = Validation.StringValidation("Enter Department Name:");
+                    // chieck if the Name is valid or not ...
+
                     Department.CreateDepartment(departmentName, branchId);
                     break;
                 case "2":
                     Department.GetAllDepartments();
                     break;
                 case "3":
-                    Console.WriteLine("All Department...");
-                    Department.GetAllDepartments();
+                    Console.WriteLine("Update Department ");
+                   
+                    Department.ViewAllDepartments();
                     Console.WriteLine("-----------------------------");
                     int departmentId = Validation.IntValidation("Enter Department ID to update:");
                     if (Department.DepartmentExists(departmentId))
@@ -270,12 +285,26 @@ namespace CodelineHealthCareCenter.Models
 
                    
                     break;
+               
                 case "4":
-                    //Department.DeleteDepartment();
+                    Console.WriteLine("Delete Department ");
+                    Department.ViewAllDepartments();
+                    Console.WriteLine("-----------------------------");
+                    int departmentId1 = Validation.IntValidation("Enter Department ID to delete:");
+                    if (Department.DepartmentExists(departmentId1))
+                    {
+                        Department.DeleteDepartment(departmentId1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Department not found.");
+                        Additional.HoldScreen();
+                    }
                     break;
                 case "0":
-                    SuperAdminMenu();
+                    
                     Console.WriteLine("Exiting Department Admin Menu.");
+                    SuperAdminMenu();
                     break;
                 default:
                     Console.WriteLine("Invalid option, please try again.");
@@ -333,6 +362,7 @@ namespace CodelineHealthCareCenter.Models
             doctor.UserStatus = "Active"; // Set the status to Active
             // Add the doctor to the List
             BranchDepartment.Doctors.Add(doctor);
+            SaveDoctorsToFile();
             Console.WriteLine("Doctor added successfully.");
             Additional.HoldScreen();
             DoctorUserMenu();
@@ -493,6 +523,47 @@ namespace CodelineHealthCareCenter.Models
             Additional.HoldScreen();
         }
 
+        // save the doctors to file
+        public static void SaveDoctorsToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(DoctorsFilePath))
+            {
+                foreach (var doctor in BranchDepartment.Doctors)
+                {
+                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.UserEmail}|{doctor.P_UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
+                }
+            }
+        }
+
+        // Load Doctors from file
+        public static void LoadDoctorsFromFile()
+        {
+            if (File.Exists(DoctorsFilePath))
+            {
+                using (StreamReader reader = new StreamReader(DoctorsFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split('|');
+                        if (parts.Length == 8)
+                        {
+                            Doctor doctor = new Doctor(parts[1], parts[2], parts[5], int.Parse(parts[3]), int.Parse(parts[0]));
+                            doctor.UserId = int.Parse(parts[0]);
+                            doctor.UserName = parts[1];
+                            doctor.UserEmail = parts[2];
+                            doctor.P_UserPhoneNumber = int.Parse(parts[3]);
+                            doctor.UserNationalID = parts[4];
+                            doctor.DoctorSpecialization = parts[5];
+                            doctor.UserRole = parts[6];
+                            doctor.UserStatus = parts[7];
+                            BranchDepartment.Doctors.Add(doctor);
+                        }
+                    }
+                }
+            }
+        }
+
         // ADMIN Method
 
         // Add Admin method to add a new admin
@@ -522,6 +593,7 @@ namespace CodelineHealthCareCenter.Models
             admin.UserStatus = "Active"; // Set the status to Active
             // Add the admin to the List
             BranchDepartment.Admins.Add(admin);
+            SaveAdminsToFile();
             Console.WriteLine("Admin added successfully.");
             Additional.HoldScreen();
             AdminUserMenu();
@@ -680,7 +752,47 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
-       
+        // save admins to file
+        public static void SaveAdminsToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(AdminsFilePath))
+            {
+                foreach (var admin in BranchDepartment.Admins)
+                {
+                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.P_UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
+                }
+            }
+        }
+
+        // Load Admins from file
+        public static void LoadAdminsFromFile()
+        {
+            if (File.Exists(AdminsFilePath))
+            {
+                using (StreamReader reader = new StreamReader(AdminsFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split('|');
+                        if (parts.Length == 7)
+                        {
+                            Admin admin = new Admin(parts[1], parts[2], int.Parse(parts[3]));
+                            admin.UserId = int.Parse(parts[0]);
+                            admin.UserName = parts[1];
+                            admin.UserEmail = parts[2];
+                            admin.P_UserPhoneNumber = int.Parse(parts[3]);
+                            admin.UserNationalID = parts[4];
+                            admin.UserRole = parts[5];
+                            admin.UserStatus = parts[6];
+                            BranchDepartment.Admins.Add(admin);
+                        }
+                    }
+                }
+            }
+        }
+
+
         // BRANCH Methods ...
 
 

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace CodelineHealthCareCenter.Models
 {
@@ -90,6 +92,39 @@ namespace CodelineHealthCareCenter.Models
             }
 
             service.ViewServiceInfo();
+        }
+
+        public static void SaveToFile(string filePath)
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var service in Services)
+            {
+                writer.WriteLine($"{service.ServiceId}|{service.ServiceName}|{service.Price}");
+            }
+        }
+
+        public static void LoadFromFile(string filePath)
+        {
+            Services.Clear();
+            ServiceCount = 0;
+
+            if (!File.Exists(filePath)) return;
+
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 3) continue;
+
+                Service service = new Service(parts[1], double.Parse(parts[2]))
+                {
+                    ServiceId = int.Parse(parts[0])
+                };
+
+                Services.Add(service);
+                if (service.ServiceId > ServiceCount)
+                    ServiceCount = service.ServiceId;
+            }
         }
 
 
