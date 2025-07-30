@@ -45,6 +45,7 @@ namespace CodelineHealthCareCenter.Models
 
                 case '0':
                     Console.WriteLine("Exiting SuperAdmin Menu.");
+
                     break;
                 default:
                     Console.WriteLine("Invalid option, please try again.");
@@ -221,7 +222,7 @@ namespace CodelineHealthCareCenter.Models
         public static void AdminDepartmentMenu()
         {
             Console.Clear();
-            Console.WriteLine("Department Admin Menu ");
+            Console.WriteLine("Department Menu ");
             Console.WriteLine("1. Add New Department ");
             Console.WriteLine("2. View All Departments ");
             Console.WriteLine("3. Update Department ");
@@ -234,18 +235,21 @@ namespace CodelineHealthCareCenter.Models
                     Console.WriteLine("Adding New Department...");
 
                     Console.WriteLine("All Branches:");
-                    Branch.GetAllBranches();
+                    Branch.ViewAllBranch();
                     Console.WriteLine("----------------------------------");
                     int branchId = Validation.IntValidation("Please select a branch to add the department to:");
                     string departmentName = Validation.StringValidation("Enter Department Name:");
+                    // chieck if the Name is valid or not ...
+
                     Department.CreateDepartment(departmentName, branchId);
                     break;
                 case "2":
                     Department.GetAllDepartments();
                     break;
                 case "3":
-                    Console.WriteLine("All Department...");
-                    Department.GetAllDepartments();
+                    Console.WriteLine("Update Department ");
+                   
+                    Department.ViewAllDepartments();
                     Console.WriteLine("-----------------------------");
                     int departmentId = Validation.IntValidation("Enter Department ID to update:");
                     if (Department.DepartmentExists(departmentId))
@@ -270,12 +274,26 @@ namespace CodelineHealthCareCenter.Models
 
                    
                     break;
+               
                 case "4":
-                    //Department.DeleteDepartment();
+                    Console.WriteLine("Delete Department ");
+                    Department.ViewAllDepartments();
+                    Console.WriteLine("-----------------------------");
+                    int departmentId1 = Validation.IntValidation("Enter Department ID to delete:");
+                    if (Department.DepartmentExists(departmentId1))
+                    {
+                        Department.DeleteDepartment(departmentId1);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Department not found.");
+                        Additional.HoldScreen();
+                    }
                     break;
                 case "0":
-                    SuperAdminMenu();
+                    
                     Console.WriteLine("Exiting Department Admin Menu.");
+                    SuperAdminMenu();
                     break;
                 default:
                     Console.WriteLine("Invalid option, please try again.");
