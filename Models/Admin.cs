@@ -174,14 +174,15 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Spot {spotToRemove:G} removed from Clinic '{clinic.ClinicName}'.");
         }
 
-        public static void SaveToFile(string filePath)
+        public static void SaveToFile(string filePath) 
         {
             using StreamWriter writer = new StreamWriter(filePath);
-            foreach (var admin in BranchDepartment.Admins) // assuming this is where admins are stored
+            foreach (var admin in BranchDepartment.Admins)
             {
-                writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.P_UserPhoneNumber}|{admin.UserNationalID}|{admin.BranchID}|{admin.UserStatus}");
+                writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.BranchID}|{admin.UserStatus}|{admin.UserNationalID}|{admin.P_UserPhoneNumber}");
             }
         }
+
 
 
         public static void AdminMenu()
