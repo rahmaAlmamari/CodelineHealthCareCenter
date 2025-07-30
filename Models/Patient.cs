@@ -44,7 +44,7 @@ namespace CodelineHealthCareCenter.Models
                         Booking.BookAppointment();
                         break;
                     case '2': //to view appointments ...
-                        //Booking.ViewAppointments();
+                        ViewPatientAppointments();
                         break;
                     case '3': //to view patient records ...
                         //PatientRecord.ViewPatientRecords();
@@ -163,6 +163,54 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"City: {PatientCity}");
             Console.WriteLine($"Role: {UserRole}");
             Console.WriteLine($"Status: {UserStatus}");
+        }
+        //to view patient appointments ...
+        public static void ViewPatientAppointments()
+        {
+            //to get the patient national id ...
+            string userNationalID = Validation.StringValidation("national ID");
+            //to find the patient by national id ...
+            Patient patient = FindPatientByNationalId(userNationalID);
+            if (patient != null)
+            {
+                Console.WriteLine($"Appointments for Patient {patient.UserName}:");
+                if (patient.PatientAppointments.Count == 0)
+                {
+                    Console.WriteLine("No appointments found for this patient.");
+                }
+                else
+                {
+                    foreach (var appointment in patient.PatientAppointments)
+                    {
+                        //to get doctor name from the appointment ...
+                        var doctorName = BranchDepartment.Doctors.Find(d => d.DoctorID == appointment.DoctorId);
+                        Console.WriteLine($"Appointment ID: {appointment.BookingId}, Date: {appointment.BookingDateTime}, Doctor: {doctorName}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Patient not found.");
+            }
+            Additional.HoldScreen(); //just to hold the screen ...
+        }
+        //to find the patient by national id ...
+        public static Patient FindPatientByNationalId(string nationalId)
+        {
+            //to loop through all branches and their patients ...
+            foreach (var branch in Hospital.Branches)
+            {
+                foreach (var patient in branch.Patients)
+                {
+                    if (patient.UserNationalID == nationalId)
+                    {
+                        return patient; //if patient found ...
+                    }
+                }
+            }
+            Console.WriteLine("Patient not found with this National ID.");
+            Additional.HoldScreen();
+            return null; //if patient not found ...
         }
         //====================================================
         //4. class constructor ...
