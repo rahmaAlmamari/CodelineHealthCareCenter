@@ -134,42 +134,42 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("9. Get Branch Name");
             Console.WriteLine("10. Get Branch Status");
             Console.WriteLine("0. Exit ");
-            char choice1 = Validation.CharValidation("Please select an option : ");
+            string choice1 = Validation.StringValidation("option");
             switch (choice1) {
-                case '1':
+                case "1":
                     Branch.AddBranch();
                     break;
-                case '2':
+                case "2":
                     Branch.GetAllBranches();
                     break;
-                case '3':
+                case "3":
                     Branch.UpdateBranch();
                     break;
-                case '4':
+                case "4":
                     Branch.DeleteBranch();
                     break;
-                case '5':
+                case "5":
                     Branch.GetAllBranches();
                     break;
-                case '6':
+                case "6":
                     Branch.GetBranchById();
                     break;
-                case '7':
+                case "7":
                     
                     Branch.GetBranchDetails();
                     break;
-                case '8':
+                case "8":
                     Branch.GetBranchDetailsByBranchName();
                     break;
-                case '9':
+                case "9":
                     int branchId = Validation.IntValidation("Enter Branch ID to get Branch Name: ");
                     Branch.GetBranchName(branchId);
                     break;
-                case '10':
+                case "10":
                     int branchId1 = Validation.IntValidation("Enter Branch ID to get Branch Name: ");
                     Branch.GetBranchStatus(branchId1);
                     break;
-                case '0':
+                case "11":
                     SuperAdminMenu();
                     Console.WriteLine("Exiting Branch Admin Menu.");
                     break;
