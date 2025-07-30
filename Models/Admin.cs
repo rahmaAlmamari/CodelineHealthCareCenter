@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace CodelineHealthCareCenter.Models
 {
-    class Admin : User
+    class Admin : User, IAdminService
     {
         //====================================================
         //1. class fields ...
@@ -15,7 +15,7 @@ namespace CodelineHealthCareCenter.Models
         public static List<Doctor> Doctors = new List<Doctor>();
         public static List<Service> Services = new List<Service>();
 
-        public static IAdminService service; // new static service field
+        //public static IAdminService service; // new static service field
 
         //====================================================
         //2. class properties ...
@@ -192,11 +192,22 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("5. Add Clinic Spot");
                 Console.WriteLine("6. Remove Clinic Spot");
                 Console.WriteLine("7. Exit");
+                string AdminNationalId = Validation.StringValidation("your national");
+                //to get admin by national id ...
+                Admin CurrentAdmin = new Admin("Amani", "amani@example.com", 1);
+                foreach (var adimn in BranchDepartment.Admins) 
+                {
+                    if(adimn.UserNationalID == AdminNationalId)
+                    {
+                        CurrentAdmin = adimn;
+                        break;
+                    }
+                }
                 Console.Write("Select an option: ");
-
                 string choice = Console.ReadLine();
                 Console.WriteLine();
-
+                //------------------
+                //Admin admin = new Admin("aa", "aa@gmail.com", 1);
                 switch (choice)
                 {
                     case "1": // Assign a doctor to a clinic
@@ -205,7 +216,7 @@ namespace CodelineHealthCareCenter.Models
 
                         if (Additional.ConfirmAction("assign the doctor to this clinic"))
                         {
-                            service.AssignDoctorToClinic(doctorId, clinicId);
+                            CurrentAdmin. AssignDoctorToClinic(doctorId, clinicId);
                         }
                         else Console.WriteLine("Assignment cancelled.");
                         break;
@@ -216,26 +227,26 @@ namespace CodelineHealthCareCenter.Models
 
                         if (Additional.ConfirmAction("add this service to the clinic"))
                         {
-                            service.AddClinicService(clinicId2, serviceId);
+                            CurrentAdmin.AddClinicService(clinicId2, serviceId);
                         }
                         else Console.WriteLine("Adding service cancelled.");
                         break;
 
                     case "3": // View doctors in a clinic
                         int clinicId3 = Validation.IntValidation("Clinic ID to view doctors");
-                        service.GetClinicDoctors(clinicId3);
+                        CurrentAdmin.GetClinicDoctors(clinicId3);
                         break;
 
                     case "4": // View services in a clinic
                         int clinicId4 = Validation.IntValidation("Clinic ID to view services");
-                        service.GetClinicServices(clinicId4);
+                        CurrentAdmin.GetClinicServices(clinicId4);
                         break;
 
                     case "5":
                         int cl5 = Validation.IntValidation("Clinic ID to add spot");
                         DateTime newSpot = Validation.DateTimeValidation("New Spot (e.g., MM/dd/yyyy HH:mm)");
                         if (Additional.ConfirmAction($"add spot {newSpot:G} to this clinic"))
-                            service.AddClinicSpot(cl5, newSpot);
+                            CurrentAdmin.AddClinicSpot(cl5, newSpot);
                         else Console.WriteLine("Spot addition cancelled.");
                         break;
 
@@ -243,7 +254,7 @@ namespace CodelineHealthCareCenter.Models
                         int cl6 = Validation.IntValidation("Clinic ID to remove spot");
                         DateTime spotToRemove = Validation.DateTimeValidation("Spot to remove (e.g., MM/dd/yyyy HH:mm)");
                         if (Additional.ConfirmAction($"remove spot {spotToRemove:G} from this clinic"))
-                            service.RemoveClinicSpot(cl6, spotToRemove);
+                            CurrentAdmin.RemoveClinicSpot(cl6, spotToRemove);
                         else Console.WriteLine("Spot removal cancelled.");
                         break;
 
