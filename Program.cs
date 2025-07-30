@@ -79,8 +79,13 @@ internal class Program
             ClinicTest.Services.Add(ServiceTest);
             Service.Services.Add(ServiceTest); // Add the service to the static Services list
             //to add the test spot time for clinic
-            //
             ClinicTest.ClinicSpots.Add(DateTime.Parse("07/30/2025 14:30"));
+            //to add all test national IDs to the Hospital UserNational Id list
+            Hospital.UserNationalID.Add(SuperAdminTest.UserNationalID);
+            Hospital.UserNationalID.Add(AdminTest.UserNationalID);
+            Hospital.UserNationalID.Add(PatientTest.UserNationalID);
+            Hospital.UserNationalID.Add(DoctorTest.UserNationalID);
+
             User x = new User();
             //-----------------------------------------------------------------------------------
 
