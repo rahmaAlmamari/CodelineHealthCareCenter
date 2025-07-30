@@ -45,7 +45,7 @@ namespace CodelineHealthCareCenter.Models
                     }
 
                 } while (FalgError);
-
+                UserPhoneNumber = value;
             }
         }
         //UserPassword proprity ...
@@ -58,6 +58,31 @@ namespace CodelineHealthCareCenter.Models
                 UserPassword = value;
             }
         }
+        //UserNationalId properity 
+        public string P_UserNationalID
+        {
+            get { return UserNationalID; }
+            set
+            {
+                bool flagError;
+                //string newId = value;
+
+                do
+                {
+                    flagError = false;
+                    if (Validation.UserNationalIdExists(value))
+                    {
+                        Console.WriteLine("This national ID already exists. Please try again with a different one.");
+                        Additional.HoldScreen();
+                        value = Validation.StringValidation("national ID");
+                        flagError = true;
+                    }
+                } while (flagError);
+
+                UserNationalID = value; 
+            }
+        }
+
 
         //====================================================
         //3. class method ...
