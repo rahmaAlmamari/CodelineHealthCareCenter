@@ -82,7 +82,10 @@ internal class Program
             //
             ClinicTest.ClinicSpots.Add(DateTime.Parse("07/30/2025 14:30"));
             User x = new User();
+            //-----------------------------------------------------------------------------------
 
+            //to load patient data from file ...
+            Patient.LoadPatientsFromFile();
 
             //to list the main menu options ...
             bool exitFlag = false;
