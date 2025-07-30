@@ -208,6 +208,11 @@ namespace CodelineHealthCareCenter.Models
                 case "8":
                     Branch.GetBranchDetailsByBranchName();
                     break;
+                case "0":
+                   
+                    Console.WriteLine("Exiting Branch Admin Menu.");
+                    SuperAdminMenu();
+                    break;
                 default:
                     Console.WriteLine("Invalid option, please try again.");
                     Additional.HoldScreen();
