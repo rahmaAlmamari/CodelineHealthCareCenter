@@ -179,7 +179,31 @@ namespace CodelineHealthCareCenter.Models
             using StreamWriter writer = new StreamWriter(filePath);
             foreach (var admin in BranchDepartment.Admins)
             {
-                writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.BranchID}|{admin.UserStatus}|{admin.UserNationalID}|{admin.P_UserPhoneNumber}");
+                writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.BranchID}|{admin.UserStatus}|{admin.UserNationalID}");
+            }
+        }
+
+        public static void LoadFromFile(string filePath)
+        {
+            BranchDepartment.Admins.Clear();
+
+            if (!File.Exists(filePath)) return;
+
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 7) continue;
+
+                Admin admin = new Admin(parts[1], parts[2], int.Parse(parts[3]))
+                {
+                    UserId = int.Parse(parts[0]),
+                    UserStatus = parts[4],
+                    UserNationalID = parts[5],
+                    
+                };
+
+                BranchDepartment.Admins.Add(admin);
             }
         }
 
