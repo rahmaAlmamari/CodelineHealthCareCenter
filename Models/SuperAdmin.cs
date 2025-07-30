@@ -12,7 +12,8 @@ namespace CodelineHealthCareCenter.Models
     {
         //1. class feilds ...
         public int HospitalId;
-
+        public static string DoctorsFilePath = "Doctors.txt";
+        public static string AdminsFilePath = "Admins.txt";
         //====================================================
         //2. class properity ...
 
@@ -24,7 +25,8 @@ namespace CodelineHealthCareCenter.Models
         {
             Branch.LoadBranches();
             Department.LoadDepartmentsFromFile();
-            //Doctor.LoadDoctors();
+            LoadDoctorsFromFile();
+            
             //Admin.LoadAdmins();
             Console.Clear();
             Console.WriteLine("Welcome to SuperAdminMenu");
@@ -360,6 +362,7 @@ namespace CodelineHealthCareCenter.Models
             doctor.UserStatus = "Active"; // Set the status to Active
             // Add the doctor to the List
             BranchDepartment.Doctors.Add(doctor);
+            SaveDoctorsToFile();
             Console.WriteLine("Doctor added successfully.");
             Additional.HoldScreen();
             DoctorUserMenu();
@@ -518,6 +521,47 @@ namespace CodelineHealthCareCenter.Models
             doctorToUpdate.UserStatus = Validation.StringValidation("new status (Active/Inactive)");
             Console.WriteLine("Doctor status updated successfully.");
             Additional.HoldScreen();
+        }
+
+        // save the doctors to file
+        public static void SaveDoctorsToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(DoctorsFilePath))
+            {
+                foreach (var doctor in BranchDepartment.Doctors)
+                {
+                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.UserEmail}|{doctor.P_UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
+                }
+            }
+        }
+
+        // Load Doctors from file
+        public static void LoadDoctorsFromFile()
+        {
+            if (File.Exists(DoctorsFilePath))
+            {
+                using (StreamReader reader = new StreamReader(DoctorsFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split('|');
+                        if (parts.Length == 8)
+                        {
+                            Doctor doctor = new Doctor(parts[1], parts[2], parts[5], int.Parse(parts[3]), int.Parse(parts[0]));
+                            doctor.UserId = int.Parse(parts[0]);
+                            doctor.UserName = parts[1];
+                            doctor.UserEmail = parts[2];
+                            doctor.P_UserPhoneNumber = int.Parse(parts[3]);
+                            doctor.UserNationalID = parts[4];
+                            doctor.DoctorSpecialization = parts[5];
+                            doctor.UserRole = parts[6];
+                            doctor.UserStatus = parts[7];
+                            BranchDepartment.Doctors.Add(doctor);
+                        }
+                    }
+                }
+            }
         }
 
         // ADMIN Method
