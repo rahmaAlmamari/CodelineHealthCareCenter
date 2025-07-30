@@ -23,6 +23,66 @@ namespace CodelineHealthCareCenter.Models
 
         //====================================================
         //2. class properity ...
+        public int P_BranchId
+        {
+            get { return BranchId; }
+            set
+            {
+                if (value > 0)
+                {
+                    BranchId = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Branch ID must be a positive integer.");
+                }
+            }
+        }
+        public string P_BranchName
+        {
+            get { return BranchName; }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    BranchName = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Branch name cannot be empty.");
+                }
+            }
+        }
+        public string P_BranchCity
+        {
+            get { return BranchCity; }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    BranchCity = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Branch city cannot be empty.");
+                }
+            }
+        }
+        public DateOnly P_BranchEstablishDate
+        {
+            get { return BranchEstablishDate; }
+            set
+            {
+                if (value != default)
+                {
+                    BranchEstablishDate = value;
+                }
+                else
+                {
+                    throw new ArgumentException("Branch establish date cannot be empty.");
+                }
+            }
+        }
 
         //====================================================
         //3. class method ...
