@@ -19,7 +19,7 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class method ...
 
-        // SuperAdminMenu
+        // SuperAdminMenu -> Main Menu
         public static void SuperAdminMenu()
         {
             Console.Clear();
@@ -36,6 +36,12 @@ namespace CodelineHealthCareCenter.Models
                 case '1':
                     AdminDoctorUserMenu();
                     break;
+                case '2':
+                    AdminBranchMenu();
+                    break;
+                case '3':
+                    AdminDepartmentMenu();
+                    break;
 
                 case '0':
                     Console.WriteLine("Exiting SuperAdmin Menu.");
@@ -49,6 +55,7 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
+        // SuperAdmin -> to choose Admin and Doctor Menu 
         public static void AdminDoctorUserMenu()
         {
             Console.Clear();
@@ -74,6 +81,7 @@ namespace CodelineHealthCareCenter.Models
                     break;
             }
         }
+        // SuperAdmin -> Admin Menu 
         public static void AdminUserMenu()
         {
             Console.Clear();
@@ -117,7 +125,7 @@ namespace CodelineHealthCareCenter.Models
 
 
         }
-
+        // SuperAdmin -> Doctor Menu 
         public static void DoctorUserMenu()
         {
             Console.Clear();
@@ -157,6 +165,7 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        // SuperAdmin -> Branch Menu
         public static void AdminBranchMenu()
         {
             Console.Clear();
@@ -219,6 +228,7 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
+        // SuperAdmin -> Department Menu
         public static void AdminDepartmentMenu()
         {
             Console.Clear();
@@ -286,19 +296,7 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
-        public static bool NationalIdExists(string nationalId)
-        {
-            //to check if the national id exists or not in SuperAdmin list hospital class ...  
-
-            foreach (var doctor in BranchDepartment.Doctors)
-            {
-                if (doctor.UserNationalID == nationalId)
-                {
-                    return true; //if the national id exists ...  
-                }
-            }
-            return false; //if national id does not exist ...  
-        }
+      
 
 
         public void PrintDoctorDetails()
@@ -693,12 +691,30 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
-        // 
+       
+        // BRANCH Methods ...
+
+
+
+
+
 
         // Additional Method 
 
 
+        public static bool NationalIdExists(string nationalId)
+        {
+            //to check if the national id exists or not in SuperAdmin list hospital class ...  
 
+            foreach (var doctor in BranchDepartment.Doctors)
+            {
+                if (doctor.UserNationalID == nationalId)
+                {
+                    return true; //if the national id exists ...  
+                }
+            }
+            return false; //if national id does not exist ...  
+        }
 
         //====================================================
         //4. class constructor ...
