@@ -117,14 +117,26 @@ namespace CodelineHealthCareCenter.Models
 
         public static void GetAllDoctors() // Retrieves and displays all registered doctors in the system
         {
-            if (Doctors.Count == 0)
+
+            if (BranchDepartment.Doctors.Count == 0)
             {
                 Console.WriteLine("No doctors registered yet.");
                 return;
             }
 
-            foreach (var doctor in Doctors)
-                doctor.ViewDoctorInfo();
+            foreach (var doctor in BranchDepartment.Doctors)
+            {
+                Console.WriteLine($"Doctor ID       : {doctor.UserId}");
+                Console.WriteLine($"Name            : {doctor.UserName}");
+                Console.WriteLine($"Email           : {doctor.UserEmail}");
+                Console.WriteLine($"Phone Number    : {doctor.P_UserPhoneNumber}");
+                Console.WriteLine($"National ID     : {doctor.UserNationalID}");
+                Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
+                Console.WriteLine($"Status          : {doctor.UserStatus}");
+                Console.WriteLine(new string('-', 40));
+            }
+            //doctor.ViewDoctorInfo();
+
         }
 
         public static void GetDoctorData(int doctorId) // Retrieves detailed information about a doctor, including their appointments and patient records

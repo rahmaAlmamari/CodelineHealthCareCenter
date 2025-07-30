@@ -107,13 +107,20 @@ namespace CodelineHealthCareCenter.Models
         public static void GetAllClinics() // displays all clinics
 
         {
-            if (Clinics.Count == 0)
+            //if (Clinics.Count == 0)
+            //{
+            //    Console.WriteLine("No clinics available.");
+            //    return;
+            //}
+            //foreach (var clinic in Clinics)
+            //    clinic.ViewClinicInfo();
+            foreach (var department in BranchDepartment.Departments) 
             {
-                Console.WriteLine("No clinics available.");
-                return;
+                foreach (var clinic in department.Clinics)
+                {
+                    clinic.ViewClinicInfo();
+                }
             }
-            foreach (var clinic in Clinics)
-                clinic.ViewClinicInfo();
         }
 
         public static void GetClinicById(int clinicId) // retrieves a clinic by its ID
