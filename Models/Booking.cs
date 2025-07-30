@@ -13,6 +13,7 @@ namespace CodelineHealthCareCenter.Models
         public int BookingId;
         public DateTime BookingDateTime;
         public int ClinicId;
+        public int DoctorId;
         public static int BookingCount = 0;
 
 
@@ -43,7 +44,8 @@ namespace CodelineHealthCareCenter.Models
             Booking newBooking = new Booking
             {
                 BookingDateTime = SpotDateTime,
-                ClinicId = clinicId
+                ClinicId = clinicId,
+                DoctorId = doctorId
             };
             //to add the new booking to the DoctorAppointments list
             foreach (var doctor in BranchDepartment.Doctors)
@@ -52,6 +54,7 @@ namespace CodelineHealthCareCenter.Models
                 {
                     doctor.DoctorAppointments.Add(newBooking);
                     Console.WriteLine($"Appointment booked successfully for Doctor ID {doctorId} in Clinic ID {clinicId} at {SpotDateTime}.");
+                    Additional.HoldScreen(); //just to hold the screen ...
                 }
             }
             //to add the new booking to the PatientAppointments list
