@@ -26,8 +26,8 @@ namespace CodelineHealthCareCenter.Models
             Branch.LoadBranches();
             Department.LoadDepartmentsFromFile();
             LoadDoctorsFromFile();
+            LoadAdminsFromFile();
             
-            //Admin.LoadAdmins();
             Console.Clear();
             Console.WriteLine("Welcome to SuperAdminMenu");
             Console.WriteLine("1. Users ( Admins And Doctors )");
@@ -593,6 +593,7 @@ namespace CodelineHealthCareCenter.Models
             admin.UserStatus = "Active"; // Set the status to Active
             // Add the admin to the List
             BranchDepartment.Admins.Add(admin);
+            SaveAdminsToFile();
             Console.WriteLine("Admin added successfully.");
             Additional.HoldScreen();
             AdminUserMenu();
@@ -751,7 +752,47 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
-       
+        // save admins to file
+        public static void SaveAdminsToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(AdminsFilePath))
+            {
+                foreach (var admin in BranchDepartment.Admins)
+                {
+                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.P_UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
+                }
+            }
+        }
+
+        // Load Admins from file
+        public static void LoadAdminsFromFile()
+        {
+            if (File.Exists(AdminsFilePath))
+            {
+                using (StreamReader reader = new StreamReader(AdminsFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split('|');
+                        if (parts.Length == 7)
+                        {
+                            Admin admin = new Admin(parts[1], parts[2], int.Parse(parts[3]));
+                            admin.UserId = int.Parse(parts[0]);
+                            admin.UserName = parts[1];
+                            admin.UserEmail = parts[2];
+                            admin.P_UserPhoneNumber = int.Parse(parts[3]);
+                            admin.UserNationalID = parts[4];
+                            admin.UserRole = parts[5];
+                            admin.UserStatus = parts[6];
+                            BranchDepartment.Admins.Add(admin);
+                        }
+                    }
+                }
+            }
+        }
+
+
         // BRANCH Methods ...
 
 
