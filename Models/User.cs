@@ -67,60 +67,68 @@ namespace CodelineHealthCareCenter.Models
             string userNationalID = Validation.StringValidation("national ID");
             string userPassword = Validation.ReadPassword("Password");
 
-            // 1. Check Patient login ...
-            foreach (var branch in Hospital.Branches)
+            try
             {
-                foreach (var patient in branch.Patients)
+                // 1. Check Patient login ...
+                foreach (var branch in Hospital.Branches)
                 {
-                    if (patient.UserNationalID == userNationalID &&
-                        Validation.VerifyPasswordPBKDF2(userPassword, patient.P_UserPassword))
+                    foreach (var patient in branch.Patients)
                     {
-                        Console.WriteLine($"\nWelcome, Patient {patient.UserName}!");
-                        Patient.PatientMenu();
+                        if (patient.UserNationalID == userNationalID &&
+                            Validation.VerifyPasswordPBKDF2(userPassword, patient.P_UserPassword))
+                        {
+                            Console.WriteLine($"\nWelcome, Patient {patient.UserName}!");
+                            Patient.PatientMenu();
+                            return;
+                        }
+                    }
+                }
+
+                // 2. Check Doctor login ...
+                foreach (var doctor in BranchDepartment.Doctors)
+                {
+                    if (doctor.UserNationalID == userNationalID &&
+                        Validation.VerifyPasswordPBKDF2(userPassword, doctor.P_UserPassword))
+                    {
+                        Console.WriteLine($"\nWelcome, Dr. {doctor.UserName}!");
+                        Doctor.DoctorMenu(); // Replace with your actual doctor menu ...
+                        return;
+                    }
+                }
+
+                // 3. Check Admin login ...
+                foreach (var admin in BranchDepartment.Admins)
+                {
+                    if (admin.UserNationalID == userNationalID &&
+                        Validation.VerifyPasswordPBKDF2(userPassword, admin.P_UserPassword))
+                    {
+                        Console.WriteLine($"\nWelcome, Admin {admin.UserName}!");
+                        //Admin.AdminMenu(); // Replace with your actual admin menu ...
+                        return;
+                    }
+                }
+
+                // 4. Check Super Admin login ...
+                foreach (var superAdmin in Hospital.SuperAdmins)
+                {
+                    if (superAdmin.UserNationalID == userNationalID ||
+                        Validation.VerifyPasswordPBKDF2(userPassword, superAdmin.P_UserPassword))
+                    {
+                        Console.WriteLine($"\nWelcome, Super Admin {superAdmin.UserName}!");
+                        SuperAdmin.SuperAdminMenu(); // Replace with your actual super admin menu ... 
                         return;
                     }
                 }
             }
-
-            // 2. Check Doctor login ...
-            foreach (var doctor in BranchDepartment.Doctors)
+            catch (Exception ex)
             {
-                if (doctor.UserNationalID == userNationalID &&
-                    Validation.VerifyPasswordPBKDF2(userPassword, doctor.P_UserPassword))
-                {
-                    Console.WriteLine($"\nWelcome, Dr. {doctor.UserName}!");
-                    Doctor.DoctorMenu(); // Replace with your actual doctor menu ...
-                    return;
-                }
+                //if no match found
+                Console.WriteLine("\nInvalid login credentials. Please try again.");
+                Additional.HoldScreen();
             }
 
-            // 3. Check Admin login ...
-            foreach (var admin in BranchDepartment.Admins)
-            {
-                if (admin.UserNationalID == userNationalID &&
-                    Validation.VerifyPasswordPBKDF2(userPassword, admin.P_UserPassword))
-                {
-                    Console.WriteLine($"\nWelcome, Admin {admin.UserName}!");
-                    //Admin.AdminMenu(); // Replace with your actual admin menu ...
-                    return;
-                }
-            }
 
-            // 4. Check Super Admin login ...
-            foreach (var superAdmin in Hospital.SuperAdmins)
-            {
-                if (superAdmin.UserNationalID == userNationalID ||
-                    Validation.VerifyPasswordPBKDF2(userPassword, superAdmin.P_UserPassword))
-                {
-                    Console.WriteLine($"\nWelcome, Super Admin {superAdmin.UserName}!");
-                    SuperAdmin.SuperAdminMenu(); // Replace with your actual super admin menu ... 
-                    return;
-                }
-            }
-
-            //if no match found
-            Console.WriteLine("\nInvalid login credentials. Please try again.");
-            Additional.HoldScreen();
+            
         }
 
         //====================================================
