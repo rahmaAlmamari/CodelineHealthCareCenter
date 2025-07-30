@@ -212,33 +212,37 @@ namespace CodelineHealthCareCenter.Models
         public void AddPatientRecord() // Adds a patient record for a specific patient, including doctor notes and services provided
         {
             string nationalId = Validation.StringValidation("Patient National ID");
-            var patient = Patient.Patients.FirstOrDefault(p => p.UserNationalID == nationalId);
-
-            if (patient == null)
+            //var patient = Patient.Patients.FirstOrDefault(p => p.UserNationalID == nationalId);
+            foreach (var branch in Hospital.Branches)
             {
-                Console.WriteLine("Patient not found.");
-                return;
+                var patient = branch.Patients.FirstOrDefault(p => p.UserNationalID == nationalId);
+                if (patient != null)
+                    break;
+                if (patient == null)
+                {
+                    Console.WriteLine("Patient not found.");
+                    return;
+                }
+                string note = Validation.StringValidation("Doctor Note");
+                int count = Validation.IntValidation("Number of Services");
+
+                List<Service> selectedServices = new List<Service>();
+                for (int i = 0; i < count; i++)
+                {
+                    int sid = Validation.IntValidation($"Service ID #{i + 1}");
+                    var service = Service.Services.FirstOrDefault(s => s.ServiceId == sid);
+                    if (service != null)
+                        selectedServices.Add(service);
+                    else
+                        Console.WriteLine("Invalid service ID. Skipped.");
+                }
+
+                var record = new PatientRecord(patient.UserId, ClinicID, note, selectedServices);
+                this.PatientRecords.Add(record);
+                patient.PatientRecords.Add(record);
+
+                Console.WriteLine("Patient record successfully added.");
             }
-
-            string note = Validation.StringValidation("Doctor Note");
-            int count = Validation.IntValidation("Number of Services");
-
-            List<Service> selectedServices = new List<Service>();
-            for (int i = 0; i < count; i++)
-            {
-                int sid = Validation.IntValidation($"Service ID #{i + 1}");
-                var service = Service.Services.FirstOrDefault(s => s.ServiceId == sid);
-                if (service != null)
-                    selectedServices.Add(service);
-                else
-                    Console.WriteLine("Invalid service ID. Skipped.");
-            }
-
-            var record = new PatientRecord(note, selectedServices);
-            this.PatientRecords.Add(record);
-            patient.PatientRecords.Add(record);
-
-            Console.WriteLine("Patient record successfully added.");
         }
 
 
