@@ -40,7 +40,7 @@ namespace CodelineHealthCareCenter.Models
                     else
                     {
                         Console.WriteLine("Phone number must be 8 digits.");
-                        value = Validation.IntValidation("patient phone number");
+                        value = Validation.IntValidation("user phone number");
                         FalgError = true; //to handle the error ...
                     }
 

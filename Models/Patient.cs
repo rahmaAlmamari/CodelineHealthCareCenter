@@ -41,7 +41,7 @@ namespace CodelineHealthCareCenter.Models
                 switch(choice)
                 {
                     case '1': //to book an appointment ...
-                        //Booking.BookAppointment();
+                        Booking.BookAppointment();
                         break;
                     case '2': //to view appointments ...
                         //Booking.ViewAppointments();

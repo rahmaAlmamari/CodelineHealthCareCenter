@@ -1,5 +1,6 @@
 ﻿using CodelineHealthCareCenter.Models;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace CodelineHealthCareCenter
 {
@@ -27,6 +28,9 @@ internal class Program
         public static Patient PatientTest = new Patient();
         // to create a test doctor for the branch
         public static Doctor DoctorTest = new Doctor("Ali", "Ali@gmail.com", "Head", 1, 1);
+        //to create a test service for the clinic
+        public static Service ServiceTest = new Service("S1", 200);
+
 
         static void Main(string[] args)
         {
@@ -70,6 +74,13 @@ internal class Program
             DoctorTest.UserNationalID = "11dd22";
             DoctorTest.P_UserPassword = Validation.HashPasswordPBKDF2(Validation.ReadPassword("d password"));
             BranchDepartment.Doctors.Add(DoctorTest);
+            //to add the test service to the clinic services
+            ServiceTest.ClinicId = 1; // Assigning ClinicId to the Service
+            ClinicTest.Services.Add(ServiceTest);
+            Service.Services.Add(ServiceTest); // Add the service to the static Services list
+            //to add the test spot time for clinic
+            //
+            ClinicTest.ClinicSpots.Add(DateTime.Parse("07/30/2025 14:30"));
             User x = new User();
 
 
