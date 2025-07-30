@@ -258,7 +258,14 @@ namespace CodelineHealthCareCenter.Models
 
                 switch (choice)
                 {
-                    
+                    case "1": // View Appointments
+                        int id = Validation.IntValidation("Enter Your Doctor ID");
+                        var doctor = Doctors.FirstOrDefault(d => d.DoctorID == id);
+                        if (doctor != null)
+                            doctor.ViewMyAppointments();
+                        else
+                            Console.WriteLine("Doctor not found.");
+                        break;
 
 
                     default: // Invalid option
