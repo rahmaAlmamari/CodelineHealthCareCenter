@@ -145,6 +145,16 @@ namespace CodelineHealthCareCenter.Models
                 r.ViewRecordDetails();
         }
 
+        public static void SaveToFile(string filePath)
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var record in Records)
+            {
+                string serviceIds = string.Join(",", record.Services.Select(s => s.ServiceId));
+                writer.WriteLine($"{record.PatientRecordId}|{record.PatientId}|{record.ClinicId}|{record.DateCreated:O}|{record.TotalCost}|{record.DoctorNote}|{serviceIds}");
+            }
+        }
+
         public static void PatientRecordMenu()
         {
             Additional.WelcomeMessage("Patient Record Management");
