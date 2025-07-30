@@ -47,7 +47,7 @@ namespace CodelineHealthCareCenter.Models
                         ViewPatientAppointments();
                         break;
                     case '3': //to view patient records ...
-                        //PatientRecord.ViewPatientRecords();
+                        ViewPatientRecords();
                         break;
                     case '0': //to exit the patient menu ...
                         Flag = false; //to exit the loop ...
@@ -211,6 +211,35 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Patient not found with this National ID.");
             Additional.HoldScreen();
             return null; //if patient not found ...
+        }
+        //to view patient records ...
+        public static void ViewPatientRecords()
+        {
+            //to get the patient national id ...
+            string userNationalID = Validation.StringValidation("national ID");
+            //to find the patient by national id ...
+            Patient patient = FindPatientByNationalId(userNationalID);
+            if (patient != null)
+            {
+                Console.WriteLine($"Records for Patient {patient.UserName}:");
+                if (patient.PatientRecords.Count == 0)
+                {
+                    Console.WriteLine("No records found for this patient.");
+                }
+                else
+                {
+                    //foreach (var record in patient.PatientRecords)
+                    //{
+                    //    Console.WriteLine($"Record ID: {record.RecordId}, Date: {record.RecordDate}, Description: {record.RecordDescription}");
+                    //}
+                    PatientRecord.GetRecordsByPatientId(patient.UserId); //to get the records by patient id ...
+                }
+            }
+            else
+            {
+                Console.WriteLine("Patient not found.");
+            }
+            Additional.HoldScreen(); //just to hold the screen ...
         }
         //====================================================
         //4. class constructor ...
