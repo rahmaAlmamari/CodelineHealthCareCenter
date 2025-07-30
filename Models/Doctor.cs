@@ -267,6 +267,15 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Doctor not found.");
                         break;
 
+                    case "2": // Add Patient Record
+                        int did = Validation.IntValidation("Enter Your Doctor ID");
+                        var dr = Doctors.FirstOrDefault(d => d.DoctorID == did);
+                        if (dr != null)
+                            dr.AddPatientRecord();
+                        else
+                            Console.WriteLine("Doctor not found.");
+                        break;
+
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
