@@ -276,6 +276,11 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Doctor not found.");
                         break;
 
+                    case "3": // Exit
+                        Console.WriteLine("Exiting Doctor Menu...");
+                        return;
+
+
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
