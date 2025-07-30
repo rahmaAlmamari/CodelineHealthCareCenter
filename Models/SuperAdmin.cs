@@ -22,6 +22,10 @@ namespace CodelineHealthCareCenter.Models
         // SuperAdminMenu -> Main Menu
         public static void SuperAdminMenu()
         {
+            Branch.LoadBranches();
+            Department.LoadDepartmentsFromFile();
+            //Doctor.LoadDoctors();
+            //Admin.LoadAdmins();
             Console.Clear();
             Console.WriteLine("Welcome to SuperAdminMenu");
             Console.WriteLine("1. Users ( Admins And Doctors )");
