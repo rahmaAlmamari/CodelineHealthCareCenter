@@ -94,6 +94,15 @@ namespace CodelineHealthCareCenter.Models
             service.ViewServiceInfo();
         }
 
+        public static void SaveToFile(string filePath)
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var service in Services)
+            {
+                writer.WriteLine($"{service.ServiceId}|{service.ServiceName}|{service.Price}");
+            }
+        }
+
 
         public static void ServiceMenu()
         {
