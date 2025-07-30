@@ -51,7 +51,27 @@ namespace CodelineHealthCareCenter.Models
 
 
         }
+        // load the hospital data from a file
+        public static void LoadHospitalFromFile()
+        {
+            if (File.Exists(HospitalFilePath))
+            {
+                using (StreamReader reader = new StreamReader(HospitalFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        UserNationalID.Add(line);
+                    }
+                }
+                Console.WriteLine("Hospital data loaded from file.");
+            }
+            else
+            {
+                Console.WriteLine("Hospital data file not found.");
+            }
 
 
+        }
     }
 }
