@@ -196,6 +196,15 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
         }
 
+        public static void SaveToFile(string filePath) // saves clinic data to a file
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var clinic in Clinics)
+            {
+                writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.Location}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.Price}|{clinic.clinicStatus}");
+            }
+        }
+
 
         public static void ClinicMenu()
         {
