@@ -183,8 +183,8 @@ namespace CodelineHealthCareCenter.Models
                     foreach (var appointment in patient.PatientAppointments)
                     {
                         //to get doctor name from the appointment ...
-                        var doctorName = BranchDepartment.Doctors.Find(d => d.DoctorID == appointment.DoctorId);
-                        Console.WriteLine($"Appointment ID: {appointment.BookingId}, Date: {appointment.BookingDateTime}, Doctor: {doctorName}");
+                        var doctor = BranchDepartment.Doctors.Find(d => d.DoctorID == appointment.DoctorId);
+                        Console.WriteLine($"Appointment ID: {appointment.BookingId}, Date: {appointment.BookingDateTime}, Doctor: {doctor.UserName}");
                     }
                 }
             }
