@@ -39,6 +39,7 @@ namespace CodelineHealthCareCenter.Models
             Branch.AddBranch(branchName, branchCity, branchEstablishDate, hospitalId); // Call the static method to add the branch
 
             Console.WriteLine("Branch added successfully.");
+            SuperAdmin.AdminBranchMenu();
             Additional.HoldScreen();
         }
 
@@ -63,6 +64,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine(new string('-', 40));
             }
             Additional.HoldScreen();
+            SuperAdmin.AdminBranchMenu();
         }
 
 
@@ -84,6 +86,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
             Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
             Additional.HoldScreen();
+            SuperAdmin.AdminBranchMenu();
         }
 
         // Get Branch Details
@@ -107,6 +110,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine(new string('-', 40));
             }
             Additional.HoldScreen();
+            SuperAdmin.AdminBranchMenu();
         }
 
 
@@ -129,6 +133,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
             Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
             Additional.HoldScreen();
+            SuperAdmin.AdminBranchMenu();
         }
 
         // Get Branch Name
@@ -140,6 +145,7 @@ namespace CodelineHealthCareCenter.Models
                 return branch.BranchName;
             }
             return "Branch not found";
+           
         }
 
 
@@ -178,6 +184,7 @@ namespace CodelineHealthCareCenter.Models
             branch.BranchEstablishDate = newBranchEstablishDate;
             Console.WriteLine("Branch updated successfully.");
             Additional.HoldScreen();
+            SuperAdmin.AdminBranchMenu();
         }
 
         // Delete Branch
@@ -205,6 +212,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("Branch deletion cancelled.");
             }
             Additional.HoldScreen();
+            SuperAdmin.AdminBranchMenu();
         }
 
         //====================================================
