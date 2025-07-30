@@ -56,8 +56,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("1. Admin ");
             Console.WriteLine("2. Doctor ");
             Console.WriteLine("0. Exit ");
-            Console.WriteLine("Please select an option : ");
-            char choice1 = Validation.CharValidation("option");
+            char choice1 = Validation.CharValidation("Please select an option :");
             switch (choice1)
             {
                 case '1':
@@ -348,9 +347,8 @@ namespace CodelineHealthCareCenter.Models
             // Add the doctor to the List
             BranchDepartment.Doctors.Add(doctor);
             Console.WriteLine("Doctor added successfully.");
-            DoctorUserMenu();
             Additional.HoldScreen();
-
+            DoctorUserMenu();
         }
 
         // ViewDoctors method to display all doctors in the branch department
@@ -377,6 +375,7 @@ namespace CodelineHealthCareCenter.Models
 
             }
             Additional.HoldScreen();
+
             DoctorUserMenu();
         }
 
@@ -439,6 +438,7 @@ namespace CodelineHealthCareCenter.Models
                         Console.WriteLine("Invalid option, please try again.");
                         break;
                 }
+                Console.WriteLine("Doctor details updated successfully.");
                 Console.Write("Do you want to update anything else? (y/n): ");
                 string continueChoice = Console.ReadLine().ToLower();
 
@@ -448,6 +448,8 @@ namespace CodelineHealthCareCenter.Models
                     DoctorUserMenu();
                     return;
                 }
+               
+                DoctorUserMenu();
             }
         }
 
@@ -469,16 +471,21 @@ namespace CodelineHealthCareCenter.Models
             // Confirm deletion
             if (Additional.ConfirmAction("delete this doctor"))
             {
+
                 BranchDepartment.Doctors.Remove(doctorToDelete);
                 Console.WriteLine("Doctor deleted successfully.");
+                DoctorUserMenu();
+                Additional.HoldScreen();
             }
             else
             {
                 Console.WriteLine("Deletion cancelled.");
+                DoctorUserMenu();
+                Additional.HoldScreen();
+
             }
-            DoctorUserMenu();
-            Additional.HoldScreen();
-        }
+               
+         }
 
 
         // Set Doctor Status method to set the status of a doctor
@@ -630,6 +637,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("Deletion cancelled.");
             }
+
             Additional.HoldScreen();
             // Return to Admin User Menu
             AdminUserMenu();
