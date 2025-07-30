@@ -41,9 +41,9 @@ namespace CodelineHealthCareCenter.Models
             DepartmentCount++;
             // Save the new department to file
             SaveDepartmentsToFile();
-            Additional.HoldScreen();
+            
             SuperAdmin.AdminDepartmentMenu();
-
+            Additional.HoldScreen();
 
         }
 
@@ -215,11 +215,11 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var department in BranchDepartment.Departments)
                 {
-                    Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
+                    writer.WriteLine($"{department.DepartmentId}|{department.DepartmentName}|{department.BranchId}");
                 }
             }
             Console.WriteLine("Departments saved to file.");
-            
+
         }
 
         // Load departments from file
@@ -227,12 +227,14 @@ namespace CodelineHealthCareCenter.Models
         {
             if (File.Exists(DepartmentsFilePath))
             {
+                BranchDepartment.Departments.Clear(); // Optional: clear current list
+
                 using (StreamReader reader = new StreamReader(DepartmentsFilePath))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
                     {
-                        var parts = line.Split(',');
+                        var parts = line.Split('|');
                         if (parts.Length == 3)
                         {
                             Department department = new Department
@@ -242,6 +244,10 @@ namespace CodelineHealthCareCenter.Models
                                 BranchId = int.Parse(parts[2])
                             };
                             BranchDepartment.Departments.Add(department);
+
+                            // Ensure DepartmentCount is always the max ID
+                            if (department.DepartmentId > DepartmentCount)
+                                DepartmentCount = department.DepartmentId;
                         }
                     }
                 }
