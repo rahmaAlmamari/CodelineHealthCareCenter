@@ -36,7 +36,7 @@ namespace CodelineHealthCareCenter.Models
                 case '1':
                     AdminDoctorUserMenu();
                     break;
-               
+
                 case '0':
                     Console.WriteLine("Exiting SuperAdmin Menu.");
                     break;
@@ -49,7 +49,7 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
-        public static void AdminDoctorUserMenu() 
+        public static void AdminDoctorUserMenu()
         {
             Console.Clear();
             Console.WriteLine("Users ( Admins And Doctors ) Menu ");
@@ -74,7 +74,7 @@ namespace CodelineHealthCareCenter.Models
                     break;
             }
         }
-        public static void AdminUserMenu() 
+        public static void AdminUserMenu()
         {
             Console.Clear();
             Console.WriteLine("Users Admin Menu ");
@@ -134,8 +134,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("9. Get Branch Name");
             Console.WriteLine("10. Get Branch Status");
             Console.WriteLine("0. Exit ");
-            string choice1 = Validation.StringValidation("option");
-            switch (choice1) {
+
                 case "1":
                     Branch.AddBranch();
                     break;
@@ -155,7 +154,7 @@ namespace CodelineHealthCareCenter.Models
                     Branch.GetBranchById();
                     break;
                 case "7":
-                    
+
                     Branch.GetBranchDetails();
                     break;
                 case "8":
@@ -166,10 +165,7 @@ namespace CodelineHealthCareCenter.Models
                     Branch.GetBranchName(branchId);
                     break;
                 case "10":
-                    int branchId1 = Validation.IntValidation("Enter Branch ID to get Branch Name: ");
-                    Branch.GetBranchStatus(branchId1);
-                    break;
-                case "11":
+
                     SuperAdminMenu();
                     Console.WriteLine("Exiting Branch Admin Menu.");
                     break;
@@ -177,11 +173,78 @@ namespace CodelineHealthCareCenter.Models
                     Console.WriteLine("Invalid option, please try again.");
                     Additional.HoldScreen();
                     break;
+
+
             }
 
+        }
+
+        public static void AdminDepartmentMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Department Admin Menu ");
+            Console.WriteLine("1. Add New Department ");
+            Console.WriteLine("2. View All Departments ");
+            Console.WriteLine("3. Update Department ");
+            Console.WriteLine("4. Delete Department ");
+            Console.WriteLine("0. Exit ");
+            string choice1 = Validation.StringValidation("Please select an option : ");
+            switch (choice1)
+            {
+                case "1":
+                    Console.WriteLine("Adding New Department...");
+
+                    Console.WriteLine("All Branches:");
+                    Branch.GetAllBranches();
+                    Console.WriteLine("----------------------------------");
+                    int branchId = Validation.IntValidation("Please select a branch to add the department to:");
+                    string departmentName = Validation.StringValidation("Enter Department Name:");
+                    Department.CreateDepartment(departmentName, branchId);
+                    break;
+                case "2":
+                    Department.GetAllDepartments();
+                    break;
+                case "3":
+                    Console.WriteLine("All Department...");
+                    Department.GetAllDepartments();
+                    Console.WriteLine("-----------------------------");
+                    int departmentId = Validation.IntValidation("Enter Department ID to update:");
+                    if (Department.DepartmentExists(departmentId))
+                    {
+                        
+                        if(Department.IsDepartmentActive(departmentId))
+                        {
+                            string newDepartmentName = Validation.StringValidation("Enter New Department Name:");
+                            Department.UpdateDepartment(departmentId, newDepartmentName);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Department is inactive and cannot be updated.");
+                            Additional.HoldScreen();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Department not found.");
+                        Additional.HoldScreen();
+                    }
+
+                   
+                    break;
+                case "4":
+                    //Department.DeleteDepartment();
+                    break;
+                case "0":
+                    SuperAdminMenu();
+                    Console.WriteLine("Exiting Department Admin Menu.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option, please try again.");
+                    Additional.HoldScreen();
+                    break;
+
             }
-
-
+        }
 
         public static bool NationalIdExists(string nationalId)
         {
@@ -196,11 +259,11 @@ namespace CodelineHealthCareCenter.Models
             }
             return false; //if national id does not exist ...  
         }
-       
+
 
         public void PrintDoctorDetails()
         {
-            Console.WriteLine($"Doctor ID : { UserId}");
+            Console.WriteLine($"Doctor ID : {UserId}");
             Console.WriteLine($"Doctor Name : {UserName}");
             Console.WriteLine($"Doctor Email : {UserEmail}");
             Console.WriteLine($"Doctor Phone Number : {UserPhoneNumber}");
@@ -231,9 +294,9 @@ namespace CodelineHealthCareCenter.Models
                 return;
             }
 
-            
+
             // Create a new doctor instance
-            Doctor doctor = new Doctor(name, email, specialization, 0, 0); 
+            Doctor doctor = new Doctor(name, email, specialization, 0, 0);
             doctor.UserName = name;
             doctor.UserEmail = email;
             doctor.P_UserPhoneNumber = phoneNumber;
@@ -571,14 +634,14 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Status          : {admin.UserStatus}");
                 Console.WriteLine(new string('-', 40));
             }
-           
+
         }
 
         // 
 
         // Additional Method 
 
-        
+
 
 
         //====================================================
@@ -586,11 +649,11 @@ namespace CodelineHealthCareCenter.Models
 
         public SuperAdmin(string username, string password, string email)
         {
-           
+
             UserRole = "SuperAdmin";
             UserStatus = "Active"; //default status for SuperAdmin  
         }
 
-       
+    
     }
 }
