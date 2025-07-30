@@ -91,8 +91,6 @@ internal class Program
                 Console.Clear();
                 Console.WriteLine("1. LogIn");
                 Console.WriteLine("2. SinUp");
-                Console.WriteLine("3. Doctor");
-                Console.WriteLine("4. Patient");
                 Console.WriteLine("0. Exit");
                 Console.Write("Please select an option: ");
                 //to get the user choice ...
