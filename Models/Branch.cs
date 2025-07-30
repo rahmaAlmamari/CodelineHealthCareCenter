@@ -256,17 +256,19 @@ namespace CodelineHealthCareCenter.Models
         public static void ViewAllBranch()
         {
             Console.WriteLine("List of Branches");
-           
-            foreach (var branch in Hospital.Branches)
+
+            // get all Available branches
+            for (int i = 0; i < Hospital.Branches.Count; i++)
             {
-                Console.WriteLine($"Branch ID       : {branch.BranchId}");
-                Console.WriteLine($"Branch Name     : {branch.BranchName}");
-                Console.WriteLine($"Branch City     : {branch.BranchCity}");
-                Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
-                Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
+                Console.WriteLine($"Branch ID       : {Hospital.Branches[i].BranchId}");
+                Console.WriteLine($"Branch Name     : {Hospital.Branches[i].BranchName}");
+                Console.WriteLine($"Branch City     : {Hospital.Branches[i].BranchCity}");
+                Console.WriteLine($"Establish Date  : {Hospital.Branches[i].BranchEstablishDate}");
+                Console.WriteLine($"Status          : {(Hospital.Branches[i].BranchStatus ? "Open" : "Closed")}");
                 Console.WriteLine(new string('-', 40));
             }
-           
+
+
         }
 
         //====================================================
