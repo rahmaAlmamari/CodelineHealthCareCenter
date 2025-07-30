@@ -247,7 +247,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.Clear();
                 Console.WriteLine(" DOCTOR MENU ");
-                Console.WriteLine("1. View My Appointments");
+                Console.WriteLine("1. View Appointments");
                 Console.WriteLine("2. Add Patient Record");
                 Console.WriteLine("3. Exit");
                 Console.Write("Select an option: ");
@@ -258,107 +258,8 @@ namespace CodelineHealthCareCenter.Models
 
                 switch (choice)
                 {
-                    case "1": // Add a new doctor
-                        string username = Validation.StringNamingValidation("Doctor Username");
-                        string password = Validation.ReadPassword("Password");
-                        string email = Validation.StringValidation("Email");
-                        string specialization = Validation.StringNamingValidation("Specialization");
-                        service.AddDoctor(username, password, email, specialization);
-                        break;
+                    
 
-                    case "2": // Update an existing doctor
-                        int updateId = Validation.IntValidation("Doctor ID to update");
-                        if (Additional.ConfirmAction("update this doctor"))
-                        {
-                            string newUsername = Validation.StringNamingValidation("New Username");
-                            string newEmail = Validation.StringValidation("New Email");
-                            string newSpec = Validation.StringNamingValidation("New Specialization");
-
-                            Console.Write("Is Active (true/false): ");
-                            bool isActive;
-                            while (!bool.TryParse(Console.ReadLine(), out isActive))
-                            {
-                                Console.WriteLine("Invalid input. Please enter true or false:");
-                            }
-
-                            service.UpdateDoctor(updateId, newUsername, newEmail, newSpec, isActive);
-                        }
-                        else Console.WriteLine("Update cancelled.");
-                        break;
-
-                    case "3": // Get a doctor by ID
-                        int id = Validation.IntValidation("Doctor ID");
-                        service.GetDoctorById(id);
-                        break;
-
-                    case "4": // Get a doctor by name
-                        string docName = Validation.StringNamingValidation("Doctor Name");
-                        service.GetDoctorByName(docName);
-                        break;
-
-                    case "5": // Get a doctor by email
-                        string docEmail = Validation.StringValidation("Doctor Email");
-                        service.GetDoctorByEmail(docEmail);
-                        break;
-
-                    case "6": // Get all doctors
-                        service.GetAllDoctors();
-                        break;
-
-                    case "7": // Get doctor data by ID
-                        int docDataId = Validation.IntValidation("Doctor ID for Data");
-                        service.GetDoctorData(docDataId);
-                        break;
-
-                    case "8": // Get doctor by branch name
-                        string branchName = Validation.StringNamingValidation("Branch Name");
-                        service.GetDoctorByBranchName(branchName);
-                        break;
-
-                    case "9": // Get doctor by department name
-                        string deptName = Validation.StringNamingValidation("Department Name");
-                        service.GetDoctorByDepartmentName(deptName);
-                        break;
-
-                        case "10": // Add available time slot for a doctor
-                        int doctorId = Validation.IntValidation("Doctor ID to add available time");
-                        DateTime availableTime = Validation.DateTimeValidation("Available Time (yyyy-MM-dd HH:mm)");
-                        var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
-                        if (doctor != null)
-                        {
-                            doctor.AvailableTimes.Add(availableTime);
-                            Console.WriteLine($"Available time {availableTime:G} added for Doctor ID {doctorId}.");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Doctor not found.");
-                        }
-                        break;
-
-                        case "11": // Remove available time slot for a doctor
-                        int removeDoctorId = Validation.IntValidation("Doctor ID to remove available time");
-                        DateTime removeTime = Validation.DateTimeValidation("Available Time to Remove (yyyy-MM-dd HH:mm)");
-                        var removeDoctor = Doctors.FirstOrDefault(d => d.DoctorID == removeDoctorId);
-                        if (removeDoctor != null)
-                        {
-                            if (removeDoctor.AvailableTimes.Remove(removeTime))
-                            {
-                                Console.WriteLine($"Available time {removeTime:G} removed for Doctor ID {removeDoctorId}.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Available time not found.");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Doctor not found.");
-                        }
-                        break;
-
-                    case "12": //   Exit the doctor menu
-                    Console.WriteLine("Exiting Doctor Menu...");
-                    return;
 
                     default: // Invalid option
                         Console.WriteLine("Invalid option. Try again.");
