@@ -193,6 +193,19 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Available time {availableTime:G} removed for Doctor ID {doctorId}.");
         }
 
+        public void ViewMyAppointments() // Displays the appointments for the current doctor
+        {
+            Console.WriteLine($"Appointments for Dr. {UserName}:");
+            if (DoctorAppointments.Count == 0)
+            {
+                Console.WriteLine("No appointments found.");
+                return;
+            }
+            foreach (var app in DoctorAppointments)
+                Console.WriteLine($"- Booking ID: {app.BookingId}, Patient ID: {app.UserId}, Date: {app.BookingDateTime:G}");
+        }
+
+
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
         {
