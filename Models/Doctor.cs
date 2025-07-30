@@ -205,6 +205,38 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"- Booking ID: {app.BookingId}, Patient ID: {app.UserId}, Date: {app.BookingDateTime:G}");
         }
 
+        public void AddPatientRecord() // Adds a patient record for a specific patient, including doctor notes and services provided
+        {
+            int patientId = Validation.IntValidation("Patient ID");
+            var patient = Patient.Patients.FirstOrDefault(p => p.PatientID == patientId);
+            if (patient == null)
+            {
+                Console.WriteLine("Patient not found.");
+                return;
+            }
+
+            string note = Validation.StringValidation("Doctor Note");
+            int count = Validation.IntValidation("Number of Services");
+
+            List<Service> selectedServices = new List<Service>();
+            for (int i = 0; i < count; i++)
+            {
+                int sid = Validation.IntValidation($"Service ID #{i + 1}");
+                var service = Service.Services.FirstOrDefault(s => s.ServiceId == sid);
+                if (service != null)
+                    selectedServices.Add(service);
+                else
+                    Console.WriteLine("Invalid service ID. Skipped.");
+            }
+
+            var record = new PatientRecord(note, selectedServices);
+            this.PatientRecords.Add(record);
+            patient.PatientRecords.Add(record);
+
+            Console.WriteLine("Patient record successfully added.");
+        }
+
+
 
 
         public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
