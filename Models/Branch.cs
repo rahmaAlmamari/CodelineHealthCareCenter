@@ -165,26 +165,55 @@ namespace CodelineHealthCareCenter.Models
         {
             Console.Clear();
             Console.WriteLine("Update Branch");
-            Console.WriteLine("Enter the Branch ID to update:");
-            int branchId = Validation.IntValidation("Branch ID");
-            var branch = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
-            if (branch == null)
+            Console.WriteLine("All Branches");
+            ViewAllBranch();
+            int branchId = Validation.IntValidation("Enter the Branch ID to update :");
+            var branchToUpdate = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
+            if (branchToUpdate == null)
             {
                 Console.WriteLine("Branch not found.");
                 Additional.HoldScreen();
                 return;
             }
-            // Get new details from user
-            string newBranchName = Validation.StringValidation("new branch name");
-            string newBranchCity = Validation.StringValidation("new branch city");
-            DateOnly newBranchEstablishDate = Validation.DateOnlyValidation("new branch establish date");
-            // Update branch details
-            branch.BranchName = newBranchName;
-            branch.BranchCity = newBranchCity;
-            branch.BranchEstablishDate = newBranchEstablishDate;
-            Console.WriteLine("Branch updated successfully.");
-            Additional.HoldScreen();
-            SuperAdmin.AdminBranchMenu();
+
+            // Loop 
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("Update Branch Information");
+                Console.WriteLine("------------------------");
+                Console.WriteLine("1. Branch Name");
+                Console.WriteLine("2. Branch City");
+                Console.WriteLine("3. Establish Date");
+                Console.WriteLine("0. Exit");
+                char choice = Validation.CharValidation("Choose an option: ");
+
+                switch (choice)
+                {
+                    case '1':
+                        branchToUpdate.BranchName = Validation.EmailValidation("Enter new branch name : ");
+                        break;
+                    case '2':
+                        branchToUpdate.BranchCity = Validation.StringValidation("Enter new branch city : ");
+                        break;
+                    case '3':
+                        branchToUpdate.BranchEstablishDate = Validation.DateOnlyValidation("Enter new branch establish date : ");
+                        break;
+                    case '0':
+                        Console.WriteLine("Exiting update menu...");
+                        if (choice == 0)
+                             break;
+                        SuperAdmin.AdminBranchMenu();
+                        return;
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        break;
+                }
+
+                Console.WriteLine("Branch updated successfully.");
+                Additional.HoldScreen();
+                SuperAdmin.AdminBranchMenu();
+            }
         }
 
         // Delete Branch
@@ -213,6 +242,25 @@ namespace CodelineHealthCareCenter.Models
             }
             Additional.HoldScreen();
             SuperAdmin.AdminBranchMenu();
+        }
+
+
+
+        // View all Branch
+        public static void ViewAllBranch()
+        {
+            Console.WriteLine("List of Branches");
+           
+            foreach (var branch in Hospital.Branches)
+            {
+                Console.WriteLine($"Branch ID       : {branch.BranchId}");
+                Console.WriteLine($"Branch Name     : {branch.BranchName}");
+                Console.WriteLine($"Branch City     : {branch.BranchCity}");
+                Console.WriteLine($"Establish Date  : {branch.BranchEstablishDate}");
+                Console.WriteLine($"Status          : {(branch.BranchStatus ? "Open" : "Closed")}");
+                Console.WriteLine(new string('-', 40));
+            }
+           
         }
 
         //====================================================
