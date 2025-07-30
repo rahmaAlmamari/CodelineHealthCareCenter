@@ -27,7 +27,8 @@ namespace CodelineHealthCareCenter.Models
             Department.LoadDepartmentsFromFile();
             LoadDoctorsFromFile();
             LoadAdminsFromFile();
-            
+            Hospital.LoadHospitalFromFile();
+
             Console.Clear();
             Console.WriteLine("Welcome to SuperAdminMenu");
             Console.WriteLine("1. Users ( Admins And Doctors )");
