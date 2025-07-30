@@ -244,6 +244,23 @@ namespace CodelineHealthCareCenter.Models
             }
             Additional.HoldScreen(); //just to hold the screen ...
         }
+        //to save patient data to file ...
+        public static void SavePatientsToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (var branch in Hospital.Branches)
+                {
+                    foreach (var patient in branch.Patients)
+                    {
+                        writer.WriteLine($"{patient.UserId}|{patient.UserName}|{patient.P_UserPassword}|{patient.UserEmail}|{patient.P_UserPhoneNumber}|{patient.UserNationalID}|{patient.PatientCity}|{patient.UserRole}|{patient.UserStatus}|{branch.BranchCity}");
+                    }
+                }
+            }
+
+            Console.WriteLine("All patients saved successfully.");
+        }
+
         //====================================================
         //4. class constructor ...
         public Patient()
