@@ -138,7 +138,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("\n[Appointments]");
             foreach (var app in doctor.DoctorAppointments)
             {
-                Console.WriteLine($"- Booking ID: {app.BookingId}, Date: {app.BookingDate}");
+                Console.WriteLine($"- Booking ID: {app.BookingId}, Date: {app.BookingDateTime}");
             }
 
             Console.WriteLine("\n[Patient Records]");
