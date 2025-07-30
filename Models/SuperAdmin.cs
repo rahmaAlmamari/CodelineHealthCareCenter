@@ -65,6 +65,7 @@ namespace CodelineHealthCareCenter.Models
                     break;
 
                 case '2':
+                    DoctorUserMenu();
                     break;
 
                 case '0':
@@ -117,6 +118,45 @@ namespace CodelineHealthCareCenter.Models
 
 
 
+        }
+
+        public static void DoctorUserMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("Doctor Admin Menu ");
+            Console.WriteLine("1. Add New Doctor ");
+            Console.WriteLine("2. View All Doctors ");
+            Console.WriteLine("3. Update Doctor ");
+            Console.WriteLine("4. Delete Doctor ");
+            Console.WriteLine("5. Set Doctor Status ");
+            Console.WriteLine("0. Exit ");
+            string choice1 = Validation.StringValidation("Please select an option : ");
+            switch (choice1)
+            {
+                case "1":
+                    AddDoctor();
+                    break;
+                case "2":
+                    ViewDoctors();
+                    break;
+                case "3":
+                    UpdateDoctor();
+                    break;
+                case "4":
+                    DeleteDoctor();
+                    break;
+                case "5":
+                    SetDoctorStatus();
+                    break;
+                case "0":
+                    AdminDoctorUserMenu();
+                    Console.WriteLine("Exiting Doctor Admin Menu.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option, please try again.");
+                    Additional.HoldScreen();
+                    break;
+            }
         }
 
         public static void AdminBranchMenu()
@@ -279,6 +319,7 @@ namespace CodelineHealthCareCenter.Models
         public static void AddDoctor()
         {
             Console.Clear();
+            Console.ReadLine();
             Console.WriteLine("Add New Doctor");
             // Get doctor details from user
             string name = Validation.StringValidation("doctor name");
@@ -306,6 +347,7 @@ namespace CodelineHealthCareCenter.Models
             // Add the doctor to the List
             BranchDepartment.Doctors.Add(doctor);
             Console.WriteLine("Doctor added successfully.");
+            DoctorUserMenu();
             Additional.HoldScreen();
 
         }
@@ -334,7 +376,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Status          : {doctor.UserStatus}");
                 Console.WriteLine(new string('-', 40));
             }
-
+            DoctorUserMenu();
             Additional.HoldScreen();
         }
 
@@ -401,7 +443,7 @@ namespace CodelineHealthCareCenter.Models
                 if (continueChoice != "y")
                 {
                     Console.WriteLine("Returning to Admin Menu...");
-                    AdminUserMenu();
+                    DoctorUserMenu();
                     return;
                 }
             }
@@ -429,6 +471,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("Deletion cancelled.");
             }
+            DoctorUserMenu();
             Additional.HoldScreen();
         }
 
