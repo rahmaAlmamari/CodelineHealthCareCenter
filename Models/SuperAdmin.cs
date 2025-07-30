@@ -84,8 +84,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("3. Update Admin ");
             Console.WriteLine("4. Delete Admin ");
             Console.WriteLine("0. Exit ");
-            Console.WriteLine("Please select an option : ");
-            char choice1 = Validation.CharValidation("option");
+            char choice1 = Validation.CharValidation("Please select an option : ");
             switch (choice1)
             {
                 case '1':
@@ -174,10 +173,9 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("9. Get Branch Name");
             Console.WriteLine("10. Get Branch Status");
             Console.WriteLine("0. Exit ");
-
-       
-          
-
+            string choice1 = Validation.StringValidation("Please select an option : ");
+            switch (choice1)
+            {
                 case "1":
                     Branch.AddBranch();
                     break;
