@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodelineHealthCareCenter.Services;
+using System.IO;
 
 namespace CodelineHealthCareCenter.Models
 {
@@ -193,6 +194,48 @@ namespace CodelineHealthCareCenter.Models
             }
             Clinics.Remove(clinic);
             Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
+        }
+
+        public static void SaveToFile(string filePath) // saves clinic data to a file
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var clinic in Clinics)
+            {
+                writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.Location}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.Price}|{clinic.clinicStatus}");
+            }
+        }
+
+        public static void LoadFromFile(string filePath) // loads clinic data from a file
+        {
+            Clinics.Clear();
+            clinicCounter = 0;
+
+            if (!File.Exists(filePath)) return;
+
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 9) continue;
+
+                var clinic = new Clinic(
+                    clinicName: parts[1],
+                    location: parts[2],
+                    departmentId: int.Parse(parts[3]),
+                    branchId: int.Parse(parts[4]),
+                    floorId: int.Parse(parts[5]),
+                    roomId: int.Parse(parts[6]),
+                    price: decimal.Parse(parts[7])
+                );
+
+                bool status = bool.Parse(parts[8]);
+                clinic.SetClinicStatus(status);
+                clinic.ClinicId = int.Parse(parts[0]); // manually set ID
+
+                Clinics.Add(clinic);
+                if (clinic.ClinicId > clinicCounter)
+                    clinicCounter = clinic.ClinicId;
+            }
         }
 
 
