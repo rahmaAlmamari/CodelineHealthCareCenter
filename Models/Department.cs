@@ -31,7 +31,8 @@ namespace CodelineHealthCareCenter.Models
                 DepartmentName = departmentName,
                 BranchId = branchId
             };
-
+            // add the new department to the list of departments in the branch
+            BranchDepartment.Departments.Add(newDepartment); 
             Console.WriteLine($"Department '{newDepartment.DepartmentName}' created with ID {newDepartment.DepartmentId} in Branch ID {newDepartment.BranchId}.");
 
         }
@@ -117,7 +118,27 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
+        // Department Exists Check
+        public static bool DepartmentExists(int departmentId)
+        {
+            return BranchDepartment.Departments.Any(d => d.DepartmentId == departmentId);
+        }
 
+        // Check department status
+        public static bool IsDepartmentActive(int departmentId)
+        {
+            var department = BranchDepartment.Departments.FirstOrDefault(d => d.DepartmentId == departmentId);
+            if (department != null)
+            {
+                // Assuming active status is determined by some property, e.g., IsActive
+                return true; // Placeholder, replace with actual logic if needed
+            }
+            else
+            {
+                Console.WriteLine($"Department ID {departmentId} not found.");
+                return false;
+            }
+        }
 
         //====================================================
         //4. class constructor ...
