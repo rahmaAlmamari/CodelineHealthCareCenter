@@ -13,6 +13,7 @@ namespace CodelineHealthCareCenter.Models
         public int BookingId;
         public DateTime BookingDateTime;
         public int ClinicId;
+        public int DoctorId;
         public static int BookingCount = 0;
 
 
@@ -39,6 +40,37 @@ namespace CodelineHealthCareCenter.Models
             //to list all spots in the selected clinic ...
             GetAllSpotsByClinicId(clinicId, departmentId);
             DateTime SpotDateTime = Validation.DateTimeValidation("Spot Date and Time (yyyy-MM-dd HH:mm:ss)");
+            //to create a new booking ...
+            Booking newBooking = new Booking
+            {
+                BookingDateTime = SpotDateTime,
+                ClinicId = clinicId,
+                DoctorId = doctorId
+            };
+            //to add the new booking to the DoctorAppointments list
+            foreach (var doctor in BranchDepartment.Doctors)
+            {
+                if (doctor.DoctorID == doctorId)
+                {
+                    doctor.DoctorAppointments.Add(newBooking);
+                    Console.WriteLine($"Appointment booked successfully for Doctor ID {doctorId} in Clinic ID {clinicId} at {SpotDateTime}.");
+                    Additional.HoldScreen(); //just to hold the screen ...
+                }
+            }
+            //to add the new booking to the PatientAppointments list
+            foreach (var branch in Hospital.Branches) 
+            {
+                foreach (var patient in branch.Patients) 
+                {
+                    if (patient.UserNationalID == Validation.StringValidation("Patient National ID"))
+                    {
+                        patient.PatientAppointments.Add(newBooking);
+                        Console.WriteLine($"Appointment booked successfully for Patient ID {patient.UserNationalID} in Clinic ID {clinicId} at {SpotDateTime}.");
+                    }
+                }
+            }
+            Additional.HoldScreen(); //just to hold the screen ...
+
         }
         //to GetAllClinicsByDepartmentId ...
         public static void GetAllClinicsByDepartmentId(int departmentId)
