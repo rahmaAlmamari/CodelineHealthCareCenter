@@ -14,6 +14,7 @@ namespace CodelineHealthCareCenter.Models
         public int BranchId;
         public static int DepartmentCount = 0;
         public List<Clinic> Clinics = new List<Clinic>();
+        public static string DepartmentsFilePath = "Departments.txt"; 
 
         //====================================================
         //2. class properity ...
@@ -38,6 +39,8 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Department '{newDepartment.DepartmentName}' created in Branch ID {newDepartment.BranchId}.");
             // Increment the department count
             DepartmentCount++;
+            // Save the new department to file
+            SaveDepartmentsToFile();
             Additional.HoldScreen();
             SuperAdmin.AdminDepartmentMenu();
 
@@ -203,6 +206,53 @@ namespace CodelineHealthCareCenter.Models
             }
            
         }
+
+
+        // save department to file
+        public static void SaveDepartmentsToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(DepartmentsFilePath))
+            {
+                foreach (var department in BranchDepartment.Departments)
+                {
+                    Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
+                }
+            }
+            Console.WriteLine("Departments saved to file.");
+            
+        }
+
+        // Load departments from file
+        public static void LoadDepartmentsFromFile()
+        {
+            if (File.Exists(DepartmentsFilePath))
+            {
+                using (StreamReader reader = new StreamReader(DepartmentsFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split(',');
+                        if (parts.Length == 3)
+                        {
+                            Department department = new Department
+                            {
+                                DepartmentId = int.Parse(parts[0]),
+                                DepartmentName = parts[1],
+                                BranchId = int.Parse(parts[2])
+                            };
+                            BranchDepartment.Departments.Add(department);
+                        }
+                    }
+                }
+                Console.WriteLine("Departments loaded from file.");
+            }
+            else
+            {
+                Console.WriteLine("No departments file found.");
+            }
+        }
+
 
         //====================================================
         //4. class constructor ...
