@@ -175,6 +175,9 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("10. Get Branch Status");
             Console.WriteLine("0. Exit ");
 
+       
+          
+
                 case "1":
                     Branch.AddBranch();
                     break;
