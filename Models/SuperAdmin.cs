@@ -320,7 +320,6 @@ namespace CodelineHealthCareCenter.Models
         public static void AddDoctor()
         {
             Console.Clear();
-            Console.ReadLine();
             Console.WriteLine("Add New Doctor");
             // Get doctor details from user
             string name = Validation.StringValidation("doctor name");
@@ -343,6 +342,7 @@ namespace CodelineHealthCareCenter.Models
             doctor.UserEmail = email;
             doctor.P_UserPhoneNumber = phoneNumber;
             doctor.UserNationalID = nationalId;
+            doctor.DoctorSpecialization = specialization;
             doctor.UserRole = "Doctor"; // Set the role to Doctor
             doctor.UserStatus = "Active"; // Set the status to Active
             // Add the doctor to the List
@@ -358,35 +358,37 @@ namespace CodelineHealthCareCenter.Models
         {
             Console.Clear();
             Console.WriteLine("List of Doctors");
-
             if (BranchDepartment.Doctors.Count == 0)
             {
                 Console.WriteLine("No doctors available in the system.");
                 Additional.HoldScreen();
                 return;
             }
-
             foreach (var doctor in BranchDepartment.Doctors)
             {
-                Console.WriteLine($"Doctor ID        : {doctor.UserId}");
+                Console.WriteLine($"Doctor ID       : {doctor.UserId}");
                 Console.WriteLine($"Name            : {doctor.UserName}");
                 Console.WriteLine($"Email           : {doctor.UserEmail}");
-                Console.WriteLine($"Phone Number    : {doctor.UserPhoneNumber}");
+                Console.WriteLine($"Phone Number    : {doctor.P_UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {doctor.UserNationalID}");
                 Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
                 Console.WriteLine($"Status          : {doctor.UserStatus}");
                 Console.WriteLine(new string('-', 40));
+
             }
-            DoctorUserMenu();
             Additional.HoldScreen();
+            DoctorUserMenu();
         }
 
         // Update Doctor method to update doctor details
 
         public static void UpdateDoctor()
         {
-            Console.WriteLine("Enter the Doctor ID to update:");
-            int doctorId = Validation.IntValidation("Doctor ID");
+            Console.Clear();
+            Console.WriteLine("Available Doctors for Updation");
+            ViewAllDoctors();
+            Console.WriteLine(new string('-', 40));
+            int doctorId = Validation.IntValidation("Enter the Doctor ID to update:");
             var doctorToUpdate = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
             if (doctorToUpdate == null)
             {
@@ -394,6 +396,8 @@ namespace CodelineHealthCareCenter.Models
                 Additional.HoldScreen();
                 return;
             }
+
+
             // Choose what to update
             Console.WriteLine("What do you want to update?");
             // Method to display admin update options
@@ -404,13 +408,12 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("------------------------");
                 Console.WriteLine("1. Update Email");
                 Console.WriteLine("2. Update Phone Number");
-                Console.WriteLine("3. Update National ID");
-                Console.WriteLine("4. Update Role");
-                Console.WriteLine("5. Update Status");
+                Console.WriteLine("3. Update Role");
+                Console.WriteLine("4. Update Status");
                 Console.WriteLine("0. Exit");
 
                 char choice = Validation.CharValidation("Choose an option: ");
-
+                
                 switch (choice)
                 {
                     case '1':
@@ -419,13 +422,11 @@ namespace CodelineHealthCareCenter.Models
                     case '2':
                         doctorToUpdate.P_UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
                         break;
+
                     case '3':
-                        doctorToUpdate.UserNationalID = Validation.StringValidation("Enter new national ID: ");
-                        break;
-                    case '4':
                         doctorToUpdate.UserRole = Validation.StringValidation("Enter new role (Doctor/Admin): ");
                         break;
-                    case '5':
+                    case '4':
                         doctorToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
                         break;
                     case '0':
@@ -453,7 +454,10 @@ namespace CodelineHealthCareCenter.Models
         // Delete Doctor method to delete a doctor by ID
         public static void DeleteDoctor()
         {
-            Console.WriteLine("Enter the Doctor ID to delete:");
+            Console.Clear();
+            Console.WriteLine("Available Doctors for Deletion");
+            ViewAllDoctors();
+            Console.WriteLine(new string('-', 40));
             int doctorId = Validation.IntValidation("Doctor ID");
             var doctorToDelete = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
             if (doctorToDelete == null)
@@ -698,6 +702,24 @@ namespace CodelineHealthCareCenter.Models
             UserStatus = "Active"; //default status for SuperAdmin  
         }
 
-    
+
+        // view all Doctor
+        public static void ViewAllDoctors()
+        {
+            
+            foreach (var doctor in BranchDepartment.Doctors)
+            {
+                Console.WriteLine($"Doctor ID       : {doctor.UserId}");
+                Console.WriteLine($"Name            : {doctor.UserName}");
+                Console.WriteLine($"Email           : {doctor.UserEmail}");
+                Console.WriteLine($"Phone Number    : {doctor.P_UserPhoneNumber}");
+                Console.WriteLine($"National ID     : {doctor.UserNationalID}");
+                Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
+                Console.WriteLine($"Status          : {doctor.UserStatus}");
+                Console.WriteLine(new string('-', 40));
+            }
+           
+        }
+
     }
 }
