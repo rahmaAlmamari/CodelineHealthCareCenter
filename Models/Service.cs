@@ -103,6 +103,30 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public static void LoadFromFile(string filePath)
+        {
+            Services.Clear();
+            ServiceCount = 0;
+
+            if (!File.Exists(filePath)) return;
+
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 3) continue;
+
+                Service service = new Service(parts[1], double.Parse(parts[2]))
+                {
+                    ServiceId = int.Parse(parts[0])
+                };
+
+                Services.Add(service);
+                if (service.ServiceId > ServiceCount)
+                    ServiceCount = service.ServiceId;
+            }
+        }
+
 
         public static void ServiceMenu()
         {
