@@ -82,7 +82,10 @@ internal class Program
             //
             ClinicTest.ClinicSpots.Add(DateTime.Parse("07/30/2025 14:30"));
             User x = new User();
+            //-----------------------------------------------------------------------------------
 
+            //to load patient data from file ...
+            Patient.LoadPatientsFromFile();
 
             //to list the main menu options ...
             bool exitFlag = false;
@@ -116,6 +119,8 @@ internal class Program
                         break;
                     case '0':
                         exitFlag = true;
+                        //to save patient data to file ...
+                        Patient.SavePatientsToFile();
                         Console.WriteLine("Thank you for using the Hotel System. Goodbye!");
                         break;
                     default:

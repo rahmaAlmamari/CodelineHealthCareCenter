@@ -14,6 +14,9 @@ namespace CodelineHealthCareCenter.Models
         public string PatientCity;
         public List<Booking> PatientAppointments = new List<Booking>();
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
+        //patient file path ...
+        private static string filePath = "patients.txt";
+
 
         //====================================================
         //2. class properity ...
@@ -241,6 +244,73 @@ namespace CodelineHealthCareCenter.Models
             }
             Additional.HoldScreen(); //just to hold the screen ...
         }
+        //to save patient data to file ...
+        public static void SavePatientsToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (var branch in Hospital.Branches)
+                {
+                    foreach (var patient in branch.Patients)
+                    {
+                        writer.WriteLine($"{patient.UserId}|{patient.UserName}|{patient.P_UserPassword}|{patient.UserEmail}|{patient.P_UserPhoneNumber}|{patient.UserNationalID}|{patient.PatientCity}|{patient.UserRole}|{patient.UserStatus}|{branch.BranchCity}");
+                    }
+                }
+            }
+
+            Console.WriteLine("All patients saved successfully.");
+        }
+        //to load patient data from file ...
+        public static void LoadPatientsFromFile()
+        {
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Patient file not found.");
+                return;
+            }
+
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] parts = line.Split('|');
+                    if (parts.Length != 10) continue;
+
+                    string userName = parts[1];
+                    string password = parts[2];
+                    string email = parts[3];
+                    int phone = int.Parse(parts[4]);
+                    string nationalId = parts[5];
+                    string city = parts[6];
+                    string role = parts[7];
+                    string status = parts[8];
+                    string branchCity = parts[9];
+
+                    Branch branch = Patient.FindBranchByCity(branchCity);
+                    if (branch != null)
+                    {
+                        Patient patient = new Patient
+                        {
+                            UserId = int.Parse(parts[0]),
+                            UserName = userName,
+                            P_UserPassword = password,
+                            UserEmail = email,
+                            P_UserPhoneNumber = phone,
+                            UserNationalID = nationalId,
+                            PatientCity = city,
+                            UserRole = role,
+                            UserStatus = status
+                        };
+
+                        branch.Patients.Add(patient);
+                    }
+                }
+            }
+
+            Console.WriteLine("Patients loaded successfully.");
+        }
+
         //====================================================
         //4. class constructor ...
         public Patient()
