@@ -70,12 +70,12 @@ namespace CodelineHealthCareCenter.Models
             //to get national id and check if it exists or not ...
             string UserNationalID = Validation.StringValidation("national ID");
             //to check if the national id exists or not ...
-            //if (Validation.UserNationalIdExists(UserNationalID))
-            //{
-            //    Console.WriteLine("This national ID already exists. Please try again with a different one.");
-            //    Additional.HoldScreen();
-            //    return; //exit the method if national ID exists ...
-            //}
+            if (Validation.UserNationalIdExists(UserNationalID))
+            {
+                Console.WriteLine("This national ID already exists. Please try again with a different one.");
+                Additional.HoldScreen();
+                return; //exit the method if national ID exists ...
+            }
             //to get the user data ...
             string UserName = Validation.StringValidation("user name");
             string UserPassword = Validation.ReadPassword("password");
@@ -135,7 +135,7 @@ namespace CodelineHealthCareCenter.Models
                 P_UserPassword = password,
                 UserEmail = email,
                 P_UserPhoneNumber = phoneNumber,
-                P_UserNationalID = userNationalID,
+                UserNationalID = userNationalID,
                 PatientCity = city,
             };
             //to add the new patient to the branch list in hospital class ...
@@ -144,6 +144,8 @@ namespace CodelineHealthCareCenter.Models
                 
                 //add the new patient to the branch patients list ...
                 branch.Patients.Add(newPatient); //add the new patient to the branch patients list ...
+                //to add patient id to hospital UserNationalID list ...
+                Hospital.UserNationalID.Add(userNationalID); //to add the user national id to the hospital user national id list ...
                 UserCount++; //to increase the user count ...
                 Console.WriteLine("Patient added successfully with following details:");
                 newPatient.PrintPatientDetails(); //to print the patient details ...
@@ -259,6 +261,7 @@ namespace CodelineHealthCareCenter.Models
             }
 
             Console.WriteLine("All patients saved successfully.");
+            Additional.HoldScreen(); //just to hold the screen ...
         }
         //to load patient data from file ...
         public static void LoadPatientsFromFile()
@@ -309,6 +312,7 @@ namespace CodelineHealthCareCenter.Models
             }
 
             Console.WriteLine("Patients loaded successfully.");
+            Additional.HoldScreen(); //just to hold the screen ...
         }
 
         //====================================================
