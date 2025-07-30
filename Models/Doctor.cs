@@ -259,6 +259,16 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public static void SaveToFile(string filePath) // save data to file 
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var doc in Doctors)
+            {
+                // Save: DoctorID | UserName | Email | Specialization | DepartmentId | ClinicId | Status
+                writer.WriteLine($"{doc.DoctorID}|{doc.UserName}|{doc.UserEmail}|{doc.DoctorSpecialization}|{doc.DepartmentId}|{doc.ClinicID}|{doc.UserStatus}");
+            }
+        }
+
 
 
 
