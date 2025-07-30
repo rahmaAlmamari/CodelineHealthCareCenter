@@ -246,23 +246,15 @@ namespace CodelineHealthCareCenter.Models
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine(" DOCTOR MANAGEMENT MENU ");
-                Console.WriteLine("1. Add Doctor");
-                Console.WriteLine("2. Update Doctor");
-                Console.WriteLine("3. Get Doctor By ID");
-                Console.WriteLine("4. Get Doctor By Name");
-                Console.WriteLine("5. Get Doctor By Email");
-                Console.WriteLine("6. Get All Doctors");
-                Console.WriteLine("7. Get Doctor Data");
-                Console.WriteLine("8. Get Doctor By Branch Name");
-                Console.WriteLine("9. Get Doctor By Department Name");
-                Console.WriteLine("10. Add Available Time");
-                Console.WriteLine("11. Remove Available Time");
-                Console.WriteLine("11. Exit");
+                Console.WriteLine(" DOCTOR MENU ");
+                Console.WriteLine("1. View My Appointments");
+                Console.WriteLine("2. Add Patient Record");
+                Console.WriteLine("3. Exit");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
                 Console.WriteLine();
+
 
                 switch (choice)
                 {
