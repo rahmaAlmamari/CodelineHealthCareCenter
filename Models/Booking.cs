@@ -54,6 +54,7 @@ namespace CodelineHealthCareCenter.Models
                 {
                     doctor.DoctorAppointments.Add(newBooking);
                     Console.WriteLine($"Appointment booked successfully for Doctor ID {doctorId} in Clinic ID {clinicId} at {SpotDateTime}.");
+                    Additional.HoldScreen(); //just to hold the screen ...
                 }
             }
             //to add the new booking to the PatientAppointments list
