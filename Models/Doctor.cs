@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using CodelineHealthCareCenter.Services;
+using System.Linq;
+
+
+
 
 
 namespace CodelineHealthCareCenter.Models
@@ -202,13 +206,14 @@ namespace CodelineHealthCareCenter.Models
                 return;
             }
             foreach (var app in DoctorAppointments)
-                Console.WriteLine($"- Booking ID: {app.BookingId}, Patient ID: {app.UserId}, Date: {app.BookingDateTime:G}");
+                Console.WriteLine($"- Booking ID: {app.BookingId}, Date: {app.BookingDateTime:G}");
         }
 
         public void AddPatientRecord() // Adds a patient record for a specific patient, including doctor notes and services provided
         {
-            int patientId = Validation.IntValidation("Patient ID");
-            var patient = Patient.Patients.FirstOrDefault(p => p.PatientID == patientId);
+            string nationalId = Validation.StringValidation("Patient National ID");
+            var patient = Patient.Patients.FirstOrDefault(p => p.UserNationalID == nationalId);
+
             if (patient == null)
             {
                 Console.WriteLine("Patient not found.");
