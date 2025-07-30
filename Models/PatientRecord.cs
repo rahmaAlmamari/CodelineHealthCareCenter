@@ -155,6 +155,50 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
+        public static void LoadFromFile(string filePath)
+        {
+            Records.Clear();
+            PatientRecordCount = 0;
+
+            if (!File.Exists(filePath)) return;
+
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 7) continue;
+
+                int recordId = int.Parse(parts[0]);
+                int patientId = int.Parse(parts[1]);
+                int clinicId = int.Parse(parts[2]);
+                DateTime dateCreated = DateTime.Parse(parts[3]);
+                double totalCost = double.Parse(parts[4]);
+                string doctorNote = parts[5];
+                string[] serviceIds = parts[6].Split(',');
+
+                List<Service> services = new List<Service>();
+                foreach (var sid in serviceIds)
+                {
+                    if (int.TryParse(sid, out int parsedId))
+                    {
+                        var svc = Service.Services.FirstOrDefault(s => s.ServiceId == parsedId);
+                        if (svc != null) services.Add(svc);
+                    }
+                }
+
+                var record = new PatientRecord(patientId, clinicId, doctorNote, services)
+                {
+                    PatientRecordId = recordId,
+                    DateCreated = dateCreated,
+                    TotalCost = totalCost
+                };
+
+                Records.Add(record);
+                if (record.PatientRecordId > PatientRecordCount)
+                    PatientRecordCount = record.PatientRecordId;
+            }
+        }
+
         public static void PatientRecordMenu()
         {
             Additional.WelcomeMessage("Patient Record Management");
