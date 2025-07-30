@@ -239,9 +239,9 @@ namespace CodelineHealthCareCenter.Models
 
 
 
-        public static void DoctorMenu() // Displays the Doctor Management Menu and handles user input for various doctor-related operations
+        public static void DoctorMenu() // Displays the doctor management menu and handles user input for various doctor-related operations
         {
-            Additional.WelcomeMessage("Doctor Management");
+            Additional.WelcomeMessage("Doctor Panel");
 
             while (true)
             {
