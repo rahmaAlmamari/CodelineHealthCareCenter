@@ -174,9 +174,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("9. Get Branch Name");
             Console.WriteLine("10. Get Branch Status");
             Console.WriteLine("0. Exit ");
-            string choice1 = Validation.StringValidation("Please select an option : ");
-            switch (choice1)
-            {
+
                 case "1":
                     Branch.AddBranch();
                     break;
@@ -196,6 +194,7 @@ namespace CodelineHealthCareCenter.Models
                     Branch.GetBranchById();
                     break;
                 case "7":
+
                     Branch.GetBranchDetails();
                     break;
                 case "8":
@@ -206,10 +205,7 @@ namespace CodelineHealthCareCenter.Models
                     Branch.GetBranchName(branchId);
                     break;
                 case "10":
-                    int branchID = Validation.IntValidation("Enter Branch ID to get Branch Status: ");
-                    Branch.GetBranchStatus(branchID);
-                    break;
-                case "0":
+
                     SuperAdminMenu();
                     Console.WriteLine("Exiting Branch Admin Menu.");
                     break;
