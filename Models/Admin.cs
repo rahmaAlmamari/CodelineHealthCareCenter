@@ -174,6 +174,16 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Spot {spotToRemove:G} removed from Clinic '{clinic.ClinicName}'.");
         }
 
+        public static void SaveToFile(string filePath)
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var admin in BranchDepartment.Admins) // assuming this is where admins are stored
+            {
+                writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.P_UserPhoneNumber}|{admin.UserNationalID}|{admin.BranchID}|{admin.UserStatus}");
+            }
+        }
+
+
         public static void AdminMenu()
         {
             Additional.WelcomeMessage("Admin Panel");
