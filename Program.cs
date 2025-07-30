@@ -100,7 +100,6 @@ internal class Program
                 Console.WriteLine("1. LogIn");
                 Console.WriteLine("2. SinUp");
                 Console.WriteLine("0. Exit");
-                Console.Write("Please select an option: ");
                 //to get the user choice ...
                 char choice = Validation.CharValidation("option");
                 switch (choice)
