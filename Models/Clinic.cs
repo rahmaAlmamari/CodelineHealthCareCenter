@@ -313,19 +313,17 @@ namespace CodelineHealthCareCenter.Models
             foreach (var line in lines)
             {
                 string[] parts = line.Split('|');
-                if (parts.Length < 9) continue;
+                if (parts.Length < 7) continue;
 
                 var clinic = new Clinic(
                     clinicName: parts[1],
-                    location: parts[2],
-                    departmentId: int.Parse(parts[3]),
-                    branchId: int.Parse(parts[4]),
-                    floorId: int.Parse(parts[5]),
-                    roomId: int.Parse(parts[6]),
-                    price: decimal.Parse(parts[7])
+                    departmentId: int.Parse(parts[2]),
+                    branchId: int.Parse(parts[3]),
+                    floorId: int.Parse(parts[4]),
+                    roomId: int.Parse(parts[5])
                 );
 
-                bool status = bool.Parse(parts[8]);
+                bool status = bool.Parse(parts[6]);
                 clinic.SetClinicStatus(status);
                 clinic.ClinicId = int.Parse(parts[0]); // manually set ID
 
@@ -450,17 +448,17 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //4. class constructor ...
 
-        public Clinic(string clinicName, string location, int departmentId, int branchId, int floorId, int roomId, decimal price)
+        public Clinic(string clinicName, int departmentId, int branchId, int floorId, int roomId)
         {
             clinicCounter++;
             ClinicId = clinicCounter;
             ClinicName = clinicName;
-            Location = location;
+            //Location = location;
             DepartmentId = departmentId;
             BranchId = branchId;
             FloorId = floorId;
             RoomId = roomId;
-            Price = price;
+            //Price = price;
 
             Doctors = new List<Doctor>();
             ClinicSpots = new List<DateTime>();
