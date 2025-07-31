@@ -206,6 +206,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.Location}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.Price}|{clinic.clinicStatus}");
             }
+            Console.WriteLine("Clinic data saved successfully.");
         }
 
         public static void LoadClinicFromFile() // loads clinic data from a file
