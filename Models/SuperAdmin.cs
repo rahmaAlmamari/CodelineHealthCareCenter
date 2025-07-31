@@ -762,7 +762,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var admin in BranchDepartment.Admins)
                 {
-                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.P_UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
+                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
                 }
             }
         }
