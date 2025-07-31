@@ -23,7 +23,7 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //2. class properties ...
 
-        public static List<Clinic> Clinics = new List<Clinic>();
+       // public static List<Clinic> Clinics = new List<Clinic>();
         public int ClinicId { get; private set; }
         public string ClinicName { get; set; }
         public int DepartmentId { get; set; }
@@ -103,9 +103,17 @@ namespace CodelineHealthCareCenter.Models
 
         public static void AddClinic(string clinicName, string location) // adds a new clinic to the list
         {
-            var newClinic = new Clinic(clinicName, location, 0, 0, 0, 0, 0);
-            Clinics.Add(newClinic);
-            Console.WriteLine($"Clinic '{clinicName}' added successfully.");
+            foreach (var department in BranchDepartment.Departments)
+            {
+                if (department.Clinics.Any(c => c.ClinicName.Equals(clinicName, StringComparison.OrdinalIgnoreCase)))
+                {
+                    Console.WriteLine($"Clinic '{clinicName}' already exists in Department ID {department.DepartmentId}.");
+                    return;
+                }
+            }
+            //var newClinic = new Clinic(clinicName, location, 0, 0, 0, 0, 0);
+            //Clinics.Add(newClinic);
+            //Console.WriteLine($"Clinic '{clinicName}' added successfully.");
         }
 
         public static void GetAllClinics() // displays all clinics
@@ -129,89 +137,169 @@ namespace CodelineHealthCareCenter.Models
 
         public static void GetClinicById(int clinicId) // retrieves a clinic by its ID
         {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            if (clinic == null)
-                Console.WriteLine("Clinic not found.");
-            else
+            foreach (var department in BranchDepartment.Departments)
+            {
+                var clinic = department.Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+                if (clinic == null)
+                {
+                    Console.WriteLine("Clinic not found.");
+                    return;
+                }
                 clinic.ViewClinicInfo();
+                return;
+            }
+            //var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            //if (clinic == null)
+            //    Console.WriteLine("Clinic not found.");
+            //else
+            //    clinic.ViewClinicInfo();
         }
 
         public static void GetClinicByName(string clinicName) // retrieves clinics by their name
         {
-            var matches = Clinics.Where(c => c.ClinicName.Equals(clinicName, StringComparison.OrdinalIgnoreCase)).ToList();
-            if (!matches.Any())
+            foreach (var department in BranchDepartment.Departments)
             {
-                Console.WriteLine("No clinic found with that name.");
+                var matches = department.Clinics.Where(c => c.ClinicName.Equals(clinicName, StringComparison.OrdinalIgnoreCase)).ToList();
+                if (!matches.Any())
+                {
+                    Console.WriteLine("No clinic found with that name.");
+                    return;
+                }
+                foreach (var clinic in matches)
+                    clinic.ViewClinicInfo();
                 return;
             }
-            foreach (var clinic in matches)
-                clinic.ViewClinicInfo();
+            //var matches = Clinics.Where(c => c.ClinicName.Equals(clinicName, StringComparison.OrdinalIgnoreCase)).ToList();
+            //if (!matches.Any())
+            //{
+            //    Console.WriteLine("No clinic found with that name.");
+            //    return;
+            //}
+            //foreach (var clinic in matches)
+            //    clinic.ViewClinicInfo();
         }
 
         public static void GetClinicByBranchDep(int branchId, int departmentId) // retrieves clinics by branch and department IDs
         {
-            var matches = Clinics.Where(c => c.BranchId == branchId && c.DepartmentId == departmentId).ToList();
-            if (!matches.Any())
+            foreach (var department in BranchDepartment.Departments)
             {
-                Console.WriteLine("No clinic found for that branch and department.");
+                if (department.DepartmentId != departmentId || department.BranchId != branchId) continue;
+                if (department.Clinics.Count == 0)
+                {
+                    Console.WriteLine($"No clinics found in Branch ID {branchId} and Department ID {departmentId}.");
+                    return;
+                }
+                foreach (var clinic in department.Clinics)
+                    clinic.ViewClinicInfo();
                 return;
             }
-            foreach (var clinic in matches)
-                clinic.ViewClinicInfo();
+            //var matches = Clinics.Where(c => c.BranchId == branchId && c.DepartmentId == departmentId).ToList();
+            //if (!matches.Any())
+            //{
+            //    Console.WriteLine("No clinic found for that branch and department.");
+            //    return;
+            //}
+            //foreach (var clinic in matches)
+            //    clinic.ViewClinicInfo();
         }
 
         public static void UpdateClinicDetails(int clinicId, string name, string loc, decimal price) // updates clinic details
         {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            if (clinic == null)
+            foreach(var department in BranchDepartment.Departments)
             {
-                Console.WriteLine("Clinic not found.");
+                var clinic = department.Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+                if (clinic == null)
+                {
+                    Console.WriteLine("Clinic not found.");
+                    return;
+                }
+                clinic.UpdateClinicDetails(name, loc, price);
+                Console.WriteLine($"Clinic ID {clinicId} updated successfully.");
                 return;
             }
-            clinic.ClinicName = name;
-            clinic.Location = loc;
-            clinic.Price = price;
-            Console.WriteLine($"Clinic ID {clinicId} updated successfully.");
+            //var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            //if (clinic == null)
+            //{
+            //    Console.WriteLine("Clinic not found.");
+            //    return;
+            //}
+            //clinic.ClinicName = name;
+            //clinic.Location = loc;
+            //clinic.Price = price;
+            //Console.WriteLine($"Clinic ID {clinicId} updated successfully.");
         }
 
         public static void SetClinicStatus(int clinicId, bool isActive) // sets the status of a clinic
         {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            if (clinic == null)
+            foreach (var department in BranchDepartment.Departments)
             {
-                Console.WriteLine("Clinic not found.");
+                var clinic = department.Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+                if (clinic == null)
+                {
+                    Console.WriteLine("Clinic not found.");
+                    return;
+                }
+                clinic.SetClinicStatus(isActive);
+                Console.WriteLine($"Clinic '{clinic.ClinicName}' status set to {(isActive ? "Open" : "Closed")}.");
                 return;
             }
-            clinic.SetClinicStatus(isActive);
-            Console.WriteLine($"Clinic '{clinic.ClinicName}' status set to {(isActive ? "Open" : "Closed")}.");
+            //var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            //if (clinic == null)
+            //{
+            //    Console.WriteLine("Clinic not found.");
+            //    return;
+            //}
+            //clinic.SetClinicStatus(isActive);
+            //Console.WriteLine($"Clinic '{clinic.ClinicName}' status set to {(isActive ? "Open" : "Closed")}.");
         }
 
         public static void DeleteClinic(int clinicId) // deletes a clinic by its ID
       
         {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            if (clinic == null)
+            foreach(var department in BranchDepartment.Departments)
             {
-                Console.WriteLine("Clinic not found.");
-                return;
+                var clinic = department.Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+                if (clinic != null)
+                {
+                    department.Clinics.Remove(clinic);
+                    Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
+                    return;
+                }
             }
-            Clinics.Remove(clinic);
-            Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
+            //var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            //if (clinic == null)
+            //{
+            //    Console.WriteLine("Clinic not found.");
+            //    return;
+            //}
+            //Clinics.Remove(clinic);
+            //Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
         }
 
         public static void SaveClinicToFile() // saves clinic data to a file
         {
             using StreamWriter writer = new StreamWriter(filePath);
-            foreach (var clinic in Clinics)
+            foreach (var department in BranchDepartment.Departments)
             {
-                writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.Location}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.Price}|{clinic.clinicStatus}");
+                if (department.Clinics.Count == 0)
+                {
+                    Console.WriteLine($"No clinics found in Department ID {department.DepartmentId}.");
+                    continue;
+                }
+                else 
+                {
+                    foreach (var clinic in department.Clinics)
+                    {
+                        writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.Location}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.Price}|{clinic.clinicStatus}");
+                    }
+                }
             }
+         
             Console.WriteLine("Clinic data saved successfully.");
         }
 
         public static void LoadClinicFromFile() // loads clinic data from a file
         {
-            Clinics.Clear();
             clinicCounter = 0;
 
             if (!File.Exists(filePath))
@@ -241,7 +329,15 @@ namespace CodelineHealthCareCenter.Models
                 clinic.SetClinicStatus(status);
                 clinic.ClinicId = int.Parse(parts[0]); // manually set ID
 
-                Clinics.Add(clinic);
+                foreach (var department in BranchDepartment.Departments)
+                {
+                    if (department.DepartmentId == clinic.DepartmentId)
+                    {
+                        department.Clinics.Add(clinic);
+                        break;
+                    }
+                }
+                
                 if (clinic.ClinicId > clinicCounter)
                     clinicCounter = clinic.ClinicId;
             }
