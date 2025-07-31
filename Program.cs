@@ -91,6 +91,8 @@ internal class Program
             User x = new User();
             //-----------------------------------------------------------------------------------
 
+            //to load hospital data from file ...
+            Hospital.LoadHospitalFromFile();
             //to load patient data from file ...
             Patient.LoadPatientsFromFile();
 
