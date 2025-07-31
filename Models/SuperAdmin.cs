@@ -343,6 +343,8 @@ namespace CodelineHealthCareCenter.Models
             string email = Validation.EmailValidation("doctor email");
             int phoneNumber = Validation.UserPhoneNumberValidation();
             string nationalId = Validation.UserNationalIdValidation();
+            string password = Validation.ReadPassword("doctor password");
+            string HashUserPassword = Validation.HashPasswordPBKDF2(password);
 
             //if (Validation.UserNationalIdValidation())
             //{
@@ -357,6 +359,7 @@ namespace CodelineHealthCareCenter.Models
             // Create a new doctor instance
             Doctor doctor = new Doctor(name, email, specialization, 0, 0);
             doctor.UserName = name;
+            doctor.P_UserPassword = HashUserPassword; // Assuming P_UserPassword is a property that handles password hashing
             doctor.UserEmail = email;
             doctor.UserPhoneNumber = phoneNumber;
             doctor.UserNationalID = nationalId;
@@ -535,7 +538,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var doctor in BranchDepartment.Doctors)
                 {
-                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
+                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.P_UserPassword}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
                 }
             }
             Console.WriteLine("Doctor data saved successfully.");
