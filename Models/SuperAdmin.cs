@@ -775,6 +775,7 @@ namespace CodelineHealthCareCenter.Models
                     writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
                 }
             }
+            Console.WriteLine("Admin data saved successfully.");
         }
 
         // Load Admins from file
