@@ -19,6 +19,7 @@ namespace CodelineHealthCareCenter.Models
         public int DepartmentId;
         public int ClinicID;
         public string DoctorSpecialization;
+        public int BranchID;
         public List<Booking> DoctorAppointments = new List<Booking>();
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
         public List<DateTime> AvailableTimes = new List<DateTime>();
@@ -31,7 +32,7 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //2. class properties ...
 
-        public int DoctorID { get;  set; }
+        public int DoctorID { get; private set; }
         public static int DoctorCount => doctorCounter;
 
         //====================================================
