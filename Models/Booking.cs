@@ -50,7 +50,7 @@ namespace CodelineHealthCareCenter.Models
             //to add the new booking to the DoctorAppointments list
             foreach (var doctor in BranchDepartment.Doctors)
             {
-                if (doctor.DoctorID == doctorId)
+                if (doctor.UserId == doctorId)
                 {
                     doctor.DoctorAppointments.Add(newBooking);
                     Console.WriteLine($"Appointment booked successfully for Doctor ID {doctorId} in Clinic ID {clinicId} at {SpotDateTime}.");
@@ -105,7 +105,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 if (doctor.ClinicID == clinicId)
                 { 
-                            Console.WriteLine($"ID: {doctor.DoctorID}, Name: {doctor.UserName}, Specialization: {doctor.DoctorSpecialization}");
+                            Console.WriteLine($"ID: {doctor.UserId}, Name: {doctor.UserName}, Specialization: {doctor.DoctorSpecialization}");
                 }
             }
         }

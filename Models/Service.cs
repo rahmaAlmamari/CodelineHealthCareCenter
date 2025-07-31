@@ -22,6 +22,10 @@ namespace CodelineHealthCareCenter.Models
 
         public static IServiceService service; // for ServiceMenu()
 
+        //file path for saving and loading services
+        public static string ServicesFilePath = "Services.txt";
+
+
         // ===================================================
         //2. class properties ...
 
@@ -94,23 +98,22 @@ namespace CodelineHealthCareCenter.Models
             service.ViewServiceInfo();
         }
 
-        public static void SaveToFile(string filePath)
+        public static void SaveToFile()
         {
-            using StreamWriter writer = new StreamWriter(filePath);
+            using StreamWriter writer = new StreamWriter(ServicesFilePath);
             foreach (var service in Services)
             {
                 writer.WriteLine($"{service.ServiceId}|{service.ServiceName}|{service.Price}");
             }
         }
 
-        public static void LoadFromFile(string filePath)
+        public static void LoadFromFile()
         {
-            Services.Clear();
             ServiceCount = 0;
 
-            if (!File.Exists(filePath)) return;
+            if (!File.Exists(ServicesFilePath)) return;
 
-            string[] lines = File.ReadAllLines(filePath);
+            string[] lines = File.ReadAllLines(ServicesFilePath);
             foreach (var line in lines)
             {
                 string[] parts = line.Split('|');
