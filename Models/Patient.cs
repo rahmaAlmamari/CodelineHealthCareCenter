@@ -163,7 +163,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Patient ID: {UserId}");
             Console.WriteLine($"Name: {UserName}");
             Console.WriteLine($"Email: {UserEmail}");
-            Console.WriteLine($"Phone Number: {P_UserPhoneNumber}");
+            Console.WriteLine($"Phone Number: {UserPhoneNumber}");
             Console.WriteLine($"National ID: {UserNationalID}");
             Console.WriteLine($"City: {PatientCity}");
             Console.WriteLine($"Role: {UserRole}");
@@ -255,7 +255,7 @@ namespace CodelineHealthCareCenter.Models
                 {
                     foreach (var patient in branch.Patients)
                     {
-                        writer.WriteLine($"{patient.UserId}|{patient.UserName}|{patient.P_UserPassword}|{patient.UserEmail}|{patient.P_UserPhoneNumber}|{patient.UserNationalID}|{patient.PatientCity}|{patient.UserRole}|{patient.UserStatus}|{branch.BranchCity}");
+                        writer.WriteLine($"{patient.UserId}|{patient.UserName}|{patient.P_UserPassword}|{patient.UserEmail}|{patient.UserPhoneNumber}|{patient.UserNationalID}|{patient.PatientCity}|{patient.UserRole}|{patient.UserStatus}|{branch.BranchCity}");
                     }
                 }
             }
@@ -299,7 +299,7 @@ namespace CodelineHealthCareCenter.Models
                             UserName = userName,
                             P_UserPassword = password,
                             UserEmail = email,
-                            P_UserPhoneNumber = phone,
+                            UserPhoneNumber = phone,
                             UserNationalID = nationalId,
                             PatientCity = city,
                             UserRole = role,
