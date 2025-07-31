@@ -68,19 +68,19 @@ namespace CodelineHealthCareCenter.Models
         public static void SinUp()
         {
             //to get national id and check if it exists or not ...
-            string UserNationalID = Validation.StringValidation("national ID");
-            //to check if the national id exists or not ...
-            if (Validation.UserNationalIdExists(UserNationalID))
-            {
-                Console.WriteLine("This national ID already exists. Please try again with a different one.");
-                Additional.HoldScreen();
-                return; //exit the method if national ID exists ...
-            }
+            string UserNationalID = Validation.UserNationalIdValidation();
+            ////to check if the national id exists or not ...
+            //if (Validation.UserNationalIdExists(UserNationalID))
+            //{
+            //    Console.WriteLine("This national ID already exists. Please try again with a different one.");
+            //    Additional.HoldScreen();
+            //    return; //exit the method if national ID exists ...
+            //}
             //to get the user data ...
             string UserName = Validation.StringValidation("user name");
             string UserPassword = Validation.ReadPassword("password");
             string UserEmail = Validation.EmailValidation("email");
-            int P_UserPhoneNumber = Validation.IntValidation("phone number");
+            int UserPhoneNumber = Validation.UserPhoneNumberValidation();
             DisplayBranchesCities(); //to display the branches cities in the hospital class ...
             string UserCity = Validation.StringValidation("city");
             //UserRole and UserStatus are set to default values for patient in patient constructor ...
@@ -91,7 +91,7 @@ namespace CodelineHealthCareCenter.Models
             //int BranchIndex = Hospital.Branches.FindIndex(b => b.BranchCity.Equals(UserCity, StringComparison.OrdinalIgnoreCase));
             //to call the AddPatient method to create a new patient ...
             Patient patientService = new Patient();//this opject just to call the method ...
-            patientService.AddPatient(UserName, UserPasswordHashed, UserEmail, P_UserPhoneNumber, UserNationalID, UserCity, branch);
+            patientService.AddPatient(UserName, UserPasswordHashed, UserEmail, UserPhoneNumber, UserNationalID, UserCity, branch);
 
         }
         //to display city of all branches in the hospital class ...
@@ -108,7 +108,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine($"Branch City: {branch.BranchCity}");
             }
-            Additional.HoldScreen();
+            //Additional.HoldScreen();
         }
         //to find the branch by city ...
         public static Branch FindBranchByCity(string city)
@@ -134,7 +134,7 @@ namespace CodelineHealthCareCenter.Models
                 UserName = username,
                 P_UserPassword = password,
                 UserEmail = email,
-                P_UserPhoneNumber = phoneNumber,
+                UserPhoneNumber = phoneNumber,
                 UserNationalID = userNationalID,
                 PatientCity = city,
             };
@@ -163,7 +163,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Patient ID: {UserId}");
             Console.WriteLine($"Name: {UserName}");
             Console.WriteLine($"Email: {UserEmail}");
-            Console.WriteLine($"Phone Number: {P_UserPhoneNumber}");
+            Console.WriteLine($"Phone Number: {UserPhoneNumber}");
             Console.WriteLine($"National ID: {UserNationalID}");
             Console.WriteLine($"City: {PatientCity}");
             Console.WriteLine($"Role: {UserRole}");
@@ -255,7 +255,7 @@ namespace CodelineHealthCareCenter.Models
                 {
                     foreach (var patient in branch.Patients)
                     {
-                        writer.WriteLine($"{patient.UserId}|{patient.UserName}|{patient.P_UserPassword}|{patient.UserEmail}|{patient.P_UserPhoneNumber}|{patient.UserNationalID}|{patient.PatientCity}|{patient.UserRole}|{patient.UserStatus}|{branch.BranchCity}");
+                        writer.WriteLine($"{patient.UserId}|{patient.UserName}|{patient.P_UserPassword}|{patient.UserEmail}|{patient.UserPhoneNumber}|{patient.UserNationalID}|{patient.PatientCity}|{patient.UserRole}|{patient.UserStatus}|{branch.BranchCity}");
                     }
                 }
             }
@@ -299,7 +299,7 @@ namespace CodelineHealthCareCenter.Models
                             UserName = userName,
                             P_UserPassword = password,
                             UserEmail = email,
-                            P_UserPhoneNumber = phone,
+                            UserPhoneNumber = phone,
                             UserNationalID = nationalId,
                             PatientCity = city,
                             UserRole = role,

@@ -131,7 +131,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Doctor ID       : {doctor.UserId}");
                 Console.WriteLine($"Name            : {doctor.UserName}");
                 Console.WriteLine($"Email           : {doctor.UserEmail}");
-                Console.WriteLine($"Phone Number    : {doctor.P_UserPhoneNumber}");
+                Console.WriteLine($"Phone Number    : {doctor.UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {doctor.UserNationalID}");
                 Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
                 Console.WriteLine($"Status          : {doctor.UserStatus}");

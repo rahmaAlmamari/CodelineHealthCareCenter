@@ -323,7 +323,7 @@ namespace CodelineHealthCareCenter.Models
                 if (!IsValidEmail(emailInput))
                 {
                     Console.WriteLine($"{message} is not valid, please try again.");
-                    Additional.HoldScreen();//just to hold a second ...
+                    //Additional.HoldScreen();//just to hold a second ...
                     emailFlag = true;
                 }
             } while (emailFlag);
@@ -412,8 +412,43 @@ namespace CodelineHealthCareCenter.Models
             }
             return false; //if national id does not exist ...
         }
-        //19. to check if phone number 8 digits or not ...
+        //19. UserNationalIdValidation method ...
+        public static string UserNationalIdValidation()
+        {
+            bool FlagError = false;
+            string nationalId = "null";
+            do
+            {
+                FlagError = false;
+                nationalId = Validation.StringValidation("National ID");
+                //to check if the national id exists or not ...
+                if (Validation.UserNationalIdExists(nationalId))
+                {
+                    Console.WriteLine("This national ID already exists. Please try again with a different one.");
+                    FlagError = true; // Set the flag to true to repeat the loop
+                }
 
+            } while (FlagError);
+            return nationalId; // Return the valid national ID
+        }
+        //20. UserPhoneNumberValidation method ...
+        public static int UserPhoneNumberValidation()
+        {
+            bool FalgError = false;
+            int value = 0;
+            do
+            {
+                FalgError = false;
+                value = Validation.IntValidation("phone number");
+                //to check if the phone number is 8 digits or not ...
+                if (value < 10000000 || value > 99999999)
+                {
+                    Console.WriteLine("Phone number must be 8 digits.");
+                    FalgError = true; //to handle the error ...
+                }
+            } while (FalgError);
+            return value; // Return the valid phone number
+        }
 
     }
 }
