@@ -80,7 +80,7 @@ namespace CodelineHealthCareCenter.Models
             string UserName = Validation.StringValidation("user name");
             string UserPassword = Validation.ReadPassword("password");
             string UserEmail = Validation.EmailValidation("email");
-            int P_UserPhoneNumber = Validation.IntValidation("phone number");
+            int UserPhoneNumber = Validation.UserPhoneNumberValidation();
             DisplayBranchesCities(); //to display the branches cities in the hospital class ...
             string UserCity = Validation.StringValidation("city");
             //UserRole and UserStatus are set to default values for patient in patient constructor ...
@@ -91,7 +91,7 @@ namespace CodelineHealthCareCenter.Models
             //int BranchIndex = Hospital.Branches.FindIndex(b => b.BranchCity.Equals(UserCity, StringComparison.OrdinalIgnoreCase));
             //to call the AddPatient method to create a new patient ...
             Patient patientService = new Patient();//this opject just to call the method ...
-            patientService.AddPatient(UserName, UserPasswordHashed, UserEmail, P_UserPhoneNumber, UserNationalID, UserCity, branch);
+            patientService.AddPatient(UserName, UserPasswordHashed, UserEmail, UserPhoneNumber, UserNationalID, UserCity, branch);
 
         }
         //to display city of all branches in the hospital class ...
@@ -134,7 +134,7 @@ namespace CodelineHealthCareCenter.Models
                 UserName = username,
                 P_UserPassword = password,
                 UserEmail = email,
-                P_UserPhoneNumber = phoneNumber,
+                UserPhoneNumber = phoneNumber,
                 UserNationalID = userNationalID,
                 PatientCity = city,
             };
