@@ -343,6 +343,8 @@ namespace CodelineHealthCareCenter.Models
             string email = Validation.EmailValidation("doctor email");
             int phoneNumber = Validation.UserPhoneNumberValidation();
             string nationalId = Validation.UserNationalIdValidation();
+            string password = Validation.ReadPassword("doctor password");
+            string HashUserPassword = Validation.HashPasswordPBKDF2(password);
 
             //if (Validation.UserNationalIdValidation())
             //{
@@ -357,6 +359,7 @@ namespace CodelineHealthCareCenter.Models
             // Create a new doctor instance
             Doctor doctor = new Doctor(name, email, specialization, 0, 0);
             doctor.UserName = name;
+            doctor.P_UserPassword = HashUserPassword; // Assuming P_UserPassword is a property that handles password hashing
             doctor.UserEmail = email;
             doctor.UserPhoneNumber = phoneNumber;
             doctor.UserNationalID = nationalId;
@@ -535,7 +538,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var doctor in BranchDepartment.Doctors)
                 {
-                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
+                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.P_UserPassword}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
                 }
             }
             Console.WriteLine("Doctor data saved successfully.");
@@ -587,6 +590,9 @@ namespace CodelineHealthCareCenter.Models
             string email = Validation.EmailValidation("admin email");
             int phoneNumber = Validation.UserPhoneNumberValidation();
             string nationalId = Validation.UserNationalIdValidation();
+            string password = Validation.ReadPassword("admin password");
+            // Validate the password
+            string HashUserPassword = Validation.HashPasswordPBKDF2(password);
             // Check if the national ID already exists
             //if (Validation.UserNationalIdExists(nationalId))
             //{
@@ -597,6 +603,7 @@ namespace CodelineHealthCareCenter.Models
             // Create a new admin instance
             Admin admin = new Admin(name, email, 0);
             admin.UserName = name;
+            admin.P_UserPassword = HashUserPassword;
             admin.UserEmail = email;
             admin.UserPhoneNumber = phoneNumber;
             admin.UserNationalID = nationalId;
@@ -772,7 +779,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var admin in BranchDepartment.Admins)
                 {
-                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
+                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.P_UserPassword}|{admin.UserEmail}|{admin.UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
                 }
             }
             Console.WriteLine("Admin data saved successfully.");
@@ -789,16 +796,17 @@ namespace CodelineHealthCareCenter.Models
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split('|');
-                        if (parts.Length == 7)
+                        if (parts.Length == 8)
                         {
                             Admin admin = new Admin(parts[1], parts[2], int.Parse(parts[3]));
                             admin.UserId = int.Parse(parts[0]);
                             admin.UserName = parts[1];
-                            admin.UserEmail = parts[2];
-                            admin.UserPhoneNumber = int.Parse(parts[3]);
-                            admin.UserNationalID = parts[4];
-                            admin.UserRole = parts[5];
-                            admin.UserStatus = parts[6];
+                            admin.P_UserPassword = parts[2];
+                            admin.UserEmail = parts[3];
+                            admin.UserPhoneNumber = int.Parse(parts[4]);
+                            admin.UserNationalID = parts[5];
+                            admin.UserRole = parts[6];
+                            admin.UserStatus = parts[7];
                             BranchDepartment.Admins.Add(admin);
                         }
                     }
