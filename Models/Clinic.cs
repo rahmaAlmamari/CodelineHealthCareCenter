@@ -208,7 +208,7 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
-        public static void LoadClinicFromFile(string filePath) // loads clinic data from a file
+        public static void LoadClinicFromFile() // loads clinic data from a file
         {
             Clinics.Clear();
             clinicCounter = 0;
