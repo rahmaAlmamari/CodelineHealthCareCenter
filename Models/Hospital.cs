@@ -52,7 +52,7 @@ namespace CodelineHealthCareCenter.Models
 
         }
         // load the hospital data from a file
-        public static void LoadHospitalFromFile()
+        public static void LoadHospitalUsersNationalIDFromFile()
         {
             if (File.Exists(HospitalUsersNationalIDFilePath))
             {
