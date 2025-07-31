@@ -23,31 +23,31 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //2. class properity ...
         //UserPhoneNumber proprity ...
-        public int P_UserPhoneNumber
-        {
-            get { return UserPhoneNumber; }
-            set
-            {
-                bool FalgError = false; //to handle the error ...
-                do
-                {
-                    FalgError = false; //to reset the error flag ...
-                    //to check if the phone number is 8 digits or not ...
-                    if (value.ToString().Length == 8)
-                    {
-                        UserPhoneNumber = value;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Phone number must be 8 digits.");
-                        value = Validation.IntValidation("user phone number");
-                        FalgError = true; //to handle the error ...
-                    }
+        //public int P_UserPhoneNumber
+        //{
+        //    get { return UserPhoneNumber; }
+        //    set
+        //    {
+        //        bool FalgError = false; //to handle the error ...
+        //        do
+        //        {
+        //            FalgError = false; //to reset the error flag ...
+        //            //to check if the phone number is 8 digits or not ...
+        //            if (value.ToString().Length == 8)
+        //            {
+        //                UserPhoneNumber = value;
+        //            }
+        //            else
+        //            {
+        //                Console.WriteLine("Phone number must be 8 digits.");
+        //                value = Validation.IntValidation("user phone number");
+        //                FalgError = true; //to handle the error ...
+        //            }
 
-                } while (FalgError);
-                UserPhoneNumber = value;
-            }
-        }
+        //        } while (FalgError);
+        //        UserPhoneNumber = value;
+        //    }
+        //}
         //UserPassword proprity ...
         public string P_UserPassword
         {
@@ -59,29 +59,29 @@ namespace CodelineHealthCareCenter.Models
             }
         }
         //UserNationalId properity 
-        public string P_UserNationalID
-        {
-            get { return UserNationalID; }
-            set
-            {
-                bool flagError;
-                //string newId = value;
+        //public string P_UserNationalID
+        //{
+        //    get { return UserNationalID; }
+        //    set
+        //    {
+        //        bool flagError;
+        //        //string newId = value;
 
-                do
-                {
-                    flagError = false;
-                    if (Validation.UserNationalIdExists(value))
-                    {
-                        Console.WriteLine("This national ID already exists. Please try again with a different one.");
-                        Additional.HoldScreen();
-                        value = Validation.StringValidation("national ID");
-                        flagError = true;
-                    }
-                } while (flagError);
+        //        do
+        //        {
+        //            flagError = false;
+        //            if (Validation.UserNationalIdExists(value))
+        //            {
+        //                Console.WriteLine("This national ID already exists. Please try again with a different one.");
+        //                Additional.HoldScreen();
+        //                value = Validation.StringValidation("national ID");
+        //                flagError = true;
+        //            }
+        //        } while (flagError);
 
-                UserNationalID = value; 
-            }
-        }
+        //        UserNationalID = value; 
+        //    }
+        //}
 
 
         //====================================================

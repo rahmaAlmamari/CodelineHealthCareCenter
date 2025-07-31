@@ -355,8 +355,8 @@ namespace CodelineHealthCareCenter.Models
             Doctor doctor = new Doctor(name, email, specialization, 0, 0);
             doctor.UserName = name;
             doctor.UserEmail = email;
-            doctor.P_UserPhoneNumber = phoneNumber;
-            doctor.P_UserNationalID = nationalId;
+            doctor.UserPhoneNumber = phoneNumber;
+            doctor.UserNationalID = nationalId;
             doctor.DoctorSpecialization = specialization;
             doctor.UserRole = "Doctor"; // Set the role to Doctor
             doctor.UserStatus = "Active"; // Set the status to Active
@@ -386,7 +386,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Doctor ID       : {doctor.UserId}");
                 Console.WriteLine($"Name            : {doctor.UserName}");
                 Console.WriteLine($"Email           : {doctor.UserEmail}");
-                Console.WriteLine($"Phone Number    : {doctor.P_UserPhoneNumber}");
+                Console.WriteLine($"Phone Number    : {doctor.UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {doctor.UserNationalID}");
                 Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
                 Console.WriteLine($"Status          : {doctor.UserStatus}");
@@ -438,7 +438,7 @@ namespace CodelineHealthCareCenter.Models
                         doctorToUpdate.UserEmail = Validation.EmailValidation("Enter new email: ");
                         break;
                     case '2':
-                        doctorToUpdate.P_UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
+                        doctorToUpdate.UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
                         break;
 
                     case '3':
@@ -532,7 +532,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var doctor in BranchDepartment.Doctors)
                 {
-                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.UserEmail}|{doctor.P_UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
+                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
                 }
             }
         }
@@ -554,7 +554,7 @@ namespace CodelineHealthCareCenter.Models
                             doctor.UserId = int.Parse(parts[0]);
                             doctor.UserName = parts[1];
                             doctor.UserEmail = parts[2];
-                            doctor.P_UserPhoneNumber = int.Parse(parts[3]);
+                            doctor.UserPhoneNumber = int.Parse(parts[3]);
                             doctor.UserNationalID = parts[4];
                             doctor.DoctorSpecialization = parts[5];
                             doctor.UserRole = parts[6];
@@ -589,7 +589,7 @@ namespace CodelineHealthCareCenter.Models
             Admin admin = new Admin(name, email, 0);
             admin.UserName = name;
             admin.UserEmail = email;
-            admin.P_UserPhoneNumber = phoneNumber;
+            admin.UserPhoneNumber = phoneNumber;
             admin.UserNationalID = nationalId;
             admin.UserRole = "Admin"; // Set the role to Admin
             admin.UserStatus = "Active"; // Set the status to Active
@@ -643,7 +643,7 @@ namespace CodelineHealthCareCenter.Models
                         adminToUpdate.UserEmail = Validation.EmailValidation("Enter new email: ");
                         break;
                     case '2':
-                        adminToUpdate.P_UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
+                        adminToUpdate.UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
                         break;
                     case '3':
                         adminToUpdate.UserNationalID = Validation.StringValidation("Enter new national ID: ");
@@ -722,7 +722,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Admin ID        : {admin.UserId}");
                 Console.WriteLine($"Name            : {admin.UserName}");
                 Console.WriteLine($"Email           : {admin.UserEmail}");
-                Console.WriteLine($"Phone Number    : {admin.P_UserPhoneNumber}");
+                Console.WriteLine($"Phone Number    : {admin.UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {admin.UserNationalID}");
                 Console.WriteLine($"Status          : {admin.UserStatus}");
                 Console.WriteLine(new string('-', 40));
@@ -747,7 +747,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Admin ID        : {admin.UserId}");
                 Console.WriteLine($"Name            : {admin.UserName}");
                 Console.WriteLine($"Email           : {admin.UserEmail}");
-                Console.WriteLine($"Phone Number    : {admin.P_UserPhoneNumber}");
+                Console.WriteLine($"Phone Number    : {admin.UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {admin.UserNationalID}");
                 Console.WriteLine($"Role            : {admin.UserRole}");
                 Console.WriteLine($"Status          : {admin.UserStatus}");
@@ -763,7 +763,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var admin in BranchDepartment.Admins)
                 {
-                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.P_UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
+                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
                 }
             }
         }
@@ -785,7 +785,7 @@ namespace CodelineHealthCareCenter.Models
                             admin.UserId = int.Parse(parts[0]);
                             admin.UserName = parts[1];
                             admin.UserEmail = parts[2];
-                            admin.P_UserPhoneNumber = int.Parse(parts[3]);
+                            admin.UserPhoneNumber = int.Parse(parts[3]);
                             admin.UserNationalID = parts[4];
                             admin.UserRole = parts[5];
                             admin.UserStatus = parts[6];
@@ -841,7 +841,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Doctor ID       : {doctor.UserId}");
                 Console.WriteLine($"Name            : {doctor.UserName}");
                 Console.WriteLine($"Email           : {doctor.UserEmail}");
-                Console.WriteLine($"Phone Number    : {doctor.P_UserPhoneNumber}");
+                Console.WriteLine($"Phone Number    : {doctor.UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {doctor.UserNationalID}");
                 Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
                 Console.WriteLine($"Status          : {doctor.UserStatus}");
