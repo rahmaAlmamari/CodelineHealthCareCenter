@@ -48,7 +48,7 @@ namespace CodelineHealthCareCenter.Models
         public void AssignDoctorToClinic(int doctorId, int clinicId)
         {
             var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            var doctor = Doctors.FirstOrDefault(d => d.DoctorID == doctorId);
+            var doctor = Doctors.FirstOrDefault(d => d.UserId == doctorId);
 
             if (clinic == null)
             {
@@ -62,7 +62,7 @@ namespace CodelineHealthCareCenter.Models
                 return;
             }
 
-            if (clinic.Doctors.Any(d => d.DoctorID == doctorId))
+            if (clinic.Doctors.Any(d => d.UserId == doctorId))
             {
                 Console.WriteLine("Doctor already assigned.");
                 return;
