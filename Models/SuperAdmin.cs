@@ -14,6 +14,7 @@ namespace CodelineHealthCareCenter.Models
         public int HospitalId;
         public static string DoctorsFilePath = "Doctors.txt";
         public static string AdminsFilePath = "Admins.txt";
+        public static string SuperAdminFilePath = "SuperAdmin.txt"; // File path for SuperAdmin data
         //====================================================
         //2. class properity ...
 
@@ -340,14 +341,16 @@ namespace CodelineHealthCareCenter.Models
             // Get doctor details from user
             string name = Validation.StringValidation("doctor name");
             string email = Validation.EmailValidation("doctor email");
-            int phoneNumber = Validation.IntValidation("doctor phone number");
-            string nationalId = Validation.StringValidation("doctor national ID");
-            if (Validation.UserNationalIdExists(nationalId))
-            {
-                Console.WriteLine("An Doctor with this National ID already exists.");
-                Additional.HoldScreen();
-               
-            }
+            int phoneNumber = Validation.UserPhoneNumberValidation();
+            string nationalId = Validation.UserNationalIdValidation();
+
+            //if (Validation.UserNationalIdValidation())
+            //{
+            //    Console.WriteLine("A doctor with this National ID already exists.");
+            //    Additional.HoldScreen();
+            //    return;
+            //}
+
             string specialization = Validation.StringValidation("doctor specialization");
            
 
@@ -576,15 +579,15 @@ namespace CodelineHealthCareCenter.Models
             // Get admin details from user
             string name = Validation.StringValidation("admin name");
             string email = Validation.EmailValidation("admin email");
-            int phoneNumber = Validation.IntValidation("admin phone number");
-            string nationalId = Validation.StringValidation("admin national ID");
+            int phoneNumber = Validation.UserPhoneNumberValidation();
+            string nationalId = Validation.UserNationalIdValidation();
             // Check if the national ID already exists
-            if (Validation.UserNationalIdExists(nationalId))
-            {
-                Console.WriteLine("An admin with this National ID already exists.");
-                Additional.HoldScreen();
-                return;
-            }
+            //if (Validation.UserNationalIdExists(nationalId))
+            //{
+            //    Console.WriteLine("An admin with this National ID already exists.");
+            //    Additional.HoldScreen();
+            //    return;
+            //}
             // Create a new admin instance
             Admin admin = new Admin(name, email, 0);
             admin.UserName = name;
@@ -849,6 +852,48 @@ namespace CodelineHealthCareCenter.Models
             }
            
         }
+
+
+        // Save SuperAdmin to file
+        public static void SaveSuperAdminToFile()
+        {
+            using (StreamWriter writer = new StreamWriter(SuperAdminFilePath))
+            {
+                foreach (var superAdmin in Hospital.SuperAdmins)
+                {
+                    writer.WriteLine($"{superAdmin.UserId}|{superAdmin.UserName}|{superAdmin.UserEmail}|{superAdmin.UserPhoneNumber}|{superAdmin.UserNationalID}|{superAdmin.UserRole}|{superAdmin.UserStatus}");
+                }
+            }
+        }
+        // Load SuperAdmin from file
+        public static void LoadSuperAdminFromFile()
+        {
+            if (File.Exists(SuperAdminFilePath))
+            {
+                using (StreamReader reader = new StreamReader(SuperAdminFilePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        var parts = line.Split('|');
+                        if (parts.Length == 7)
+                        {
+                            SuperAdmin superAdmin = new SuperAdmin(parts[1], parts[2], parts[3]);
+                            superAdmin.UserId = int.Parse(parts[0]);
+                            superAdmin.UserName = parts[1];
+                            superAdmin.UserEmail = parts[2];
+                            superAdmin.UserPhoneNumber = int.Parse(parts[3]);
+                            superAdmin.UserNationalID = parts[4];
+                            superAdmin.UserRole = parts[5];
+                            superAdmin.UserStatus = parts[6];
+                            Hospital.SuperAdmins.Add(superAdmin);
+                        }
+                    }
+                }
+            }
+        }
+
+
 
     }
 }
