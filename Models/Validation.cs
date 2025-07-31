@@ -431,7 +431,24 @@ namespace CodelineHealthCareCenter.Models
             } while (FlagError);
             return nationalId; // Return the valid national ID
         }
-
+        //20. UserPhoneNumberValidation method ...
+        public static int UserPhoneNumberValidation()
+        {
+            bool FalgError = false;
+            int value = 0;
+            do
+            {
+                FalgError = false;
+                value = Validation.IntValidation("phone number");
+                //to check if the phone number is 8 digits or not ...
+                if (value < 10000000 || value > 99999999)
+                {
+                    Console.WriteLine("Phone number must be 8 digits.");
+                    FalgError = true; //to handle the error ...
+                }
+            } while (FalgError);
+            return value; // Return the valid phone number
+        }
 
     }
 }
