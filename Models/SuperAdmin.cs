@@ -566,6 +566,11 @@ namespace CodelineHealthCareCenter.Models
                         }
                     }
                 }
+                Console.WriteLine("Doctor data loaded successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No doctor data fount!");
             }
         }
 
