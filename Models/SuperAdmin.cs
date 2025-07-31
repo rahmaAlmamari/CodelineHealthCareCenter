@@ -876,6 +876,7 @@ namespace CodelineHealthCareCenter.Models
                     writer.WriteLine($"{superAdmin.UserId}|{superAdmin.UserName}|{superAdmin.UserEmail}|{superAdmin.UserPhoneNumber}|{superAdmin.UserNationalID}|{superAdmin.UserRole}|{superAdmin.UserStatus}");
                 }
             }
+            Console.WriteLine("Super admin data saved successfully.");
         }
         // Load SuperAdmin from file
         public static void LoadSuperAdminFromFile()
