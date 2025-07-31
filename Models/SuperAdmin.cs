@@ -889,21 +889,26 @@ namespace CodelineHealthCareCenter.Models
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split('|');
-                        if (parts.Length == 7)
+                        if (parts.Length == 8)
                         {
                             SuperAdmin superAdmin = new SuperAdmin(parts[1], parts[2], parts[3]);
                             superAdmin.UserId = int.Parse(parts[0]);
-                            superAdmin.UserName = parts[1];
-                            superAdmin.UserEmail = parts[2];
-                            superAdmin.UserPhoneNumber = int.Parse(parts[3]);
-                            superAdmin.UserNationalID = parts[4];
+                            //superAdmin.UserName = parts[1];
+                            //superAdmin.P_UserPassword = parts[2]; // Assuming P_UserPassword is a property that handles password hashing
+                            //superAdmin.UserEmail = parts[3];
+                            superAdmin.UserPhoneNumber = int.Parse(parts[4]);
                             superAdmin.UserRole = parts[5];
-                            superAdmin.UserStatus = parts[6];
+                            superAdmin.UserNationalID = parts[6];
+                            superAdmin.UserStatus = parts[7];
                             Hospital.SuperAdmins.Add(superAdmin);
                         }
                     }
                 }
                 Console.WriteLine("Super admin data loaded successfully.");
+                //foreach (var superAdmin in Hospital.SuperAdmins)
+                //{
+                //    Console.WriteLine($"Super Admin ID: {superAdmin.UserId}, Name: {superAdmin.UserName}, Email: {superAdmin.UserEmail}, Phone: {superAdmin.UserPhoneNumber}, National ID: {superAdmin.UserNationalID}, Role: {superAdmin.UserRole}, Status: {superAdmin.UserStatus}");
+                //}
             }
             else
             {
