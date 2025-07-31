@@ -323,7 +323,7 @@ namespace CodelineHealthCareCenter.Models
                 if (!IsValidEmail(emailInput))
                 {
                     Console.WriteLine($"{message} is not valid, please try again.");
-                    Additional.HoldScreen();//just to hold a second ...
+                    //Additional.HoldScreen();//just to hold a second ...
                     emailFlag = true;
                 }
             } while (emailFlag);
