@@ -8,7 +8,7 @@ namespace CodelineHealthCareCenter.Models
 {
     class Hospital
     {
-        static string HospitalFilePath = "Hospital.txt";
+        static string HospitalUsersNationalIDFilePath = "HospitalUsersNationalID.txt";
         //1. class fields ...
 
         public int HospitalId = 1;
@@ -37,26 +37,26 @@ namespace CodelineHealthCareCenter.Models
         }
 
         // save the hospital data to a file
-        public static void SaveHospitalToFile()
+        public static void SaveHospitalUsersNationalIDToFile()
         {
-            using (StreamWriter writer = new StreamWriter(HospitalFilePath))
+            using (StreamWriter writer = new StreamWriter(HospitalUsersNationalIDFilePath))
             {
                 foreach (var a in UserNationalID)
                 {
                     writer.WriteLine($"{a}");
 
                 }
-                Console.WriteLine("Branches saved to file.");
+                Console.WriteLine("Hospital data saved to file.");
             }
 
 
         }
         // load the hospital data from a file
-        public static void LoadHospitalFromFile()
+        public static void LoadHospitalUsersNationalIDFromFile()
         {
-            if (File.Exists(HospitalFilePath))
+            if (File.Exists(HospitalUsersNationalIDFilePath))
             {
-                using (StreamReader reader = new StreamReader(HospitalFilePath))
+                using (StreamReader reader = new StreamReader(HospitalUsersNationalIDFilePath))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)
