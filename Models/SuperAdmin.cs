@@ -340,14 +340,16 @@ namespace CodelineHealthCareCenter.Models
             // Get doctor details from user
             string name = Validation.StringValidation("doctor name");
             string email = Validation.EmailValidation("doctor email");
-            int phoneNumber = Validation.IntValidation("doctor phone number");
-            string nationalId = Validation.StringValidation("doctor national ID");
-            if (Validation.UserNationalIdExists(nationalId))
-            {
-                Console.WriteLine("An Doctor with this National ID already exists.");
-                Additional.HoldScreen();
-               
-            }
+            int phoneNumber = Validation.UserPhoneNumberValidation();
+            string nationalId = Validation.UserNationalIdValidation();
+
+            //if (Validation.UserNationalIdValidation())
+            //{
+            //    Console.WriteLine("A doctor with this National ID already exists.");
+            //    Additional.HoldScreen();
+            //    return;
+            //}
+
             string specialization = Validation.StringValidation("doctor specialization");
            
 
@@ -576,15 +578,15 @@ namespace CodelineHealthCareCenter.Models
             // Get admin details from user
             string name = Validation.StringValidation("admin name");
             string email = Validation.EmailValidation("admin email");
-            int phoneNumber = Validation.IntValidation("admin phone number");
-            string nationalId = Validation.StringValidation("admin national ID");
+            int phoneNumber = Validation.UserPhoneNumberValidation();
+            string nationalId = Validation.UserNationalIdValidation();
             // Check if the national ID already exists
-            if (Validation.UserNationalIdExists(nationalId))
-            {
-                Console.WriteLine("An admin with this National ID already exists.");
-                Additional.HoldScreen();
-                return;
-            }
+            //if (Validation.UserNationalIdExists(nationalId))
+            //{
+            //    Console.WriteLine("An admin with this National ID already exists.");
+            //    Additional.HoldScreen();
+            //    return;
+            //}
             // Create a new admin instance
             Admin admin = new Admin(name, email, 0);
             admin.UserName = name;
