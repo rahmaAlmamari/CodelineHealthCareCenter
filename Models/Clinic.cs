@@ -17,6 +17,9 @@ namespace CodelineHealthCareCenter.Models
         private decimal price;
         public static IClinicService service;
 
+        //clinic file path ...
+        private static string filePath = "clinics.txt";
+
         //====================================================
         //2. class properties ...
 
