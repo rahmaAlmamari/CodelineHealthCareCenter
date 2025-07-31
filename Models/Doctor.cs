@@ -221,7 +221,9 @@ namespace CodelineHealthCareCenter.Models
             }
             foreach (var app in DoctorAppointments)
                 Console.WriteLine($"- Booking ID: {app.BookingId}, Date: {app.BookingDateTime:G}");
+            Additional.HoldScreen();
         }
+        
 
         public void AddPatientRecord() // Adds a patient record for a specific patient, including doctor notes and services provided
         {
