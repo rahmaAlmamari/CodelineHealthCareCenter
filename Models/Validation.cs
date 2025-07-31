@@ -412,6 +412,8 @@ namespace CodelineHealthCareCenter.Models
             }
             return false; //if national id does not exist ...
         }
-        
+        //19. to check if phone number 8 digits or not ...
+
+
     }
 }

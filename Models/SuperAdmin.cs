@@ -27,7 +27,8 @@ namespace CodelineHealthCareCenter.Models
             Department.LoadDepartmentsFromFile();
             LoadDoctorsFromFile();
             LoadAdminsFromFile();
-            
+            Hospital.LoadHospitalFromFile();
+
             Console.Clear();
             Console.WriteLine("Welcome to SuperAdminMenu");
             Console.WriteLine("1. Users ( Admins And Doctors )");
@@ -341,27 +342,28 @@ namespace CodelineHealthCareCenter.Models
             string email = Validation.EmailValidation("doctor email");
             int phoneNumber = Validation.IntValidation("doctor phone number");
             string nationalId = Validation.StringValidation("doctor national ID");
-            string specialization = Validation.StringValidation("doctor specialization");
-            // Check if the national ID already exists
-            if (NationalIdExists(nationalId))
+            if (Validation.UserNationalIdExists(nationalId))
             {
-                Console.WriteLine("A doctor with this National ID already exists.");
+                Console.WriteLine("An Doctor with this National ID already exists.");
                 Additional.HoldScreen();
-                return;
+               
             }
-
+            string specialization = Validation.StringValidation("doctor specialization");
+           
 
             // Create a new doctor instance
             Doctor doctor = new Doctor(name, email, specialization, 0, 0);
             doctor.UserName = name;
             doctor.UserEmail = email;
             doctor.P_UserPhoneNumber = phoneNumber;
-            doctor.UserNationalID = nationalId;
+            doctor.P_UserNationalID = nationalId;
             doctor.DoctorSpecialization = specialization;
             doctor.UserRole = "Doctor"; // Set the role to Doctor
             doctor.UserStatus = "Active"; // Set the status to Active
             // Add the doctor to the List
             BranchDepartment.Doctors.Add(doctor);
+            // Add Doctor UserNationalID to UserNationalID
+            Hospital.UserNationalID.Add(nationalId);
             SaveDoctorsToFile();
             Console.WriteLine("Doctor added successfully.");
             Additional.HoldScreen();
@@ -577,7 +579,7 @@ namespace CodelineHealthCareCenter.Models
             int phoneNumber = Validation.IntValidation("admin phone number");
             string nationalId = Validation.StringValidation("admin national ID");
             // Check if the national ID already exists
-            if (NationalIdExists(nationalId))
+            if (Validation.UserNationalIdExists(nationalId))
             {
                 Console.WriteLine("An admin with this National ID already exists.");
                 Additional.HoldScreen();
@@ -593,6 +595,8 @@ namespace CodelineHealthCareCenter.Models
             admin.UserStatus = "Active"; // Set the status to Active
             // Add the admin to the List
             BranchDepartment.Admins.Add(admin);
+            // Add Admin UserNationalID to UserNationalID
+            Hospital.UserNationalID.Add(nationalId);
             SaveAdminsToFile();
             Console.WriteLine("Admin added successfully.");
             Additional.HoldScreen();
