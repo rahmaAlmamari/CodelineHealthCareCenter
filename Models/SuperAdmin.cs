@@ -367,7 +367,7 @@ namespace CodelineHealthCareCenter.Models
            
 
             // Create a new doctor instance
-            Doctor doctor = new Doctor(name, email, specialization, 0, 0);
+            Doctor doctor = new Doctor(name, email, specialization);
             doctor.UserName = name;
             doctor.P_UserPassword = HashUserPassword; // Assuming P_UserPassword is a property that handles password hashing
             doctor.UserEmail = email;
@@ -566,18 +566,19 @@ namespace CodelineHealthCareCenter.Models
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split('|');
-                        if (parts.Length == 9)
+                        if (parts.Length == 10)
                         {
-                            Doctor doctor = new Doctor(parts[1], parts[2], parts[5], int.Parse(parts[3]), int.Parse(parts[0]));
+                            Doctor doctor = new Doctor(parts[1], parts[2], parts[5]);
                             doctor.UserId = int.Parse(parts[0]);
                             doctor.UserName = parts[1];
-                            doctor.UserEmail = parts[2];
-                            doctor.UserPhoneNumber = int.Parse(parts[3]);
-                            doctor.UserNationalID = parts[4];
-                            doctor.DoctorSpecialization = parts[5];
-                            doctor.UserRole = parts[6];
-                            doctor.UserStatus = parts[7];
-                            doctor.BranchID = int.Parse(parts[8]);
+                            doctor.P_UserPassword = parts[2]; // Assuming P_UserPassword is a property that handles password hashing
+                            doctor.UserEmail = parts[3];
+                            doctor.UserPhoneNumber = int.Parse(parts[4]);
+                            doctor.UserNationalID = parts[5];
+                            doctor.DoctorSpecialization = parts[6];
+                            doctor.UserRole = parts[7];
+                            doctor.UserStatus = parts[8];
+                            doctor.BranchID = int.Parse(parts[9]);
                             BranchDepartment.Doctors.Add(doctor);
                         }
                     }
