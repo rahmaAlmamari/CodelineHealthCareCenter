@@ -10,8 +10,8 @@ internal class Program
         ////to create a test hospital
         ////public static Hospital HospitalTest = new Hospital();
         ////to create a test super admin for the hospital
-        //public static string p_sa = Validation.HashPasswordPBKDF2(Validation.ReadPassword("sa password"));
-        public static SuperAdmin SuperAdminTest = new SuperAdmin("", "", "");
+        ////public static string p_sa = Validation.HashPasswordPBKDF2(Validation.ReadPassword("sa password"));
+        //public static SuperAdmin SuperAdminTest = new SuperAdmin("", "", "");
         //// to create a test branch for the hospital
         //public static Branch testBranch = new Branch("TestBranch", "Muscat", new DateOnly(2025, 7, 28), 1);
         //// to create a test floor for the branch
@@ -38,16 +38,16 @@ internal class Program
             Additional.WelcomeMessage("Hospital Management");
 
 
-            ////to add the test super admin to the hospital super admins
-            SuperAdminTest.HospitalId = 1; // Assigning HospitalId to the SuperAdmin
-            SuperAdminTest.UserNationalID = "11sa22";
-            SuperAdminTest.UserPhoneNumber = 12345678;
-            SuperAdminTest.P_UserPassword = Validation.HashPasswordPBKDF2(Validation.ReadPassword("super admin password"));
-            SuperAdminTest.UserName = "Karim";
-            SuperAdminTest.UserEmail = "K@gmail.com";
+            //to add the test super admin to the hospital super admins
+            //SuperAdminTest.HospitalId = 1; // Assigning HospitalId to the SuperAdmin
+            //SuperAdminTest.UserNationalID = "11sa22";
+            //SuperAdminTest.UserPhoneNumber = 12345678;
+            //SuperAdminTest.P_UserPassword = Validation.HashPasswordPBKDF2(Validation.ReadPassword("super admin password"));
+            //SuperAdminTest.UserName = "Karim";
+            //SuperAdminTest.UserEmail = "K@gmail.com";
 
 
-            Hospital.SuperAdmins.Add(SuperAdminTest);
+            //Hospital.SuperAdmins.Add(SuperAdminTest);
             //// to add the test branch to the hospital branches
             //Hospital.Branches.Add(testBranch);
             //// to add the test floor to the branch floors
@@ -85,7 +85,7 @@ internal class Program
             ////to add the test spot time for clinic
             //ClinicTest.ClinicSpots.Add(DateTime.Parse("07/30/2025 14:30"));
             ////to add all test national IDs to the Hospital UserNational Id list
-            Hospital.UserNationalID.Add(SuperAdminTest.UserNationalID);
+            //Hospital.UserNationalID.Add(SuperAdminTest.UserNationalID);
             //Hospital.UserNationalID.Add(AdminTest.UserNationalID);
             //Hospital.UserNationalID.Add(PatientTest.UserNationalID);
             //Hospital.UserNationalID.Add(DoctorTest.UserNationalID);
