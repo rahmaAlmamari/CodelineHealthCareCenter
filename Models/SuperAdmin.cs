@@ -345,6 +345,16 @@ namespace CodelineHealthCareCenter.Models
             string nationalId = Validation.UserNationalIdValidation();
             string password = Validation.ReadPassword("doctor password");
             string HashUserPassword = Validation.HashPasswordPBKDF2(password);
+            // Display all branches
+            Branch.ViewAllBranch();
+            int BranchId = Validation.IntValidation("doctor Branch ID :");
+            // Check if the branch ID exists
+            if (!Branch.BranchIdIsExeist(BranchId))
+            {
+                Console.WriteLine("Branch Not found !");
+                Additional.HoldScreen();
+                return;
+            }
 
             //if (Validation.UserNationalIdValidation())
             //{
