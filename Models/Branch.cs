@@ -104,7 +104,7 @@ namespace CodelineHealthCareCenter.Models
 
             Console.WriteLine("Branch added successfully.");
             // save branches to file
-            SaveBranches();
+            //SaveBranches();
             SuperAdmin.AdminBranchMenu();
             Additional.HoldScreen();
         }
