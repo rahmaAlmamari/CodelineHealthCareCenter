@@ -412,7 +412,25 @@ namespace CodelineHealthCareCenter.Models
             }
             return false; //if national id does not exist ...
         }
-        //19. to check if phone number 8 digits or not ...
+        //19. UserNationalIdValidation method ...
+        public static string UserNationalIdValidation()
+        {
+            bool FlagError = false;
+            string nationalId = "null";
+            do
+            {
+                FlagError = false;
+                nationalId = Validation.StringValidation("National ID");
+                //to check if the national id exists or not ...
+                if (Validation.UserNationalIdExists(nationalId))
+                {
+                    Console.WriteLine("This national ID already exists. Please try again with a different one.");
+                    FlagError = true; // Set the flag to true to repeat the loop
+                }
+
+            } while (FlagError);
+            return nationalId; // Return the valid national ID
+        }
 
 
     }
