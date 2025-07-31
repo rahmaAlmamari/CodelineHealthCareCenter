@@ -593,6 +593,17 @@ namespace CodelineHealthCareCenter.Models
             string password = Validation.ReadPassword("admin password");
             // Validate the password
             string HashUserPassword = Validation.HashPasswordPBKDF2(password);
+            Branch.ViewAllBranch();
+            int branchId = Validation.IntValidation("admin Branch ID :");
+            // chech if branch id is available or not 
+            if (!Branch.BranchIdIsExeist(branchId))
+            {
+                Console.WriteLine("Branch Not found !");
+                Additional.HoldScreen();
+            }
+   
+
+
             // Check if the national ID already exists
             //if (Validation.UserNationalIdExists(nationalId))
             //{
@@ -609,6 +620,7 @@ namespace CodelineHealthCareCenter.Models
             admin.UserNationalID = nationalId;
             admin.UserRole = "Admin"; // Set the role to Admin
             admin.UserStatus = "Active"; // Set the status to Active
+            admin.BranchID = branchId;
             // Add the admin to the List
             BranchDepartment.Admins.Add(admin);
             // Add Admin UserNationalID to UserNationalID
@@ -779,7 +791,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var admin in BranchDepartment.Admins)
                 {
-                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.P_UserPassword}|{admin.UserEmail}|{admin.UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
+                    writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.P_UserPassword}|{admin.UserEmail}|{admin.UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}|{admin.BranchID}");
                 }
             }
             Console.WriteLine("Admin data saved successfully.");
@@ -796,9 +808,9 @@ namespace CodelineHealthCareCenter.Models
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split('|');
-                        if (parts.Length == 8)
+                        if (parts.Length == 9)
                         {
-                            Admin admin = new Admin(parts[1], parts[2], (parts[3]));
+                            Admin admin = new Admin(parts[1], parts[2], int.Parse(parts[8]));
                             admin.UserId = int.Parse(parts[0]);
                             admin.UserName = parts[1];
                             admin.P_UserPassword = parts[2];
@@ -807,6 +819,7 @@ namespace CodelineHealthCareCenter.Models
                             admin.UserNationalID = parts[5];
                             admin.UserRole = parts[6];
                             admin.UserStatus = parts[7];
+                            admin.BranchID = int.Parse(parts[8]);
                             BranchDepartment.Admins.Add(admin);
                         }
                     }

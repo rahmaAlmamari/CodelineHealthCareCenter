@@ -331,6 +331,23 @@ namespace CodelineHealthCareCenter.Models
 
         }
 
+        // check if branch id is available or not 
+        public static bool BranchIdIsExeist(int branchId)
+        {
+          // to check if the national id exists or not in SuperAdmin list hospital class ...  
+
+            foreach (var branch in Hospital.Branches)
+            {
+                if (branch.BranchId == branchId)
+                {
+
+                    return true; 
+                }
+            }
+            return false;
+        }
+        
+
         //====================================================
         //4. class constructor ...
         public Branch()
@@ -414,6 +431,8 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("No branches file found.");
             }
         }
+
+        
 
 
     }
