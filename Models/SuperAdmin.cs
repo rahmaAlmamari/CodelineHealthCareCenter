@@ -538,6 +538,7 @@ namespace CodelineHealthCareCenter.Models
                     writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
                 }
             }
+            Console.WriteLine("Doctor data saved successfully.");
         }
 
         // Load Doctors from file
