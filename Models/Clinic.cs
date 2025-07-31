@@ -17,6 +17,9 @@ namespace CodelineHealthCareCenter.Models
         private decimal price;
         public static IClinicService service;
 
+        //clinic file path ...
+        private static string filePath = "clinics.txt";
+
         //====================================================
         //2. class properties ...
 
@@ -196,7 +199,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
         }
 
-        public static void SaveToFile(string filePath) // saves clinic data to a file
+        public static void SaveClinicToFile() // saves clinic data to a file
         {
             using StreamWriter writer = new StreamWriter(filePath);
             foreach (var clinic in Clinics)
@@ -205,7 +208,7 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
-        public static void LoadFromFile(string filePath) // loads clinic data from a file
+        public static void LoadClinicFromFile() // loads clinic data from a file
         {
             Clinics.Clear();
             clinicCounter = 0;
