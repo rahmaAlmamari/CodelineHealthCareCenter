@@ -345,6 +345,16 @@ namespace CodelineHealthCareCenter.Models
             string nationalId = Validation.UserNationalIdValidation();
             string password = Validation.ReadPassword("doctor password");
             string HashUserPassword = Validation.HashPasswordPBKDF2(password);
+            // Display all branches
+            Branch.ViewAllBranch();
+            int BranchId = Validation.IntValidation("doctor Branch ID :");
+            // Check if the branch ID exists
+            if (!Branch.BranchIdIsExeist(BranchId))
+            {
+                Console.WriteLine("Branch Not found !");
+                Additional.HoldScreen();
+                return;
+            }
 
             //if (Validation.UserNationalIdValidation())
             //{
@@ -366,6 +376,7 @@ namespace CodelineHealthCareCenter.Models
             doctor.DoctorSpecialization = specialization;
             doctor.UserRole = "Doctor"; // Set the role to Doctor
             doctor.UserStatus = "Active"; // Set the status to Active
+            doctor.BranchID = BranchId; // Set the branch ID for the doctor
             // Add the doctor to the List
             BranchDepartment.Doctors.Add(doctor);
             // Add Doctor UserNationalID to UserNationalID
@@ -538,7 +549,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var doctor in BranchDepartment.Doctors)
                 {
-                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.P_UserPassword}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
+                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.P_UserPassword}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}|{doctor.BranchID}");
                 }
             }
             Console.WriteLine("Doctor data saved successfully.");
@@ -555,7 +566,7 @@ namespace CodelineHealthCareCenter.Models
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split('|');
-                        if (parts.Length == 8)
+                        if (parts.Length == 9)
                         {
                             Doctor doctor = new Doctor(parts[1], parts[2], parts[5], int.Parse(parts[3]), int.Parse(parts[0]));
                             doctor.UserId = int.Parse(parts[0]);
@@ -566,6 +577,7 @@ namespace CodelineHealthCareCenter.Models
                             doctor.DoctorSpecialization = parts[5];
                             doctor.UserRole = parts[6];
                             doctor.UserStatus = parts[7];
+                            doctor.BranchID = int.Parse(parts[8]);
                             BranchDepartment.Doctors.Add(doctor);
                         }
                     }
