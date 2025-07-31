@@ -796,6 +796,11 @@ namespace CodelineHealthCareCenter.Models
                         }
                     }
                 }
+                Console.WriteLine("Admin data loaded successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No admin data fount!");
             }
         }
 
