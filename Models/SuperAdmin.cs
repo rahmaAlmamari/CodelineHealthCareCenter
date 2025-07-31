@@ -798,7 +798,7 @@ namespace CodelineHealthCareCenter.Models
                         var parts = line.Split('|');
                         if (parts.Length == 8)
                         {
-                            Admin admin = new Admin(parts[1], parts[2], int.Parse(parts[3]));
+                            Admin admin = new Admin(parts[1], parts[2], (parts[3]));
                             admin.UserId = int.Parse(parts[0]);
                             admin.UserName = parts[1];
                             admin.P_UserPassword = parts[2];
