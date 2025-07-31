@@ -199,7 +199,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
         }
 
-        public static void SaveClinicToFile(string filePath) // saves clinic data to a file
+        public static void SaveClinicToFile() // saves clinic data to a file
         {
             using StreamWriter writer = new StreamWriter(filePath);
             foreach (var clinic in Clinics)
