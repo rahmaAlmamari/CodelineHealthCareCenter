@@ -538,6 +538,7 @@ namespace CodelineHealthCareCenter.Models
                     writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}");
                 }
             }
+            Console.WriteLine("Doctor data saved successfully.");
         }
 
         // Load Doctors from file
@@ -566,6 +567,11 @@ namespace CodelineHealthCareCenter.Models
                         }
                     }
                 }
+                Console.WriteLine("Doctor data loaded successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No doctor data fount!");
             }
         }
 
@@ -769,6 +775,7 @@ namespace CodelineHealthCareCenter.Models
                     writer.WriteLine($"{admin.UserId}|{admin.UserName}|{admin.UserEmail}|{admin.UserPhoneNumber}|{admin.UserNationalID}|{admin.UserRole}|{admin.UserStatus}");
                 }
             }
+            Console.WriteLine("Admin data saved successfully.");
         }
 
         // Load Admins from file
@@ -796,6 +803,11 @@ namespace CodelineHealthCareCenter.Models
                         }
                     }
                 }
+                Console.WriteLine("Admin data loaded successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No admin data fount!");
             }
         }
 
@@ -861,9 +873,10 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var superAdmin in Hospital.SuperAdmins)
                 {
-                    writer.WriteLine($"{superAdmin.UserId}|{superAdmin.UserName}|{superAdmin.UserEmail}|{superAdmin.UserPhoneNumber}|{superAdmin.UserNationalID}|{superAdmin.UserRole}|{superAdmin.UserStatus}");
+                    writer.WriteLine($"{superAdmin.UserId}|{superAdmin.UserName}|{superAdmin.P_UserPassword}|{superAdmin.UserEmail}|{superAdmin.UserPhoneNumber}|{superAdmin.UserRole}|{superAdmin.UserNationalID}|{superAdmin.UserStatus}");
                 }
             }
+            Console.WriteLine("Super admin data saved successfully.");
         }
         // Load SuperAdmin from file
         public static void LoadSuperAdminFromFile()
@@ -876,20 +889,30 @@ namespace CodelineHealthCareCenter.Models
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split('|');
-                        if (parts.Length == 7)
+                        if (parts.Length == 8)
                         {
                             SuperAdmin superAdmin = new SuperAdmin(parts[1], parts[2], parts[3]);
                             superAdmin.UserId = int.Parse(parts[0]);
                             superAdmin.UserName = parts[1];
-                            superAdmin.UserEmail = parts[2];
-                            superAdmin.UserPhoneNumber = int.Parse(parts[3]);
-                            superAdmin.UserNationalID = parts[4];
+                            superAdmin.P_UserPassword = parts[2]; // Assuming P_UserPassword is a property that handles password hashing
+                            superAdmin.UserEmail = parts[3];
+                            superAdmin.UserPhoneNumber = int.Parse(parts[4]);
                             superAdmin.UserRole = parts[5];
-                            superAdmin.UserStatus = parts[6];
+                            superAdmin.UserNationalID = parts[6];
+                            superAdmin.UserStatus = parts[7];
                             Hospital.SuperAdmins.Add(superAdmin);
                         }
                     }
                 }
+                Console.WriteLine("Super admin data loaded successfully.");
+                foreach (var superAdmin in Hospital.SuperAdmins)
+                {
+                    Console.WriteLine($"Super Admin ID: {superAdmin.UserId}, Name: {superAdmin.UserName},Password: {superAdmin.P_UserPassword}, Email: {superAdmin.UserEmail}, Phone: {superAdmin.UserPhoneNumber}, National ID: {superAdmin.UserNationalID}, Role: {superAdmin.UserRole}, Status: {superAdmin.UserStatus}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("No super admin data fount!");
             }
         }
 
