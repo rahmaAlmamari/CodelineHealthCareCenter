@@ -31,7 +31,7 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //2. class properties ...
 
-        public int DoctorID { get; private set; }
+        public int DoctorID { get;  set; }
         public static int DoctorCount => doctorCounter;
 
         //====================================================
