@@ -53,9 +53,9 @@ namespace CodelineHealthCareCenter.Models
 
                 case '0':
                     Console.WriteLine("Exiting SuperAdmin Menu.");
-
-                    break;
+                    return;
                 default:
+                    Console.WriteLine("hi");
                     Console.WriteLine("Invalid option, please try again.");
                     Additional.HoldScreen();
                     break;
@@ -825,6 +825,10 @@ namespace CodelineHealthCareCenter.Models
                     }
                 }
                 Console.WriteLine("Admin data loaded successfully.");
+                //foreach (var admin in BranchDepartment.Admins)
+                //{
+                //    Console.WriteLine($"Super Admin ID: {admin.UserId}, Name: {admin.UserName},Password: {admin.P_UserPassword}, Email: {admin.UserEmail}, Phone: {admin.UserPhoneNumber}, National ID: {admin.UserNationalID}, Role: {admin.UserRole}, Status: {admin.UserStatus}|{admin.BranchID}");
+                //}
             }
             else
             {
@@ -926,10 +930,10 @@ namespace CodelineHealthCareCenter.Models
                     }
                 }
                 Console.WriteLine("Super admin data loaded successfully.");
-                foreach (var superAdmin in Hospital.SuperAdmins)
-                {
-                    Console.WriteLine($"Super Admin ID: {superAdmin.UserId}, Name: {superAdmin.UserName},Password: {superAdmin.P_UserPassword}, Email: {superAdmin.UserEmail}, Phone: {superAdmin.UserPhoneNumber}, National ID: {superAdmin.UserNationalID}, Role: {superAdmin.UserRole}, Status: {superAdmin.UserStatus}");
-                }
+                //foreach (var superAdmin in Hospital.SuperAdmins)
+                //{
+                //    Console.WriteLine($"Super Admin ID: {superAdmin.UserId}, Name: {superAdmin.UserName},Password: {superAdmin.P_UserPassword}, Email: {superAdmin.UserEmail}, Phone: {superAdmin.UserPhoneNumber}, National ID: {superAdmin.UserNationalID}, Role: {superAdmin.UserRole}, Status: {superAdmin.UserStatus}");
+                //}
             }
             else
             {
