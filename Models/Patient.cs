@@ -312,7 +312,7 @@ namespace CodelineHealthCareCenter.Models
             }
 
             Console.WriteLine("Patients loaded successfully.");
-            Additional.HoldScreen(); //just to hold the screen ...
+            //Additional.HoldScreen(); //just to hold the screen ...
         }
 
         //====================================================
