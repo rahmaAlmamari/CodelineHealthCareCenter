@@ -46,7 +46,7 @@ namespace CodelineHealthCareCenter.Models
                     writer.WriteLine($"{a}");
 
                 }
-                Console.WriteLine("Branches saved to file.");
+                Console.WriteLine("Hospital data saved to file.");
             }
 
 
