@@ -873,7 +873,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var superAdmin in Hospital.SuperAdmins)
                 {
-                    writer.WriteLine($"{superAdmin.UserId}|{superAdmin.UserName}|{superAdmin.UserEmail}|{superAdmin.UserPhoneNumber}|{superAdmin.UserNationalID}|{superAdmin.UserRole}|{superAdmin.UserStatus}");
+                    writer.WriteLine($"{superAdmin.UserId}|{superAdmin.UserName}|{superAdmin.P_UserPassword}|{superAdmin.UserEmail}|{superAdmin.UserPhoneNumber}|{superAdmin.UserNationalID}|{superAdmin.UserRole}|{superAdmin.UserStatus}");
                 }
             }
             Console.WriteLine("Super admin data saved successfully.");
