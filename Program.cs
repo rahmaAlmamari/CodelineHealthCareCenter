@@ -125,6 +125,8 @@ internal class Program
                         break;
                     case '0':
                         exitFlag = true;
+                        //to save hospital data to file ...
+                        Hospital.SaveHospitalToFile();
                         //to save patient data to file ...
                         Patient.SavePatientsToFile();
                         Console.WriteLine("Thank you for using the Hotel System. Goodbye!");
