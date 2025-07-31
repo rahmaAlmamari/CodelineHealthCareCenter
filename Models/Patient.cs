@@ -261,7 +261,7 @@ namespace CodelineHealthCareCenter.Models
             }
 
             Console.WriteLine("All patients saved successfully.");
-            Additional.HoldScreen(); //just to hold the screen ...
+           // Additional.HoldScreen(); //just to hold the screen ...
         }
         //to load patient data from file ...
         public static void LoadPatientsFromFile()
@@ -312,7 +312,7 @@ namespace CodelineHealthCareCenter.Models
             }
 
             Console.WriteLine("Patients loaded successfully.");
-            Additional.HoldScreen(); //just to hold the screen ...
+            //Additional.HoldScreen(); //just to hold the screen ...
         }
 
         //====================================================

@@ -140,8 +140,14 @@ namespace CodelineHealthCareCenter.Models
                         Validation.VerifyPasswordPBKDF2(userPassword, superAdmin.P_UserPassword))
                     {
                         Console.WriteLine($"\nWelcome, Super Admin {superAdmin.UserName}!");
+                        Additional.HoldScreen();
                         SuperAdmin.SuperAdminMenu(); // Replace with your actual super admin menu ... 
                         return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nInvalid login credentials. Please try again.");
+                        Additional.HoldScreen();
                     }
                 }
             }

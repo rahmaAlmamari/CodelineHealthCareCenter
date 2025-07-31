@@ -206,6 +206,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.Location}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.Price}|{clinic.clinicStatus}");
             }
+            Console.WriteLine("Clinic data saved successfully.");
         }
 
         public static void LoadClinicFromFile() // loads clinic data from a file
@@ -213,7 +214,12 @@ namespace CodelineHealthCareCenter.Models
             Clinics.Clear();
             clinicCounter = 0;
 
-            if (!File.Exists(filePath)) return;
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Clinic data file not found!.");
+                return;
+            }   
+                
 
             string[] lines = File.ReadAllLines(filePath);
             foreach (var line in lines)
@@ -239,6 +245,7 @@ namespace CodelineHealthCareCenter.Models
                 if (clinic.ClinicId > clinicCounter)
                     clinicCounter = clinic.ClinicId;
             }
+            Console.WriteLine("Clinic data loaded successfully.");
         }
 
 
