@@ -890,6 +890,11 @@ namespace CodelineHealthCareCenter.Models
                         }
                     }
                 }
+                Console.WriteLine("Super admin data loaded successfully.");
+            }
+            else
+            {
+                Console.WriteLine("No super admin data fount!");
             }
         }
 
