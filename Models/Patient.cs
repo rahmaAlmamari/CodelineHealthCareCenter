@@ -108,7 +108,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine($"Branch City: {branch.BranchCity}");
             }
-            Additional.HoldScreen();
+            //Additional.HoldScreen();
         }
         //to find the branch by city ...
         public static Branch FindBranchByCity(string city)
