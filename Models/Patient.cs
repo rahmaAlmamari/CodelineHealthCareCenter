@@ -68,14 +68,14 @@ namespace CodelineHealthCareCenter.Models
         public static void SinUp()
         {
             //to get national id and check if it exists or not ...
-            string UserNationalID = Validation.StringValidation("national ID");
-            //to check if the national id exists or not ...
-            if (Validation.UserNationalIdExists(UserNationalID))
-            {
-                Console.WriteLine("This national ID already exists. Please try again with a different one.");
-                Additional.HoldScreen();
-                return; //exit the method if national ID exists ...
-            }
+            string UserNationalID = Validation.UserNationalIdValidation();
+            ////to check if the national id exists or not ...
+            //if (Validation.UserNationalIdExists(UserNationalID))
+            //{
+            //    Console.WriteLine("This national ID already exists. Please try again with a different one.");
+            //    Additional.HoldScreen();
+            //    return; //exit the method if national ID exists ...
+            //}
             //to get the user data ...
             string UserName = Validation.StringValidation("user name");
             string UserPassword = Validation.ReadPassword("password");
