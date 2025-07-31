@@ -128,7 +128,7 @@ namespace CodelineHealthCareCenter.Models
                         Validation.VerifyPasswordPBKDF2(userPassword, admin.P_UserPassword))
                     {
                         Console.WriteLine($"\nWelcome, Admin {admin.UserName}!");
-                        //Admin.AdminMenu(); // Replace with your actual admin menu ...
+                        Admin.AdminMenu(); // Replace with your actual admin menu ...
                         return;
                     }
                 }
