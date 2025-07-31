@@ -15,7 +15,7 @@ namespace CodelineHealthCareCenter.Models
         public List<Clinic> Clinics = new List<Clinic>();
 
         // Shared static lists
-        public static List<Doctor> Doctors = new List<Doctor>();
+        //public static List<Doctor> Doctors = new List<Doctor>();
         public static List<Service> Services = new List<Service>();
 
         //====================================================
@@ -25,10 +25,30 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class methods ...
 
-        public void AddClinic(Clinic clinic)
+        public void AddClinic()
         {
-            Clinics.Add(clinic);
-            Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{UserName}'.");
+            //Clinics.Add(clinic);
+            //Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{UserName}'.");
+            Department.ViewAllDepartments();
+            int departmentId = Validation.IntValidation("Department ID to add Clinic to");
+            foreach(var department in BranchDepartment.Departments)
+            {
+                if (department.DepartmentId == departmentId)
+                {
+                    //to get the branch ID from the department ...
+                    int branchId = department.BranchId;
+                    //to get the floor ID from the branch ...
+                    int floorId = 1; // Assuming a default floor ID, can be modified as needed
+                    //to get the room ID from the branch ...
+                    int roomId = 1; // Assuming a default room ID, can be modified as needed
+                    string clinicName = Validation.StringValidation("Clinic Name");
+                    Clinic newClinic = new Clinic(clinicName, departmentId, branchId, floorId, roomId);
+                    //newClinic.CreateClinic(departmentId);
+                    Clinics.Add(newClinic);
+                    Console.WriteLine($"Clinic '{newClinic.ClinicName}' added to Department ID {departmentId}.");
+                    return;
+                }
+            }
         }
 
         public void ViewClinics()
@@ -48,7 +68,7 @@ namespace CodelineHealthCareCenter.Models
         public void AssignDoctorToClinic(int doctorId, int clinicId)
         {
             var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            var doctor = Doctors.FirstOrDefault(d => d.UserId == doctorId);
+            var doctor = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
 
             if (clinic == null)
             {
@@ -236,13 +256,15 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.Clear();
                 Console.WriteLine(" ADMIN MANAGEMENT MENU ");
-                Console.WriteLine("1. Assign Doctor to Clinic");
-                Console.WriteLine("2. Add Service to Clinic");
-                Console.WriteLine("3. View Clinic's Doctors");
-                Console.WriteLine("4. View Clinic's Services");
-                Console.WriteLine("5. Add Clinic Spot");
-                Console.WriteLine("6. Remove Clinic Spot");
-                Console.WriteLine("7. Exit");
+                Console.WriteLine($"Welcome, {CurrentAdmin.UserName}!");
+                Console.WriteLine("1. Add Clinic");
+                Console.WriteLine("2. Assign Doctor to Clinic");
+                Console.WriteLine("3. Add Service to Clinic");
+                Console.WriteLine("4. View Clinic's Doctors");
+                Console.WriteLine("5. View Clinic's Services");
+                Console.WriteLine("6. Add Clinic Spot");
+                Console.WriteLine("7. Remove Clinic Spot");
+                Console.WriteLine("8. Exit");
                 Console.Write("Select an option: ");
                 string choice = Console.ReadLine();
                 Console.WriteLine();
@@ -250,6 +272,9 @@ namespace CodelineHealthCareCenter.Models
                 switch (choice)
                 {
                     case "1":
+                        CurrentAdmin.AddClinic();
+                        break;
+                    case "2":
                         Console.WriteLine("All Doctors:");
                         Doctor.GetAllDoctors();
 
@@ -265,7 +290,7 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Assignment cancelled.");
                         break;
 
-                    case "2":
+                    case "3":
                         Console.WriteLine("All Clinics:");
                         CurrentAdmin.ViewClinics();
                         int clinicId2 = Validation.IntValidation("Clinic ID");
@@ -276,17 +301,17 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Adding service cancelled.");
                         break;
 
-                    case "3":
+                    case "4":
                         int clinicId3 = Validation.IntValidation("Clinic ID to view doctors");
                         CurrentAdmin.GetClinicDoctors(clinicId3);
                         break;
 
-                    case "4":
+                    case "5":
                         int clinicId4 = Validation.IntValidation("Clinic ID to view services");
                         CurrentAdmin.GetClinicServices(clinicId4);
                         break;
 
-                    case "5":
+                    case "6":
                         int cl5 = Validation.IntValidation("Clinic ID to add spot");
                         DateTime newSpot = Validation.DateTimeValidation("New Spot (e.g., MM/dd/yyyy HH:mm)");
                         if (Additional.ConfirmAction($"add spot {newSpot:G} to this clinic"))
@@ -295,7 +320,7 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Spot addition cancelled.");
                         break;
 
-                    case "6":
+                    case "7":
                         int cl6 = Validation.IntValidation("Clinic ID to remove spot");
                         DateTime spotToRemove = Validation.DateTimeValidation("Spot to remove (e.g., MM/dd/yyyy HH:mm)");
                         if (Additional.ConfirmAction($"remove spot {spotToRemove:G} from this clinic"))
@@ -304,7 +329,7 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Spot removal cancelled.");
                         break;
 
-                    case "7":
+                    case "8":
                         Console.WriteLine("Exiting Admin Menu...");
                         return;
 
