@@ -71,6 +71,18 @@ namespace CodelineHealthCareCenter.Models
                 ClinicId = clinicId,
                 DoctorId = doctorId
             };
+            //to add the selected service to the new booking ...
+            var selectedService = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
+            if (selectedService != null)
+            {
+                newBooking.BookingService.Add(selectedService);
+                Console.WriteLine($"Service '{selectedService.ServiceName}' added to the booking.");
+            }
+            else
+            {
+                Console.WriteLine("Selected service not found.");
+                return;
+            }
             //to add the new booking to the DoctorAppointments list
             foreach (var doctor in BranchDepartment.Doctors)
             {
