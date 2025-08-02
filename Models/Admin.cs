@@ -67,33 +67,37 @@ namespace CodelineHealthCareCenter.Models
 
         public void AssignDoctorToClinic(int doctorId, int clinicId)
         {
-            //to check if clinic exists ...
-            foreach(var clinic in Clinics)
+            foreach (var department in BranchDepartment.Departments)
             {
-                if (clinic.ClinicId == clinicId)
+                //to check if clinic exists ...
+                foreach (var clinic in department.Clinics)
                 {
-                    //to check if doctor exists ...
-                    foreach (var doctor in BranchDepartment.Doctors)
+                    if (clinic.ClinicId == clinicId)
                     {
-                        if (doctor.UserId == doctorId)
+                        //to check if doctor exists ...
+                        foreach (var doctor in BranchDepartment.Doctors)
                         {
-                            //to check if the doctor is already assigned to the clinic ...
-                            if (clinic.Doctors.Any(d => d.UserId == doctorId))
+                            if (doctor.UserId == doctorId)
                             {
-                                Console.WriteLine($"Doctor '{doctor.UserName}' is already assigned to Clinic '{clinic.ClinicName}'.");
+                                //to check if the doctor is already assigned to the clinic ...
+                                if (clinic.Doctors.Any(d => d.UserId == doctorId))
+                                {
+                                    Console.WriteLine($"Doctor '{doctor.UserName}' is already assigned to Clinic '{clinic.ClinicName}'.");
+                                    return;
+                                }
+                                //to assign the doctor to the clinic ...
+                                clinic.Doctors.Add(doctor);
+                                Console.WriteLine($"Doctor '{doctor.UserName}' assigned to Clinic '{clinic.ClinicName}'.");
                                 return;
                             }
-                            //to assign the doctor to the clinic ...
-                            clinic.Doctors.Add(doctor);
-                            Console.WriteLine($"Doctor '{doctor.UserName}' assigned to Clinic '{clinic.ClinicName}'.");
-                            return;
                         }
+                        Console.WriteLine("Doctor not found.");
+                        return;
                     }
-                    Console.WriteLine("Doctor not found.");
-                    return;
                 }
+                Console.WriteLine("Clinic not found.");
             }
-            Console.WriteLine("Clinic not found.");
+
         }
 
         public void AddClinicService()
@@ -316,9 +320,9 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("3. Add Service");
                 Console.WriteLine("4. Assign Doctor to Clinic");
                 Console.WriteLine("5. View Clinic");
-                Console.WriteLine("6. View Clinic's Doctors");
-                Console.WriteLine("7. View Clinic's Services");
-                Console.WriteLine("8. Remove Clinic Spot");
+                //Console.WriteLine("6. View Clinic's Doctors");
+                //Console.WriteLine("7. View Clinic's Services");
+                //Console.WriteLine("8. Remove Clinic Spot");
                 Console.WriteLine("0. Exit");
                 Console.Write("Select an option: ");
                 string choice = Console.ReadLine();
@@ -361,55 +365,55 @@ namespace CodelineHealthCareCenter.Models
                         Console.WriteLine("List of All Clinics:");
                         Clinic.GetAllClinics();
                         break;
-                    case "6":
-                        int clinicId3 = Validation.IntValidation("Clinic ID to view doctors");
-                        CurrentAdmin.GetClinicDoctors(clinicId3);
-                        break;
+                    //case "6":
+                    //    int clinicId3 = Validation.IntValidation("Clinic ID to view doctors");
+                    //    CurrentAdmin.GetClinicDoctors(clinicId3);
+                    //    break;
 
-                    case "7":
-                        //to list all clinics ...
-                        Console.WriteLine("List of All Clinics:");
-                        if (CurrentAdmin.Clinics.Count == 0)
-                        {
-                            Console.WriteLine("No clinics available.");
-                            break;
-                        }
-                        CurrentAdmin.Clinics.ForEach(c => c.ViewClinicInfo());
-                        int clinicId4 = Validation.IntValidation("Clinic ID to view services");
-                        CurrentAdmin.GetClinicServices(clinicId4);
-                        break;
+                    //case "7":
+                    //    //to list all clinics ...
+                    //    Console.WriteLine("List of All Clinics:");
+                    //    if (CurrentAdmin.Clinics.Count == 0)
+                    //    {
+                    //        Console.WriteLine("No clinics available.");
+                    //        break;
+                    //    }
+                    //    CurrentAdmin.Clinics.ForEach(c => c.ViewClinicInfo());
+                    //    int clinicId4 = Validation.IntValidation("Clinic ID to view services");
+                    //    CurrentAdmin.GetClinicServices(clinicId4);
+                    //    break;
 
 
 
-                    case "8":
-                        //to list all clinics ...
-                        Console.WriteLine("List of All Clinics:");
-                        if (CurrentAdmin.Clinics.Count == 0)
-                        {
-                            Console.WriteLine("No clinics available.");
-                            break;
-                        }
-                        CurrentAdmin.Clinics.ForEach(c => c.ViewClinicInfo());
-                        int cl6 = Validation.IntValidation("Clinic ID to remove spot");
-                        //to get all spot in the clinic ...
-                        Console.WriteLine("Available Spots in this Clinic:");
-                        var clinic = CurrentAdmin.Clinics.FirstOrDefault(c => c.ClinicId == cl6);
-                        if (clinic == null || clinic.ClinicSpots.Count == 0)
-                        {
-                            Console.WriteLine("No spots available in this clinic.");
-                            break;
-                        }
-                        foreach (var spot in clinic.ClinicSpots)
-                        {
-                            Console.WriteLine($"- {spot:G}");
-                        }
-                        //to get the spot to remove ...
-                        DateTime spotToRemove = Validation.DateTimeValidation("Spot to remove (e.g., MM/dd/yyyy HH:mm)");
-                        if (Additional.ConfirmAction($"remove spot {spotToRemove:G} from this clinic"))
-                            CurrentAdmin.RemoveClinicSpot(cl6, spotToRemove);
-                        else
-                            Console.WriteLine("Spot removal cancelled.");
-                        break;
+                    //case "8":
+                    //    //to list all clinics ...
+                    //    Console.WriteLine("List of All Clinics:");
+                    //    if (CurrentAdmin.Clinics.Count == 0)
+                    //    {
+                    //        Console.WriteLine("No clinics available.");
+                    //        break;
+                    //    }
+                    //    CurrentAdmin.Clinics.ForEach(c => c.ViewClinicInfo());
+                    //    int cl6 = Validation.IntValidation("Clinic ID to remove spot");
+                    //    //to get all spot in the clinic ...
+                    //    Console.WriteLine("Available Spots in this Clinic:");
+                    //    var clinic = CurrentAdmin.Clinics.FirstOrDefault(c => c.ClinicId == cl6);
+                    //    if (clinic == null || clinic.ClinicSpots.Count == 0)
+                    //    {
+                    //        Console.WriteLine("No spots available in this clinic.");
+                    //        break;
+                    //    }
+                    //    foreach (var spot in clinic.ClinicSpots)
+                    //    {
+                    //        Console.WriteLine($"- {spot:G}");
+                    //    }
+                    //    //to get the spot to remove ...
+                    //    DateTime spotToRemove = Validation.DateTimeValidation("Spot to remove (e.g., MM/dd/yyyy HH:mm)");
+                    //    if (Additional.ConfirmAction($"remove spot {spotToRemove:G} from this clinic"))
+                    //        CurrentAdmin.RemoveClinicSpot(cl6, spotToRemove);
+                    //    else
+                    //        Console.WriteLine("Spot removal cancelled.");
+                    //    break;
 
                     case "0":
                         Console.WriteLine("Exiting Admin Menu...");
