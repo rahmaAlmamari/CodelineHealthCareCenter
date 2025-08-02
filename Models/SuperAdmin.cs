@@ -53,9 +53,12 @@ namespace CodelineHealthCareCenter.Models
 
                 case '0':
                     Console.WriteLine("Exiting SuperAdmin Menu.");
+                    Additional.HoldScreen();
+                    // return to the main menu
+                    //Hospital.MainMenu(); // Assuming you have a MainMenu method in Hospital class
                     return;
                 default:
-                    Console.WriteLine("hi");
+                    
                     Console.WriteLine("Invalid option, please try again.");
                     Additional.HoldScreen();
                     break;
@@ -164,8 +167,11 @@ namespace CodelineHealthCareCenter.Models
                     SetDoctorStatus();
                     break;
                 case "0":
-                    AdminDoctorUserMenu();
+                    
                     Console.WriteLine("Exiting Doctor Admin Menu.");
+                    Additional.HoldScreen();
+                    AdminDoctorUserMenu(); // Return to the AdminDoctorUserMenu
+
                     break;
                 default:
                     Console.WriteLine("Invalid option, please try again.");
@@ -183,10 +189,8 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("2. View All Branches ");
             Console.WriteLine("3. Update Branch ");
             Console.WriteLine("4. Delete Branch ");
-            Console.WriteLine("5. Get All Branches ");
-            Console.WriteLine("6. Get Branch By ID ");
-            Console.WriteLine("7. Get Branch Details");
-            Console.WriteLine("8. Get Branch Details By BranchName");
+            Console.WriteLine("5. Get Branch By ID ");
+            Console.WriteLine("6. Get Branch Details By BranchName");
             Console.WriteLine("0. Exit ");
             string choice1 = Validation.StringValidation("Please select an option : ");
             switch (choice1)
@@ -204,16 +208,9 @@ namespace CodelineHealthCareCenter.Models
                     Branch.DeleteBranch();
                     break;
                 case "5":
-                    Branch.GetAllBranches();
-                    break;
-                case "6":
                     Branch.GetBranchById();
                     break;
-                case "7":
-
-                    Branch.GetBranchDetails();
-                    break;
-                case "8":
+                case "6":
                     Branch.GetBranchDetailsByBranchName();
                     break;
                 case "0":
@@ -338,12 +335,64 @@ namespace CodelineHealthCareCenter.Models
         {
             Console.Clear();
             Console.WriteLine("Add New Doctor");
+            Console.WriteLine(new string('-', 40));
             // Get doctor details from user
-            string name = Validation.StringValidation("doctor name");
-            string email = Validation.EmailValidation("doctor email");
-            int phoneNumber = Validation.UserPhoneNumberValidation();
-            string nationalId = Validation.UserNationalIdValidation();
-            string password = Validation.ReadPassword("doctor password");
+            // Name
+            string name;
+            do
+            {
+                name = Validation.StringNamingValidation("doctor name");
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Invalid name. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(name));
+
+            // Email
+            string email;
+            do
+            {
+                email = Validation.EmailValidation("doctor email");
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    Console.WriteLine("Invalid email. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(email));
+
+            // Phone Number
+            int phoneNumber;
+            do
+            {
+                phoneNumber = Validation.UserPhoneNumberValidation();
+                if (phoneNumber.ToString().Length < 8) // Replace with your own rule
+                {
+                    Console.WriteLine("Invalid phone number. Please try again.");
+                }
+            } while (phoneNumber.ToString().Length < 8);
+
+            // National ID
+            string nationalId;
+            do
+            {
+                nationalId = Validation.UserNationalIdValidation();
+                if (string.IsNullOrWhiteSpace(nationalId))
+                {
+                    Console.WriteLine("Invalid National ID. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(nationalId));
+
+            // Password
+            string password;
+            do
+            {
+                password = Validation.ReadPassword("doctor password");
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    Console.WriteLine("Password cannot be empty. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(password));
+
+            // Hash the password after it is valid
             string HashUserPassword = Validation.HashPasswordPBKDF2(password);
             // Display all branches
             Branch.ViewAllBranch();
@@ -353,6 +402,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("Branch Not found !");
                 Additional.HoldScreen();
+                DoctorUserMenu();
                 return;
             }
 
@@ -391,12 +441,15 @@ namespace CodelineHealthCareCenter.Models
         public static void ViewDoctors()
         {
             Console.Clear();
+            Console.WriteLine("View Doctors");
+            Console.WriteLine(new string('-', 40));
             Console.WriteLine("List of Doctors");
             if (BranchDepartment.Doctors.Count == 0)
             {
                 Console.WriteLine("No doctors available in the system.");
                 Additional.HoldScreen();
-                return;
+                DoctorUserMenu();
+                //return;
             }
             foreach (var doctor in BranchDepartment.Doctors)
             {
@@ -407,6 +460,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"National ID     : {doctor.UserNationalID}");
                 Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
                 Console.WriteLine($"Status          : {doctor.UserStatus}");
+                Console.WriteLine($"Branch ID       : {doctor.BranchID}");
                 Console.WriteLine(new string('-', 40));
 
             }
@@ -420,7 +474,8 @@ namespace CodelineHealthCareCenter.Models
         public static void UpdateDoctor()
         {
             Console.Clear();
-            Console.WriteLine("Available Doctors for Updation");
+            Console.WriteLine("Update Doctors");
+            Console.WriteLine(new string('-', 40));
             ViewAllDoctors();
             Console.WriteLine(new string('-', 40));
             int doctorId = Validation.IntValidation("Enter the Doctor ID to update:");
@@ -429,7 +484,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("Doctor not found.");
                 Additional.HoldScreen();
-                return;
+                DoctorUserMenu();
+                //return;
             }
 
 
@@ -443,8 +499,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("------------------------");
                 Console.WriteLine("1. Update Email");
                 Console.WriteLine("2. Update Phone Number");
-                Console.WriteLine("3. Update Role");
-                Console.WriteLine("4. Update Status");
+                Console.WriteLine("3. Update Status");
                 Console.WriteLine("0. Exit");
 
                 char choice = Validation.CharValidation("Choose an option: ");
@@ -457,12 +512,9 @@ namespace CodelineHealthCareCenter.Models
                     case '2':
                         doctorToUpdate.UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
                         break;
-
                     case '3':
-                        doctorToUpdate.UserRole = Validation.StringValidation("Enter new role (Doctor/Admin): ");
-                        break;
-                    case '4':
                         doctorToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                       // SetDoctorStatus();
                         break;
                     case '0':
                         Console.WriteLine("Exiting update menu...");
@@ -493,7 +545,8 @@ namespace CodelineHealthCareCenter.Models
         public static void DeleteDoctor()
         {
             Console.Clear();
-            Console.WriteLine("Available Doctors for Deletion");
+            Console.WriteLine("Delete Doctors");
+            Console.WriteLine(new string('-', 40));
             ViewAllDoctors();
             Console.WriteLine(new string('-', 40));
             int doctorId = Validation.IntValidation("Doctor ID");
@@ -502,13 +555,16 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("Doctor not found.");
                 Additional.HoldScreen();
-                return;
+                DoctorUserMenu();
+                //return;
             }
             // Confirm deletion
             if (Additional.ConfirmAction("delete this doctor"))
             {
 
                 BranchDepartment.Doctors.Remove(doctorToDelete);
+                // delete UserNationalID from UserNationalID list
+                Hospital.UserNationalID.Remove(doctorToDelete.UserNationalID);
                 Console.WriteLine("Doctor deleted successfully.");
                 DoctorUserMenu();
                 Additional.HoldScreen();
@@ -599,23 +655,92 @@ namespace CodelineHealthCareCenter.Models
             Console.Clear();
             Console.WriteLine("Add New Admin");
             // Get admin details from user
-            string name = Validation.StringValidation("admin name");
-            string email = Validation.EmailValidation("admin email");
-            int phoneNumber = Validation.UserPhoneNumberValidation();
-            string nationalId = Validation.UserNationalIdValidation();
-            string password = Validation.ReadPassword("admin password");
-            // Validate the password
-            string HashUserPassword = Validation.HashPasswordPBKDF2(password);
-            Branch.ViewAllBranch();
-            int branchId = Validation.IntValidation("admin Branch ID :");
-            // chech if branch id is available or not 
-            if (!Branch.BranchIdIsExeist(branchId))
-            {
-                Console.WriteLine("Branch Not found !");
-                Additional.HoldScreen();
-            }
-   
+            //string name = Validation.StringValidation("admin name");
+            //string email = Validation.EmailValidation("admin email");
+            //int phoneNumber = Validation.UserPhoneNumberValidation();
+            //string nationalId = Validation.UserNationalIdValidation();
+            //string password = Validation.ReadPassword("admin password");
+            //// Validate the password
+            //string HashUserPassword = Validation.HashPasswordPBKDF2(password);
 
+            string name;
+            do
+            {
+                name = Validation.StringNamingValidation("admin name");
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Invalid name. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(name));
+
+            // Email validation
+            string email;
+            do
+            {
+                email = Validation.EmailValidation("admin email");
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    Console.WriteLine("Invalid email. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(email));
+
+            // Phone number validation
+            int phoneNumber;
+            do
+            {
+                phoneNumber = Validation.UserPhoneNumberValidation();
+                if (phoneNumber.ToString().Length < 8) // or whatever rule you have
+                {
+                    Console.WriteLine("Invalid phone number. Please try again.");
+                }
+            } while (phoneNumber.ToString().Length < 8);
+
+            // National ID validation
+            string nationalId;
+            do
+            {
+                nationalId = Validation.UserNationalIdValidation();
+                if (string.IsNullOrWhiteSpace(nationalId))
+                {
+                    Console.WriteLine("Invalid National ID. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(nationalId));
+
+            // Password and hashing
+            string password;
+            do
+            {
+                password = Validation.ReadPassword("admin password");
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    Console.WriteLine("Password cannot be empty. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(password));
+
+            string HashUserPassword = Validation.HashPasswordPBKDF2(password);
+            //Branch.ViewAllBranch();
+            //int branchId = Validation.IntValidation("admin Branch ID :");
+            //// chech if branch id is available or not 
+            //if (!Branch.BranchIdIsExeist(branchId))
+            //{
+            //    Console.WriteLine("Branch Not found !");
+            //    Additional.HoldScreen();
+            //}
+
+            int branchId;
+            do
+            {
+                Branch.ViewAllBranch();
+                branchId = Validation.IntValidation("admin Branch ID :");
+
+                if (!Branch.BranchIdIsExeist(branchId))
+                {
+                    Console.WriteLine("Branch not found! Please try again.");
+                    Additional.HoldScreen();
+                    Console.Clear();
+                }
+
+            } while (!Branch.BranchIdIsExeist(branchId));
 
             // Check if the national ID already exists
             //if (Validation.UserNationalIdExists(nationalId))
@@ -658,7 +783,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("Admin not found.");
                 Additional.HoldScreen();
-                return;
+                AdminUserMenu();
+                //return;
             }
             // Update admin details
             // Choose what to update
@@ -671,9 +797,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("------------------------");
                 Console.WriteLine("1. Update Email");
                 Console.WriteLine("2. Update Phone Number");
-                Console.WriteLine("3. Update National ID");
-                Console.WriteLine("4. Update Role");
-                Console.WriteLine("5. Update Status");
+                Console.WriteLine("3. Update Status");
                 Console.WriteLine("0. Exit");
 
                 char choice = Validation.CharValidation("Choose an option: ");
@@ -684,16 +808,33 @@ namespace CodelineHealthCareCenter.Models
                         adminToUpdate.UserEmail = Validation.EmailValidation("Enter new email: ");
                         break;
                     case '2':
-                        adminToUpdate.UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
+                        adminToUpdate.UserPhoneNumber = Validation.UserPhoneNumberValidation();
                         break;
                     case '3':
-                        adminToUpdate.UserNationalID = Validation.StringValidation("Enter new national ID: ");
-                        break;
-                    case '4':
-                        adminToUpdate.UserRole = Validation.StringValidation("Enter new role (Admin/SuperAdmin): ");
-                        break;
-                    case '5':
-                        adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                        //adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                        //if (adminToUpdate.UserStatus.ToLower() != "active" && adminToUpdate.UserStatus.ToLower() != "inactive")
+                        //{
+                        //    Console.WriteLine("Invalid status. Please enter 'Active' or 'Inactive'.");
+                        //    // do while loop to ask for status again
+                        //    while (true)
+                        //    {
+                        //        adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                        //        if (adminToUpdate.UserStatus.ToLower() == "active" || adminToUpdate.UserStatus.ToLower() == "inactive")
+                        //            break; // Valid status, exit the loop
+                        //        Console.WriteLine("Invalid status. Please enter 'Active' or 'Inactive'.");
+                        //    }
+                        //    continue; // Go back to the menu
+                        //}
+                        //}
+                        
+                        do
+                        {
+                            adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                            if (adminToUpdate.UserStatus.ToLower() == "active" || adminToUpdate.UserStatus.ToLower() == "inactive")
+                                break; // Valid status, exit the loop
+                            Console.WriteLine("Invalid status. Please enter 'Active' or 'Inactive'.");
+                        } while (true);
+
                         break;
                     case '0':
                         Console.WriteLine("Exiting update menu...");
@@ -729,12 +870,15 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("Admin not found.");
                 Additional.HoldScreen();
-                return;
+                AdminUserMenu();
+                //return;
             }
             // Confirm deletion
             if (Additional.ConfirmAction("delete this admin"))
             {
                 BranchDepartment.Admins.Remove(adminToDelete);
+                // delete UserNationalID from UserNationalID list
+                Hospital.UserNationalID.Remove(adminToDelete.UserNationalID);
                 Console.WriteLine("Admin deleted successfully.");
             }
             else
@@ -756,7 +900,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("No admins available in the system.");
                 Additional.HoldScreen();
-                return;
+                AdminUserMenu();
+                //return;
             }
             foreach (var admin in BranchDepartment.Admins)
             {
@@ -766,6 +911,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Phone Number    : {admin.UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {admin.UserNationalID}");
                 Console.WriteLine($"Status          : {admin.UserStatus}");
+                Console.WriteLine($"Branch ID       : {admin.BranchID}");
                 Console.WriteLine(new string('-', 40));
             }
             Additional.HoldScreen();
@@ -781,17 +927,17 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("No admins available in the system.");
                 Additional.HoldScreen();
-                return;
+                AdminUserMenu();
+
+                //return;
             }
             foreach (var admin in BranchDepartment.Admins)
             {
                 Console.WriteLine($"Admin ID        : {admin.UserId}");
                 Console.WriteLine($"Name            : {admin.UserName}");
-                Console.WriteLine($"Email           : {admin.UserEmail}");
-                Console.WriteLine($"Phone Number    : {admin.UserPhoneNumber}");
-                Console.WriteLine($"National ID     : {admin.UserNationalID}");
-                Console.WriteLine($"Role            : {admin.UserRole}");
                 Console.WriteLine($"Status          : {admin.UserStatus}");
+                Console.WriteLine($"Branch ID       : {admin.BranchID}");
+
                 Console.WriteLine(new string('-', 40));
             }
 
@@ -888,16 +1034,22 @@ namespace CodelineHealthCareCenter.Models
         // view all Doctor
         public static void ViewAllDoctors()
         {
-            
+            Console.WriteLine("List of All Doctors");
+            if (BranchDepartment.Doctors.Count == 0)
+            {
+                Console.WriteLine("No doctors available in the system.");
+                Additional.HoldScreen();
+                DoctorUserMenu();
+                //return;
+            }
+
             foreach (var doctor in BranchDepartment.Doctors)
             {
                 Console.WriteLine($"Doctor ID       : {doctor.UserId}");
                 Console.WriteLine($"Name            : {doctor.UserName}");
-                Console.WriteLine($"Email           : {doctor.UserEmail}");
-                Console.WriteLine($"Phone Number    : {doctor.UserPhoneNumber}");
-                Console.WriteLine($"National ID     : {doctor.UserNationalID}");
                 Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
                 Console.WriteLine($"Status          : {doctor.UserStatus}");
+                Console.WriteLine($"Branch ID       : {doctor.BranchID}");
                 Console.WriteLine(new string('-', 40));
             }
            
