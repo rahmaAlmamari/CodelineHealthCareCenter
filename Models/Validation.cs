@@ -591,5 +591,26 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
             }
         }
+        //to get patient by booking id 
+        public static Patient GetPatientByBookingId(int bookingId)
+        {
+            foreach (var branch in Hospital.Branches)
+            {
+                foreach (var patient in branch.Patients)
+                {
+                    foreach(var booking in patient.PatientAppointments)
+                    {
+                        if (booking.BookingId == bookingId)
+                        {
+                            return patient; // Return the patient if booking ID matches
+                        }
+                    }
+                 
+                }
+            }
+            return null; // Return null if no patient found with the given booking ID
+        }
+        //to list all patient who have appointments with a specific doctor based on doctor.bookingId == petient.bookingId
+
     }
 }
