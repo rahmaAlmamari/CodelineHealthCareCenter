@@ -287,6 +287,10 @@ namespace CodelineHealthCareCenter.Models
         {
             Console.Clear();
             Console.WriteLine("Delete Branch");
+            Console.WriteLine("All Branches");
+            // view all branches
+            ViewAllBranch();
+            // Get branch ID to delete
             Console.WriteLine("Enter the Branch ID to delete:");
             int branchId = Validation.IntValidation("Branch ID");
             var branch = Hospital.Branches.FirstOrDefault(b => b.BranchId == branchId);
