@@ -453,7 +453,7 @@ namespace CodelineHealthCareCenter.Models
         public static bool ClinicNameExists(string clinicName)
         {
             //to check if the clinic name exists or not in the clinic list in branch department class ...
-            foreach(var department in BranchDepartment.Departments)
+            foreach (var department in BranchDepartment.Departments)
             {
                 foreach (var clinic in department.Clinics)
                 {
@@ -528,7 +528,7 @@ namespace CodelineHealthCareCenter.Models
             return false; //if department id does not exist ...
         }
         //26. DepartmentIdValidation method ...
-        public static int DepartmentIdValidation() 
+        public static int DepartmentIdValidation()
         {
             bool FlagError = false;
             int departmentId = 0;
@@ -545,7 +545,22 @@ namespace CodelineHealthCareCenter.Models
             } while (FlagError);
             return departmentId; // Return the valid department ID
         }
+        //to list all branchs 
+        public static void ListAllBranches()
+        {
+            Console.WriteLine("List of Branches:");
+            if (Hospital.Branches.Count == 0)
+            {
+                Console.WriteLine("No branches available.");
+                return;
+            }
+
+            foreach (var branch in Hospital.Branches)
+            {
+                Console.WriteLine($"ID: {branch.BranchId}, Name: {branch.BranchName}");
+            }
 
 
+        }
     }
 }
