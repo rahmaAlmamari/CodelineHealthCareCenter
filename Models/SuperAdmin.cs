@@ -55,7 +55,8 @@ namespace CodelineHealthCareCenter.Models
                     case '0':
                         Console.WriteLine("Exiting SuperAdmin Menu.");
                         Additional.HoldScreen();
-                        break;
+
+                        return; // Exit the SuperAdminMenu
                     default:
                         Console.WriteLine("Invalid option, please try again.");
                         Additional.HoldScreen();
@@ -84,9 +85,12 @@ namespace CodelineHealthCareCenter.Models
                 case '2':
                     DoctorUserMenu();
                     break;
-
                 case '0':
+                    Console.WriteLine("Exiting Users Menu.");
+                    Additional.HoldScreen();
                     SuperAdminMenu();
+                    break;
+                default:
                     Console.WriteLine("Invalid option, please try again.");
                     Additional.HoldScreen();
                     break;
@@ -123,7 +127,8 @@ namespace CodelineHealthCareCenter.Models
                         DeleteAdmin();
                         break;
                     case '0':
-                        return; // Go back to AdminDoctorUserMenu
+                        AdminDoctorUserMenu();
+                        break; 
                     default:
                         Console.WriteLine("Invalid option, please try again.");
                         Additional.HoldScreen();
@@ -149,7 +154,6 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("2. View All Doctors ");
                 Console.WriteLine("3. Update Doctor ");
                 Console.WriteLine("4. Delete Doctor ");
-                Console.WriteLine("5. Set Doctor Status ");
                 Console.WriteLine("0. Back ");
                 choice1 = Validation.StringValidation("Please select an option : ");
 
@@ -167,11 +171,9 @@ namespace CodelineHealthCareCenter.Models
                     case "4":
                         DeleteDoctor();
                         break;
-                    case "5":
-                        SetDoctorStatus();
-                        break;
                     case "0":
-                        return; // Back to AdminDoctorUserMenu
+                        AdminDoctorUserMenu();
+                        break; 
                     default:
                         Console.WriteLine("Invalid option, please try again.");
                         Additional.HoldScreen();
