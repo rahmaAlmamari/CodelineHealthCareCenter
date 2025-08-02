@@ -611,6 +611,24 @@ namespace CodelineHealthCareCenter.Models
             return null; // Return null if no patient found with the given booking ID
         }
         //to list all patient who have appointments with a specific doctor based on doctor.bookingId == petient.bookingId
-
+        public static void ListPatientsByDoctorId(int doctorId)
+        {
+            Console.WriteLine($"List of Patients for Doctor ID {doctorId}:");
+            var patientsWithAppointments = BranchDepartment.Doctors
+                .Where(d => d.UserId == doctorId)
+                .SelectMany(d => d.DoctorAppointments)
+                .Select(booking => GetPatientByBookingId(booking.BookingId))
+                .Where(patient => patient != null)
+                .ToList();
+            if (patientsWithAppointments.Count == 0)
+            {
+                Console.WriteLine("No patients found for this doctor.");
+                return;
+            }
+            foreach (var patient in patientsWithAppointments)
+            {
+                Console.WriteLine($"Patient National ID: {patient.UserNationalID}, Name: {patient.UserName}");
+            }
+        }
     }
 }
