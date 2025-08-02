@@ -15,6 +15,7 @@ namespace CodelineHealthCareCenter.Models
         public int ClinicId;
         public int DoctorId;
         public static int BookingCount = 0;
+        public List<Service> BookingService = new List<Service>();
 
 
         //====================================================
