@@ -527,6 +527,24 @@ namespace CodelineHealthCareCenter.Models
             }
             return false; //if department id does not exist ...
         }
+        //26. DepartmentIdValidation method ...
+        public static int DepartmentIdValidation() 
+        {
+            bool FlagError = false;
+            int departmentId = 0;
+            do
+            {
+                FlagError = false;
+                departmentId = Validation.IntValidation("Department ID");
+                //to check if the department id exists or not ...
+                if (!Validation.DepartmentIdExists(departmentId))
+                {
+                    Console.WriteLine("This department ID does not exist. Please try again with a valid one.");
+                    FlagError = true; // Set the flag to true to repeat the loop
+                }
+            } while (FlagError);
+            return departmentId; // Return the valid department ID
+        }
 
 
     }
