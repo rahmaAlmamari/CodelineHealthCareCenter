@@ -56,7 +56,7 @@ namespace CodelineHealthCareCenter.Models
                         Console.WriteLine("Exiting SuperAdmin Menu.");
                         Additional.HoldScreen();
                         // return to MainMenu in program file
-                        //Program.ShowMainMenu();
+                        Program.ShowMainMenu();
                         return; // Exit the SuperAdminMenu
                     default:
                         Console.WriteLine("Invalid option, please try again.");
