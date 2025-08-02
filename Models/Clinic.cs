@@ -328,8 +328,6 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Clinic data saved successfully.");
         }
 
-
-
         public static void LoadClinicFromFile()
         {
             clinicCounter = 0;
@@ -341,9 +339,10 @@ namespace CodelineHealthCareCenter.Models
             }
 
             string[] lines = File.ReadAllLines(filePath);
-            foreach (var line in lines)
+
+            for (int i = 0; i < lines.Length; i += 4)
             {
-                var parts = line.Split('|');
+                string[] parts = lines[i].Split('|');
                 if (parts.Length != 7)
                     continue;
 
@@ -355,24 +354,89 @@ namespace CodelineHealthCareCenter.Models
                 int roomId = int.Parse(parts[5]);
                 bool status = bool.Parse(parts[6]);
 
-                // Create the clinic
+                // Create clinic
                 Clinic clinic = new Clinic(clinicName, floorId, roomId)
                 {
                     ClinicId = clinicId,
-                    ClinicName = clinicName,
                     DepartmentId = departmentId,
                     BranchId = branchId,
                     FloorId = floorId,
                     RoomId = roomId
                 };
-
                 clinic.SetClinicStatus(status);
 
-                // Update the clinic counter if needed
+                // Update counter
                 if (clinicId > clinicCounter)
                     clinicCounter = clinicId;
 
-                // Add to the correct department
+                // Line 2: Doctors
+                if (i + 1 < lines.Length && lines[i + 1].StartsWith("Doctors:"))
+                {
+                    var doctorIds = lines[i + 1].Substring(8).Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var idStr in doctorIds)
+                    {
+                        if (int.TryParse(idStr, out int doctorId))
+                        {
+                            foreach(var My_department in BranchDepartment.Departments)
+                            {
+                                // Find doctor by ID in the hospital's doctors list
+                                //var My_doctor = My_department.Clinics..FirstOrDefault(d => d.UserId == doctorId);
+                                foreach (var My_clinic in My_department.Clinics)
+                                {
+                                   if(My_clinic.ClinicId == clinicId)
+                                    {
+                                        var doctor = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
+                                        if (doctor != null && !clinic.Doctors.Contains(doctor))
+                                            clinic.Doctors.Add(doctor);
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Line 3: Spots
+                if (i + 2 < lines.Length && lines[i + 2].StartsWith("Spots:"))
+                {
+                    var spotStrs = lines[i + 2].Substring(6).Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var spotStr in spotStrs)
+                    {
+                        if (DateTime.TryParse(spotStr, out DateTime spot))
+                            clinic.ClinicSpots.Add(spot);
+                    }
+                }
+
+                // Line 4: Services
+                if (i + 3 < lines.Length && lines[i + 3].StartsWith("Services:"))
+                {
+                    var serviceIds = lines[i + 3].Substring(9).Split(',', StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var idStr in serviceIds)
+                    {
+                        if (int.TryParse(idStr, out int serviceId))
+                        {
+                            foreach (var My_department in BranchDepartment.Departments)
+                            {
+                                // Find doctor by ID in the hospital's doctors list
+                                //var My_doctor = My_department.Clinics..FirstOrDefault(d => d.UserId == doctorId);
+                                foreach (var My_clinic in My_department.Clinics)
+                                {
+                                    if (My_clinic.ClinicId == clinicId)
+                                    {
+                                        var My_servic = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
+                                        if (My_servic == null)
+                                        {
+                                            clinic.Services.Add(My_servic);
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Add to department
                 var department = BranchDepartment.Departments
                     .FirstOrDefault(d => d.DepartmentId == departmentId && d.BranchId == branchId);
 
