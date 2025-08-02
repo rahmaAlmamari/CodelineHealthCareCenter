@@ -496,6 +496,24 @@ namespace CodelineHealthCareCenter.Models
             }
             return false; //if branch id does not exist ...
         }
+        //24. BranchIdValidation method ...
+        public static int BranchIdValidation()
+        {
+            bool FlagError = false;
+            int branchId = 0;
+            do
+            {
+                FlagError = false;
+                branchId = Validation.IntValidation("Branch ID");
+                //to check if the branch id exists or not ...
+                if (!Validation.BranchIdExists(branchId))
+                {
+                    Console.WriteLine("This branch ID does not exist. Please try again with a valid one.");
+                    FlagError = true; // Set the flag to true to repeat the loop
+                }
+            } while (FlagError);
+            return branchId; // Return the valid branch ID
+        }
 
 
     }
