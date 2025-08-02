@@ -169,6 +169,7 @@ internal class Program
                         SuperAdmin.SaveDoctorsToFile();
                         //to save patient data to file ...
                         Patient.SavePatientsToFile();
+                        Patient.SaveAppointmentsToFile(); // Save patient appointments to file
                         Console.ReadLine();//just to hold the screen ... 
 
                         Console.WriteLine("Thank you for using the Hotel System. Goodbye!");
