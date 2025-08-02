@@ -99,16 +99,42 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
-        public static void AddClinic(string clinicName, string location) // adds a new clinic to the list
+        public static void AddClinic() // adds a new clinic to the list
         {
+            //to get clinic name ...
+            string clinicName = Validation.ClinicNameValidation();
+            //to list all branches ...
+            Branch.GetAllBranches();
+            //to get branch ID ...
+            int branchId = Validation.BranchIdValidation();
+            //to list all departments ...
+            Department.GetAllDepartments();
+            //to get department ID ...
+            int departmentId = Validation.DepartmentIdValidation();
+            //to add clinic to clinic list ...
             foreach (var department in BranchDepartment.Departments)
             {
-                if (department.Clinics.Any(c => c.ClinicName.Equals(clinicName, StringComparison.OrdinalIgnoreCase)))
+                if (department.DepartmentId != departmentId || department.BranchId != branchId) continue;
+                // Create and add new clinic
+                var newClinic = new Clinic(clinicName, 0, 0) // FloorId and RoomId are set to 0 for now
                 {
-                    Console.WriteLine($"Clinic '{clinicName}' already exists in Department ID {department.DepartmentId}.");
-                    return;
-                }
+                    DepartmentId = departmentId,
+                    BranchId = branchId
+                };
+                department.Clinics.Add(newClinic);
+                Console.WriteLine($"Clinic '{clinicName}' added successfully to Department ID {department.DepartmentId}.");
+                return;
             }
+
+
+            //foreach (var department in BranchDepartment.Departments)
+            //{
+            //    if (department.Clinics.Any(c => c.ClinicName.Equals(clinicName, StringComparison.OrdinalIgnoreCase)))
+            //    {
+            //        Console.WriteLine($"Clinic '{clinicName}' already exists in Department ID {department.DepartmentId}.");
+            //        return;
+            //    }
+            //}
             //var newClinic = new Clinic(clinicName, location, 0, 0, 0, 0, 0);
             //Clinics.Add(newClinic);
             //Console.WriteLine($"Clinic '{clinicName}' added successfully.");
@@ -296,49 +322,49 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Clinic data saved successfully.");
         }
 
-        public static void LoadClinicFromFile() // loads clinic data from a file
-        {
-            clinicCounter = 0;
+        //public static void LoadClinicFromFile() // loads clinic data from a file
+        //{
+        //    clinicCounter = 0;
 
-            if (!File.Exists(filePath))
-            {
-                Console.WriteLine("Clinic data file not found!.");
-                return;
-            }   
+        //    if (!File.Exists(filePath))
+        //    {
+        //        Console.WriteLine("Clinic data file not found!.");
+        //        return;
+        //    }   
                 
 
-            string[] lines = File.ReadAllLines(filePath);
-            foreach (var line in lines)
-            {
-                string[] parts = line.Split('|');
-                if (parts.Length < 7) continue;
+        //    string[] lines = File.ReadAllLines(filePath);
+        //    foreach (var line in lines)
+        //    {
+        //        string[] parts = line.Split('|');
+        //        if (parts.Length < 7) continue;
 
-                var clinic = new Clinic(
-                    clinicName: parts[1],
-                    departmentId: int.Parse(parts[2]),
-                    branchId: int.Parse(parts[3]),
-                    floorId: int.Parse(parts[4]),
-                    roomId: int.Parse(parts[5])
-                );
+        //        var clinic = new Clinic(
+        //            clinicName: parts[1],
+        //            departmentId: int.Parse(parts[2]),
+        //            branchId: int.Parse(parts[3]),
+        //            floorId: int.Parse(parts[4]),
+        //            roomId: int.Parse(parts[5])
+        //        );
 
-                bool status = bool.Parse(parts[6]);
-                clinic.SetClinicStatus(status);
-                clinic.ClinicId = int.Parse(parts[0]); // manually set ID
+        //        bool status = bool.Parse(parts[6]);
+        //        clinic.SetClinicStatus(status);
+        //        clinic.ClinicId = int.Parse(parts[0]); // manually set ID
 
-                foreach (var department in BranchDepartment.Departments)
-                {
-                    if (department.DepartmentId == clinic.DepartmentId)
-                    {
-                        department.Clinics.Add(clinic);
-                        break;
-                    }
-                }
+        //        foreach (var department in BranchDepartment.Departments)
+        //        {
+        //            if (department.DepartmentId == clinic.DepartmentId)
+        //            {
+        //                department.Clinics.Add(clinic);
+        //                break;
+        //            }
+        //        }
                 
-                if (clinic.ClinicId > clinicCounter)
-                    clinicCounter = clinic.ClinicId;
-            }
-            Console.WriteLine("Clinic data loaded successfully.");
-        }
+        //        if (clinic.ClinicId > clinicCounter)
+        //            clinicCounter = clinic.ClinicId;
+        //    }
+        //    Console.WriteLine("Clinic data loaded successfully.");
+        //}
 
 
         public static void ClinicMenu()
@@ -368,7 +394,7 @@ namespace CodelineHealthCareCenter.Models
                     case "1":
                         string name = Validation.StringNamingValidation("Clinic Name");
                         string location = Validation.StringValidation("Clinic Location");
-                        Clinic.AddClinic(name, location);
+                        Clinic.AddClinic();
                         break;
 
                     case "2":
@@ -446,14 +472,14 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //4. class constructor ...
 
-        public Clinic(string clinicName, int departmentId, int branchId, int floorId, int roomId)
+        public Clinic(string clinicName, int floorId, int roomId)
         {
             clinicCounter++;
             ClinicId = clinicCounter;
             ClinicName = clinicName;
             //Location = location;
-            DepartmentId = departmentId;
-            BranchId = branchId;
+            //DepartmentId = departmentId;
+            //BranchId = branchId;
             FloorId = floorId;
             RoomId = roomId;
             //Price = price;
