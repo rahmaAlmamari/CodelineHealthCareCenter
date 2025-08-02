@@ -55,7 +55,8 @@ namespace CodelineHealthCareCenter.Models
                     case '0':
                         Console.WriteLine("Exiting SuperAdmin Menu.");
                         Additional.HoldScreen();
-
+                        // return to MainMenu in program file
+                        //Program.ShowMainMenu();
                         return; // Exit the SuperAdminMenu
                     default:
                         Console.WriteLine("Invalid option, please try again.");
@@ -274,6 +275,7 @@ namespace CodelineHealthCareCenter.Models
                             {
                                 string newDepartmentName = Validation.StringValidation("Enter New Department Name:");
                                 Department.UpdateDepartment(departmentId, newDepartmentName);
+
                             }
                             else
                             {
@@ -305,7 +307,11 @@ namespace CodelineHealthCareCenter.Models
                         break;
 
                     case "0":
-                        return; // Back to SuperAdminMenu
+                        Console.WriteLine("Exiting Department Menu.");
+                        Additional.HoldScreen();
+                        SuperAdminMenu();
+                        break;
+                        //return; // Back to SuperAdminMenu
                     default:
                         Console.WriteLine("Invalid option, please try again.");
                         Additional.HoldScreen();
