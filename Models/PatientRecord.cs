@@ -22,7 +22,7 @@ namespace CodelineHealthCareCenter.Models
 
         public static int PatientRecordCount = 0;
         public static IPatientRecordService service;
-        public static List<PatientRecord> Records = new List<PatientRecord>();
+        //public static List<PatientRecord> Records = new List<PatientRecord>();
 
         //====================================================
         //2. class property ...
@@ -43,121 +43,121 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($" - {s.ServiceName} (${s.Price})");
         }
 
-        public static void AddPatientRecord(int patientId, string recordDetails)
-        {
-            int clinicId = Validation.IntValidation("Clinic ID");
+        //public static void AddPatientRecord(int patientId, string recordDetails)
+        //{
+        //    int clinicId = Validation.IntValidation("Clinic ID");
 
-            Console.WriteLine("Enter number of services to add:");
-            int count = Validation.IntValidation("Service Count");
+        //    Console.WriteLine("Enter number of services to add:");
+        //    int count = Validation.IntValidation("Service Count");
 
-            List<Service> selectedServices = new List<Service>();
-            for (int i = 0; i < count; i++)
-            {
-                int serviceId = Validation.IntValidation($"Service ID #{i + 1}");
-                var service = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
-                if (service == null)
-                {
-                    Console.WriteLine("Invalid service ID. Skipping.");
-                    continue;
-                }
-                selectedServices.Add(service);
-            }
+        //    List<Service> selectedServices = new List<Service>();
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        int serviceId = Validation.IntValidation($"Service ID #{i + 1}");
+        //        var service = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
+        //        if (service == null)
+        //        {
+        //            Console.WriteLine("Invalid service ID. Skipping.");
+        //            continue;
+        //        }
+        //        selectedServices.Add(service);
+        //    }
 
-            var record = new PatientRecord(patientId, clinicId, recordDetails, selectedServices);
-            Records.Add(record);
-            Console.WriteLine($"Patient record added with ID: {record.PatientRecordId}");
-        }
+        //    var record = new PatientRecord(patientId, clinicId, recordDetails, selectedServices);
+        //    Records.Add(record);
+        //    Console.WriteLine($"Patient record added with ID: {record.PatientRecordId}");
+        //}
 
-        public static void UpdatePatientRecord(int recordId, string newDetails)
-        {
-            var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
-            if (record == null)
-            {
-                Console.WriteLine("Record not found.");
-                return;
-            }
+        //public static void UpdatePatientRecord(int recordId, string newDetails)
+        //{
+        //    var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
+        //    if (record == null)
+        //    {
+        //        Console.WriteLine("Record not found.");
+        //        return;
+        //    }
 
-            record.DoctorNote = newDetails;
-            Console.WriteLine("Doctor note updated successfully.");
-        }
+        //    record.DoctorNote = newDetails;
+        //    Console.WriteLine("Doctor note updated successfully.");
+        //}
 
-        public static void DeletePatientRecord(int recordId)
-        {
-            var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
-            if (record == null)
-            {
-                Console.WriteLine("Record not found.");
-                return;
-            }
+        //public static void DeletePatientRecord(int recordId)
+        //{
+        //    var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
+        //    if (record == null)
+        //    {
+        //        Console.WriteLine("Record not found.");
+        //        return;
+        //    }
 
-            Records.Remove(record);
-            Console.WriteLine("Patient record deleted successfully.");
-        }
+        //    Records.Remove(record);
+        //    Console.WriteLine("Patient record deleted successfully.");
+        //}
 
-        public static void GetPatientRecordById(int recordId)
-        {
-            var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
-            if (record == null)
-            {
-                Console.WriteLine("Record not found.");
-                return;
-            }
-            record.ViewRecordDetails();
-        }
+        //public static void GetPatientRecordById(int recordId)
+        //{
+        //    var record = Records.FirstOrDefault(r => r.PatientRecordId == recordId);
+        //    if (record == null)
+        //    {
+        //        Console.WriteLine("Record not found.");
+        //        return;
+        //    }
+        //    record.ViewRecordDetails();
+        //}
 
-        public static void GetAllPatientRecords()
-        {
-            if (Records.Count == 0)
-            {
-                Console.WriteLine("No patient records found.");
-                return;
-            }
-            foreach (var record in Records)
-                record.ViewRecordDetails();
-        }
+        //public static void GetAllPatientRecords()
+        //{
+        //    if (Records.Count == 0)
+        //    {
+        //        Console.WriteLine("No patient records found.");
+        //        return;
+        //    }
+        //    foreach (var record in Records)
+        //        record.ViewRecordDetails();
+        //}
 
-        public static void GetRecordsByPatientId(int patientId)
-        {
-            var results = Records.Where(r => r.PatientId == patientId).ToList();
-            if (results.Count == 0)
-            {
-                Console.WriteLine("No records found for this patient.");
-                return;
-            }
+        //public static void GetRecordsByPatientId(int patientId)
+        //{
+        //    var results = Records.Where(r => r.PatientId == patientId).ToList();
+        //    if (results.Count == 0)
+        //    {
+        //        Console.WriteLine("No records found for this patient.");
+        //        return;
+        //    }
 
-            foreach (var r in results)
-                r.ViewRecordDetails();
-        }
+        //    foreach (var r in results)
+        //        r.ViewRecordDetails();
+        //}
 
-        public static void GetRecordsByClinicIdAndDate(int clinicId, DateTime date)
-        {
-            var results = Records
-                .Where(r => r.ClinicId == clinicId && r.DateCreated.Date == date.Date)
-                .ToList();
+        //public static void GetRecordsByClinicIdAndDate(int clinicId, DateTime date)
+        //{
+        //    var results = Records
+        //        .Where(r => r.ClinicId == clinicId && r.DateCreated.Date == date.Date)
+        //        .ToList();
 
-            if (results.Count == 0)
-            {
-                Console.WriteLine("No records found for this clinic on that date.");
-                return;
-            }
+        //    if (results.Count == 0)
+        //    {
+        //        Console.WriteLine("No records found for this clinic on that date.");
+        //        return;
+        //    }
 
-            foreach (var r in results)
-                r.ViewRecordDetails();
-        }
+        //    foreach (var r in results)
+        //        r.ViewRecordDetails();
+        //}
 
-        public static void SaveToFile(string filePath)
-        {
-            using StreamWriter writer = new StreamWriter(filePath);
-            foreach (var record in Records)
-            {
-                string serviceIds = string.Join(",", record.Services.Select(s => s.ServiceId));
-                writer.WriteLine($"{record.PatientRecordId}|{record.PatientId}|{record.ClinicId}|{record.DateCreated:O}|{record.TotalCost}|{record.DoctorNote}|{serviceIds}");
-            }
-        }
+        //public static void SaveToFile(string filePath)
+        //{
+        //    using StreamWriter writer = new StreamWriter(filePath);
+        //    foreach (var record in Records)
+        //    {
+        //        string serviceIds = string.Join(",", record.Services.Select(s => s.ServiceId));
+        //        writer.WriteLine($"{record.PatientRecordId}|{record.PatientId}|{record.ClinicId}|{record.DateCreated:O}|{record.TotalCost}|{record.DoctorNote}|{serviceIds}");
+        //    }
+        //}
 
         public static void LoadFromFile(string filePath)
         {
-            Records.Clear();
+            //Records.Clear();
             PatientRecordCount = 0;
 
             if (!File.Exists(filePath)) return;
@@ -193,7 +193,7 @@ namespace CodelineHealthCareCenter.Models
                     TotalCost = totalCost
                 };
 
-                Records.Add(record);
+                //Records.Add(record);
                 if (record.PatientRecordId > PatientRecordCount)
                     PatientRecordCount = record.PatientRecordId;
             }
