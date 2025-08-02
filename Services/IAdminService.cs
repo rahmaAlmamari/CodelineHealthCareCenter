@@ -11,7 +11,7 @@ namespace CodelineHealthCareCenter.Services
         // Methods for Admin Service ...
 
         void AssignDoctorToClinic(int doctorId, int clinicId);
-        void AddClinicService(int clinicId, int serviceId);
+        void AddClinicService();
         void GetClinicServices(int clinicId);
         void GetClinicDoctors(int clinicId);
         void AddClinicSpot(int clinicId, DateTime newSpot);
