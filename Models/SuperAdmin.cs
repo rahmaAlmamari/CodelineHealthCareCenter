@@ -668,9 +668,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("------------------------");
                 Console.WriteLine("1. Update Email");
                 Console.WriteLine("2. Update Phone Number");
-                Console.WriteLine("3. Update National ID");
-                Console.WriteLine("4. Update Role");
-                Console.WriteLine("5. Update Status");
+                Console.WriteLine("3. Update Status");
                 Console.WriteLine("0. Exit");
 
                 char choice = Validation.CharValidation("Choose an option: ");
@@ -684,12 +682,6 @@ namespace CodelineHealthCareCenter.Models
                         adminToUpdate.UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
                         break;
                     case '3':
-                        adminToUpdate.UserNationalID = Validation.StringValidation("Enter new national ID: ");
-                        break;
-                    case '4':
-                        adminToUpdate.UserRole = Validation.StringValidation("Enter new role (Admin/SuperAdmin): ");
-                        break;
-                    case '5':
                         adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
                         break;
                     case '0':
