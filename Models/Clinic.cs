@@ -392,8 +392,8 @@ namespace CodelineHealthCareCenter.Models
                 switch (choice)
                 {
                     case "1":
-                        string name = Validation.StringNamingValidation("Clinic Name");
-                        string location = Validation.StringValidation("Clinic Location");
+                        //string name = Validation.StringNamingValidation("Clinic Name");
+                        //string location = Validation.StringValidation("Clinic Location");
                         Clinic.AddClinic();
                         break;
 
