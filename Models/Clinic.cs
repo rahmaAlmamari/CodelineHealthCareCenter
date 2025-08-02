@@ -15,7 +15,7 @@ namespace CodelineHealthCareCenter.Models
         private static int clinicCounter = 0;
         //private string location;
         //private decimal price;
-        public static IClinicService service;
+        //public static IClinicService service;
 
         //clinic file path ...
         private static string filePath = "clinics.txt";
@@ -368,27 +368,27 @@ namespace CodelineHealthCareCenter.Models
                     case "1":
                         string name = Validation.StringNamingValidation("Clinic Name");
                         string location = Validation.StringValidation("Clinic Location");
-                        service.AddClinic(name, location);
+                        Clinic.AddClinic(name, location);
                         break;
 
                     case "2":
-                        service.GetAllClinics();
+                        Clinic.GetAllClinics();
                         break;
 
                     case "3":
                         int id = Validation.IntValidation("Clinic ID");
-                        service.GetClinicById(id);
+                        Clinic.GetClinicById(id);
                         break;
 
                     case "4":
                         string searchName = Validation.StringNamingValidation("Clinic Name");
-                        service.GetClinicByName(searchName);
+                        Clinic.GetClinicByName(searchName);
                         break;
 
                     case "5":
                         int branchId = Validation.IntValidation("Branch ID");
                         int deptId = Validation.IntValidation("Department ID");
-                        service.GetClinicByBranchDep(branchId, deptId);
+                        Clinic.GetClinicByBranchDep(branchId, deptId);
                         break;
 
                     case "6":
@@ -399,7 +399,7 @@ namespace CodelineHealthCareCenter.Models
                             string newName = Validation.StringNamingValidation("New Clinic Name");
                             string newLocation = Validation.StringValidation("New Location");
                             decimal price = (decimal)Validation.DoubleValidation("New Price");
-                            service.UpdateClinicDetails(updateId, newName, newLocation, price);
+                            Clinic.UpdateClinicDetails(updateId, newName, newLocation, price);
                         }
                         else Console.WriteLine("Update cancelled.");
                         break;
@@ -415,7 +415,7 @@ namespace CodelineHealthCareCenter.Models
                             {
                                 Console.WriteLine("Invalid input. Please enter 'true' or 'false': ");
                             }
-                            service.SetClinicStatus(toggleId, isActive);
+                            Clinic.SetClinicStatus(toggleId, isActive);
                         }
                         else Console.WriteLine("Status change cancelled.");
                         break;
@@ -425,7 +425,7 @@ namespace CodelineHealthCareCenter.Models
 
                         if (Additional.ConfirmAction("delete this clinic"))
                         {
-                            service.DeleteClinic(deleteId);
+                            Clinic.DeleteClinic(deleteId);
                         }
                         else Console.WriteLine("Deletion cancelled.");
                         break;
