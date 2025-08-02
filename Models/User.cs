@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -100,7 +101,8 @@ namespace CodelineHealthCareCenter.Models
                     foreach (var patient in branch.Patients)
                     {
                         if (patient.UserNationalID == userNationalID &&
-                            Validation.VerifyPasswordPBKDF2(userPassword, patient.P_UserPassword))
+                            Validation.VerifyPasswordPBKDF2(userPassword, patient.P_UserPassword) &&
+                            patient.UserStatus == "Active")
                         {
                             Console.WriteLine($"\nWelcome, Patient {patient.UserName}!");
                             Patient.PatientMenu();
@@ -113,7 +115,8 @@ namespace CodelineHealthCareCenter.Models
                 foreach (var doctor in BranchDepartment.Doctors)
                 {
                     if (doctor.UserNationalID == userNationalID &&
-                        Validation.VerifyPasswordPBKDF2(userPassword, doctor.P_UserPassword))
+                        Validation.VerifyPasswordPBKDF2(userPassword, doctor.P_UserPassword) &&
+                        doctor.UserStatus == "Active")
                     {
                         Console.WriteLine($"\nWelcome, Dr. {doctor.UserName}!");
                         Doctor.DoctorMenu(); // Replace with your actual doctor menu ...
@@ -125,7 +128,8 @@ namespace CodelineHealthCareCenter.Models
                 foreach (var admin in BranchDepartment.Admins)
                 {
                     if (admin.UserNationalID == userNationalID &&
-                        Validation.VerifyPasswordPBKDF2(userPassword, admin.P_UserPassword))
+                        Validation.VerifyPasswordPBKDF2(userPassword, admin.P_UserPassword) &&
+                        admin.UserStatus == "Active")
                     {
                         Console.WriteLine($"\nWelcome, Admin {admin.UserName}!");
                         Admin.AdminMenu(); // Replace with your actual admin menu ...
@@ -137,7 +141,8 @@ namespace CodelineHealthCareCenter.Models
                 foreach (var superAdmin in Hospital.SuperAdmins)
                 {
                     if (superAdmin.UserNationalID == userNationalID &&
-                        Validation.VerifyPasswordPBKDF2(userPassword, superAdmin.P_UserPassword))
+                        Validation.VerifyPasswordPBKDF2(userPassword, superAdmin.P_UserPassword) &&
+                        superAdmin.UserStatus == "Active")
                     {
                         Console.WriteLine($"\nWelcome, Super Admin {superAdmin.UserName}!");
                         Additional.HoldScreen();

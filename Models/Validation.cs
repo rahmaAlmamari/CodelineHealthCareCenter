@@ -577,5 +577,19 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}");
             }
         }
+        //to list all deprartments in the system
+        public static void ListAllDepartments()
+        {
+            Console.WriteLine("List of All Departments:");
+            if (BranchDepartment.Departments.Count == 0)
+            {
+                Console.WriteLine("No departments available.");
+                return;
+            }
+            foreach (var department in BranchDepartment.Departments)
+            {
+                Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
+            }
+        }
     }
 }

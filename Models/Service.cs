@@ -101,7 +101,7 @@ namespace CodelineHealthCareCenter.Models
         public static void SaveServicesToFile()
         {
             using StreamWriter writer = new StreamWriter(ServicesFilePath);
-            foreach (var service in Services)
+            foreach (var service in Service.Services)
             {
                 writer.WriteLine($"{service.ServiceId}|{service.ServiceName}|{service.Price} | {service.ClinicId}");
             }
@@ -124,11 +124,12 @@ namespace CodelineHealthCareCenter.Models
                 {
                     ServiceId = int.Parse(parts[0])
                 };
-
+                service.ClinicId = parts.Length > 3 ? int.Parse(parts[3]) : 0; // optional ClinicId
                 Services.Add(service);
                 if (service.ServiceId > ServiceCount)
                     ServiceCount = service.ServiceId;
             }
+            Console.WriteLine("Service data loaded successfully.");
         }
 
 

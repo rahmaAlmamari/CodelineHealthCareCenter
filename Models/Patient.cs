@@ -314,6 +314,141 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Patients loaded successfully.");
             //Additional.HoldScreen(); //just to hold the screen ...
         }
+        //to SaveAppointmentsToFile
+        public static void SavePatientAppointmentsToFile()
+        {
+            string path = "appointments.txt";
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                foreach (var branch in Hospital.Branches)
+                {
+                    foreach (var patient in branch.Patients)
+                    {
+                        foreach (var appointment in patient.PatientAppointments)
+                        {
+                            writer.WriteLine($"{patient.UserId}|{appointment.BookingId}|{appointment.BookingDateTime:yyyy-MM-dd HH:mm}|{appointment.DoctorId}");
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Appointments saved successfully.");
+        }
+        //to LoadAppointmentsFromFile
+        public static void LoadPatientAppointmentsFromFile()
+        {
+            string path = "appointments.txt";
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("Appointments file not found.");
+                return;
+            }
+
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var parts = line.Split('|');
+                    if (parts.Length != 4) continue;
+
+                    int patientId = int.Parse(parts[0]);
+                    int bookingId = int.Parse(parts[1]);
+                    DateTime bookingDateTime = DateTime.Parse(parts[2]);
+                    int doctorId = int.Parse(parts[3]);
+
+                    var patient = FindPatientById(patientId);
+                    if (patient != null)
+                    {
+                        Booking booking = new Booking
+                        {
+                            BookingId = bookingId,
+                            BookingDateTime = bookingDateTime,
+                            DoctorId = doctorId
+                        };
+                        patient.PatientAppointments.Add(booking);
+                    }
+                }
+            }
+
+            Console.WriteLine("Appointments loaded successfully.");
+        }
+
+        //to find patient by ID
+        public static Patient FindPatientById(int id)
+        {
+            foreach (var branch in Hospital.Branches)
+            {
+                foreach (var patient in branch.Patients)
+                {
+                    if (patient.UserId == id)
+                        return patient;
+                }
+            }
+            return null;
+        }
+        //to SavePatientRecordsToFile
+        //public static void SavePatientRecordsToFile()
+        //{
+        //    string path = "patient_records.txt";
+        //    using (StreamWriter writer = new StreamWriter(path))
+        //    {
+        //        foreach (var branch in Hospital.Branches)
+        //        {
+        //            foreach (var patient in branch.Patients)
+        //            {
+        //                foreach (var record in patient.PatientRecords)
+        //                {
+        //                    writer.WriteLine($"{patient.UserId}|{record.}|{record.RecordDate:yyyy-MM-dd}|{record.RecordDescription}");
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    Console.WriteLine("Patient records saved successfully.");
+        //}
+        //to LoadPatientRecordsFromFile
+        //public static void LoadPatientRecordsFromFile()
+        //{
+        //    string path = "patient_records.txt";
+        //    if (!File.Exists(path))
+        //    {
+        //        Console.WriteLine("Patient records file not found.");
+        //        return;
+        //    }
+
+        //    using (StreamReader reader = new StreamReader(path))
+        //    {
+        //        string line;
+        //        while ((line = reader.ReadLine()) != null)
+        //        {
+        //            var parts = line.Split('|');
+        //            if (parts.Length != 4) continue;
+
+        //            int patientId = int.Parse(parts[0]);
+        //            int recordId = int.Parse(parts[1]);
+        //            DateTime recordDate = DateTime.Parse(parts[2]);
+        //            string description = parts[3];
+
+        //            var patient = FindPatientById(patientId);
+        //            if (patient != null)
+        //            {
+        //                PatientRecord record = new PatientRecord
+        //                {
+        //                    RecordId = recordId,
+        //                    RecordDate = recordDate,
+        //                    RecordDescription = description
+        //                };
+        //                patient.PatientRecords.Add(record);
+        //            }
+        //        }
+        //    }
+
+        //    Console.WriteLine("Patient records loaded successfully.");
+        //}
+
+
+
 
         //====================================================
         //4. class constructor ...
