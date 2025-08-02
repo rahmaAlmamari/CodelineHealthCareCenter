@@ -67,29 +67,33 @@ namespace CodelineHealthCareCenter.Models
 
         public void AssignDoctorToClinic(int doctorId, int clinicId)
         {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            var doctor = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
-
-            if (clinic == null)
+            //to check if clinic exists ...
+            foreach(var clinic in Clinics)
             {
-                Console.WriteLine("Clinic not found.");
-                return;
+                if (clinic.ClinicId == clinicId)
+                {
+                    //to check if doctor exists ...
+                    foreach (var doctor in BranchDepartment.Doctors)
+                    {
+                        if (doctor.UserId == doctorId)
+                        {
+                            //to check if the doctor is already assigned to the clinic ...
+                            if (clinic.Doctors.Any(d => d.UserId == doctorId))
+                            {
+                                Console.WriteLine($"Doctor '{doctor.UserName}' is already assigned to Clinic '{clinic.ClinicName}'.");
+                                return;
+                            }
+                            //to assign the doctor to the clinic ...
+                            clinic.Doctors.Add(doctor);
+                            Console.WriteLine($"Doctor '{doctor.UserName}' assigned to Clinic '{clinic.ClinicName}'.");
+                            return;
+                        }
+                    }
+                    Console.WriteLine("Doctor not found.");
+                    return;
+                }
             }
-
-            if (doctor == null)
-            {
-                Console.WriteLine("Doctor not found.");
-                return;
-            }
-
-            if (clinic.Doctors.Any(d => d.UserId == doctorId))
-            {
-                Console.WriteLine("Doctor already assigned.");
-                return;
-            }
-
-            clinic.Doctors.Add(doctor);
-            Console.WriteLine($"Doctor {doctor.UserName} assigned to Clinic '{clinic.ClinicName}'.");
+            Console.WriteLine("Clinic not found.");
         }
 
         public void AddClinicService()
@@ -342,11 +346,8 @@ namespace CodelineHealthCareCenter.Models
                     case "4":
                         Console.WriteLine("All Doctors:");
                         Doctor.GetAllDoctors();
-
-                        //Doctor.GetAllDoctors();
                         Console.WriteLine("All Clinics:");
                         Clinic.GetAllClinics();
-                        CurrentAdmin.ViewClinics();
                         int doctorId = Validation.IntValidation("Doctor ID");
                         int clinicId = Validation.IntValidation("Clinic ID");
                         if (Additional.ConfirmAction("assign the doctor to this clinic"))
