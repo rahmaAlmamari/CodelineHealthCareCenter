@@ -40,6 +40,29 @@ namespace CodelineHealthCareCenter.Models
             //to list all spots in the selected clinic ...
             GetAllSpotsByClinicId(clinicId, departmentId);
             DateTime SpotDateTime = Validation.DateTimeValidation("Spot Date and Time (yyyy-MM-dd HH:mm:ss)");
+            //to remove the selected spot from the clinic spots ...
+            foreach (var department in BranchDepartment.Departments)
+            {
+                if (department.DepartmentId == departmentId)
+                {
+                    foreach (var clinic in department.Clinics)
+                    {
+                        if (clinic.ClinicId == clinicId)
+                        {
+                            if (clinic.ClinicSpots.Contains(SpotDateTime))
+                            {
+                                clinic.ClinicSpots.Remove(SpotDateTime);
+                                Console.WriteLine($"Spot {SpotDateTime} removed from Clinic ID {clinicId}.");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Spot {SpotDateTime} not found in Clinic ID {clinicId}.");
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
             //to create a new booking ...
             Booking newBooking = new Booking
             {
