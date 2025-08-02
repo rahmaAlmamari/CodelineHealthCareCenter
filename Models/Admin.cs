@@ -95,13 +95,7 @@ namespace CodelineHealthCareCenter.Models
         public void AddClinicService()
         {
             //to list all clinics ...
-            Console.WriteLine("List of All Clinics:");
-            if (Clinics.Count == 0)
-            {
-                Console.WriteLine("No clinics available.");
-                return;
-            }
-            Clinics.ForEach(c => c.ViewClinicInfo());
+            Clinic.GetAllClinics();
             int clinicId = Validation.IntValidation("Clinic ID to add service to");
             //to get service details ...
             string serviceName = Validation.StringValidation("Service Name");
@@ -110,13 +104,28 @@ namespace CodelineHealthCareCenter.Models
             {
                 ClinicId = clinicId
             };
-            if (Services.Any(s => s.ServiceName == serviceName && s.ClinicId == clinicId))
+            //for adding the service to the clinic ...
+            foreach (var department in BranchDepartment.Departments)
             {
-                Console.WriteLine("Service already exists in this clinic.");
-                return;
+                foreach (var clinic in department.Clinics)
+                {
+                    if (clinic.ClinicId == clinicId)
+                    {
+                        foreach (var existingService in clinic.Services)
+                        {
+                            if (existingService.ServiceName.Equals(newService.ServiceName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                Console.WriteLine("Service already exists in this clinic.");
+                                return;
+                            }
+                        }
+                        clinic.Services.Add(newService);
+                        Services.Add(newService); // Add to the static list
+                        Console.WriteLine($"Service '{newService.ServiceName}' added to Clinic '{clinic.ClinicName}'.");
+                        return;
+                    }
+                }
             }
-            Services.Add(newService);
-            Console.WriteLine($"Service '{newService.ServiceName}' added to Clinic ID {clinicId}.");
         }
 
         public void GetClinicDoctors(int clinicId)
