@@ -334,6 +334,48 @@ namespace CodelineHealthCareCenter.Models
 
             Console.WriteLine("Appointments saved successfully.");
         }
+        //to LoadAppointmentsFromFile
+        public static void LoadAppointmentsFromFile()
+        {
+            string path = "appointments.txt";
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("Appointments file not found.");
+                return;
+            }
+
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    var parts = line.Split('|');
+                    if (parts.Length != 4) continue;
+
+                    int patientId = int.Parse(parts[0]);
+                    int bookingId = int.Parse(parts[1]);
+                    DateTime bookingDateTime = DateTime.Parse(parts[2]);
+                    int doctorId = int.Parse(parts[3]);
+
+                    var patient = FindPatientById(patientId);
+                    if (patient != null)
+                    {
+                        Booking booking = new Booking
+                        {
+                            BookingId = bookingId,
+                            BookingDateTime = bookingDateTime,
+                            DoctorId = doctorId
+                        };
+                        patient.PatientAppointments.Add(booking);
+                    }
+                }
+            }
+
+            Console.WriteLine("Appointments loaded successfully.");
+        }
+
+
+
 
 
         //====================================================
