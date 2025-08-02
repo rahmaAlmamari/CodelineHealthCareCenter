@@ -483,6 +483,19 @@ namespace CodelineHealthCareCenter.Models
             } while (FlagError);
             return clinicName; // Return the valid clinic name
         }
+        //23. to check if branch id exists or not in the branch list ...
+        public static bool BranchIdExists(int branchId)
+        {
+            //to check if the branch id exists or not in the branch list in hospital class ...
+            foreach (var branch in Hospital.Branches)
+            {
+                if (branch.BranchId == branchId)
+                {
+                    return true; //if the branch id exists ...
+                }
+            }
+            return false; //if branch id does not exist ...
+        }
 
 
     }
