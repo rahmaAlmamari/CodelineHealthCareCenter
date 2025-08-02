@@ -398,6 +398,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"National ID     : {doctor.UserNationalID}");
                 Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
                 Console.WriteLine($"Status          : {doctor.UserStatus}");
+                Console.WriteLine($"Branch ID       : {doctor.BranchID}");
                 Console.WriteLine(new string('-', 40));
 
             }
@@ -703,7 +704,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("Admin not found.");
                 Additional.HoldScreen();
-                return;
+                AdminUserMenu();
+                //return;
             }
             // Update admin details
             // Choose what to update
@@ -727,7 +729,7 @@ namespace CodelineHealthCareCenter.Models
                         adminToUpdate.UserEmail = Validation.EmailValidation("Enter new email: ");
                         break;
                     case '2':
-                        adminToUpdate.UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
+                        adminToUpdate.UserPhoneNumber = Validation.UserPhoneNumberValidation();
                         break;
                     case '3':
                         //adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
@@ -818,7 +820,8 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("No admins available in the system.");
                 Additional.HoldScreen();
-                return;
+                AdminUserMenu();
+                //return;
             }
             foreach (var admin in BranchDepartment.Admins)
             {
@@ -828,6 +831,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine($"Phone Number    : {admin.UserPhoneNumber}");
                 Console.WriteLine($"National ID     : {admin.UserNationalID}");
                 Console.WriteLine($"Status          : {admin.UserStatus}");
+                Console.WriteLine($"Branch ID       : {admin.BranchID}");
                 Console.WriteLine(new string('-', 40));
             }
             Additional.HoldScreen();
@@ -843,17 +847,17 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine("No admins available in the system.");
                 Additional.HoldScreen();
-                return;
+                AdminUserMenu();
+
+                //return;
             }
             foreach (var admin in BranchDepartment.Admins)
             {
                 Console.WriteLine($"Admin ID        : {admin.UserId}");
                 Console.WriteLine($"Name            : {admin.UserName}");
-                Console.WriteLine($"Email           : {admin.UserEmail}");
-                Console.WriteLine($"Phone Number    : {admin.UserPhoneNumber}");
-                Console.WriteLine($"National ID     : {admin.UserNationalID}");
-                Console.WriteLine($"Role            : {admin.UserRole}");
                 Console.WriteLine($"Status          : {admin.UserStatus}");
+                Console.WriteLine($"Branch ID       : {admin.BranchID}");
+
                 Console.WriteLine(new string('-', 40));
             }
 
@@ -955,11 +959,9 @@ namespace CodelineHealthCareCenter.Models
             {
                 Console.WriteLine($"Doctor ID       : {doctor.UserId}");
                 Console.WriteLine($"Name            : {doctor.UserName}");
-                Console.WriteLine($"Email           : {doctor.UserEmail}");
-                Console.WriteLine($"Phone Number    : {doctor.UserPhoneNumber}");
-                Console.WriteLine($"National ID     : {doctor.UserNationalID}");
                 Console.WriteLine($"Specialization  : {doctor.DoctorSpecialization}");
                 Console.WriteLine($"Status          : {doctor.UserStatus}");
+                Console.WriteLine($"Branch ID       : {doctor.BranchID}");
                 Console.WriteLine(new string('-', 40));
             }
            
