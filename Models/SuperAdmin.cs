@@ -588,12 +588,68 @@ namespace CodelineHealthCareCenter.Models
             Console.Clear();
             Console.WriteLine("Add New Admin");
             // Get admin details from user
-            string name = Validation.StringValidation("admin name");
-            string email = Validation.EmailValidation("admin email");
-            int phoneNumber = Validation.UserPhoneNumberValidation();
-            string nationalId = Validation.UserNationalIdValidation();
-            string password = Validation.ReadPassword("admin password");
-            // Validate the password
+            //string name = Validation.StringValidation("admin name");
+            //string email = Validation.EmailValidation("admin email");
+            //int phoneNumber = Validation.UserPhoneNumberValidation();
+            //string nationalId = Validation.UserNationalIdValidation();
+            //string password = Validation.ReadPassword("admin password");
+            //// Validate the password
+            //string HashUserPassword = Validation.HashPasswordPBKDF2(password);
+
+            string name;
+            do
+            {
+                name = Validation.StringNamingValidation("admin name");
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("Invalid name. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(name));
+
+            // Email validation
+            string email;
+            do
+            {
+                email = Validation.EmailValidation("admin email");
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    Console.WriteLine("Invalid email. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(email));
+
+            // Phone number validation
+            int phoneNumber;
+            do
+            {
+                phoneNumber = Validation.UserPhoneNumberValidation();
+                if (phoneNumber.ToString().Length < 8) // or whatever rule you have
+                {
+                    Console.WriteLine("Invalid phone number. Please try again.");
+                }
+            } while (phoneNumber.ToString().Length < 8);
+
+            // National ID validation
+            string nationalId;
+            do
+            {
+                nationalId = Validation.UserNationalIdValidation();
+                if (string.IsNullOrWhiteSpace(nationalId))
+                {
+                    Console.WriteLine("Invalid National ID. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(nationalId));
+
+            // Password and hashing
+            string password;
+            do
+            {
+                password = Validation.ReadPassword("admin password");
+                if (string.IsNullOrWhiteSpace(password))
+                {
+                    Console.WriteLine("Password cannot be empty. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(password));
+
             string HashUserPassword = Validation.HashPasswordPBKDF2(password);
             Branch.ViewAllBranch();
             int branchId = Validation.IntValidation("admin Branch ID :");
