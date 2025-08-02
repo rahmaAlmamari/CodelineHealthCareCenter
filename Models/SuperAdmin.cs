@@ -183,10 +183,8 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("2. View All Branches ");
             Console.WriteLine("3. Update Branch ");
             Console.WriteLine("4. Delete Branch ");
-            Console.WriteLine("5. Get All Branches ");
-            Console.WriteLine("6. Get Branch By ID ");
-            Console.WriteLine("7. Get Branch Details");
-            Console.WriteLine("8. Get Branch Details By BranchName");
+            Console.WriteLine("5. Get Branch By ID ");
+            Console.WriteLine("6. Get Branch Details By BranchName");
             Console.WriteLine("0. Exit ");
             string choice1 = Validation.StringValidation("Please select an option : ");
             switch (choice1)
@@ -204,16 +202,9 @@ namespace CodelineHealthCareCenter.Models
                     Branch.DeleteBranch();
                     break;
                 case "5":
-                    Branch.GetAllBranches();
-                    break;
-                case "6":
                     Branch.GetBranchById();
                     break;
-                case "7":
-
-                    Branch.GetBranchDetails();
-                    break;
-                case "8":
+                case "6":
                     Branch.GetBranchDetailsByBranchName();
                     break;
                 case "0":
@@ -458,6 +449,7 @@ namespace CodelineHealthCareCenter.Models
                         break;
                     case '3':
                         doctorToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                       // SetDoctorStatus();
                         break;
                     case '0':
                         Console.WriteLine("Exiting update menu...");
