@@ -458,9 +458,9 @@ namespace CodelineHealthCareCenter.Models
             RoomId = roomId;
             //Price = price;
 
-            Doctors = new List<Doctor>();
-            ClinicSpots = new List<DateTime>();
-            Services = new List<Service>();
+            //Doctors = new List<Doctor>();
+            //ClinicSpots = new List<DateTime>();
+            //Services = new List<Service>();
         }
     }
 }
