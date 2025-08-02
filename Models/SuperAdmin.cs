@@ -443,8 +443,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("------------------------");
                 Console.WriteLine("1. Update Email");
                 Console.WriteLine("2. Update Phone Number");
-                Console.WriteLine("3. Update Role");
-                Console.WriteLine("4. Update Status");
+                Console.WriteLine("3. Update Status");
                 Console.WriteLine("0. Exit");
 
                 char choice = Validation.CharValidation("Choose an option: ");
@@ -457,11 +456,7 @@ namespace CodelineHealthCareCenter.Models
                     case '2':
                         doctorToUpdate.UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
                         break;
-
                     case '3':
-                        doctorToUpdate.UserRole = Validation.StringValidation("Enter new role (Doctor/Admin): ");
-                        break;
-                    case '4':
                         doctorToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
                         break;
                     case '0':
