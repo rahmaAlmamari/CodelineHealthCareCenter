@@ -514,6 +514,19 @@ namespace CodelineHealthCareCenter.Models
             } while (FlagError);
             return branchId; // Return the valid branch ID
         }
+        //25. to check if the department id exists or not in the department list ...
+        public static bool DepartmentIdExists(int departmentId)
+        {
+            //to check if the department id exists or not in the department list in branch department class ...
+            foreach (var department in BranchDepartment.Departments)
+            {
+                if (department.DepartmentId == departmentId)
+                {
+                    return true; //if the department id exists ...
+                }
+            }
+            return false; //if department id does not exist ...
+        }
 
 
     }
