@@ -735,6 +735,8 @@ namespace CodelineHealthCareCenter.Models
             if (Additional.ConfirmAction("delete this admin"))
             {
                 BranchDepartment.Admins.Remove(adminToDelete);
+                // delete UserNationalID from UserNationalID list
+                Hospital.UserNationalID.Remove(adminToDelete.UserNationalID);
                 Console.WriteLine("Admin deleted successfully.");
             }
             else
