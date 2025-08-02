@@ -387,6 +387,26 @@ namespace CodelineHealthCareCenter.Models
             }
             return null;
         }
+        //to SavePatientRecordsToFile
+        //public static void SavePatientRecordsToFile()
+        //{
+        //    string path = "patient_records.txt";
+        //    using (StreamWriter writer = new StreamWriter(path))
+        //    {
+        //        foreach (var branch in Hospital.Branches)
+        //        {
+        //            foreach (var patient in branch.Patients)
+        //            {
+        //                foreach (var record in patient.PatientRecords)
+        //                {
+        //                    writer.WriteLine($"{patient.UserId}|{record.}|{record.RecordDate:yyyy-MM-dd}|{record.RecordDescription}");
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    Console.WriteLine("Patient records saved successfully.");
+        //}
 
 
 
