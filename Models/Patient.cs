@@ -374,7 +374,19 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Appointments loaded successfully.");
         }
 
-
+        //to find patient by ID
+        public static Patient FindPatientById(int id)
+        {
+            foreach (var branch in Hospital.Branches)
+            {
+                foreach (var patient in branch.Patients)
+                {
+                    if (patient.UserId == id)
+                        return patient;
+                }
+            }
+            return null;
+        }
 
 
 
