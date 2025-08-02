@@ -212,49 +212,51 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine($"Available time {availableTime:G} removed for Doctor ID {doctorId}.");
         }
 
-        public void ViewMyAppointments() // Displays the appointments for the current doctor
+        public void ViewMyAppointments(Doctor doctor) // Displays the appointments for the current doctor
         {
             Console.WriteLine($"Appointments for Dr. {UserName}:");
-            if (DoctorAppointments.Count == 0)
+            if (doctor.DoctorAppointments.Count == 0)
             {
                 Console.WriteLine("No appointments found.");
                 return;
             }
-            foreach (var app in DoctorAppointments)
+            foreach (var app in doctor.DoctorAppointments)
                 Console.WriteLine($"- Booking ID: {app.BookingId}, Date: {app.BookingDateTime:G}");
             Additional.HoldScreen();
         }
         
 
-        public void AddPatientRecord() // Adds a patient record for a specific patient, including doctor notes and services provided
+        public void AddPatientRecord(Doctor doctor) // Adds a patient record for a specific patient, including doctor notes and services provided
         {
+            //to list all patient who have an appointment with this doctor ...
+            Validation.ListPatientsByDoctorId(doctor.UserId);
+            //to get the national ID of the patient ...
             string nationalId = Validation.StringValidation("Patient National ID");
-            //var patient = Patient.Patients.FirstOrDefault(p => p.UserNationalID == nationalId);
             foreach (var branch in Hospital.Branches)
             {
                 var patient = branch.Patients.FirstOrDefault(p => p.UserNationalID == nationalId);
-                if (patient != null)
-                    break;
                 if (patient == null)
                 {
                     Console.WriteLine("Patient not found.");
                     return;
                 }
+                //to get patient appointments ...
+                var patientAppointments = patient.PatientAppointments.Where(a => a.DoctorId == doctor.UserId).ToList();
                 string note = Validation.StringValidation("Doctor Note");
-                int count = Validation.IntValidation("Number of Services");
-
-                List<Service> selectedServices = new List<Service>();
-                for (int i = 0; i < count; i++)
+                //to get total cost of service ...
+                double totalCost = 0;
+                foreach(var app in doctor.DoctorAppointments)
                 {
-                    int sid = Validation.IntValidation($"Service ID #{i + 1}");
-                    var service = Service.Services.FirstOrDefault(s => s.ServiceId == sid);
-                    if (service != null)
-                        selectedServices.Add(service);
-                    else
-                        Console.WriteLine("Invalid service ID. Skipped.");
+                    foreach(var PatientAPP in patientAppointments)
+                    {
+                        if (app.BookingId == PatientAPP.BookingId)
+                        {
+                            totalCost += app.BookingService.Sum(s => s.Price);
+                        }
+                    }
                 }
 
-                var record = new PatientRecord(patient.UserId, ClinicID, note, selectedServices);
+                var record = new PatientRecord(patient.UserId, ClinicID, note, totalCost);
                 this.PatientRecords.Add(record);
                 patient.PatientRecords.Add(record);
 
@@ -322,19 +324,19 @@ namespace CodelineHealthCareCenter.Models
                 switch (choice)
                 {
                     case "1": // View Appointments
-                        int id = Validation.IntValidation("Enter Your Doctor ID");
-                        var doctor = Doctors.FirstOrDefault(d => d.UserId == id);
+                        string DoctorNationalId = Validation.StringValidation("Your Doctor ID");
+                        var doctor = Doctors.FirstOrDefault(d => d.UserNationalID == DoctorNationalId);
                         if (doctor != null)
-                            doctor.ViewMyAppointments();
+                            doctor.ViewMyAppointments(doctor);
                         else
                             Console.WriteLine("Doctor not found.");
                         break;
 
                     case "2": // Add Patient Record
-                        int did = Validation.IntValidation("Enter Your Doctor ID");
-                        var dr = Doctors.FirstOrDefault(d => d.UserId == did);
-                        if (dr != null)
-                            dr.AddPatientRecord();
+                        string DoctorNationalId2 = Validation.StringValidation("Your Doctor ID");
+                        var doctor2 = Doctors.FirstOrDefault(d => d.UserNationalID == DoctorNationalId2);
+                        if (doctor2 != null)
+                            doctor2.AddPatientRecord(doctor2);
                         else
                             Console.WriteLine("Doctor not found.");
                         break;
