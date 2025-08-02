@@ -237,7 +237,7 @@ namespace CodelineHealthCareCenter.Models
                     //{
                     //    Console.WriteLine($"Record ID: {record.RecordId}, Date: {record.RecordDate}, Description: {record.RecordDescription}");
                     //}
-                    PatientRecord.GetRecordsByPatientId(patient.UserId); //to get the records by patient id ...
+                    //PatientRecord.GetRecordsByPatientId(patient.UserId); //to get the records by patient id ...
                 }
             }
             else
