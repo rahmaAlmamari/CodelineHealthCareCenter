@@ -324,8 +324,8 @@ namespace CodelineHealthCareCenter.Models
                 switch (choice)
                 {
                     case "1": // View Appointments
-                        string DoctorNationalId = Validation.StringValidation("Your Doctor ID");
-                        var doctor = Doctors.FirstOrDefault(d => d.UserNationalID == DoctorNationalId);
+                        string DoctorNationalId = Validation.StringValidation("Your Doctor national id");
+                        var doctor = BranchDepartment.Doctors.FirstOrDefault(d => d.UserNationalID == DoctorNationalId);
                         if (doctor != null)
                             doctor.ViewMyAppointments(doctor);
                         else
@@ -333,8 +333,8 @@ namespace CodelineHealthCareCenter.Models
                         break;
 
                     case "2": // Add Patient Record
-                        string DoctorNationalId2 = Validation.StringValidation("Your Doctor ID");
-                        var doctor2 = Doctors.FirstOrDefault(d => d.UserNationalID == DoctorNationalId2);
+                        string DoctorNationalId2 = Validation.StringValidation("Your Doctor National id");
+                        var doctor2 = BranchDepartment.Doctors.FirstOrDefault(d => d.UserNationalID == DoctorNationalId2);
                         if (doctor2 != null)
                             doctor2.AddPatientRecord(doctor2);
                         else
