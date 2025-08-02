@@ -98,16 +98,17 @@ namespace CodelineHealthCareCenter.Models
             service.ViewServiceInfo();
         }
 
-        public static void SaveToFile()
+        public static void SaveServicesToFile()
         {
             using StreamWriter writer = new StreamWriter(ServicesFilePath);
             foreach (var service in Services)
             {
-                writer.WriteLine($"{service.ServiceId}|{service.ServiceName}|{service.Price}");
+                writer.WriteLine($"{service.ServiceId}|{service.ServiceName}|{service.Price} | {service.ClinicId}");
             }
+            Console.WriteLine("Service data saved successfully.");
         }
 
-        public static void LoadFromFile()
+        public static void LoadServicesFromFile()
         {
             ServiceCount = 0;
 
