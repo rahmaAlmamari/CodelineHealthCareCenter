@@ -34,6 +34,13 @@ internal class Program
 
         static void Main(string[] args)
         {
+            //to display the main menu options ...
+            ShowMainMenu();
+        }
+
+        //to show main menu options ...
+        public static void ShowMainMenu()
+        {
             //to display the welcome message ...
             Additional.WelcomeMessage("Hospital Management");
 
@@ -99,6 +106,8 @@ internal class Program
             Branch.LoadBranches();
             //to load departments data from file ...
             Department.LoadDepartmentsFromFile();
+            //to load services data from file ...
+            Service.LoadServicesFromFile();
             //to load clinics data from file ...
             Clinic.LoadClinicFromFile();
             //to load super admins data to file ...
@@ -138,7 +147,7 @@ internal class Program
                         break;
                     case '4':
                         //to displaying all appointments ...
-                       Patient.PatientMenu();
+                        Patient.PatientMenu();
                         break;
                     case '0':
                         exitFlag = true;
@@ -148,6 +157,8 @@ internal class Program
                         Branch.SaveBranches();
                         //to save departments data to file ...
                         Department.SaveDepartmentsToFile();
+                        //to save services data to file ...
+                        Service.SaveServicesToFile();
                         //to save clinics data to file ...
                         Clinic.SaveClinicToFile();
                         //to save super admins data to file ...
@@ -159,7 +170,7 @@ internal class Program
                         //to save patient data to file ...
                         Patient.SavePatientsToFile();
                         Console.ReadLine();//just to hold the screen ... 
-                         
+
                         Console.WriteLine("Thank you for using the Hotel System. Goodbye!");
                         break;
                     default:

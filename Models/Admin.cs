@@ -25,31 +25,31 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class methods ...
 
-        public void AddClinic()
-        {
-            //Clinics.Add(clinic);
-            //Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{UserName}'.");
-            Department.ViewAllDepartments();
-            int departmentId = Validation.IntValidation("Department ID to add Clinic to");
-            foreach(var department in BranchDepartment.Departments)
-            {
-                if (department.DepartmentId == departmentId)
-                {
-                    //to get the branch ID from the department ...
-                    int branchId = department.BranchId;
-                    //to get the floor ID from the branch ...
-                    int floorId = 1; // Assuming a default floor ID, can be modified as needed
-                    //to get the room ID from the branch ...
-                    int roomId = 1; // Assuming a default room ID, can be modified as needed
-                    string clinicName = Validation.StringValidation("Clinic Name");
-                    Clinic newClinic = new Clinic(clinicName, departmentId, branchId, floorId, roomId);
-                    //newClinic.CreateClinic(departmentId);
-                    Clinics.Add(newClinic);
-                    Console.WriteLine($"Clinic '{newClinic.ClinicName}' added to Department ID {departmentId}.");
-                    return;
-                }
-            }
-        }
+        //public void AddClinic()
+        //{
+        //    //Clinics.Add(clinic);
+        //    //Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{UserName}'.");
+        //    Department.ViewAllDepartments();
+        //    int departmentId = Validation.IntValidation("Department ID to add Clinic to");
+        //    foreach(var department in BranchDepartment.Departments)
+        //    {
+        //        if (department.DepartmentId == departmentId)
+        //        {
+        //            //to get the branch ID from the department ...
+        //            int branchId = department.BranchId;
+        //            //to get the floor ID from the branch ...
+        //            int floorId = 1; // Assuming a default floor ID, can be modified as needed
+        //            //to get the room ID from the branch ...
+        //            int roomId = 1; // Assuming a default room ID, can be modified as needed
+        //            string clinicName = Validation.StringValidation("Clinic Name");
+        //            //Clinic newClinic = new Clinic(clinicName, departmentId, branchId, floorId, roomId);
+        //            //newClinic.CreateClinic(departmentId);
+        //            Clinics.Add(newClinic);
+        //            Console.WriteLine($"Clinic '{newClinic.ClinicName}' added to Department ID {departmentId}.");
+        //            return;
+        //        }
+        //    }
+        //}
 
         public void ViewClinics()
         {
@@ -67,56 +67,72 @@ namespace CodelineHealthCareCenter.Models
 
         public void AssignDoctorToClinic(int doctorId, int clinicId)
         {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            var doctor = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
-
-            if (clinic == null)
+            foreach (var department in BranchDepartment.Departments)
             {
+                //to check if clinic exists ...
+                foreach (var clinic in department.Clinics)
+                {
+                    if (clinic.ClinicId == clinicId)
+                    {
+                        //to check if doctor exists ...
+                        foreach (var doctor in BranchDepartment.Doctors)
+                        {
+                            if (doctor.UserId == doctorId)
+                            {
+                                //to check if the doctor is already assigned to the clinic ...
+                                if (clinic.Doctors.Any(d => d.UserId == doctorId))
+                                {
+                                    Console.WriteLine($"Doctor '{doctor.UserName}' is already assigned to Clinic '{clinic.ClinicName}'.");
+                                    return;
+                                }
+                                //to assign the doctor to the clinic ...
+                                clinic.Doctors.Add(doctor);
+                                Console.WriteLine($"Doctor '{doctor.UserName}' assigned to Clinic '{clinic.ClinicName}'.");
+                                return;
+                            }
+                        }
+                        Console.WriteLine("Doctor not found.");
+                        return;
+                    }
+                }
                 Console.WriteLine("Clinic not found.");
-                return;
             }
 
-            if (doctor == null)
-            {
-                Console.WriteLine("Doctor not found.");
-                return;
-            }
-
-            if (clinic.Doctors.Any(d => d.UserId == doctorId))
-            {
-                Console.WriteLine("Doctor already assigned.");
-                return;
-            }
-
-            clinic.Doctors.Add(doctor);
-            Console.WriteLine($"Doctor {doctor.UserName} assigned to Clinic '{clinic.ClinicName}'.");
         }
 
-        public void AddClinicService(int clinicId, int serviceId)
+        public void AddClinicService()
         {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            var service = Services.FirstOrDefault(s => s.ServiceId == serviceId);
-
-            if (clinic == null || service == null)
+            //to list all clinics ...
+            Clinic.GetAllClinics();
+            int clinicId = Validation.IntValidation("Clinic ID to add service to");
+            //to get service details ...
+            string serviceName = Validation.StringValidation("Service Name");
+            double servicePrice = Validation.DoubleValidation("Service Price");
+            Service newService = new Service(serviceName, servicePrice)
             {
-                Console.WriteLine("Clinic or Service not found.");
-                return;
-            }
-
-            if (clinic is IHasServices clinicWithServices)
+                ClinicId = clinicId
+            };
+            //for adding the service to the clinic ...
+            foreach (var department in BranchDepartment.Departments)
             {
-                if (clinicWithServices.Services.Any(s => s.ServiceId == serviceId))
+                foreach (var clinic in department.Clinics)
                 {
-                    Console.WriteLine("Service already added.");
-                    return;
+                    if (clinic.ClinicId == clinicId)
+                    {
+                        foreach (var existingService in clinic.Services)
+                        {
+                            if (existingService.ServiceName.Equals(newService.ServiceName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                Console.WriteLine("Service already exists in this clinic.");
+                                return;
+                            }
+                        }
+                        clinic.Services.Add(newService);
+                        Services.Add(newService); // Add to the static list
+                        Console.WriteLine($"Service '{newService.ServiceName}' added to Clinic '{clinic.ClinicName}'.");
+                        return;
+                    }
                 }
-
-                clinicWithServices.Services.Add(service);
-                Console.WriteLine($"Service '{service.ServiceName}' added to Clinic '{clinic.ClinicName}'.");
-            }
-            else
-            {
-                Console.WriteLine("Clinic must implement IHasServices.");
             }
         }
 
@@ -147,35 +163,77 @@ namespace CodelineHealthCareCenter.Models
                 return;
             }
 
-            if (clinic is IHasServices clinicWithServices)
+            //if (clinic is IHasServices clinicWithServices)
+            //{
+            //    Console.WriteLine($"Services in Clinic '{clinic.ClinicName}':");
+            //    if (clinicWithServices.Services.Count == 0)
+            //        Console.WriteLine("No services assigned.");
+            //    else
+            //        clinicWithServices.Services.ForEach(s => s.ViewServiceInfo());
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Clinic does not support services.");
+            //}
+
+            //to list all services in the clinic ...
+            Console.WriteLine($"Services in Clinic '{clinic.ClinicName}':");
+            foreach(var department in BranchDepartment.Departments)
             {
-                Console.WriteLine($"Services in Clinic '{clinic.ClinicName}':");
-                if (clinicWithServices.Services.Count == 0)
-                    Console.WriteLine("No services assigned.");
-                else
-                    clinicWithServices.Services.ForEach(s => s.ViewServiceInfo());
-            }
-            else
-            {
-                Console.WriteLine("Clinic does not support services.");
+               foreach(var my_clinic in department.Clinics)
+                {
+                    if (my_clinic.ClinicId == clinicId)
+                    {
+                        if (my_clinic.Services.Count == 0)
+                        {
+                            Console.WriteLine("No services assigned.");
+                        }
+                        else
+                        {
+                            foreach (var service in my_clinic.Services)
+                            {
+                                service.ViewServiceInfo();
+                            }
+                        }
+                        return;
+                    }
+                }
             }
         }
 
         public void AddClinicSpot(int clinicId, DateTime newSpot)
         {
-            var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
-            if (clinic == null)
+            //var clinic = Clinics.FirstOrDefault(c => c.ClinicId == clinicId);
+            //if (clinic == null)
+            //{
+            //    Console.WriteLine("Clinic not found.");
+            //    return;
+            //}
+            //if (clinic.ClinicSpots.Contains(newSpot))
+            //{
+            //    Console.WriteLine("Spot already exists.");
+            //    return;
+            //}
+            //clinic.ClinicSpots.Add(newSpot);
+            //Console.WriteLine($"Spot {newSpot:G} added to Clinic '{clinic.ClinicName}'.");
+            foreach(var department in BranchDepartment.Departments)
             {
-                Console.WriteLine("Clinic not found.");
-                return;
+                foreach (var clinic in department.Clinics)
+                {
+                    if (clinic.ClinicId == clinicId)
+                    {
+                        if (clinic.ClinicSpots.Contains(newSpot))
+                        {
+                            Console.WriteLine("Spot already exists.");
+                            return;
+                        }
+                        clinic.ClinicSpots.Add(newSpot);
+                        Console.WriteLine($"Spot {newSpot:G} added to Clinic '{clinic.ClinicName}'.");
+                        return;
+                    }
+                }
+                Console.WriteLine("Clinic not found in the specified department.");
             }
-            if (clinic.ClinicSpots.Contains(newSpot))
-            {
-                Console.WriteLine("Spot already exists.");
-                return;
-            }
-            clinic.ClinicSpots.Add(newSpot);
-            Console.WriteLine($"Spot {newSpot:G} added to Clinic '{clinic.ClinicName}'.");
         }
 
         public void RemoveClinicSpot(int clinicId, DateTime spotToRemove)
@@ -258,13 +316,14 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine(" ADMIN MANAGEMENT MENU ");
                 Console.WriteLine($"Welcome, {CurrentAdmin.UserName}!");
                 Console.WriteLine("1. Add Clinic");
-                Console.WriteLine("2. Assign Doctor to Clinic");
-                Console.WriteLine("3. Add Service to Clinic");
-                Console.WriteLine("4. View Clinic's Doctors");
-                Console.WriteLine("5. View Clinic's Services");
-                Console.WriteLine("6. Add Clinic Spot");
-                Console.WriteLine("7. Remove Clinic Spot");
-                Console.WriteLine("8. Exit");
+                Console.WriteLine("2. Add Add Clinic Spot");
+                Console.WriteLine("3. Add Service");
+                Console.WriteLine("4. Assign Doctor to Clinic");
+                Console.WriteLine("5. View Clinic");
+                //Console.WriteLine("6. View Clinic's Doctors");
+                //Console.WriteLine("7. View Clinic's Services");
+                //Console.WriteLine("8. Remove Clinic Spot");
+                Console.WriteLine("0. Exit");
                 Console.Write("Select an option: ");
                 string choice = Console.ReadLine();
                 Console.WriteLine();
@@ -272,16 +331,27 @@ namespace CodelineHealthCareCenter.Models
                 switch (choice)
                 {
                     case "1":
-                        CurrentAdmin.AddClinic();
+                        Clinic.AddClinic();
                         break;
                     case "2":
+                        //to list all clinics ...
+                        Console.WriteLine("List of All Clinics:");
+                        Clinic.GetAllClinics();
+                        int cl5 = Validation.IntValidation("Clinic ID to add spot");
+                        DateTime newSpot = Validation.DateTimeValidation("New Spot (e.g., MM/dd/yyyy HH:mm)");
+                        if (Additional.ConfirmAction($"add spot {newSpot:G} to this clinic"))
+                            CurrentAdmin.AddClinicSpot(cl5, newSpot);
+                        else
+                            Console.WriteLine("Spot addition cancelled.");
+                        break;
+                    case "3":
+                        CurrentAdmin.AddClinicService();
+                        break;
+                    case "4":
                         Console.WriteLine("All Doctors:");
                         Doctor.GetAllDoctors();
-
-                        //Doctor.GetAllDoctors();
                         Console.WriteLine("All Clinics:");
                         Clinic.GetAllClinics();
-                        CurrentAdmin.ViewClinics();
                         int doctorId = Validation.IntValidation("Doctor ID");
                         int clinicId = Validation.IntValidation("Clinic ID");
                         if (Additional.ConfirmAction("assign the doctor to this clinic"))
@@ -290,46 +360,62 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Assignment cancelled.");
                         break;
 
-                    case "3":
-                        Console.WriteLine("All Clinics:");
-                        CurrentAdmin.ViewClinics();
-                        int clinicId2 = Validation.IntValidation("Clinic ID");
-                        int serviceId = Validation.IntValidation("Service ID");
-                        if (Additional.ConfirmAction("add this service to the clinic"))
-                            CurrentAdmin.AddClinicService(clinicId2, serviceId);
-                        else
-                            Console.WriteLine("Adding service cancelled.");
-                        break;
-
-                    case "4":
-                        int clinicId3 = Validation.IntValidation("Clinic ID to view doctors");
-                        CurrentAdmin.GetClinicDoctors(clinicId3);
-                        break;
-
                     case "5":
-                        int clinicId4 = Validation.IntValidation("Clinic ID to view services");
-                        CurrentAdmin.GetClinicServices(clinicId4);
+                        //to list all clinics ...
+                        Console.WriteLine("List of All Clinics:");
+                        Clinic.GetAllClinics();
                         break;
+                    //case "6":
+                    //    int clinicId3 = Validation.IntValidation("Clinic ID to view doctors");
+                    //    CurrentAdmin.GetClinicDoctors(clinicId3);
+                    //    break;
 
-                    case "6":
-                        int cl5 = Validation.IntValidation("Clinic ID to add spot");
-                        DateTime newSpot = Validation.DateTimeValidation("New Spot (e.g., MM/dd/yyyy HH:mm)");
-                        if (Additional.ConfirmAction($"add spot {newSpot:G} to this clinic"))
-                            CurrentAdmin.AddClinicSpot(cl5, newSpot);
-                        else
-                            Console.WriteLine("Spot addition cancelled.");
-                        break;
+                    //case "7":
+                    //    //to list all clinics ...
+                    //    Console.WriteLine("List of All Clinics:");
+                    //    if (CurrentAdmin.Clinics.Count == 0)
+                    //    {
+                    //        Console.WriteLine("No clinics available.");
+                    //        break;
+                    //    }
+                    //    CurrentAdmin.Clinics.ForEach(c => c.ViewClinicInfo());
+                    //    int clinicId4 = Validation.IntValidation("Clinic ID to view services");
+                    //    CurrentAdmin.GetClinicServices(clinicId4);
+                    //    break;
 
-                    case "7":
-                        int cl6 = Validation.IntValidation("Clinic ID to remove spot");
-                        DateTime spotToRemove = Validation.DateTimeValidation("Spot to remove (e.g., MM/dd/yyyy HH:mm)");
-                        if (Additional.ConfirmAction($"remove spot {spotToRemove:G} from this clinic"))
-                            CurrentAdmin.RemoveClinicSpot(cl6, spotToRemove);
-                        else
-                            Console.WriteLine("Spot removal cancelled.");
-                        break;
 
-                    case "8":
+
+                    //case "8":
+                    //    //to list all clinics ...
+                    //    Console.WriteLine("List of All Clinics:");
+                    //    if (CurrentAdmin.Clinics.Count == 0)
+                    //    {
+                    //        Console.WriteLine("No clinics available.");
+                    //        break;
+                    //    }
+                    //    CurrentAdmin.Clinics.ForEach(c => c.ViewClinicInfo());
+                    //    int cl6 = Validation.IntValidation("Clinic ID to remove spot");
+                    //    //to get all spot in the clinic ...
+                    //    Console.WriteLine("Available Spots in this Clinic:");
+                    //    var clinic = CurrentAdmin.Clinics.FirstOrDefault(c => c.ClinicId == cl6);
+                    //    if (clinic == null || clinic.ClinicSpots.Count == 0)
+                    //    {
+                    //        Console.WriteLine("No spots available in this clinic.");
+                    //        break;
+                    //    }
+                    //    foreach (var spot in clinic.ClinicSpots)
+                    //    {
+                    //        Console.WriteLine($"- {spot:G}");
+                    //    }
+                    //    //to get the spot to remove ...
+                    //    DateTime spotToRemove = Validation.DateTimeValidation("Spot to remove (e.g., MM/dd/yyyy HH:mm)");
+                    //    if (Additional.ConfirmAction($"remove spot {spotToRemove:G} from this clinic"))
+                    //        CurrentAdmin.RemoveClinicSpot(cl6, spotToRemove);
+                    //    else
+                    //        Console.WriteLine("Spot removal cancelled.");
+                    //    break;
+
+                    case "0":
                         Console.WriteLine("Exiting Admin Menu...");
                         return;
 

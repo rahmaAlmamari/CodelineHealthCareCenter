@@ -449,6 +449,133 @@ namespace CodelineHealthCareCenter.Models
             } while (FalgError);
             return value; // Return the valid phone number
         }
+        //21. to check if clinic name exists or not in the clinic list ...
+        public static bool ClinicNameExists(string clinicName)
+        {
+            //to check if the clinic name exists or not in the clinic list in branch department class ...
+            foreach (var department in BranchDepartment.Departments)
+            {
+                foreach (var clinic in department.Clinics)
+                {
+                    if (clinic.ClinicName.Equals(clinicName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true; //if the clinic name exists ...
+                    }
+                }
+            }
+            return false; //if clinic name does not exist ...
+        }
+        //22. ClinicNameValidation method ...
+        public static string ClinicNameValidation()
+        {
+            bool FlagError = false;
+            string clinicName = "null";
+            do
+            {
+                FlagError = false;
+                clinicName = Validation.StringValidation("Clinic Name");
+                //to check if the clinic name exists or not ...
+                if (Validation.ClinicNameExists(clinicName))
+                {
+                    Console.WriteLine("This clinic name already exists. Please try again with a different one.");
+                    FlagError = true; // Set the flag to true to repeat the loop
+                }
+            } while (FlagError);
+            return clinicName; // Return the valid clinic name
+        }
+        //23. to check if branch id exists or not in the branch list ...
+        public static bool BranchIdExists(int branchId)
+        {
+            //to check if the branch id exists or not in the branch list in hospital class ...
+            foreach (var branch in Hospital.Branches)
+            {
+                if (branch.BranchId == branchId)
+                {
+                    return true; //if the branch id exists ...
+                }
+            }
+            return false; //if branch id does not exist ...
+        }
+        //24. BranchIdValidation method ...
+        public static int BranchIdValidation()
+        {
+            bool FlagError = false;
+            int branchId = 0;
+            do
+            {
+                FlagError = false;
+                branchId = Validation.IntValidation("Branch ID");
+                //to check if the branch id exists or not ...
+                if (!Validation.BranchIdExists(branchId))
+                {
+                    Console.WriteLine("This branch ID does not exist. Please try again with a valid one.");
+                    FlagError = true; // Set the flag to true to repeat the loop
+                }
+            } while (FlagError);
+            return branchId; // Return the valid branch ID
+        }
+        //25. to check if the department id exists or not in the department list ...
+        public static bool DepartmentIdExists(int departmentId)
+        {
+            //to check if the department id exists or not in the department list in branch department class ...
+            foreach (var department in BranchDepartment.Departments)
+            {
+                if (department.DepartmentId == departmentId)
+                {
+                    return true; //if the department id exists ...
+                }
+            }
+            return false; //if department id does not exist ...
+        }
+        //26. DepartmentIdValidation method ...
+        public static int DepartmentIdValidation()
+        {
+            bool FlagError = false;
+            int departmentId = 0;
+            do
+            {
+                FlagError = false;
+                departmentId = Validation.IntValidation("Department ID");
+                //to check if the department id exists or not ...
+                if (!Validation.DepartmentIdExists(departmentId))
+                {
+                    Console.WriteLine("This department ID does not exist. Please try again with a valid one.");
+                    FlagError = true; // Set the flag to true to repeat the loop
+                }
+            } while (FlagError);
+            return departmentId; // Return the valid department ID
+        }
+        //to list all branchs 
+        public static void ListAllBranches()
+        {
+            Console.WriteLine("List of Branches:");
+            if (Hospital.Branches.Count == 0)
+            {
+                Console.WriteLine("No branches available.");
+                return;
+            }
 
+            foreach (var branch in Hospital.Branches)
+            {
+                Console.WriteLine($"ID: {branch.BranchId}, Name: {branch.BranchName}");
+            }
+
+
+        }
+        //to list all departments in a branch
+        public static void ListDepartmentsInBranch(int branchId)
+        {
+            Console.WriteLine($"List of Departments in Branch ID {branchId}:");
+            var departmentsInBranch = BranchDepartment.Departments.Where(d => d.BranchId == branchId).ToList();
+            if (departmentsInBranch.Count == 0)
+            {
+                Console.WriteLine("No departments found in this branch.");
+                return;
+            }
+            foreach (var department in departmentsInBranch)
+            {
+                Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}");
+            }
+        }
     }
 }
