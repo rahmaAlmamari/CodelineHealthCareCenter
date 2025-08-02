@@ -11,10 +11,10 @@ namespace CodelineHealthCareCenter.Models
         static string HospitalUsersNationalIDFilePath = "HospitalUsersNationalID.txt";
         //1. class fields ...
 
-        public int HospitalId = 1;
-        public string HospitalName = "Codeline Health Care Center";
-        public DateOnly HospitalEstablishDate = new DateOnly(2025, 7, 28);
-        public bool HospitalStatus = true; // true means open, false means closed
+        public static int HospitalId = 1;
+        public static string HospitalName = "Codeline Health Care Center";
+        public static DateOnly HospitalEstablishDate = new DateOnly(2025, 7, 28);
+        public static bool HospitalStatus = true; // true means open, false means closed
         public static int HospitalCount = 0;
         public static List<Branch> Branches = new List<Branch>();
         public static List<SuperAdmin> SuperAdmins = new List<SuperAdmin>();
@@ -35,6 +35,7 @@ namespace CodelineHealthCareCenter.Models
 
 
         }
+
 
         // save the hospital data to a file
         public static void SaveHospitalUsersNationalIDToFile()

@@ -30,39 +30,39 @@ namespace CodelineHealthCareCenter.Models
             //LoadAdminsFromFile();
             //Hospital.LoadHospitalFromFile();
 
-            Console.Clear();
-            Console.WriteLine("Welcome to SuperAdminMenu");
-            Console.WriteLine("1. Users ( Admins And Doctors )");
-            Console.WriteLine("2. Branchs");
-            Console.WriteLine("3. Departments");
-            Console.WriteLine("0. Exit");
-            Console.Write("Please select an option: ");
-            //to get the user choice ...
-            char choice = Validation.CharValidation("option");
-            switch (choice)
+            char choice;
+            do
             {
-                case '1':
-                    AdminDoctorUserMenu();
-                    break;
-                case '2':
-                    AdminBranchMenu();
-                    break;
-                case '3':
-                    AdminDepartmentMenu();
-                    break;
+                Console.Clear();
+                Console.WriteLine("Welcome to SuperAdminMenu");
+                Console.WriteLine("1. Users ( Admins And Doctors )");
+                Console.WriteLine("2. Branchs");
+                Console.WriteLine("3. Departments");
+                Console.WriteLine("0. Exit");
+                choice = Validation.CharValidation("option");
 
-                case '0':
-                    Console.WriteLine("Exiting SuperAdmin Menu.");
-                    Additional.HoldScreen();
-                    // return to the main menu
-                    //Hospital.MainMenu(); // Assuming you have a MainMenu method in Hospital class
-                    return;
-                default:
-                    
-                    Console.WriteLine("Invalid option, please try again.");
-                    Additional.HoldScreen();
-                    break;
-            }
+                switch (choice)
+                {
+                    case '1':
+                        AdminDoctorUserMenu();
+                        break;
+                    case '2':
+                        AdminBranchMenu();
+                        break;
+                    case '3':
+                        AdminDepartmentMenu();
+                        break;
+                    case '0':
+                        Console.WriteLine("Exiting SuperAdmin Menu.");
+                        Additional.HoldScreen();
+
+                        return; // Exit the SuperAdminMenu
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        Additional.HoldScreen();
+                        break;
+                }
+            } while (choice != '0');
 
 
         }
@@ -85,9 +85,12 @@ namespace CodelineHealthCareCenter.Models
                 case '2':
                     DoctorUserMenu();
                     break;
-
                 case '0':
+                    Console.WriteLine("Exiting Users Menu.");
+                    Additional.HoldScreen();
                     SuperAdminMenu();
+                    break;
+                default:
                     Console.WriteLine("Invalid option, please try again.");
                     Additional.HoldScreen();
                     break;
@@ -96,40 +99,42 @@ namespace CodelineHealthCareCenter.Models
         // SuperAdmin -> Admin Menu 
         public static void AdminUserMenu()
         {
-            Console.Clear();
-            Console.WriteLine("Users Admin Menu ");
-            Console.WriteLine("1. Add New Admin ");
-            Console.WriteLine("2. View All Admin ");
-            Console.WriteLine("3. Update Admin ");
-            Console.WriteLine("4. Delete Admin ");
-            Console.WriteLine("0. Exit ");
-            char choice1 = Validation.CharValidation("Please select an option : ");
-            switch (choice1)
+            
+            char choice1;
+            do
             {
-                case '1':
-                    AddAdmin();
-                    break;
+                Console.Clear();
+                Console.WriteLine("Users Admin Menu ");
+                Console.WriteLine("1. Add New Admin ");
+                Console.WriteLine("2. View All Admin ");
+                Console.WriteLine("3. Update Admin ");
+                Console.WriteLine("4. Delete Admin ");
+                Console.WriteLine("0. Back ");
+                choice1 = Validation.CharValidation("Please select an option : ");
 
-                case '2':
-                    ViewAdmins();
-                    break;
-                case '3':
-                    UpdateAdmin();
-                    break;
-                case '4':
-                    DeleteAdmin();
-                    break;
-
-                case '0':
-                    AdminDoctorUserMenu();
-                    Console.WriteLine("Exiting Admin User Menu.");
-                    break;
-                default:
-                    Console.WriteLine("Invalid option, please try again.");
-                    Additional.HoldScreen();
-                    break;
-
-            }
+                switch (choice1)
+                {
+                    case '1':
+                        AddAdmin();
+                        break;
+                    case '2':
+                        ViewAdmins();
+                        break;
+                    case '3':
+                        UpdateAdmin();
+                        break;
+                    case '4':
+                        DeleteAdmin();
+                        break;
+                    case '0':
+                        AdminDoctorUserMenu();
+                        break; 
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        Additional.HoldScreen();
+                        break;
+                }
+            } while (choice1 != '0');
 
 
 
@@ -140,44 +145,42 @@ namespace CodelineHealthCareCenter.Models
         // SuperAdmin -> Doctor Menu 
         public static void DoctorUserMenu()
         {
-            Console.Clear();
-            Console.WriteLine("Doctor Admin Menu ");
-            Console.WriteLine("1. Add New Doctor ");
-            Console.WriteLine("2. View All Doctors ");
-            Console.WriteLine("3. Update Doctor ");
-            Console.WriteLine("4. Delete Doctor ");
-            Console.WriteLine("5. Set Doctor Status ");
-            Console.WriteLine("0. Exit ");
-            string choice1 = Validation.StringValidation("Please select an option : ");
-            switch (choice1)
+            string choice1;
+            do
             {
-                case "1":
-                    AddDoctor();
-                    break;
-                case "2":
-                    ViewDoctors();
-                    break;
-                case "3":
-                    UpdateDoctor();
-                    break;
-                case "4":
-                    DeleteDoctor();
-                    break;
-                case "5":
-                    SetDoctorStatus();
-                    break;
-                case "0":
-                    
-                    Console.WriteLine("Exiting Doctor Admin Menu.");
-                    Additional.HoldScreen();
-                    AdminDoctorUserMenu(); // Return to the AdminDoctorUserMenu
+                Console.Clear();
+                Console.WriteLine("Doctor Admin Menu ");
+                Console.WriteLine("1. Add New Doctor ");
+                Console.WriteLine("2. View All Doctors ");
+                Console.WriteLine("3. Update Doctor ");
+                Console.WriteLine("4. Delete Doctor ");
+                Console.WriteLine("0. Back ");
+                choice1 = Validation.StringValidation("Please select an option : ");
 
-                    break;
-                default:
-                    Console.WriteLine("Invalid option, please try again.");
-                    Additional.HoldScreen();
-                    break;
-            }
+                switch (choice1)
+                {
+                    case "1":
+                        AddDoctor();
+                        break;
+                    case "2":
+                        ViewDoctors();
+                        break;
+                    case "3":
+                        UpdateDoctor();
+                        break;
+                    case "4":
+                        DeleteDoctor();
+                        break;
+                    case "0":
+                        AdminDoctorUserMenu();
+                        break; 
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        Additional.HoldScreen();
+                        break;
+                }
+
+            } while (choice1 != "0");
         }
 
         // SuperAdmin -> Branch Menu
@@ -216,6 +219,7 @@ namespace CodelineHealthCareCenter.Models
                 case "0":
                    
                     Console.WriteLine("Exiting Branch Admin Menu.");
+                    Additional.HoldScreen();
                     SuperAdminMenu();
                     break;
                 default:
@@ -231,86 +235,84 @@ namespace CodelineHealthCareCenter.Models
         // SuperAdmin -> Department Menu
         public static void AdminDepartmentMenu()
         {
-            Console.Clear();
-            Console.WriteLine("Department Menu ");
-            Console.WriteLine("1. Add New Department ");
-            Console.WriteLine("2. View All Departments ");
-            Console.WriteLine("3. Update Department ");
-            Console.WriteLine("4. Delete Department ");
-            Console.WriteLine("0. Exit ");
-            string choice1 = Validation.StringValidation("Please select an option : ");
-            switch (choice1)
+            string choice1;
+            do
             {
-                case "1":
-                    Console.WriteLine("Adding New Department...");
+                Console.Clear();
+                Console.WriteLine("Department Menu ");
+                Console.WriteLine("1. Add New Department ");
+                Console.WriteLine("2. View All Departments ");
+                Console.WriteLine("3. Update Department ");
+                Console.WriteLine("4. Delete Department ");
+                Console.WriteLine("0. Back ");
+                choice1 = Validation.StringValidation("Please select an option : ");
 
-                    Console.WriteLine("All Branches:");
-                    Branch.ViewAllBranch();
-                    Console.WriteLine("----------------------------------");
-                    int branchId = Validation.IntValidation("Please select a branch to add the department to:");
-                    string departmentName = Validation.StringValidation("Enter Department Name:");
-                    // chieck if the Name is valid or not ...
+                switch (choice1)
+                {
+                    case "1":
+                        Console.WriteLine("Adding New Department...");
+                        Console.WriteLine("All Branches:");
+                        Branch.ViewAllBranch();
+                        Console.WriteLine("----------------------------------");
+                        int branchId = Validation.IntValidation("Please select a branch to add the department to:");
+                        string departmentName = Validation.StringValidation("Enter Department Name:");
+                        Department.CreateDepartment(departmentName, branchId);
+                        break;
 
-                    Department.CreateDepartment(departmentName, branchId);
-                    break;
-                case "2":
-                    Department.GetAllDepartments();
-                    break;
-                case "3":
-                    Console.WriteLine("Update Department ");
-                   
-                    Department.ViewAllDepartments();
-                    Console.WriteLine("-----------------------------");
-                    int departmentId = Validation.IntValidation("Enter Department ID to update:");
-                    if (Department.DepartmentExists(departmentId))
-                    {
-                        
-                        if(Department.IsDepartmentActive(departmentId))
+                    case "2":
+                        Department.GetAllDepartments();
+                        break;
+
+                    case "3":
+                        Console.WriteLine("Update Department ");
+                        Department.ViewAllDepartments();
+                        Console.WriteLine("-----------------------------");
+                        int departmentId = Validation.IntValidation("Enter Department ID to update:");
+                        if (Department.DepartmentExists(departmentId))
                         {
-                            string newDepartmentName = Validation.StringValidation("Enter New Department Name:");
-                            Department.UpdateDepartment(departmentId, newDepartmentName);
+                            if (Department.IsDepartmentActive(departmentId))
+                            {
+                                string newDepartmentName = Validation.StringValidation("Enter New Department Name:");
+                                Department.UpdateDepartment(departmentId, newDepartmentName);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Department is inactive and cannot be updated.");
+                                Additional.HoldScreen();
+                            }
                         }
                         else
                         {
-                            Console.WriteLine("Department is inactive and cannot be updated.");
+                            Console.WriteLine("Department not found.");
                             Additional.HoldScreen();
                         }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Department not found.");
-                        Additional.HoldScreen();
-                    }
+                        break;
 
-                   
-                    break;
-               
-                case "4":
-                    Console.WriteLine("Delete Department ");
-                    Department.ViewAllDepartments();
-                    Console.WriteLine("-----------------------------");
-                    int departmentId1 = Validation.IntValidation("Enter Department ID to delete:");
-                    if (Department.DepartmentExists(departmentId1))
-                    {
-                        Department.DeleteDepartment(departmentId1);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Department not found.");
-                        Additional.HoldScreen();
-                    }
-                    break;
-                case "0":
-                    
-                    Console.WriteLine("Exiting Department Admin Menu.");
-                    SuperAdminMenu();
-                    break;
-                default:
-                    Console.WriteLine("Invalid option, please try again.");
-                    Additional.HoldScreen();
-                    break;
+                    case "4":
+                        Console.WriteLine("Delete Department ");
+                        Department.ViewAllDepartments();
+                        Console.WriteLine("-----------------------------");
+                        int departmentId1 = Validation.IntValidation("Enter Department ID to delete:");
+                        if (Department.DepartmentExists(departmentId1))
+                        {
+                            Department.DeleteDepartment(departmentId1);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Department not found.");
+                            Additional.HoldScreen();
+                        }
+                        break;
 
-            }
+                    case "0":
+                        return; // Back to SuperAdminMenu
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        Additional.HoldScreen();
+                        break;
+                }
+
+            } while (choice1 != "0");
         }
 
       

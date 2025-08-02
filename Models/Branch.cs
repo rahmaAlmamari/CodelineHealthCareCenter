@@ -93,20 +93,89 @@ namespace CodelineHealthCareCenter.Models
             LoadBranches(); // Load branches from file at the start
             Console.Clear();
             Console.WriteLine("Add New Branch");
+            Console.WriteLine(new string('-', 40));
             // Get branch details from user
-            string branchName = Validation.StringValidation("branch name");
-            string branchCity = Validation.StringValidation("branch city");
-            DateOnly branchEstablishDate = Validation.DateOnlyValidation("branch establish date");
-            int hospitalId = Validation.IntValidation("hospital ID");
+            //string branchName = Validation.StringNamingValidation("branch name");
+            //string branchCity = Validation.StringNamingValidation("branch city");
+            //DateOnly branchEstablishDate = Validation.DateOnlyValidation("branch establish date");
+            // Branch Name
+            // Branch Name
+            string branchName;
+            do
+            {
+                branchName = Validation.StringNamingValidation("branch name");
+                if (string.IsNullOrWhiteSpace(branchName))
+                {
+                    Console.WriteLine("Invalid branch name. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(branchName));
+
+            // Branch City
+            string branchCity;
+            do
+            {
+                branchCity = Validation.StringNamingValidation("branch city");
+                if (string.IsNullOrWhiteSpace(branchCity))
+                {
+                    Console.WriteLine("Invalid branch city. Please try again.");
+                }
+            } while (string.IsNullOrWhiteSpace(branchCity));
+
+            // Branch Establish Date
+            DateOnly branchEstablishDate;
+            do
+            {
+                branchEstablishDate = Validation.DateOnlyValidation("branch establish date");
+
+                // Assuming DateOnly.MinValue is returned when input is invalid
+                if (branchEstablishDate == DateOnly.MinValue)
+                {
+                    Console.WriteLine("Invalid date. Please try again.");
+                }
+
+            } while (branchEstablishDate == DateOnly.MinValue);
+
+            // View all hospitals to select hospital for the branch
+            Console.WriteLine("Available Hospitals:");
+            Console.WriteLine(new string('-', 40));
+            // get all hospitals from the hospital class
+
+            Console.WriteLine("Hospital ID: " + Hospital.HospitalId);
+            Console.WriteLine("Hospital Name: " + Hospital.HospitalName);
+            Console.WriteLine("Establish Date: " + Hospital.HospitalEstablishDate);
+            Console.WriteLine(new string('-', 40));
+
+            int hospitalId;
+            do
+            {
+                hospitalId = Validation.IntValidation("hospital ID");
+
+                if (hospitalId != Hospital.HospitalId)
+                {
+                    Console.WriteLine("Invalid hospital ID. Please try again.");
+                    Additional.HoldScreen();
+                }
+
+            } while (hospitalId != Hospital.HospitalId);
 
             // Add branch to the hospital
-            Branch.AddBranch(branchName, branchCity, branchEstablishDate, hospitalId); // Call the static method to add the branch
+            //Branch.AddBranch(branchName, branchCity, branchEstablishDate, hospitalId); // Call the static method to add the branch
+            // Branch instance creation
+            Branch newBranch = new Branch
+            {
+                P_BranchName = branchName,
+                P_BranchCity = branchCity,
+                P_BranchEstablishDate = branchEstablishDate,
+                HospitalId = hospitalId
+            };
+            Hospital.Branches.Add(newBranch); // Add the new branch to the hospital's branches list
 
             Console.WriteLine("Branch added successfully.");
             // save branches to file
             //SaveBranches();
-            SuperAdmin.AdminBranchMenu();
+            
             Additional.HoldScreen();
+            SuperAdmin.AdminBranchMenu();
         }
 
         // Get All Branches method to display all branches in the hospital
