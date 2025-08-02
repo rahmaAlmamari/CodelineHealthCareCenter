@@ -34,13 +34,6 @@ internal class Program
 
         static void Main(string[] args)
         {
-            //to display the main menu options ...
-            ShowMainMenu();
-        }
-
-        //to show main menu options ...
-        public static void ShowMainMenu()
-        {
             //to display the welcome message ...
             Additional.WelcomeMessage("Hospital Management");
 
@@ -97,7 +90,7 @@ internal class Program
             //Hospital.UserNationalID.Add(PatientTest.UserNationalID);
             //Hospital.UserNationalID.Add(DoctorTest.UserNationalID);
 
-            User x = new User();
+            
             //-----------------------------------------------------------------------------------
 
             //to load hospital users national id data from file ...
@@ -120,7 +113,14 @@ internal class Program
             Patient.LoadPatientsFromFile();
             Patient.LoadPatientAppointmentsFromFile(); // Load patient appointments from file
             Console.ReadLine();//just to hold the screen ...
+            //to display the main menu options ...
+            ShowMainMenu();
+        }
 
+        //to show main menu options ...
+        public static void ShowMainMenu()
+        {
+            User x = new User();
             //to list the main menu options ...
             bool exitFlag = false;
             do
