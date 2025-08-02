@@ -315,7 +315,7 @@ namespace CodelineHealthCareCenter.Models
             //Additional.HoldScreen(); //just to hold the screen ...
         }
         //to SaveAppointmentsToFile
-        public static void SaveAppointmentsToFile()
+        public static void SavePatientAppointmentsToFile()
         {
             string path = "appointments.txt";
             using (StreamWriter writer = new StreamWriter(path))
@@ -335,7 +335,7 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Appointments saved successfully.");
         }
         //to LoadAppointmentsFromFile
-        public static void LoadAppointmentsFromFile()
+        public static void LoadPatientAppointmentsFromFile()
         {
             string path = "appointments.txt";
             if (!File.Exists(path))
