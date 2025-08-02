@@ -37,13 +37,14 @@ namespace CodelineHealthCareCenter.Models
             // add the new department to the list of departments in the branch
             BranchDepartment.Departments.Add(newDepartment); 
             Console.WriteLine($"Department '{newDepartment.DepartmentName}' created in Branch ID {newDepartment.BranchId}.");
+
             // Increment the department count
             DepartmentCount++;
             // Save the new department to file
-            SaveDepartmentsToFile();
-            
-            SuperAdmin.AdminDepartmentMenu();
+            //SaveDepartmentsToFile();
             Additional.HoldScreen();
+            SuperAdmin.AdminDepartmentMenu();
+            
 
         }
 

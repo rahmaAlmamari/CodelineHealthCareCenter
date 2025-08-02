@@ -27,7 +27,7 @@ namespace CodelineHealthCareCenter.Models
             Console.Clear();
             // view all Departments
             Console.WriteLine("Add New Department");
-            Console.WriteLine("=====================================");
+            Console.WriteLine("-------------------------------------");
             Console.WriteLine("List of All Department");
             // Display all departments
             Department.GetAllDepartments();
