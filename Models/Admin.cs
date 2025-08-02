@@ -25,31 +25,31 @@ namespace CodelineHealthCareCenter.Models
         //====================================================
         //3. class methods ...
 
-        public void AddClinic()
-        {
-            //Clinics.Add(clinic);
-            //Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{UserName}'.");
-            Department.ViewAllDepartments();
-            int departmentId = Validation.IntValidation("Department ID to add Clinic to");
-            foreach(var department in BranchDepartment.Departments)
-            {
-                if (department.DepartmentId == departmentId)
-                {
-                    //to get the branch ID from the department ...
-                    int branchId = department.BranchId;
-                    //to get the floor ID from the branch ...
-                    int floorId = 1; // Assuming a default floor ID, can be modified as needed
-                    //to get the room ID from the branch ...
-                    int roomId = 1; // Assuming a default room ID, can be modified as needed
-                    string clinicName = Validation.StringValidation("Clinic Name");
-                    Clinic newClinic = new Clinic(clinicName, departmentId, branchId, floorId, roomId);
-                    //newClinic.CreateClinic(departmentId);
-                    Clinics.Add(newClinic);
-                    Console.WriteLine($"Clinic '{newClinic.ClinicName}' added to Department ID {departmentId}.");
-                    return;
-                }
-            }
-        }
+        //public void AddClinic()
+        //{
+        //    //Clinics.Add(clinic);
+        //    //Console.WriteLine($" Clinic '{clinic.ClinicName}' added to Admin '{UserName}'.");
+        //    Department.ViewAllDepartments();
+        //    int departmentId = Validation.IntValidation("Department ID to add Clinic to");
+        //    foreach(var department in BranchDepartment.Departments)
+        //    {
+        //        if (department.DepartmentId == departmentId)
+        //        {
+        //            //to get the branch ID from the department ...
+        //            int branchId = department.BranchId;
+        //            //to get the floor ID from the branch ...
+        //            int floorId = 1; // Assuming a default floor ID, can be modified as needed
+        //            //to get the room ID from the branch ...
+        //            int roomId = 1; // Assuming a default room ID, can be modified as needed
+        //            string clinicName = Validation.StringValidation("Clinic Name");
+        //            //Clinic newClinic = new Clinic(clinicName, departmentId, branchId, floorId, roomId);
+        //            //newClinic.CreateClinic(departmentId);
+        //            Clinics.Add(newClinic);
+        //            Console.WriteLine($"Clinic '{newClinic.ClinicName}' added to Department ID {departmentId}.");
+        //            return;
+        //        }
+        //    }
+        //}
 
         public void ViewClinics()
         {
@@ -272,7 +272,7 @@ namespace CodelineHealthCareCenter.Models
                 switch (choice)
                 {
                     case "1":
-                        CurrentAdmin.AddClinic();
+                        Clinic.AddClinic();
                         break;
                     case "2":
                         Console.WriteLine("All Doctors:");
