@@ -80,13 +80,16 @@ namespace CodelineHealthCareCenter.Models
                             if (doctor.UserId == doctorId)
                             {
                                 //to check if the doctor is already assigned to the clinic ...
-                                if (clinic.Doctors.Any(d => d.UserId == doctorId))
-                                {
-                                    Console.WriteLine($"Doctor '{doctor.UserName}' is already assigned to Clinic '{clinic.ClinicName}'.");
-                                    return;
-                                }
+                                //var existingDoctor = clinic.Doctors.FirstOrDefault(d => d.UserId == doctorId);
+                                //if (existingDoctor != null)
+                                //{
+                                //    Console.WriteLine($"Doctor '{doctor.UserName}' is already assigned to Clinic '{clinic.ClinicName}'.");
+                                //    return;
+                                //}
                                 //to assign the doctor to the clinic ...
                                 clinic.Doctors.Add(doctor);
+                                //to add the clinic id to the doctor ...
+                                doctor.ClinicID = clinicId; // Assuming Doctor class has a ClinicID property
                                 Console.WriteLine($"Doctor '{doctor.UserName}' assigned to Clinic '{clinic.ClinicName}'.");
                                 return;
                             }
