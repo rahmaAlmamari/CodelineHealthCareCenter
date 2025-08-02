@@ -34,6 +34,13 @@ internal class Program
 
         static void Main(string[] args)
         {
+            //to display the main menu options ...
+            ShowMainMenu();
+        }
+
+        //to show main menu options ...
+        public static void ShowMainMenu()
+        {
             //to display the welcome message ...
             Additional.WelcomeMessage("Hospital Management");
 
@@ -140,7 +147,7 @@ internal class Program
                         break;
                     case '4':
                         //to displaying all appointments ...
-                       Patient.PatientMenu();
+                        Patient.PatientMenu();
                         break;
                     case '0':
                         exitFlag = true;
@@ -163,7 +170,7 @@ internal class Program
                         //to save patient data to file ...
                         Patient.SavePatientsToFile();
                         Console.ReadLine();//just to hold the screen ... 
-                         
+
                         Console.WriteLine("Thank you for using the Hotel System. Goodbye!");
                         break;
                     default:
