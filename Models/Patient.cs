@@ -407,6 +407,46 @@ namespace CodelineHealthCareCenter.Models
 
         //    Console.WriteLine("Patient records saved successfully.");
         //}
+        //to LoadPatientRecordsFromFile
+        //public static void LoadPatientRecordsFromFile()
+        //{
+        //    string path = "patient_records.txt";
+        //    if (!File.Exists(path))
+        //    {
+        //        Console.WriteLine("Patient records file not found.");
+        //        return;
+        //    }
+
+        //    using (StreamReader reader = new StreamReader(path))
+        //    {
+        //        string line;
+        //        while ((line = reader.ReadLine()) != null)
+        //        {
+        //            var parts = line.Split('|');
+        //            if (parts.Length != 4) continue;
+
+        //            int patientId = int.Parse(parts[0]);
+        //            int recordId = int.Parse(parts[1]);
+        //            DateTime recordDate = DateTime.Parse(parts[2]);
+        //            string description = parts[3];
+
+        //            var patient = FindPatientById(patientId);
+        //            if (patient != null)
+        //            {
+        //                PatientRecord record = new PatientRecord
+        //                {
+        //                    RecordId = recordId,
+        //                    RecordDate = recordDate,
+        //                    RecordDescription = description
+        //                };
+        //                patient.PatientRecords.Add(record);
+        //            }
+        //        }
+        //    }
+
+        //    Console.WriteLine("Patient records loaded successfully.");
+        //}
+
 
 
 
