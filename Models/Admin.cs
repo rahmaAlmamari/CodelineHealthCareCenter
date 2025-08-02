@@ -128,7 +128,7 @@ namespace CodelineHealthCareCenter.Models
                             }
                         }
                         clinic.Services.Add(newService);
-                        Services.Add(newService); // Add to the static list
+                        Service.Services.Add(newService); // Add to the static list
                         Console.WriteLine($"Service '{newService.ServiceName}' added to Clinic '{clinic.ClinicName}'.");
                         return;
                     }
