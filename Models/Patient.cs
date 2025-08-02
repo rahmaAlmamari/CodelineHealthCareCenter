@@ -314,6 +314,27 @@ namespace CodelineHealthCareCenter.Models
             Console.WriteLine("Patients loaded successfully.");
             //Additional.HoldScreen(); //just to hold the screen ...
         }
+        //to SaveAppointmentsToFile
+        public static void SaveAppointmentsToFile()
+        {
+            string path = "appointments.txt";
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                foreach (var branch in Hospital.Branches)
+                {
+                    foreach (var patient in branch.Patients)
+                    {
+                        foreach (var appointment in patient.PatientAppointments)
+                        {
+                            writer.WriteLine($"{patient.UserId}|{appointment.BookingId}|{appointment.BookingDateTime:yyyy-MM-dd HH:mm}|{appointment.DoctorId}");
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine("Appointments saved successfully.");
+        }
+
 
         //====================================================
         //4. class constructor ...
