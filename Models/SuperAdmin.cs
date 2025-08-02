@@ -730,7 +730,30 @@ namespace CodelineHealthCareCenter.Models
                         adminToUpdate.UserPhoneNumber = Validation.IntValidation("Enter new phone number: ");
                         break;
                     case '3':
-                        adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                        //adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                        //if (adminToUpdate.UserStatus.ToLower() != "active" && adminToUpdate.UserStatus.ToLower() != "inactive")
+                        //{
+                        //    Console.WriteLine("Invalid status. Please enter 'Active' or 'Inactive'.");
+                        //    // do while loop to ask for status again
+                        //    while (true)
+                        //    {
+                        //        adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                        //        if (adminToUpdate.UserStatus.ToLower() == "active" || adminToUpdate.UserStatus.ToLower() == "inactive")
+                        //            break; // Valid status, exit the loop
+                        //        Console.WriteLine("Invalid status. Please enter 'Active' or 'Inactive'.");
+                        //    }
+                        //    continue; // Go back to the menu
+                        //}
+                        //}
+                        
+                        do
+                        {
+                            adminToUpdate.UserStatus = Validation.StringValidation("Enter new status (Active/Inactive): ");
+                            if (adminToUpdate.UserStatus.ToLower() == "active" || adminToUpdate.UserStatus.ToLower() == "inactive")
+                                break; // Valid status, exit the loop
+                            Console.WriteLine("Invalid status. Please enter 'Active' or 'Inactive'.");
+                        } while (true);
+
                         break;
                     case '0':
                         Console.WriteLine("Exiting update menu...");
