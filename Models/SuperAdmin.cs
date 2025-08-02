@@ -140,43 +140,45 @@ namespace CodelineHealthCareCenter.Models
         // SuperAdmin -> Doctor Menu 
         public static void DoctorUserMenu()
         {
-            Console.Clear();
-            Console.WriteLine("Doctor Admin Menu ");
-            Console.WriteLine("1. Add New Doctor ");
-            Console.WriteLine("2. View All Doctors ");
-            Console.WriteLine("3. Update Doctor ");
-            Console.WriteLine("4. Delete Doctor ");
-            Console.WriteLine("5. Set Doctor Status ");
-            Console.WriteLine("0. Exit ");
-            string choice1 = Validation.StringValidation("Please select an option : ");
-            switch (choice1)
+            string choice1;
+            do
             {
-                case "1":
-                    AddDoctor();
-                    break;
-                case "2":
-                    ViewDoctors();
-                    break;
-                case "3":
-                    UpdateDoctor();
-                    break;
-                case "4":
-                    DeleteDoctor();
-                    break;
-                case "5":
-                    SetDoctorStatus();
-                    break;
-                case "0":
-                    
-                    Console.WriteLine("Exiting Doctor Admin Menu.");
-                    Additional.HoldScreen();
-                    AdminDoctorUserMenu(); // Return to the AdminDoctorUserMenu
-                    break;
-                default:
-                    Console.WriteLine("Invalid option, please try again.");
-                    Additional.HoldScreen();
-                    break;
-            }
+                Console.Clear();
+                Console.WriteLine("Doctor Admin Menu ");
+                Console.WriteLine("1. Add New Doctor ");
+                Console.WriteLine("2. View All Doctors ");
+                Console.WriteLine("3. Update Doctor ");
+                Console.WriteLine("4. Delete Doctor ");
+                Console.WriteLine("5. Set Doctor Status ");
+                Console.WriteLine("0. Back ");
+                choice1 = Validation.StringValidation("Please select an option : ");
+
+                switch (choice1)
+                {
+                    case "1":
+                        AddDoctor();
+                        break;
+                    case "2":
+                        ViewDoctors();
+                        break;
+                    case "3":
+                        UpdateDoctor();
+                        break;
+                    case "4":
+                        DeleteDoctor();
+                        break;
+                    case "5":
+                        SetDoctorStatus();
+                        break;
+                    case "0":
+                        return; // Back to AdminDoctorUserMenu
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        Additional.HoldScreen();
+                        break;
+                }
+
+            } while (choice1 != "0");
         }
 
         // SuperAdmin -> Branch Menu
