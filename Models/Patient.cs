@@ -317,7 +317,7 @@ namespace CodelineHealthCareCenter.Models
         //to SaveAppointmentsToFile
         public static void SavePatientAppointmentsToFile()
         {
-            string path = "appointments.txt";
+            string path = "PatientAppointments.txt";
             using (StreamWriter writer = new StreamWriter(path))
             {
                 foreach (var branch in Hospital.Branches)
@@ -337,7 +337,7 @@ namespace CodelineHealthCareCenter.Models
         //to LoadAppointmentsFromFile
         public static void LoadPatientAppointmentsFromFile()
         {
-            string path = "appointments.txt";
+            string path = "PatientAppointments.txt";
             if (!File.Exists(path))
             {
                 Console.WriteLine("Appointments file not found.");
