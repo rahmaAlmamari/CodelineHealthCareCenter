@@ -15,6 +15,7 @@ namespace CodelineHealthCareCenter.Models
         public int ClinicId;
         public int DoctorId;
         public static int BookingCount = 0;
+        public List<Service> BookingService = new List<Service>();
 
 
         //====================================================
@@ -40,6 +41,29 @@ namespace CodelineHealthCareCenter.Models
             //to list all spots in the selected clinic ...
             GetAllSpotsByClinicId(clinicId, departmentId);
             DateTime SpotDateTime = Validation.DateTimeValidation("Spot Date and Time (yyyy-MM-dd HH:mm:ss)");
+            //to remove the selected spot from the clinic spots ...
+            foreach (var department in BranchDepartment.Departments)
+            {
+                if (department.DepartmentId == departmentId)
+                {
+                    foreach (var clinic in department.Clinics)
+                    {
+                        if (clinic.ClinicId == clinicId)
+                        {
+                            if (clinic.ClinicSpots.Contains(SpotDateTime))
+                            {
+                                clinic.ClinicSpots.Remove(SpotDateTime);
+                                Console.WriteLine($"Spot {SpotDateTime} removed from Clinic ID {clinicId}.");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Spot {SpotDateTime} not found in Clinic ID {clinicId}.");
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
             //to create a new booking ...
             Booking newBooking = new Booking
             {
@@ -47,6 +71,18 @@ namespace CodelineHealthCareCenter.Models
                 ClinicId = clinicId,
                 DoctorId = doctorId
             };
+            //to add the selected service to the new booking ...
+            var selectedService = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
+            if (selectedService != null)
+            {
+                newBooking.BookingService.Add(selectedService);
+                Console.WriteLine($"Service '{selectedService.ServiceName}' added to the booking.");
+            }
+            else
+            {
+                Console.WriteLine("Selected service not found.");
+                return;
+            }
             //to add the new booking to the DoctorAppointments list
             foreach (var doctor in BranchDepartment.Doctors)
             {
