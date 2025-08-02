@@ -30,39 +30,38 @@ namespace CodelineHealthCareCenter.Models
             //LoadAdminsFromFile();
             //Hospital.LoadHospitalFromFile();
 
-            Console.Clear();
-            Console.WriteLine("Welcome to SuperAdminMenu");
-            Console.WriteLine("1. Users ( Admins And Doctors )");
-            Console.WriteLine("2. Branchs");
-            Console.WriteLine("3. Departments");
-            Console.WriteLine("0. Exit");
-            Console.Write("Please select an option: ");
-            //to get the user choice ...
-            char choice = Validation.CharValidation("option");
-            switch (choice)
+            char choice;
+            do
             {
-                case '1':
-                    AdminDoctorUserMenu();
-                    break;
-                case '2':
-                    AdminBranchMenu();
-                    break;
-                case '3':
-                    AdminDepartmentMenu();
-                    break;
+                Console.Clear();
+                Console.WriteLine("Welcome to SuperAdminMenu");
+                Console.WriteLine("1. Users ( Admins And Doctors )");
+                Console.WriteLine("2. Branchs");
+                Console.WriteLine("3. Departments");
+                Console.WriteLine("0. Exit");
+                choice = Validation.CharValidation("option");
 
-                case '0':
-                    Console.WriteLine("Exiting SuperAdmin Menu.");
-                    Additional.HoldScreen();
-                    // return to the main menu
-                    //Hospital.MainMenu(); // Assuming you have a MainMenu method in Hospital class
-                    return;
-                default:
-                    
-                    Console.WriteLine("Invalid option, please try again.");
-                    Additional.HoldScreen();
-                    break;
-            }
+                switch (choice)
+                {
+                    case '1':
+                        AdminDoctorUserMenu();
+                        break;
+                    case '2':
+                        AdminBranchMenu();
+                        break;
+                    case '3':
+                        AdminDepartmentMenu();
+                        break;
+                    case '0':
+                        Console.WriteLine("Exiting SuperAdmin Menu.");
+                        Additional.HoldScreen();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        Additional.HoldScreen();
+                        break;
+                }
+            } while (choice != '0');
 
 
         }
@@ -171,7 +170,6 @@ namespace CodelineHealthCareCenter.Models
                     Console.WriteLine("Exiting Doctor Admin Menu.");
                     Additional.HoldScreen();
                     AdminDoctorUserMenu(); // Return to the AdminDoctorUserMenu
-
                     break;
                 default:
                     Console.WriteLine("Invalid option, please try again.");
@@ -216,6 +214,7 @@ namespace CodelineHealthCareCenter.Models
                 case "0":
                    
                     Console.WriteLine("Exiting Branch Admin Menu.");
+                    Additional.HoldScreen();
                     SuperAdminMenu();
                     break;
                 default:
