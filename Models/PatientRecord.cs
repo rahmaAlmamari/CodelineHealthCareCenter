@@ -21,7 +21,7 @@ namespace CodelineHealthCareCenter.Models
         public string DoctorNote;
 
         public static int PatientRecordCount = 0;
-        public static IPatientRecordService service;
+        //public static IPatientRecordService service;
         //public static List<PatientRecord> Records = new List<PatientRecord>();
 
         //====================================================
@@ -199,81 +199,81 @@ namespace CodelineHealthCareCenter.Models
             }
         }
 
-        public static void PatientRecordMenu()
-        {
-            Additional.WelcomeMessage("Patient Record Management");
+        //public static void PatientRecordMenu()
+        //{
+        //    Additional.WelcomeMessage("Patient Record Management");
 
-            while (true)
-            {
-                Console.Clear();
-                Console.WriteLine(" PATIENT RECORD MENU ");
-                Console.WriteLine("1. Add Patient Record");
-                Console.WriteLine("2. Update Patient Record");
-                Console.WriteLine("3. Delete Patient Record");
-                Console.WriteLine("4. Get Patient Record by ID");
-                Console.WriteLine("5. Get All Patient Records");
-                Console.WriteLine("6. Get Records by Patient ID");
-                Console.WriteLine("7. Get Records by Clinic ID and Date");
-                Console.WriteLine("8. Exit");
-                Console.Write("Select an option: ");
+        //    while (true)
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine(" PATIENT RECORD MENU ");
+        //        Console.WriteLine("1. Add Patient Record");
+        //        Console.WriteLine("2. Update Patient Record");
+        //        Console.WriteLine("3. Delete Patient Record");
+        //        Console.WriteLine("4. Get Patient Record by ID");
+        //        Console.WriteLine("5. Get All Patient Records");
+        //        Console.WriteLine("6. Get Records by Patient ID");
+        //        Console.WriteLine("7. Get Records by Clinic ID and Date");
+        //        Console.WriteLine("8. Exit");
+        //        Console.Write("Select an option: ");
 
-                string choice = Console.ReadLine();
-                Console.WriteLine();
+        //        string choice = Console.ReadLine();
+        //        Console.WriteLine();
 
-                switch (choice)
-                {
-                    case "1":
-                        int patientId = Validation.IntValidation("Patient ID");
-                        string details = Validation.StringValidation("Doctor Notes / Record Details");
-                        service.AddPatientRecord(patientId, details);
-                        break;
+        //        switch (choice)
+        //        {
+        //            case "1":
+        //                int patientId = Validation.IntValidation("Patient ID");
+        //                string details = Validation.StringValidation("Doctor Notes / Record Details");
+        //                service.AddPatientRecord(patientId, details);
+        //                break;
 
-                    case "2":
-                        int updateId = Validation.IntValidation("Record ID to update");
-                        string newNote = Validation.StringValidation("New Doctor Note");
-                        service.UpdatePatientRecord(updateId, newNote);
-                        break;
+        //            case "2":
+        //                int updateId = Validation.IntValidation("Record ID to update");
+        //                string newNote = Validation.StringValidation("New Doctor Note");
+        //                service.UpdatePatientRecord(updateId, newNote);
+        //                break;
 
-                    case "3":
-                        int deleteId = Validation.IntValidation("Record ID to delete");
-                        if (Additional.ConfirmAction("delete this patient record"))
-                            service.DeletePatientRecord(deleteId);
-                        else
-                            Console.WriteLine("Deletion cancelled.");
-                        break;
+        //            case "3":
+        //                int deleteId = Validation.IntValidation("Record ID to delete");
+        //                if (Additional.ConfirmAction("delete this patient record"))
+        //                    service.DeletePatientRecord(deleteId);
+        //                else
+        //                    Console.WriteLine("Deletion cancelled.");
+        //                break;
 
-                    case "4":
-                        int id = Validation.IntValidation("Record ID");
-                        service.GetPatientRecordById(id);
-                        break;
+        //            case "4":
+        //                int id = Validation.IntValidation("Record ID");
+        //                service.GetPatientRecordById(id);
+        //                break;
 
-                    case "5":
-                        service.GetAllPatientRecords();
-                        break;
+        //            case "5":
+        //                service.GetAllPatientRecords();
+        //                break;
 
-                    case "6":
-                        int searchPatientId = Validation.IntValidation("Patient ID");
-                        service.GetRecordsByPatientId(searchPatientId);
-                        break;
+        //            case "6":
+        //                int searchPatientId = Validation.IntValidation("Patient ID");
+        //                service.GetRecordsByPatientId(searchPatientId);
+        //                break;
 
-                    case "7":
-                        int searchClinicId = Validation.IntValidation("Clinic ID");
-                        DateTime date = Validation.DateTimeValidation("Date (MM/dd/yyyy)");
-                        service.GetRecordsByClinicIdAndDate(searchClinicId, date);
-                        break;
+        //            case "7":
+        //                int searchClinicId = Validation.IntValidation("Clinic ID");
+        //                DateTime date = Validation.DateTimeValidation("Date (MM/dd/yyyy)");
+        //                service.GetRecordsByClinicIdAndDate(searchClinicId, date);
+        //                break;
 
-                    case "8":
-                        Console.WriteLine("Exiting Patient Record Menu...");
-                        return;
+        //            case "8":
+        //                Console.WriteLine("Exiting Patient Record Menu...");
+        //                return;
 
-                    default:
-                        Console.WriteLine("Invalid option. Try again.");
-                        break;
-                }
+        //            default:
+        //                Console.WriteLine("Invalid option. Try again.");
+        //                break;
+        //        }
 
-                Additional.HoldScreen();
-            }
-        }
+        //        Additional.HoldScreen();
+        //    }
+        //}
 
         //====================================================
         //4. class constructor ...
