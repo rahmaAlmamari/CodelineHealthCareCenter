@@ -509,6 +509,8 @@ namespace CodelineHealthCareCenter.Models
             {
 
                 BranchDepartment.Doctors.Remove(doctorToDelete);
+                // delete UserNationalID from UserNationalID list
+                Hospital.UserNationalID.Remove(doctorToDelete.UserNationalID);
                 Console.WriteLine("Doctor deleted successfully.");
                 DoctorUserMenu();
                 Additional.HoldScreen();
