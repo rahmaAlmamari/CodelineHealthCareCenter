@@ -24,7 +24,7 @@ namespace CodelineHealthCareCenter.Models
         //2. class properties ...
 
        // public static List<Clinic> Clinics = new List<Clinic>();
-        public int ClinicId { get; private set; }
+        public int ClinicId { get; set; }
         public string ClinicName { get; set; }
         public int DepartmentId { get; set; }
         public int BranchId { get; set; }
@@ -104,11 +104,11 @@ namespace CodelineHealthCareCenter.Models
             //to get clinic name ...
             string clinicName = Validation.ClinicNameValidation();
             //to list all branches ...
-            Branch.GetAllBranches();
+            Validation.ListAllBranches();
             //to get branch ID ...
             int branchId = Validation.BranchIdValidation();
             //to list all departments ...
-            Department.GetAllDepartments();
+            Validation.ListDepartmentsInBranch(branchId);
             //to get department ID ...
             int departmentId = Validation.DepartmentIdValidation();
             //to add clinic to clinic list ...
@@ -300,71 +300,75 @@ namespace CodelineHealthCareCenter.Models
             //Console.WriteLine($"Clinic '{clinic.ClinicName}' deleted successfully.");
         }
 
-        public static void SaveClinicToFile() // saves clinic data to a file
+        public static void SaveClinicToFile()
         {
             using StreamWriter writer = new StreamWriter(filePath);
             foreach (var department in BranchDepartment.Departments)
             {
-                if (department.Clinics.Count == 0)
+                foreach (var clinic in department.Clinics)
                 {
-                    Console.WriteLine($"No clinics found in Department ID {department.DepartmentId}.");
-                    continue;
-                }
-                else 
-                {
-                    foreach (var clinic in department.Clinics)
-                    {
-                        writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.clinicStatus}");
-                    }
+                    writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.ClinicStatus}");
                 }
             }
-         
             Console.WriteLine("Clinic data saved successfully.");
         }
 
-        //public static void LoadClinicFromFile() // loads clinic data from a file
-        //{
-        //    clinicCounter = 0;
 
-        //    if (!File.Exists(filePath))
-        //    {
-        //        Console.WriteLine("Clinic data file not found!.");
-        //        return;
-        //    }   
-                
+        public static void LoadClinicFromFile()
+        {
+            clinicCounter = 0;
 
-        //    string[] lines = File.ReadAllLines(filePath);
-        //    foreach (var line in lines)
-        //    {
-        //        string[] parts = line.Split('|');
-        //        if (parts.Length < 7) continue;
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine("Clinic data file not found.");
+                return;
+            }
 
-        //        var clinic = new Clinic(
-        //            clinicName: parts[1],
-        //            departmentId: int.Parse(parts[2]),
-        //            branchId: int.Parse(parts[3]),
-        //            floorId: int.Parse(parts[4]),
-        //            roomId: int.Parse(parts[5])
-        //        );
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                var parts = line.Split('|');
+                if (parts.Length != 7)
+                    continue;
 
-        //        bool status = bool.Parse(parts[6]);
-        //        clinic.SetClinicStatus(status);
-        //        clinic.ClinicId = int.Parse(parts[0]); // manually set ID
+                int clinicId = int.Parse(parts[0]);
+                string clinicName = parts[1];
+                int departmentId = int.Parse(parts[2]);
+                int branchId = int.Parse(parts[3]);
+                int floorId = int.Parse(parts[4]);
+                int roomId = int.Parse(parts[5]);
+                bool status = bool.Parse(parts[6]);
 
-        //        foreach (var department in BranchDepartment.Departments)
-        //        {
-        //            if (department.DepartmentId == clinic.DepartmentId)
-        //            {
-        //                department.Clinics.Add(clinic);
-        //                break;
-        //            }
-        //        }
-                
-        //        if (clinic.ClinicId > clinicCounter)
-        //            clinicCounter = clinic.ClinicId;
-        //    }
-        //    Console.WriteLine("Clinic data loaded successfully.");
-        //}
+                // Create the clinic
+                Clinic clinic = new Clinic(clinicName, floorId, roomId)
+                {
+                    ClinicId = clinicId,
+                    ClinicName = clinicName,
+                    DepartmentId = departmentId,
+                    BranchId = branchId,
+                    FloorId = floorId,
+                    RoomId = roomId
+                };
+
+                clinic.SetClinicStatus(status);
+
+                // Update the clinic counter if needed
+                if (clinicId > clinicCounter)
+                    clinicCounter = clinicId;
+
+                // Add to the correct department
+                var department = BranchDepartment.Departments
+                    .FirstOrDefault(d => d.DepartmentId == departmentId && d.BranchId == branchId);
+
+                if (department != null)
+                {
+                    department.Clinics.Add(clinic);
+                }
+            }
+
+            Console.WriteLine("Clinic data loaded successfully.");
+        }
+
 
 
         public static void ClinicMenu()
