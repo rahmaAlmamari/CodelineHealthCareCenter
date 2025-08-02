@@ -13,8 +13,8 @@ namespace CodelineHealthCareCenter.Models
 
         private bool clinicStatus = true;
         private static int clinicCounter = 0;
-        private string location;
-        private decimal price;
+        //private string location;
+        //private decimal price;
         public static IClinicService service;
 
         //clinic file path ...
@@ -36,8 +36,8 @@ namespace CodelineHealthCareCenter.Models
         public List<Service> Services { get; set; } = new List<Service>();  // <-- IHasServices implementation
 
         public static int ClinicCount => clinicCounter;
-        public string Location { get => location; set => location = value; }
-        public decimal Price { get => price; set => price = value; }
+        //public string Location { get => location; set => location = value; }
+        //public decimal Price { get => price; set => price = value; }
         public bool ClinicStatus => clinicStatus;
 
         //====================================================
@@ -48,18 +48,16 @@ namespace CodelineHealthCareCenter.Models
             clinicStatus = isActive;
         }
 
-        public void UpdateClinicDetails(string newName, string newLocation, decimal newPrice)
+        public void UpdateClinicDetails(string newName)
         {
             ClinicName = newName;
-            Location = newLocation;
-            Price = newPrice;
         }
 
         public void ViewClinicInfo()
         {
             Console.WriteLine($"\nCLINIC ID: {ClinicId}, NAME: {ClinicName}");
             Console.WriteLine($"Dept: {DepartmentId}, Branch: {BranchId}, Floor: {FloorId}, Room: {RoomId}");
-            Console.WriteLine($"Location: {Location}, Price: ${Price}, Status: {(ClinicStatus ? "Open" : "Closed")}");
+            Console.WriteLine($"Status: {(ClinicStatus ? "Open" : "Closed")}");
             Console.WriteLine($"Doctors: {Doctors.Count}, Appointments: {ClinicSpots.Count}, Services: {Services.Count}");
         }
 
@@ -213,7 +211,7 @@ namespace CodelineHealthCareCenter.Models
                     Console.WriteLine("Clinic not found.");
                     return;
                 }
-                clinic.UpdateClinicDetails(name, loc, price);
+                clinic.UpdateClinicDetails(name);
                 Console.WriteLine($"Clinic ID {clinicId} updated successfully.");
                 return;
             }
@@ -290,7 +288,7 @@ namespace CodelineHealthCareCenter.Models
                 {
                     foreach (var clinic in department.Clinics)
                     {
-                        writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.Location}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.Price}|{clinic.clinicStatus}");
+                        writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.clinicStatus}");
                     }
                 }
             }
