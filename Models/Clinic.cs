@@ -312,7 +312,7 @@ namespace CodelineHealthCareCenter.Models
                     writer.WriteLine($"{clinic.ClinicId}|{clinic.ClinicName}|{clinic.DepartmentId}|{clinic.BranchId}|{clinic.FloorId}|{clinic.RoomId}|{clinic.ClinicStatus}");
 
                     // Line 2: Doctors (IDs only)
-                    string doctorLine = "Doctors:" + string.Join(",", clinic.Doctors.Select(d => d.UserId));
+                    string doctorLine = "Doctors:" + string.Join(",", clinic.Doctors.Where(d => d != null).Select(d => d.UserId));
                     writer.WriteLine(doctorLine);
 
                     // Line 3: ClinicSpots (date-time list)
@@ -320,13 +320,14 @@ namespace CodelineHealthCareCenter.Models
                     writer.WriteLine(spotsLine);
 
                     // Line 4: Services (IDs only)
-                    string serviceLine = "Services:" + string.Join(",", clinic.Services.Select(s => s.ServiceId));
+                    string serviceLine = "Services:" + string.Join(",", clinic.Services.Where(s => s != null).Select(s => s.ServiceId));
                     writer.WriteLine(serviceLine);
                 }
             }
 
             Console.WriteLine("Clinic data saved successfully.");
         }
+
 
         public static void LoadClinicFromFile()
         {
@@ -377,21 +378,9 @@ namespace CodelineHealthCareCenter.Models
                     {
                         if (int.TryParse(idStr, out int doctorId))
                         {
-                            foreach(var My_department in BranchDepartment.Departments)
-                            {
-                                // Find doctor by ID in the hospital's doctors list
-                                //var My_doctor = My_department.Clinics..FirstOrDefault(d => d.UserId == doctorId);
-                                foreach (var My_clinic in My_department.Clinics)
-                                {
-                                   if(My_clinic.ClinicId == clinicId)
-                                    {
-                                        var doctor = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
-                                        if (doctor != null && !clinic.Doctors.Contains(doctor))
-                                            clinic.Doctors.Add(doctor);
-
-                                    }
-                                }
-                            }
+                            var doctor = BranchDepartment.Doctors.FirstOrDefault(d => d.UserId == doctorId);
+                            //if (doctor != null)
+                                clinic.Doctors.Add(doctor);
                         }
                     }
                 }
@@ -415,23 +404,9 @@ namespace CodelineHealthCareCenter.Models
                     {
                         if (int.TryParse(idStr, out int serviceId))
                         {
-                            foreach (var My_department in BranchDepartment.Departments)
-                            {
-                                // Find doctor by ID in the hospital's doctors list
-                                //var My_doctor = My_department.Clinics..FirstOrDefault(d => d.UserId == doctorId);
-                                foreach (var My_clinic in My_department.Clinics)
-                                {
-                                    if (My_clinic.ClinicId == clinicId)
-                                    {
-                                        var My_servic = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
-                                        if (My_servic == null)
-                                        {
-                                            clinic.Services.Add(My_servic);
-                                        }
-
-                                    }
-                                }
-                            }
+                            var service = Service.Services.FirstOrDefault(s => s.ServiceId == serviceId);
+                            if (service != null)
+                                clinic.Services.Add(service);
                         }
                     }
                 }

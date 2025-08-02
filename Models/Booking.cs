@@ -26,7 +26,7 @@ namespace CodelineHealthCareCenter.Models
         public static void BookAppointment()
         {
             //to list all departments ...
-            Department.GetAllDepartments();
+            Validation.ListAllDepartments();
             int departmentId = Validation.IntValidation("Department ID");
             //to list all clinics in the selected department ...
             GetAllClinicsByDepartmentId(departmentId);
