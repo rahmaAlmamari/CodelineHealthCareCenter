@@ -95,40 +95,41 @@ namespace CodelineHealthCareCenter.Models
         // SuperAdmin -> Admin Menu 
         public static void AdminUserMenu()
         {
-            Console.Clear();
-            Console.WriteLine("Users Admin Menu ");
-            Console.WriteLine("1. Add New Admin ");
-            Console.WriteLine("2. View All Admin ");
-            Console.WriteLine("3. Update Admin ");
-            Console.WriteLine("4. Delete Admin ");
-            Console.WriteLine("0. Exit ");
-            char choice1 = Validation.CharValidation("Please select an option : ");
-            switch (choice1)
+            
+            char choice1;
+            do
             {
-                case '1':
-                    AddAdmin();
-                    break;
+                Console.Clear();
+                Console.WriteLine("Users Admin Menu ");
+                Console.WriteLine("1. Add New Admin ");
+                Console.WriteLine("2. View All Admin ");
+                Console.WriteLine("3. Update Admin ");
+                Console.WriteLine("4. Delete Admin ");
+                Console.WriteLine("0. Back ");
+                choice1 = Validation.CharValidation("Please select an option : ");
 
-                case '2':
-                    ViewAdmins();
-                    break;
-                case '3':
-                    UpdateAdmin();
-                    break;
-                case '4':
-                    DeleteAdmin();
-                    break;
-
-                case '0':
-                    AdminDoctorUserMenu();
-                    Console.WriteLine("Exiting Admin User Menu.");
-                    break;
-                default:
-                    Console.WriteLine("Invalid option, please try again.");
-                    Additional.HoldScreen();
-                    break;
-
-            }
+                switch (choice1)
+                {
+                    case '1':
+                        AddAdmin();
+                        break;
+                    case '2':
+                        ViewAdmins();
+                        break;
+                    case '3':
+                        UpdateAdmin();
+                        break;
+                    case '4':
+                        DeleteAdmin();
+                        break;
+                    case '0':
+                        return; // Go back to AdminDoctorUserMenu
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        Additional.HoldScreen();
+                        break;
+                }
+            } while (choice1 != '0');
 
 
 
