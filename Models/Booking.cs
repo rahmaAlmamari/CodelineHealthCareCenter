@@ -40,7 +40,7 @@ namespace CodelineHealthCareCenter.Models
             int serviceId = Validation.IntValidation("Service ID");
             //to list all spots in the selected clinic ...
             GetAllSpotsByClinicId(clinicId, departmentId);
-            DateTime SpotDateTime = Validation.DateTimeValidation("Spot Date and Time (yyyy-MM-dd HH:mm:ss)");
+            DateTime SpotDateTime = Validation.DateTimeValidation("Spot Date and Time");
             //to remove the selected spot from the clinic spots ...
             foreach (var department in BranchDepartment.Departments)
             {
