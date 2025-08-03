@@ -557,7 +557,7 @@ namespace CodelineHealthCareCenter.Models
 
             foreach (var branch in Hospital.Branches)
             {
-                Console.WriteLine($"ID: {branch.BranchId}, Name: {branch.BranchName}");
+                Console.WriteLine($"Branche ID: {branch.BranchId}, Branche Name: {branch.BranchName}");
             }
 
 
@@ -574,7 +574,7 @@ namespace CodelineHealthCareCenter.Models
             }
             foreach (var department in departmentsInBranch)
             {
-                Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}");
+                Console.WriteLine($"Department ID: {department.DepartmentId}, Departments Name: {department.DepartmentName}");
             }
         }
         //to list all deprartments in the system
@@ -588,7 +588,7 @@ namespace CodelineHealthCareCenter.Models
             }
             foreach (var department in BranchDepartment.Departments)
             {
-                Console.WriteLine($"ID: {department.DepartmentId}, Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
+                Console.WriteLine($"Department ID: {department.DepartmentId}, Department Name: {department.DepartmentName}, Branch ID: {department.BranchId}");
             }
         }
         //to get patient by booking id 
@@ -627,7 +627,7 @@ namespace CodelineHealthCareCenter.Models
             }
             foreach (var patient in patientsWithAppointments)
             {
-                Console.WriteLine($"Patient National ID: {patient.UserNationalID}, Name: {patient.UserName}");
+                Console.WriteLine($"Patient National ID: {patient.UserNationalID}, Patient Name: {patient.UserName}");
             }
         }
     }
