@@ -55,10 +55,10 @@ namespace CodelineHealthCareCenter.Models
 
         public void ViewClinicInfo()
         {
-            Console.WriteLine($"\nCLINIC ID: {ClinicId}, NAME: {ClinicName}");
-            Console.WriteLine($"Dept: {DepartmentId}, Branch: {BranchId}, Floor: {FloorId}, Room: {RoomId}");
+            Console.WriteLine($"\nClinic ID: {ClinicId}, Clinic Name: {ClinicName}");
+            Console.WriteLine($"Department ID: {DepartmentId}, Branch ID: {BranchId}, Floor ID: {FloorId}, Room ID: {RoomId}");
             Console.WriteLine($"Status: {(ClinicStatus ? "Open" : "Closed")}");
-            Console.WriteLine($"Doctors: {Doctors.Count}, Appointments: {ClinicSpots.Count}, Services: {Services.Count}");
+            Console.WriteLine($"Number Of Doctors: {Doctors.Count}, Number Of Spot: {ClinicSpots.Count}, Number Of Services: {Services.Count}");
         }
 
         public void AddService(Service service)

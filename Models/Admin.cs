@@ -86,10 +86,19 @@ namespace CodelineHealthCareCenter.Models
                                 //    Console.WriteLine($"Doctor '{doctor.UserName}' is already assigned to Clinic '{clinic.ClinicName}'.");
                                 //    return;
                                 //}
-                                //to assign the doctor to the clinic ...
-                                clinic.Doctors.Add(doctor);
                                 //to add the clinic id to the doctor ...
                                 doctor.ClinicID = clinicId; // Assuming Doctor class has a ClinicID property
+                                //to assign the doctor to the clinic ...
+                                clinic.Doctors.Add(doctor);
+                                //to add clinic id to the doctor in Doctor list in BranchDepartment ...
+                                foreach (var doc in BranchDepartment.Doctors)
+                                {
+                                    if (doc.UserId == doctorId)
+                                    {
+                                        doc.ClinicID = clinicId; // Assuming Doctor class has a ClinicID property
+                                    }
+                                }
+
                                 Console.WriteLine($"Doctor '{doctor.UserName}' assigned to Clinic '{clinic.ClinicName}'.");
                                 return;
                             }
@@ -293,9 +302,7 @@ namespace CodelineHealthCareCenter.Models
         public static void AdminMenu()
         {
             Additional.WelcomeMessage("Admin Panel");
-
-            Console.WriteLine("Enter your National ID to continue:");
-            string AdminNationalId = Validation.StringValidation("your national ID");
+            string AdminNationalId = Validation.StringValidation("national ID");
 
             Admin CurrentAdmin = null;
             foreach (var admin in BranchDepartment.Admins)
