@@ -351,6 +351,20 @@ namespace CodelineHealthCareCenter.Models
         }
 
 
+        // save PatientRecords to file
+        public static void SavePatientRecordsToFile(string filePath)
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var doctor in Doctors)
+            {
+                foreach (var record in doctor.PatientRecords)
+                {
+                    // Save: DoctorID | PatientID | ClinicID | DateCreated | Note | TotalCost
+                    writer.WriteLine($"{doctor.UserId}|{record.PatientId}|{record.ClinicId}|{record.DateCreated}|{record.DoctorNote}|{record.TotalCost}");
+                }
+            }
+        }
+
         public static void DoctorMenu() // Displays the doctor management menu and handles user input for various doctor-related operations
         {
             Additional.WelcomeMessage("Doctor Panel");
