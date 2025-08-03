@@ -116,14 +116,14 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine("No clinic available.");
                 return;
             }
-            Console.WriteLine("List of Clini in the Selected Department:");
+            Console.WriteLine("List of Clinic in the Selected Department:");
             foreach (var department in BranchDepartment.Departments)
             {
                 if(department.DepartmentId == departmentId)
                 {
                     foreach (var clinic in department.Clinics)
                     {
-                        Console.WriteLine($"ID: {clinic.ClinicId}, Name: {clinic.ClinicName}, Department ID: {clinic.DepartmentId}");
+                        Console.WriteLine($"Clinic ID: {clinic.ClinicId}, Clinic Name: {clinic.ClinicName}, Department ID: {clinic.DepartmentId}");
                     }
                 }
             }
@@ -141,7 +141,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 if (doctor.ClinicID == clinicId)
                 { 
-                            Console.WriteLine($"ID: {doctor.UserId}, Name: {doctor.UserName}, Specialization: {doctor.DoctorSpecialization}");
+                            Console.WriteLine($"Doctor ID: {doctor.UserId}, Doctor Name: {doctor.UserName}, Doctor Specialization: {doctor.DoctorSpecialization}");
                 }
             }
         }
@@ -157,7 +157,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 if (service.ClinicId == clinicId)
                 {
-                    Console.WriteLine($"ID: {service.ServiceId}, Name: {service.ServiceName}, Price: {service.Price}");
+                    Console.WriteLine($"Service ID: {service.ServiceId}, Service Name: {service.ServiceName}, Service Price: {service.Price}");
                 }
             }
         }
