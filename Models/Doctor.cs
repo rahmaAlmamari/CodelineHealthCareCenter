@@ -322,7 +322,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine(" DOCTOR MENU ");
                 Console.WriteLine("1. View Appointments");
                 Console.WriteLine("2. Add Patient Record");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("0. Exit");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
@@ -349,7 +349,7 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Doctor not found.");
                         break;
 
-                    case "3": // Exit
+                    case "0": // Exit
                         Console.WriteLine("Exiting Doctor Menu...");
                         return;
 
