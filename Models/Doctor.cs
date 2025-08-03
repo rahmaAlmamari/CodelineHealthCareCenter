@@ -302,87 +302,8 @@ namespace CodelineHealthCareCenter.Models
         //    }
         //}
 
-        // save DoctorAppointments to file
-        public static void SaveDoctorAppointmentsToFile(string filePath)
-        {
-            using StreamWriter writer = new StreamWriter(filePath);
-            foreach (var doctor in Doctors)
-            {
-                foreach (var appointment in doctor.DoctorAppointments)
-                {
-                    // Save: DoctorID | BookingID | BookingDateTime
-                    writer.WriteLine($"{doctor.UserId}|{appointment.BookingId}|{appointment.BookingDateTime}|{appointment.ClinicId}");
-                }
-            }
-        }
+     
 
-        // load DoctorAppointments from file
-        public static void LoadDoctorAppointmentsFromFile(string filePath)
-        {
-            if (!File.Exists(filePath)) return;
-            string[] lines = File.ReadAllLines(filePath);
-            foreach (var line in lines)
-            {
-                string[] parts = line.Split('|');
-                if (parts.Length < 3) continue;
-                int doctorId = int.Parse(parts[0]);
-                int bookingId = int.Parse(parts[1]);
-                DateTime bookingDateTime = DateTime.Parse(parts[2]);
-                int clinicId = int.Parse(parts[3]);
-                var doctor = Doctors.FirstOrDefault(d => d.UserId == doctorId);
-                if (doctor != null)
-                {
-                    Booking appointment = new Booking
-                    {
-                        BookingId = bookingId,
-                        BookingDateTime = bookingDateTime,
-                        ClinicId = clinicId
-                    };
-                    doctor.DoctorAppointments.Add(appointment);
-                }
-            }
-        }
-
-        // save PatientRecords to file
-        public static void SavePatientRecordsToFile(string filePath)
-        {
-            using StreamWriter writer = new StreamWriter(filePath);
-            foreach (var doctor in Doctors)
-            {
-                foreach (var record in doctor.PatientRecords)
-                {
-                    // Save: DoctorID | PatientID | ClinicID | DateCreated | Note | TotalCost
-                    writer.WriteLine($"{doctor.UserId}|{record.PatientId}|{record.ClinicId}|{record.DateCreated}|{record.DoctorNote}|{record.TotalCost}");
-                }
-            }
-        }
-
-        // Load PatientRecords from file
-        public static void LoadPatientRecordsFromFile(string filePath)
-        {
-            if (!File.Exists(filePath)) return;
-            string[] lines = File.ReadAllLines(filePath);
-            foreach (var line in lines)
-            {
-                string[] parts = line.Split('|');
-                if (parts.Length < 6) continue;
-                int doctorId = int.Parse(parts[0]);
-                int patientId = int.Parse(parts[1]);
-                int clinicId = int.Parse(parts[2]);
-                DateTime dateCreated = DateTime.Parse(parts[3]);
-                string note = parts[4];
-                double totalCost = double.Parse(parts[5]);
-                var doctor = Doctors.FirstOrDefault(d => d.UserId == doctorId);
-                if (doctor != null)
-                {
-                    PatientRecord record = new PatientRecord(patientId, clinicId, note, totalCost)
-                    {
-                        DateCreated = dateCreated
-                    };
-                    doctor.PatientRecords.Add(record);
-                }
-            }
-        }
         public static void DoctorMenu() // Displays the doctor management menu and handles user input for various doctor-related operations
         {
             Additional.WelcomeMessage("Doctor Panel");
