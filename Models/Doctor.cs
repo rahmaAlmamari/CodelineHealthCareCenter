@@ -364,7 +364,32 @@ namespace CodelineHealthCareCenter.Models
                 }
             }
         }
-
+        // Load PatientRecords from file
+        public static void LoadPatientRecordsFromFile(string filePath)
+        {
+            if (!File.Exists(filePath)) return;
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 6) continue;
+                int doctorId = int.Parse(parts[0]);
+                int patientId = int.Parse(parts[1]);
+                int clinicId = int.Parse(parts[2]);
+                DateTime dateCreated = DateTime.Parse(parts[3]);
+                string note = parts[4];
+                double totalCost = double.Parse(parts[5]);
+                var doctor = Doctors.FirstOrDefault(d => d.UserId == doctorId);
+                if (doctor != null)
+                {
+                    PatientRecord record = new PatientRecord(patientId, clinicId, note, totalCost)
+                    {
+                        DateCreated = dateCreated
+                    };
+                    doctor.PatientRecords.Add(record);
+                }
+            }
+        }
         public static void DoctorMenu() // Displays the doctor management menu and handles user input for various doctor-related operations
         {
             Additional.WelcomeMessage("Doctor Panel");
