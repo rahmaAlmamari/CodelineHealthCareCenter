@@ -613,7 +613,7 @@ namespace CodelineHealthCareCenter.Models
             {
                 foreach (var doctor in BranchDepartment.Doctors)
                 {
-                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.P_UserPassword}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}|{doctor.BranchID}");
+                    writer.WriteLine($"{doctor.UserId}|{doctor.UserName}|{doctor.P_UserPassword}|{doctor.UserEmail}|{doctor.UserPhoneNumber}|{doctor.UserNationalID}|{doctor.DoctorSpecialization}|{doctor.UserRole}|{doctor.UserStatus}|{doctor.BranchID}|{doctor.ClinicID}");
                 }
             }
             Console.WriteLine("Doctor data saved successfully.");
@@ -630,7 +630,7 @@ namespace CodelineHealthCareCenter.Models
                     while ((line = reader.ReadLine()) != null)
                     {
                         var parts = line.Split('|');
-                        if (parts.Length == 10)
+                        if (parts.Length == 11)
                         {
                             Doctor doctor = new Doctor(parts[1], parts[2], parts[5]);
                             doctor.UserId = int.Parse(parts[0]);
@@ -643,6 +643,7 @@ namespace CodelineHealthCareCenter.Models
                             doctor.UserRole = parts[7];
                             doctor.UserStatus = parts[8];
                             doctor.BranchID = int.Parse(parts[9]);
+                            doctor.ClinicID = int.Parse(parts[10]);
                             BranchDepartment.Doctors.Add(doctor);
                         }
                     }
