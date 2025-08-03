@@ -57,7 +57,8 @@ namespace CodelineHealthCareCenter.Models
                         Additional.HoldScreen();
                         // return to MainMenu in program file
                         Program.ShowMainMenu();
-                        return; // Exit the SuperAdminMenu
+                        //Environment.Exit(0); // Exit the application
+                        break; // Exit the SuperAdminMenu
                     default:
                         Console.WriteLine("Invalid option, please try again.");
                         Additional.HoldScreen();
@@ -294,6 +295,7 @@ namespace CodelineHealthCareCenter.Models
                         Console.WriteLine("Delete Department ");
                         Department.ViewAllDepartments();
                         Console.WriteLine("-----------------------------");
+
                         int departmentId1 = Validation.IntValidation("Enter Department ID to delete:");
                         if (Department.DepartmentExists(departmentId1))
                         {
