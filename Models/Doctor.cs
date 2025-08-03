@@ -310,7 +310,20 @@ namespace CodelineHealthCareCenter.Models
         //    }
         //}
 
-     
+        // save DoctorAppointments to file
+        public static void SaveDoctorAppointmentsToFile(string filePath)
+        {
+            using StreamWriter writer = new StreamWriter(filePath);
+            foreach (var doctor in Doctors)
+            {
+                foreach (var appointment in doctor.DoctorAppointments)
+                {
+                    // Save: DoctorID | BookingID | BookingDateTime
+                    writer.WriteLine($"{doctor.UserId}|{appointment.BookingId}|{appointment.BookingDateTime}|{appointment.ClinicId}");
+                }
+            }
+        }
+
 
         public static void DoctorMenu() // Displays the doctor management menu and handles user input for various doctor-related operations
         {
