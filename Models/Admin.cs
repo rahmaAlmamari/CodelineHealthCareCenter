@@ -86,10 +86,19 @@ namespace CodelineHealthCareCenter.Models
                                 //    Console.WriteLine($"Doctor '{doctor.UserName}' is already assigned to Clinic '{clinic.ClinicName}'.");
                                 //    return;
                                 //}
-                                //to assign the doctor to the clinic ...
-                                clinic.Doctors.Add(doctor);
                                 //to add the clinic id to the doctor ...
                                 doctor.ClinicID = clinicId; // Assuming Doctor class has a ClinicID property
+                                //to assign the doctor to the clinic ...
+                                clinic.Doctors.Add(doctor);
+                                //to add clinic id to the doctor in Doctor list in BranchDepartment ...
+                                foreach (var doc in BranchDepartment.Doctors)
+                                {
+                                    if (doc.UserId == doctorId)
+                                    {
+                                        doc.ClinicID = clinicId; // Assuming Doctor class has a ClinicID property
+                                    }
+                                }
+
                                 Console.WriteLine($"Doctor '{doctor.UserName}' assigned to Clinic '{clinic.ClinicName}'.");
                                 return;
                             }
