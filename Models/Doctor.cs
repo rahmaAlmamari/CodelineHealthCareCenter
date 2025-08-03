@@ -323,6 +323,32 @@ namespace CodelineHealthCareCenter.Models
                 }
             }
         }
+        // load DoctorAppointments from file
+        public static void LoadDoctorAppointmentsFromFile(string filePath)
+        {
+            if (!File.Exists(filePath)) return;
+            string[] lines = File.ReadAllLines(filePath);
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split('|');
+                if (parts.Length < 3) continue;
+                int doctorId = int.Parse(parts[0]);
+                int bookingId = int.Parse(parts[1]);
+                DateTime bookingDateTime = DateTime.Parse(parts[2]);
+                int clinicId = int.Parse(parts[3]);
+                var doctor = Doctors.FirstOrDefault(d => d.UserId == doctorId);
+                if (doctor != null)
+                {
+                    Booking appointment = new Booking
+                    {
+                        BookingId = bookingId,
+                        BookingDateTime = bookingDateTime,
+                        ClinicId = clinicId
+                    };
+                    doctor.DoctorAppointments.Add(appointment);
+                }
+            }
+        }
 
 
         public static void DoctorMenu() // Displays the doctor management menu and handles user input for various doctor-related operations
