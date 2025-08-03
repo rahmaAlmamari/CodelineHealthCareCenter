@@ -234,33 +234,41 @@ namespace CodelineHealthCareCenter.Models
             string nationalId = Validation.StringValidation("Patient National ID");
             foreach (var branch in Hospital.Branches)
             {
-                var patient = branch.Patients.FirstOrDefault(p => p.UserNationalID == nationalId);
-                if (patient == null)
+                //var patient = branch.Patients.FirstOrDefault(p => p.UserNationalID == nationalId);
+                //if (patient == null)
+                //{
+                //    Console.WriteLine("Patient not found.");
+                //    return;
+                //}
+                foreach (var patient in branch.Patients)
                 {
-                    Console.WriteLine("Patient not found.");
-                    return;
-                }
-                //to get patient appointments ...
-                var patientAppointments = patient.PatientAppointments.Where(a => a.DoctorId == doctor.UserId).ToList();
-                string note = Validation.StringValidation("Doctor Note");
-                //to get total cost of service ...
-                double totalCost = 0;
-                foreach(var app in doctor.DoctorAppointments)
-                {
-                    foreach(var PatientAPP in patientAppointments)
+                    if (patient.UserNationalID == nationalId)
                     {
-                        if (app.BookingId == PatientAPP.BookingId)
+                        //to get patient appointments ...
+                        var patientAppointments = patient.PatientAppointments.Where(a => a.DoctorId == doctor.UserId).ToList();
+                        string note = Validation.StringValidation("Doctor Note");
+                        //to get total cost of service ...
+                        double totalCost = 0;
+                        foreach (var app in doctor.DoctorAppointments)
                         {
-                            totalCost += app.BookingService.Sum(s => s.Price);
+                            foreach (var PatientAPP in patientAppointments)
+                            {
+                                if (app.BookingId == PatientAPP.BookingId)
+                                {
+                                    totalCost += app.BookingService.Sum(s => s.Price);
+                                }
+                            }
                         }
+
+                        var record = new PatientRecord(patient.UserId, ClinicID, note, totalCost);
+                        this.PatientRecords.Add(record);
+                        patient.PatientRecords.Add(record);
+
+                        Console.WriteLine("Patient record successfully added.");
                     }
+                   
                 }
-
-                var record = new PatientRecord(patient.UserId, ClinicID, note, totalCost);
-                this.PatientRecords.Add(record);
-                patient.PatientRecords.Add(record);
-
-                Console.WriteLine("Patient record successfully added.");
+             
             }
         }
 
@@ -314,7 +322,7 @@ namespace CodelineHealthCareCenter.Models
                 Console.WriteLine(" DOCTOR MENU ");
                 Console.WriteLine("1. View Appointments");
                 Console.WriteLine("2. Add Patient Record");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("0. Exit");
                 Console.Write("Select an option: ");
 
                 string choice = Console.ReadLine();
@@ -341,7 +349,7 @@ namespace CodelineHealthCareCenter.Models
                             Console.WriteLine("Doctor not found.");
                         break;
 
-                    case "3": // Exit
+                    case "0": // Exit
                         Console.WriteLine("Exiting Doctor Menu...");
                         return;
 
