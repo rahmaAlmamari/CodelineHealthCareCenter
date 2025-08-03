@@ -293,9 +293,7 @@ namespace CodelineHealthCareCenter.Models
         public static void AdminMenu()
         {
             Additional.WelcomeMessage("Admin Panel");
-
-            Console.WriteLine("Enter your National ID to continue:");
-            string AdminNationalId = Validation.StringValidation("your national ID");
+            string AdminNationalId = Validation.StringValidation("national ID");
 
             Admin CurrentAdmin = null;
             foreach (var admin in BranchDepartment.Admins)
