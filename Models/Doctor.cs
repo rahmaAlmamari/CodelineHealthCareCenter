@@ -310,7 +310,7 @@ namespace CodelineHealthCareCenter.Models
         //    }
         //}
 
-
+     
 
         public static void DoctorMenu() // Displays the doctor management menu and handles user input for various doctor-related operations
         {
