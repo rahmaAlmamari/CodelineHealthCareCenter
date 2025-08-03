@@ -174,6 +174,7 @@ internal class Program
                         Console.ReadLine();//just to hold the screen ... 
 
                         Console.WriteLine("Thank you for using the Hotel System. Goodbye!");
+                        Environment.Exit(0); // Exit the application
                         break;
                     default:
                         Console.WriteLine("Invalid option, please try again.");
