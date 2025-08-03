@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,9 @@ namespace CodelineHealthCareCenter.Models
         public List<Booking> PatientAppointments = new List<Booking>();
         public List<PatientRecord> PatientRecords = new List<PatientRecord>();
         //patient file path ...
-        private static string filePath = "patients.txt";
+        public static string filePath = "patients.txt";
+        // patient file path for PatientRecords ...
+        public static string patientRecordsFilePath = "patient_records.txt";
 
 
         //====================================================
@@ -387,6 +390,10 @@ namespace CodelineHealthCareCenter.Models
             }
             return null;
         }
+
+        // to save patient records to file ...
+
+
         //to SavePatientRecordsToFile
         //public static void SavePatientRecordsToFile()
         //{
@@ -447,7 +454,34 @@ namespace CodelineHealthCareCenter.Models
         //    Console.WriteLine("Patient records loaded successfully.");
         //}
 
+        // save patient records to file ...
+        //to save patient records to file ...
+        //public static void SavePatientRecord(PatientRecord patientRecord, Patient patient, Branch branch)
+        //{
+        //    using (StreamWriter writer = new StreamWriter(patientRecordsFilePath)) //true to append to the file
+        //    {
+        //       // writer.WriteLine($"{patientRecord.PatientRecordId}|{patientRecord.DateCreated:yyyy-MM-dd}|{patientRecord.DoctorNote}|{patient.UserId}|{});
+        //        //writer.WriteLine($"{patient.UserId}|{patientRecord.PatientRecordId}|{patientRecord.RecordDate:yyyy-MM-dd}|{patientRecord.RecordDescription}|{branch.BranchCity}");
+        //    }
+        //    Console.WriteLine("Patient record saved successfully.");
+        //    Additional.HoldScreen(); //just to hold the screen ...
+        //}
 
+    
+
+
+        //public static void SavePatientRecord()
+        //{
+        //    using (StreamWriter writer = new StreamWriter(patientRecordsFilePath))
+        //    {
+
+        //            foreach (var PRecourd in PatientRecords)
+        //            {
+        //                writer.WriteLine($"{patient.UserId}|{patient.UserName}|{patient.P_UserPassword}|{patient.UserEmail}|{patient.UserPhoneNumber}|{patient.UserNationalID}|{patient.PatientCity}|{patient.UserRole}|{patient.UserStatus}|{branch.BranchCity}");
+        //            }
+
+        //    }
+        //}
 
 
         //====================================================

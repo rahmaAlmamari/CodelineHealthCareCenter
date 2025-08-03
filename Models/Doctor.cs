@@ -27,6 +27,7 @@ namespace CodelineHealthCareCenter.Models
         private static int doctorCounter = 0;
         public static IDoctorService service; // Used for DoctorMenu()
         public static List<Doctor> Doctors = new List<Doctor>(); // Used to store all doctors in the system
+        public static string DoctorPatientRecordsfilePath = "DoctorPatientRecords.txt"; // File path for saving patient records
 
 
         //====================================================
@@ -352,9 +353,9 @@ namespace CodelineHealthCareCenter.Models
 
 
         // save PatientRecords to file
-        public static void SavePatientRecordsToFile(string filePath)
+        public static void SaveDoctorPatientRecordsToFile()
         {
-            using StreamWriter writer = new StreamWriter(filePath);
+            using StreamWriter writer = new StreamWriter(DoctorPatientRecordsfilePath);
             foreach (var doctor in Doctors)
             {
                 foreach (var record in doctor.PatientRecords)
@@ -365,10 +366,10 @@ namespace CodelineHealthCareCenter.Models
             }
         }
         // Load PatientRecords from file
-        public static void LoadPatientRecordsFromFile(string filePath)
+        public static void LoadDoctorPatientRecordsFromFile()
         {
-            if (!File.Exists(filePath)) return;
-            string[] lines = File.ReadAllLines(filePath);
+            if (!File.Exists(DoctorPatientRecordsfilePath)) return;
+            string[] lines = File.ReadAllLines(DoctorPatientRecordsfilePath);
             foreach (var line in lines)
             {
                 string[] parts = line.Split('|');
